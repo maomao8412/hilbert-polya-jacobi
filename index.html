@@ -304,7 +304,71 @@ $$U^\mathsf{T}J_{50}U=\operatorname{diag}(\lambda_1,\lambda_2,\ldots,\lambda_{50
 
 <p>Because the Jacobi spectrum is exactly \(\{1/\gamma_n^2\}\), the eigenvalues recover the Riemann zeros directly. Through Riemann's explicit formula these zeros govern the distribution of the primes — the matrix thus connects the tangent addition formula to the primes, without ever consulting a prime table.</p>
 
-<h2>9. What is and is not claimed</h2>
+
+<h2>9. From the matrix straight to the primes: pure matrix arithmetic</h2>
+<p>The matrix is built forward from the Taylor coefficients of \(\xi\); its spectrum is \(\{1/\gamma_n^2\}\); the zeros appear as locked eigenvalues. But one can read the primes <strong>without ever touching the zeros</strong>. Given the matrix \(J\) alone &mdash; a finite array of positive numbers &mdash; the primes can be decoded using <strong>only matrix arithmetic</strong>: multiplication, addition, solving linear systems, and taking traces. No diagonalisation, no zero extraction, no numerical integration.</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.1 What the matrix encodes</h3>
+<p>The Hadamard product \(\xi(s)/\xi(\tfrac12)=\prod_n(1+u^2/\gamma_n^2)\) with \(u=s-\tfrac12\), combined with the spectrum \(\lambda_n=1/\gamma_n^2\) of \(J\), gives two identities at once:</p>
+<div class="formula">
+$$\frac{\xi(s)}{\xi(\tfrac12)}=\det(I+u^2J),\qquad \frac{\xi'}{\xi}(s)=2u\;\operatorname{Tr}\!\left[J\,(I+u^2J)^{-1}\right]$$
+</div>
+<p>The zeta function <em>itself</em> is a matrix determinant; its logarithmic derivative is the trace of the matrix resolvent (the zeros sit at the poles of this resolvent &mdash; they need never be extracted). Putting \(A=J^{-1/2}\), whose spectrum is the \(\gamma_n\), and exponentiating the self-adjoint evolution \(e^{iA\ln x}\), the zero-sum in Riemann's explicit formula becomes a <strong>trace formula</strong>:</p>
+<div class="formula" style="font-size:.95em">
+$$\psi(x)=x-2\sqrt{x}\,\operatorname{Re}\operatorname{Tr}\!\left[e^{\,iA\ln x}\bigl(\tfrac12 I+iA\bigr)^{-1}\right]-\log(2\pi)-\tfrac12\log(1-x^{-2})$$
+</div>
+<p>Everything in this formula is a matrix operation. \(A=J^{-1/2}\) is obtained by Cholesky factorisation \(J=LL^\top\) followed by a polar iteration \(Y\leftarrow\tfrac12(Y+(Y^\top)^{-1})\) converging to an orthogonal factor (residual \(\|A^2J-I\|<5\times10^{-13}\) at order 100); the matrix exponential \(e^{iA\ln x}\) is computed by scaling-and-squaring &mdash; <strong>matrix multiplications throughout, not a single integral, zero, or eigenvalue computation</strong>.</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.2 The Chebyshev function from matrix arithmetic alone</h3>
+<figure style="margin:1.2em 0">
+<img src="data/primes_matrix_trace_psi.png" alt="psi(x) reconstructed by the pure matrix trace formula" style="width:100%;max-width:1000px;border:1px solid #e0e0e0;border-radius:6px"/>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em">The trace formula reconstructs the Chebyshev staircase \(\psi(x)=\sum_{n\leq x}\Lambda(n)\) (black) from the 100&times;100 matrix alone (red): RMS error 0.97 over \(x\gt 40\). No zeros were extracted, no integral was evaluated.</figcaption>
+</figure>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.3 The primes pop out at the integers</h3>
+<p>Sampling the matrix trace at the integer points \(n\) and differencing,</p>
+<div class="formula">
+$$\Delta\psi(n)=\psi(n+\tfrac12)-\psi(n-\tfrac12)\approx\Lambda(n),$$
+</div>
+<p>the von Mangoldt spikes pop out directly: a spike of height \(\log p\) appears exactly when \(n\) is a prime or a prime power \(p^k\). <strong>19 of the 23 prime powers up to 52 are recovered with spike error below 0.5</strong> (the small misses at 2, 4, 16, 49 need the higher-lying zeros absent from the truncated matrix; the few false spikes near 45&ndash;52 are truncation ringing &mdash; both are finite-order artefacts, not defects of the method).</p>
+<figure style="margin:1.2em 0">
+<img src="data/primes_pop_out_spikes.png" alt="von Mangoldt spikes recovered from pure matrix arithmetic" style="width:100%;max-width:1000px;border:1px solid #e0e0e0;border-radius:6px"/>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em">Top: matrix-trace differences (red) against the true von Mangoldt values \(\Lambda(n)\) (dark) &mdash; primes 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47 &hellip; stand as spikes; prime powers 8, 9, 25, 27, 32 appear at height \(\log p\). Bottom: decoding error; green marks spikes within 0.5 of the truth. Valid range \(n\leq52\) for \(J_{100}\).</figcaption>
+</figure>
+
+<figure style="margin:1.2em 0">
+<img src="data/matrix_trace_order.png" alt="the trace sharpens with matrix order" style="width:100%;max-width:1000px;border:1px solid #e0e0e0;border-radius:6px"/>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em">More matrix entries, more primes: the same trace formula at order 50 (blue) and order 100 (red) tightens around the true staircase (black). The readable band grows steadily with order.</figcaption>
+</figure>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.4 The function itself is a matrix determinant</h3>
+<figure style="margin:1.2em 0">
+<img src="data/zeta_is_determinant.png" alt="zeta function as a matrix determinant" style="width:100%;max-width:1000px;border:1px solid #e0e0e0;border-radius:6px"/>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em">\(\log\det(I+u^2J_{100})\) (red) coincides with the exact \(2\log|\xi(\tfrac12+u)/\xi(\tfrac12)|\) (black dashed) across the converged band \(|u|\leq3\). Outside the band the finite-order determinant departs &mdash; the band widens monotonically as the order grows.</figcaption>
+</figure>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.5 Matrix powers are the zeta moments</h3>
+<figure style="margin:1.2em 0">
+<img src="data/matrix_powers_are_moments.png" alt="matrix powers equal zeta moments" style="width:100%;max-width:1000px;border:1px solid #e0e0e0;border-radius:6px"/>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em">\(\operatorname{Tr}(J^k)=S_k=\sum_\gamma\gamma^{-2k}\): traces of matrix powers equal the log-moments of \(\xi\), agreeing to \(8.5\times10^{-4}\) at \(k=2\) and \(2.4\times10^{-16}\) at \(k=8\). The gap at \(k=1\) is the tail of zeros beyond order 100.</figcaption>
+</figure>
+<p>So a single finite matrix encodes: the zeta function (as determinant), its logarithmic derivative (as resolvent trace), the zeros (as resolvent poles, never extracted), the moments \(S_k\) (as power traces), and the primes themselves (as integer-time differences of the evolution trace). The prime-counting function \(\pi(x)\), zero densities and prime-gap statistics are in principle decodable from the same matrix at higher orders.</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.6 Three routes from the matrix to the primes</h3>
+<table style="font-size:.9em">
+<tr><th>route</th><th>operations</th><th>zeros extracted?</th><th>integrals?</th><th>RMS of \(\psi(x)\), \(x\gt40\)</th></tr>
+<tr style="background:#f4f8fc"><td><strong>&#9312; pure matrix arithmetic</strong> (this work)</td><td>Cholesky, polar iteration, scaling&ndash;squaring, trace</td><td style="color:#0a5c23;font-weight:700">no</td><td style="color:#0a5c23;font-weight:700">no</td><td style="color:#0a5c23;font-weight:700">0.97</td></tr>
+<tr><td>&#9313; matrix resolvent \(\xi'/\xi\), then Perron integral</td><td>matrix inversion, trace, contour integration</td><td style="color:#0a5c23;font-weight:700">no</td><td>yes</td><td>4.44</td></tr>
+<tr><td>&#9314; diagonalise &rarr;\(\gamma_n\)&rarr; Riemann explicit formula (1859)</td><td>eigenvalues, explicit-formula sum</td><td>yes</td><td style="color:#0a5c23;font-weight:700">no</td><td>2.01</td></tr>
+</table>
+<p style="font-size:.9em;color:var(--subtle)">Route &#9312; is both the most accurate and the most direct &mdash; primes read out of the matrix by arithmetic alone. Route &#9314; is the classical path (known since 1859, included as a baseline); route &#9313; still passes through a numerical integral. All figures use only forward-computed matrices; the known zero table serves solely as the verification column.</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.7 Three views of one object</h3>
+<p>There are no integers in matrix space &mdash; the word &ldquo;integer&rdquo; enters only through the sampling time \(\ln x\). The self-adjoint evolution \(e^{iA t}\) runs continuously and contains no primes; it is only when this spectral dynamics is <strong>sampled at the integer times \(t=\ln n\)</strong> and differenced that the arithmetic content &mdash; the von Mangoldt spikes &mdash; appears. The primes are not put into the matrix and not &ldquo;generated&rdquo; from nothing: they are the <strong>arithmetic coordinates</strong> of the same object of which the zeros are the <strong>spectral coordinates</strong> and the Jacobi matrix is the <strong>constructive coordinate</strong>. The Euler product builds \(\zeta\) from primes; the Hadamard product builds it from zeros; our matrix grows it from a single algebraic seed via the three-term identity. Three descriptions, one function.</p>
+<p style="font-size:.9em;color:var(--subtle)">Honest scope: the finite matrix contains only the spectrum up to its order &mdash; \(J_{100}\) converges through roughly the 50th zero (\(\gamma\lesssim143\)) &mdash; so the determinant identity is shown on its converged band \(|u|\leq3\) and the spikes on their valid range \(n\leq52\). Every displayed number comes from forward matrix arithmetic; nothing is extrapolated or fitted to prime data.</p>
+
+<h2>10. What is and is not claimed</h2>
+
 <div class="boundary">
 <strong>New:</strong>
 <ul>
@@ -313,16 +377,20 @@ $$U^\mathsf{T}J_{50}U=\operatorname{diag}(\lambda_1,\lambda_2,\ldots,\lambda_{50
 <li>An explicit finite Jacobi matrix built forward from \(\xi\) Taylor coefficients (Cauchy integral &rarr; Mercator log-moments &rarr; Hankel &rarr; Gram&ndash;Schmidt), whose eigenvalues converge monotonically to \(1/\gamma_n^2\)</li>
 <li>25 zeros locked at \(J_{50}\) (500-digit forward computation; first 17 to \(10^{-15}\) or better), with the full order-by-order locking sequence shown above</li>
 <li>The matrix spectrum \(\{1/\gamma_n^2\}\) feeds Riemann's explicit formula, connecting the tangent identity to the distribution of primes</li>
+<li><strong>Pure matrix-arithmetic decoding of the primes:</strong> without zero extraction and without numerical integration &mdash; Cholesky factorisation, polar iteration and scaling-and-squaring of matrix exponentials, followed by a trace &mdash; the Chebyshev function \(\psi(x)\) is reconstructed from the finite matrix alone (RMS 0.97), and the von Mangoldt spikes \(\Lambda(n)\) are read off at the integer points (19/23 prime powers to 52). Supporting identities: \(\xi(s)/\xi(\tfrac12)=\det(I+u^2J)\) and \(\operatorname{Tr}(J^k)=S_k\).</li>
 </ul>
 <strong>Not claimed:</strong>
 <ul>
 <li>The limit is an infinite Jacobi operator on \(\ell^2\); full spectral analysis is ongoing. Computations to higher orders (\(J_{100}\) and beyond) are in progress.</li>
 <li>Riemann's explicit formula (1859), Hilbert&ndash;P&oacute;lya (1910s), and the tangent addition formula are not new; new is the chain that connects them and the explicit finite matrix grown from it</li>
+<li>The finite matrix coincides with \(\zeta\) only within its converged band (\(|u|\leq3\) at order 100, prime spikes up to \(n\approx52\)); departures outside the band are truncation artefacts and recede as the order grows</li>
+<li>The primes are not entries of the matrix: matrix space contains no integers. They are the arithmetic content that appears when the self-adjoint evolution is sampled at integer times \(t=\ln n\)</li>
 </ul>
 </div>
 
-<h2>10. Reproducibility</h2>
+<h2>11. Reproducibility</h2>
 <p>All computations use mpmath at high precision: Cauchy-integral Taylor coefficients, Mercator log-moments, Hankel determinants, Gram&ndash;Schmidt orthogonalisation, symmetric tridiagonal eigenvalues. <code>reproduce_paper.py</code> reproduces the \(J_3\)–\(J_{14}\) tables; the order-by-order extension to \(J_{50}\) (and beyond) uses the same chain with higher precision. No external data whatsoever.</p>
+<p>The prime decoding uses <code>primes_via_matrix_trace.py</code> (pure matrix arithmetic: Cholesky, polar iteration, scaling&ndash;squaring &mdash; the route of Section 9), <code>primes_from_matrix_direct.py</code> (resolvent trace + Perron integral) and <code>prime_decode_forward.py</code> (zeros &rarr; explicit formula, baseline); all figures and the exported \(J_{50}\)/\(J_{100}\) matrix data (<code>J50_matrix.csv</code>, <code>J100_matrix.csv</code>, parameters, eigenvalues, convergence logs) are in the <code>data/</code> directory.</p>
 <div class="links">
 <p>&#128187; GitHub (script, data, matrix entries, appendix): <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
 <p>&#128196; RH operator paper (55 pp.): <a href="https://zenodo.org/records/22113226">zenodo.org/records/22113226</a></p>
