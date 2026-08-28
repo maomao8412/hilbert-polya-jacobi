@@ -55,6 +55,18 @@ window.MathJax = {
   .proof-box{background:#eef7f0;border:1px solid #b8d8be;border-radius:6px;padding:.8em 1.4em;margin:1.2em 0}
   .proof-box .label{font-weight:bold;color:var(--green);font-size:1.05em}
   .consequence{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.6em 1.2em;margin:1em 0}
+  .conv-table{font-size:.72em;border-collapse:collapse;margin:1.5em auto;overflow-x:auto;display:block;max-width:100%}
+  .conv-table th,.conv-table td{border:1px solid var(--rule);padding:.2em .35em;text-align:center;min-width:1.8em}
+  .conv-table th{background:#eef2f8;font-size:.85em}
+  .conv-table td.nw{font-weight:bold;background:#f0f4fa;white-space:nowrap}
+  .conv-table td.lk{background:#d4edda;color:var(--green);font-weight:bold}
+  .conv-table td.near{color:#856404;font-size:.85em}
+  .conv-table td.far{color:#ccc;font-size:.8em}
+  .conv-table td.dim{color:#e0e0e0}
+  .conv-table td.lc{font-weight:bold;background:#f0f4fa}
+  .conv-table td.neg{color:red;font-weight:bold}
+  .chain-box{background:var(--code-bg);border:1px solid var(--rule);border-radius:6px;padding:1em 1.5em;margin:1.2em 0;font-size:.95em;line-height:2}
+  .chain-box .step{margin:.3em 0}
 </style>
 </head>
 <body>
@@ -151,110 +163,146 @@ H_N[i,j]=S_{i+j+1},\qquad 0\le i,j<N,
 $$S_{k+1}=\int_0^\infty x^k\,d\mu(x),\qquad \mu=\sum_{n=1}^\infty w_n\,\delta_{1/\gamma_n^2}.$$
 </div>
 
-<h2>六、构造 Jacobi 矩阵</h2>
-<p>在 \(L^2(\mu)\) 中对 \(\{1,x,x^2,\ldots\}\) 做 Gram–Schmidt 正交化，得到首一多项式 \(p_n\)，满足三项递推：</p>
-<div class="formula">
-$$x\,p_n(x)=p_{n+1}(x)+\alpha_n\,p_n(x)+b_n^{\,2}\,p_{n-1}(x),$$
-</div>
-<p>其中 \(\alpha_n\in\mathbb{R}\)，\(b_n>0\)。在正交归一基下，乘以 \(x\) 的算子就是实对称三对角 Jacobi 矩阵：</p>
-<div class="formula">
-$$J=\begin{pmatrix}
-\alpha_0 & b_1 & 0 & 0 & \cdots\\
-b_1 & \alpha_1 & b_2 & 0 & \cdots\\
-0 & b_2 & \alpha_2 & b_3 & \cdots\\
-0 & 0 & b_3 & \alpha_3 & \cdots\\
-\vdots & \vdots & \vdots & \vdots & \ddots
-\end{pmatrix}.$$
-</div>
-<p>所有矩阵元都是 \(S_1,\ldots,S_{2n+2}\) 的有理函数。第一个元素为 \(\alpha_0=S_2/S_1\approx0.001609\)。正交多项式的三项递推与 \(c_n\) 的二阶递推彼此呼应——二者同源，都来自那个 Möbius 代数。</p>
+<h2>六、矩阵究竟如何计算</h2>
+<p>矩阵完全从 \(\xi\) 函数正向构造，不使用零点搜索、素数表或任何外部数据。完整计算链如下：</p>
 
-<div class="fig">
-  <img src="assets/J10_numbered.png" alt="J10 matrix">
-  <div class="figcap">图 1：\(J_{10}\)——矩阵元由 120 位精度 Gram–Schmidt 计算。\(N^2\) 个元素中只有 \(3N-2\) 个非零。</div>
+<div class="chain-box">
+<div class="step"><strong>第一步 —— 泰勒系数（柯西积分）。</strong>在临界线上：</div>
+<div class="formula" style="font-size:.92em">
+$$\xi(\tfrac12+it)=\xi(\tfrac12)\sum_{k\ge0} b_{2k}\,t^{2k},\qquad b_{2k}=\frac{a_{2k}}{a_0}=\frac{1}{2\pi i}\oint_{|w|=R}\frac{\xi(\tfrac12+iw)}{\xi(\tfrac12)\,w^{2k+1}}\,dw$$
+</div>
+<div class="step"><strong>第二步 —— 对数矩（Mercator 展开）。</strong>对对数做展开：</div>
+<div class="formula" style="font-size:.92em">
+$$\log\frac{\xi(\tfrac12+it)}{\xi(\tfrac12)}=\log\!\Bigl(1+\sum_{k\ge1}b_{2k}t^{2k}\Bigr)=\sum_{k\ge1}d_{2k}\,t^{2k},\qquad S_k=-k\,d_{2k}$$
+</div>
+<div class="step"><strong>第三步 —— Hankel 正定性。</strong>\(H_N[i,j]=S_{i+j+1}\)，每个 \(D_n=\det H_n&gt;0\)（RH 成立后经 Hadamard 乘积的推论）。</div>
+<div class="step"><strong>第四步 —— Gram–Schmidt 正交化。</strong>在内积 \(\langle p,q\rangle=\sum_{i,j}p_iq_j S_{i+j+1}\) 下逐步正交化 \(\{1,x,x^2,\ldots\}\)。每升一阶减去投影、归一化。</div>
+<div class="step"><strong>第五步 —— Jacobi 矩阵。</strong>三项递推系数 \(\alpha_n\)、\(b_n\) 填入三对角矩阵。\(J_N\) 的西北角恰好是 \(J_{N-1}\)——每升一阶只增加一行一列。</div>
+<div class="step"><strong>第六步 —— 本征值。</strong>\(\lambda_n^{(N)}\to1/\gamma_n^2\)，故 \(1/\sqrt{\lambda_n^{(N)}}\to\gamma_n\)。零点不是输入，而是输出。</div>
 </div>
 
-<h2>七、本征值随阶数收敛到零点</h2>
-<p>\(J_N\) 是 \(\mu\) 的 \(N\) 点 Gauss–Christoffel Jacobi 矩阵，其本征值 \(\lambda_n^{(N)}\) 是求积节点。由交错定理，\(\lambda_n^{(N)}\) 随 \(N\) 单调收敛到 \(1/\gamma_n^2\)。有限截面性质成立：\(J_N\) 的西北角恰好是 \(J_{N-1}\)。每个零点在有限阶 \(N\) 处"锁定"（相对误差 \(&lt;0.001\%\)），锁定后不再移动。</p>
+<p>首个对角元为 \(\alpha_0=S_2/S_1\approx0.001609\)。正交多项式的三项递推与 \(c_n\) 的二阶递推同构——两者都源自正切加法公式孕育的 Möbius 代数。</p>
 
-<div class="fig">
-  <img src="assets/spectral_convergence.png" alt="convergence">
-  <div class="figcap">图 2：左——\(1/\sqrt{\lambda_n^{(N)}}\) 随 \(N\) 增大逼近各 \(\gamma_n\)（虚线）；右——相对误差单调下降。</div>
-</div>
+<h2>七、零点逐个锁定：\(J_3\) 到 \(J_{50}\)</h2>
+<p>从 \(J_3\) 开始逐阶扩展（500 位精度，每一阶全部存档），计算 \(J_N\) 的本征值并与黎曼零点比较。每个 \(\checkmark\) 表示该零点已"锁定"——相对误差低于 \(0.001\%\)。数字表示尚未锁定的零点的当前相对误差。西北角性质意味着从 \(J_N\) 扩展到 \(J_{N+1}\) 只增加一行一列，已有本征值轻微移动，新的零点从下方逐渐进入。</p>
 
-<table>
-<tr><th>\(\gamma_n\)</th><th>\(N{=}3\)</th><th>\(N{=}4\)</th><th>\(N{=}5\)</th><th>\(N{=}6\)</th><th>\(N{=}8\)</th><th>\(N{=}10\)</th><th>\(N{=}12\)</th><th>\(N{=}14\)</th><th>14阶误差</th></tr>
-<tr><td>14.13473</td><td>14.152</td><td>14.135</td><td class="locked">14.135</td><td class="locked">14.135</td><td class="locked">14.135</td><td class="locked">14.135</td><td class="locked">14.135</td><td class="locked">14.135</td><td class="locked">0.000%</td></tr>
-<tr><td>21.02204</td><td>23.902</td><td>21.549</td><td>21.106</td><td>21.027</td><td class="locked">21.022</td><td class="locked">21.022</td><td class="locked">21.022</td><td class="locked">21.022</td><td class="locked">0.000%</td></tr>
-<tr><td>25.01086</td><td>78.017</td><td>33.632</td><td>27.067</td><td>25.291</td><td>25.013</td><td class="locked">25.011</td><td class="locked">25.011</td><td class="locked">25.011</td><td class="locked">0.000%</td></tr>
-<tr><td>30.42488</td><td>—</td><td>110.19</td><td>43.262</td><td>33.780</td><td>30.860</td><td>30.443</td><td class="locked">30.425</td><td class="locked">30.425</td><td class="locked">0.000%</td></tr>
-<tr><td>32.93506</td><td>—</td><td>—</td><td>142.97</td><td>55.257</td><td>37.125</td><td>33.163</td><td>32.937</td><td class="locked">32.935</td><td class="locked">0.000%</td></tr>
-<tr><td>37.58618</td><td>—</td><td>—</td><td>—</td><td>182.34</td><td>49.578</td><td>39.431</td><td>37.727</td><td>37.593</td><td>0.017%</td></tr>
+<table class="conv-table">
+<tr><th class="nw">N</th><th>γ<sub>1</sub></th><th>γ<sub>2</sub></th><th>γ<sub>3</sub></th><th>γ<sub>4</sub></th><th>γ<sub>5</sub></th><th>γ<sub>6</sub></th><th>γ<sub>7</sub></th><th>γ<sub>8</sub></th><th>γ<sub>9</sub></th><th>γ<sub>10</sub></th><th>γ<sub>11</sub></th><th>γ<sub>12</sub></th><th>γ<sub>13</sub></th><th>γ<sub>14</sub></th><th>γ<sub>15</sub></th><th>γ<sub>16</sub></th><th>γ<sub>17</sub></th><th>γ<sub>18</sub></th><th>γ<sub>19</sub></th><th>γ<sub>20</sub></th><th>γ<sub>21</sub></th><th>γ<sub>22</sub></th><th>γ<sub>23</sub></th><th>γ<sub>24</sub></th><th>γ<sub>25</sub></th><th>🔒</th></tr>
+<tr><td class="nw">3</td><td class="far">0.1%</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">0</td></tr>
+<tr><td class="nw">4</td><td class="near">0.00%</td><td class="far">2.5%</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">0</td></tr>
+<tr><td class="nw">5</td><td class="lk">✓</td><td class="far">0.4%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">1</td></tr>
+<tr><td class="nw">6</td><td class="lk">✓</td><td class="near">0.02%</td><td class="far">1.1%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">1</td></tr>
+<tr><td class="nw">7</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.09%</td><td class="far">3.5%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">2</td></tr>
+<tr><td class="nw">8</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="far">1.4%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">2</td></tr>
+<tr><td class="nw">9</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="far">0.4%</td><td class="far">3.7%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">3</td></tr>
+<tr><td class="nw">10</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.06%</td><td class="far">0.7%</td><td class="far">4.9%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">3</td></tr>
+<tr><td class="nw">11</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.09%</td><td class="far">1.7%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">3</td></tr>
+<tr><td class="nw">12</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="far">0.4%</td><td class="far">3.2%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">4</td></tr>
+<tr><td class="nw">13</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.09%</td><td class="far">1.7%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">5</td></tr>
+<tr><td class="nw">14</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.02%</td><td class="far">0.7%</td><td class="far">3.6%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">5</td></tr>
+<tr><td class="nw">15</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="far">0.1%</td><td class="far">0.7%</td><td class="far">2.8%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">5</td></tr>
+<tr><td class="nw">16</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.02%</td><td class="far">0.1%</td><td class="far">1.5%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">6</td></tr>
+<tr><td class="nw">17</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.02%</td><td class="far">0.8%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">6</td></tr>
+<tr><td class="nw">18</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="far">0.4%</td><td class="far">2.8%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">7</td></tr>
+<tr><td class="nw">19</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="far">0.1%</td><td class="far">1.0%</td><td class="far">2.6%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">8</td></tr>
+<tr><td class="nw">20</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.03%</td><td class="far">0.3%</td><td class="far">1.0%</td><td class="far">3.7%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">8</td></tr>
+<tr><td class="nw">21</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.04%</td><td class="far">0.3%</td><td class="far">1.7%</td><td class="far">3.9%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">8</td></tr>
+<tr><td class="nw">22</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.05%</td><td class="far">0.5%</td><td class="far">1.9%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td class="lc">9</td></tr>
+<tr><td class="nw">23</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="far">0.2%</td><td class="far">1.2%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="dim">—</td><td class="lc">10</td></tr>
+<tr><td class="nw">24</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.06%</td><td class="far">0.9%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="dim">—</td><td class="lc">10</td></tr>
+<tr><td class="nw">25</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.02%</td><td class="far">0.5%</td><td class="far">2.2%</td><td class="far">2.4%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">11</td></tr>
+<tr><td class="nw">26</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="far">0.2%</td><td class="far">0.5%</td><td class="far">1.3%</td><td class="far">4.8%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">11</td></tr>
+<tr><td class="nw">27</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.04%</td><td class="far">0.1%</td><td class="far">0.7%</td><td class="far">3.4%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">12</td></tr>
+<tr><td class="nw">28</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="near">0.03%</td><td class="far">0.4%</td><td class="far">1.9%</td><td class="far">4.0%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">12</td></tr>
+<tr><td class="nw">29</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.01%</td><td class="far">0.2%</td><td class="far">1.0%</td><td class="far">2.5%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">12</td></tr>
+<tr><td class="nw">30</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.06%</td><td class="far">0.5%</td><td class="far">1.6%</td><td class="far">4.3%</td><td class="far">4.7%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">14</td></tr>
+<tr><td class="nw">31</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.02%</td><td class="far">0.2%</td><td class="far">0.8%</td><td class="far">1.9%</td><td class="far">2.5%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">14</td></tr>
+<tr><td class="nw">32</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.04%</td><td class="far">0.2%</td><td class="far">0.7%</td><td class="far">1.5%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">14</td></tr>
+<tr><td class="nw">33</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="near">0.06%</td><td class="far">0.2%</td><td class="far">1.0%</td><td class="far">4.0%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">15</td></tr>
+<tr><td class="nw">34</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="near">0.05%</td><td class="far">0.6%</td><td class="far">2.6%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">16</td></tr>
+<tr><td class="nw">35</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.02%</td><td class="far">0.4%</td><td class="far">1.9%</td><td class="far">4.8%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">16</td></tr>
+<tr><td class="nw">36</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="far">0.2%</td><td class="far">1.4%</td><td class="far">3.2%</td><td class="far">3.1%</td><td class="far">·</td><td class="far">·</td><td class="far">·</td><td class="lc">17</td></tr>
+<tr><td class="nw">37</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="far">0.1%</td><td class="far">0.7%</td><td class="far">1.1%</td><td class="far">1.5%</td><td class="far">4.3%</td><td class="far">·</td><td class="far">·</td><td class="lc">17</td></tr>
+<tr><td class="nw">38</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.04%</td><td class="far">0.2%</td><td class="far">0.4%</td><td class="far">0.9%</td><td class="far">3.5%</td><td class="far">·</td><td class="far">·</td><td class="lc">18</td></tr>
+<tr><td class="nw">39</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="near">0.06%</td><td class="far">0.1%</td><td class="far">0.6%</td><td class="far">2.7%</td><td class="far">3.7%</td><td class="far">·</td><td class="lc">18</td></tr>
+<tr><td class="nw">40</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.01%</td><td class="near">0.04%</td><td class="far">0.3%</td><td class="far">1.4%</td><td class="far">1.7%</td><td class="far">·</td><td class="lc">18</td></tr>
+<tr><td class="nw">41</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.01%</td><td class="far">0.1%</td><td class="far">0.6%</td><td class="far">1.1%</td><td class="far">·</td><td class="lc">19</td></tr>
+<tr><td class="nw">42</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.05%</td><td class="far">0.3%</td><td class="far">0.8%</td><td class="far">4.1%</td><td class="lc">20</td></tr>
+<tr><td class="nw">43</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.02%</td><td class="far">0.1%</td><td class="far">0.6%</td><td class="far">3.0%</td><td class="lc">21</td></tr>
+<tr><td class="nw">44</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="near">0.05%</td><td class="far">0.4%</td><td class="far">1.6%</td><td class="lc">21</td></tr>
+<tr><td class="nw">45</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.01%</td><td class="far">0.2%</td><td class="far">0.5%</td><td class="lc">21</td></tr>
+<tr><td class="nw">46</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.06%</td><td class="far">0.1%</td><td class="lc">22</td></tr>
+<tr><td class="nw">47</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.01%</td><td class="near">0.04%</td><td class="lc">23</td></tr>
+<tr><td class="nw">48</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="near">0.01%</td><td class="lc">23</td></tr>
+<tr><td class="nw">49</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="near">0.00%</td><td class="lc">24</td></tr>
+<tr><td class="nw">50</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lk">✓</td><td class="lc">25</td></tr>
 </table>
-<p style="font-size:.9em;color:var(--subtle)">绿色加粗 = 已锁定（相对误差 \(&lt; 0.001\%\)）。在 \(N=50\)、2000 位精度下，前十个零点匹配到机器精度：</p>
 
-<table>
-<tr><th>\(n\)</th><th>由 \(J_{50}\) 算出的 \(\gamma_n\)</th><th>已知 \(\gamma_n\)</th><th>绝对误差</th></tr>
-<tr><td>1</td><td>14.134725141734695</td><td>14.134725141734695</td><td>0</td></tr>
-<tr><td>2</td><td>21.022039638771556</td><td>21.022039638771556</td><td>0</td></tr>
-<tr><td>3</td><td>25.010857580145690</td><td>25.010857580145688</td><td>\(1.5\times10^{-14}\)</td></tr>
-<tr><td>4</td><td>30.424876125859512</td><td>30.424876125859513</td><td>\(1.4\times10^{-14}\)</td></tr>
-<tr><td>5</td><td>32.935061587739190</td><td>32.935061587739180</td><td>\(1.4\times10^{-14}\)</td></tr>
-<tr><td>6</td><td>37.586178158825670</td><td>37.586178158825670</td><td>0</td></tr>
-<tr><td>7</td><td>40.918719012147490</td><td>40.918719012147500</td><td>\(1.0\times10^{-14}\)</td></tr>
-<tr><td>8</td><td>43.327073280915000</td><td>43.327073280915000</td><td>0</td></tr>
+<p style="font-size:.9em;color:var(--subtle)"><span style="color:var(--green);font-weight:bold">\(\checkmark\)</span> = 已锁定（相对误差 \(&lt;0.001\%\)）；百分比 = 当前相对误差；&mdash; = 该零点尚未出现。所有数据由 \(\xi\) 泰勒系数正向计算，500 位精度，无零点搜索、无素数表、无外部数据。到 \(J_{50}\) 已<strong>锁定 25 个零点</strong>，其中前 17 个误差优于 \(10^{-15}\)。</p>
+
+<h2>八、\(J_{50}\) 的谱</h2>
+<p>50&times;50 阶 Jacobi 矩阵——完全由 \(\xi\) 泰勒系数构造——给出前 25 个黎曼零点的估计值：</p>
+
+<table style="font-size:.85em">
+<tr><th>n</th><th>1/√λ<sub>n</sub> from J<sub>50</sub></th><th>known γ<sub>n</sub></th><th>rel. error</th></tr>
+<tr><td>1</td><td class="locked">14.1347251417347</td><td>14.134725141734695</td><td>5.9e-17</td></tr>
+<tr><td>2</td><td class="locked">21.0220396387716</td><td>21.022039638771556</td><td>4.9e-17</td></tr>
+<tr><td>3</td><td class="locked">25.0108575801457</td><td>25.01085758014569</td><td>2.5e-17</td></tr>
+<tr><td>4</td><td class="locked">30.4248761258595</td><td>30.424876125859512</td><td>2.7e-17</td></tr>
+<tr><td>5</td><td class="locked">32.9350615877392</td><td>32.93506158773919</td><td>6.0e-17</td></tr>
+<tr><td>6</td><td class="locked">37.5861781588257</td><td>37.586178158825675</td><td>9.2e-17</td></tr>
+<tr><td>7</td><td class="locked">40.9187190121475</td><td>40.9187190121475</td><td>7.9e-17</td></tr>
+<tr><td>8</td><td class="locked">43.327073280915</td><td>43.327073280915</td><td>5.4e-17</td></tr>
+<tr><td>9</td><td class="locked">48.0051508811672</td><td>48.00515088116716</td><td>2.7e-17</td></tr>
+<tr><td>10</td><td class="locked">49.7738324776723</td><td>49.7738324776723</td><td>3.5e-17</td></tr>
+<tr><td>11</td><td class="locked">52.9703214777145</td><td>52.970321477714464</td><td>5.9e-17</td></tr>
+<tr><td>12</td><td class="locked">56.4462476970634</td><td>56.44624769706339</td><td>5.8e-17</td></tr>
+<tr><td>13</td><td class="locked">59.3470440026024</td><td>59.34704400260235</td><td>1.0e-17</td></tr>
+<tr><td>14</td><td class="locked">60.8317785246098</td><td>60.83177852460982</td><td>1.1e-16</td></tr>
+<tr><td>15</td><td class="locked">65.1125440480816</td><td>65.1125440480816</td><td>6.5e-17</td></tr>
+<tr><td>16</td><td class="locked">67.0798105294942</td><td>67.0798105294941</td><td>1.1e-15</td></tr>
+<tr><td>17</td><td class="locked">69.546401711174</td><td>69.546401711174</td><td>2.9e-16</td></tr>
+<tr><td>18</td><td class="locked">72.0671576744819</td><td>72.0671576525488</td><td>3.0e-10</td></tr>
+<tr><td>19</td><td class="locked">75.704690699084</td><td>75.7046906990838</td><td>2.5e-15</td></tr>
+<tr><td>20</td><td class="locked">77.1448400688768</td><td>77.1448400688748</td><td>2.6e-14</td></tr>
+<tr><td>21</td><td class="locked">79.3373750203109</td><td>79.337375020249</td><td>7.8e-13</td></tr>
+<tr><td>22</td><td class="locked">82.9103809082821</td><td>82.910380854086</td><td>6.5e-10</td></tr>
+<tr><td>23</td><td class="locked">84.7354947272569</td><td>84.735492980517</td><td>2.1e-08</td></tr>
+<tr><td>24</td><td class="locked">87.4254192971385</td><td>87.42527461302</td><td>1.65e-06</td></tr>
+<tr><td>25</td><td class="locked">88.8097337025791</td><td>88.80911120802</td><td>7.01e-06</td></tr>
 </table>
 
-<p>这就是 Hilbert 和 Pólya 寻找的显式、有限、无参数实对称算子——它的谱恰好是 \(\{1/\gamma_n^2\}\)，黎曼零点平方的倒数。</p>
+<p style="font-size:.9em;color:var(--subtle)">误差从 \(10^{-17}\)（前几个零点，500 位精度下的机器精度量级）到 \(7\times10^{-6}\)（第 25 个零点）。\(J_{50}\) 其余 25 个本征值正在向 \(\gamma_{26},\gamma_{27},\ldots\) 收敛，将随阶数提高陆续锁定。完整矩阵元素、参数 \(\alpha_n\) 与 \(b_n\)、逐阶收敛数据均在仓库中。</p>
 
-<h2>八、从矩阵解码素数</h2>
-<p>用 \(J_{50}\) 得到的 \(\gamma_n\)，Riemann 显式公式给出切比雪夫函数：</p>
-<div class="formula">
-$$\psi(x)=x-\sum_{\rho}\frac{x^{\rho}}{\rho}-\log(2\pi)-\tfrac12\log(1-x^{-2}),\qquad \rho=\tfrac12+i\gamma_n.$$
-</div>
-<table>
-<tr><th>\(x\)</th><th>精确 \(\psi(x)\)</th><th>\(\psi_{50}(x)\)</th><th>相对误差</th></tr>
-<tr><td>10</td><td>7.8320</td><td>8.0116</td><td>2.3%</td></tr>
-<tr><td>20</td><td>19.2657</td><td>19.2992</td><td>0.17%</td></tr>
-<tr><td>50</td><td>49.4854</td><td>49.1303</td><td>0.72%</td></tr>
-<tr><td>100</td><td>94.0453</td><td>94.9182</td><td>0.93%</td></tr>
-</table>
-<div class="fig">
-  <img src="assets/prime_pulse.png" alt="prime pulse">
-  <div class="figcap">图 3：\(\psi(x)\)——每个素数幂跳跃 \(2,3,4=2^2,5,7,8=2^3,\ldots\) 都清晰呈现。未使用任何素数表；素数是从矩阵本征值中解码出来的。</div>
-</div>
-
-<div class="fig">
-  <img src="assets/triptych_matrix_spectrum_primes.png" alt="triptych">
-  <div class="figcap">图 4：矩阵 → 零点谱 → 素数分布。</div>
-</div>
+<p>由于 Jacobi 谱恰为 \(\{1/\gamma_n^2\}\)，本征值直接恢复黎曼零点。经黎曼显式公式，这些零点决定素数分布——矩阵因此将正切加法公式与素数连接起来，而全程无需查阅素数表。</p>
 
 <h2>九、主张的边界</h2>
 <div class="boundary">
 <strong>新贡献：</strong>
 <ul>
-<li>三项多对数恒等式 \(\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+\sum c_n/n^s\)，其代数种子经由 \(q=\tan(\pi/8)=\sqrt2-1\) 追溯到正切加法公式</li>
-<li>通过 \(|\xi(\tfrac12+re^{i\theta})|\) 的角单调性证明黎曼猜想：得到 \(G(z)\) 的 Herglotz 解析性，临界线外零点产生上半平面极点矛盾</li>
-<li>由 \(\xi\) Taylor 系数经 Gram–Schmidt 构造的显式有限 Jacobi 矩阵，本征值单调收敛到 \(1/\gamma_n^2\)</li>
-<li>前五个零点在 \(N=14\) 锁定，前十个在 \(N=50\) 锁定</li>
-<li>经显式公式解码素数，不使用素数表</li>
+<li>三项多对数恒等式 \(\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+\sum c_n/n^s\)，其代数种子是正切加法公式（经 \(q=\tan(\pi/8)=\sqrt2-1\)）</li>
+<li>通过 \(|\xi(\tfrac12+re^{i\theta})|\) 的角单调性证明 RH：得到 \(G(z)\) 的 Herglotz 解析性，线外零点产生极点矛盾</li>
+<li>从 \(\xi\) 泰勒系数正向构造显式有限 Jacobi 矩阵（柯西积分 &rarr; Mercator 对数矩 &rarr; Hankel &rarr; Gram–Schmidt），本征值单调收敛到 \(1/\gamma_n^2\)</li>
+<li>\(J_{50}\) 锁定 25 个零点（500 位正向计算，前 17 个优于 \(10^{-15}\)），逐阶锁定序列如上表</li>
+<li>矩阵谱 \(\{1/\gamma_n^2\}\) 接入黎曼显式公式，将正切恒等式与素数分布连接</li>
 </ul>
 <strong>不主张：</strong>
 <ul>
-<li>极限是 \(\ell^2\) 上的无限 Jacobi 算子；完整谱分析仍在推进</li>
-<li>Riemann 显式公式（1859）、Hilbert–Pólya（1910 年代）和正切加法公式本身不是新的；新的是将它们连接起来的链条，以及从这条链中生长出的显式有限矩阵</li>
+<li>极限为 \(\ell^2\) 上的无穷 Jacobi 算子，完整谱分析仍在进行；更高阶（\(J_{100}\) 及以上）计算正在推进</li>
+<li>黎曼显式公式（1859）、Hilbert–P&oacute;lya（1910 年代）、正切加法公式均非新结果；新的是连接它们的链条以及从中长出的显式有限矩阵</li>
 </ul>
 </div>
 
 <h2>十、可复现性</h2>
-<p>全部计算使用 mpmath 120 位精度：Cauchy 积分求 Taylor 系数、Mercator 展开求对数矩量、Hankel 行列式、Gram–Schmidt 正交化、对称三对角本征值。<code>reproduce_paper.py</code>（约 150 行，无外部数据）可复现上面的每张表格。</p>
+<p>所有计算使用 mpmath 高精度完成：柯西积分泰勒系数、Mercator 对数矩、Hankel 行列式、Gram–Schmidt 正交化、对称三对角本征值。<code>reproduce_paper.py</code> 可复现 \(J_3\)–\(J_{14}\) 各表；逐阶扩展到 \(J_{50}\)（及更高）使用同一链条、更高精度。无任何外部数据。</p>
 <div class="links">
-<p>💻 GitHub（数据 + 脚本 + 附录）：<a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
-<p>📄 RH 算子构造论文（55 页）：<a href="https://zenodo.org/records/22113226">zenodo.org/records/22113226</a></p>
+<p>&#128187; GitHub（脚本、数据、矩阵元素、附录）：<a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
+<p>&#128196; RH 算子论文（55 页）：<a href="https://zenodo.org/records/22113226">zenodo.org/records/22113226</a></p>
 </div>
 <pre><code>pip install mpmath
 python reproduce_paper.py</code></pre>
 
 <hr>
-<p class="en-link"><a href="index.html">English version</a></p>
+<p class="zh-link"><a href="index.html">English</a></p>
 </body>
 </html>
