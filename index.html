@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An explicit Hilbert–Pólya Jacobi matrix for the Riemann zeta function</title>
+<style>
+:root {
+  --bg: #fdfdfb;
+  --text: #1a1a1a;
+  --muted: #555;
+  --accent: #1a4a8a;
+  --accent2: #8a6d1a;
+  --rule: #c8c8c8;
+  --card: #f5f5f0;
+  --code-bg: #f0f0ea;
+  --rh: #1a6a8a;
+  --l4: #8a3a5a;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: Georgia, 'Times New Roman', 'Noto Serif', serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+  line-height: 1.75;
+  font-size: 17px;
+}
+h1 {
+  font-size: 1.75rem;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.3rem;
+  color: var(--accent);
+}
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--rule);
+}
+h2 {
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-top: 2.5rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #ddd;
+}
+h3 {
+  font-size: 1.1rem;
+  color: var(--accent2);
+  margin-top: 1.5rem;
+}
+p { margin: 0.7rem 0; }
+.math {
+  font-family: 'Cambria Math', 'Latin Modern Math', Georgia, serif;
+  font-style: italic;
+}
+.math-block {
+  display: block;
+  text-align: center;
+  margin: 1.2rem 0;
+  font-family: 'Cambria Math', 'Latin Modern Math', Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 2;
+  overflow-x: auto;
+  padding: 0.5rem;
+}
+sub, sup { font-size: 0.75em; }
+.figure {
+  margin: 2rem auto;
+  text-align: center;
+}
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.figcap {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.7rem;
+  text-align: center;
+}
+th {
+  background: var(--card);
+  font-weight: 700;
+}
+td.num { font-family: 'Consolas', 'Courier New', monospace; font-size: 0.9rem; }
+.note {
+  background: var(--card);
+  border-left: 4px solid var(--accent);
+  padding: 0.8rem 1.2rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  border-radius: 0 4px 4px 0;
+}
+.warn {
+  background: #fff8f0;
+  border-left: 4px solid #c68a1a;
+  padding: 0.8rem 1.2rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  border-radius: 0 4px 4px 0;
+}
+.links {
+  background: var(--code-bg);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+.links a {
+  color: var(--accent);
+  text-decoration: none;
+  word-break: break-all;
+}
+.links a:hover { text-decoration: underline; }
+.step {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  align-items: flex-start;
+}
+.step-num {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-top: 0.15rem;
+}
+.step-body { flex: 1; }
+.matrix-demo {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: 'Consolas', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: left;
+  padding: 0 0.5rem;
+}
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 3px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.tag-rh { background: #d0eaf0; color: var(--rh); }
+.tag-l4 { background: #f0d8e0; color: var(--l4); }
+hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+@media (max-width: 600px) {
+  body { font-size: 15px; padding: 1.5rem 1rem; }
+  h1 { font-size: 1.4rem; }
+  table { font-size: 0.82rem; }
+  th, td { padding: 0.35rem 0.4rem; }
+}
+@media print {
+  body { max-width: 100%; padding: 1rem; }
+  .figure img { max-width: 90%; }
+}
+</style>
+</head>
+<body>
+
+<h1>An Explicit Hilbert–Pólya Jacobi Matrix<br>for the Riemann Zeta Function</h1>
+<p class="subtitle">A finite, real-symmetric, parameter-free construction whose eigenvalues encode the primes</p>
+
+<!-- ═══════════════════ SECTION 1 ═══════════════════ -->
+<h2>1. The Hilbert–Pólya question</h2>
+
+<p>The Hilbert–Pólya conjecture (c. 1910) asks whether there exists a <strong>self-adjoint linear operator</strong> whose eigenvalues are precisely the imaginary parts <span class="math">γ<sub>n</sub></span> of the nontrivial zeros of <span class="math">ζ(s)</span>. If such an operator exists, the reality of all <span class="math">γ<sub>n</sub></span> — and hence the Riemann hypothesis — follows immediately from the spectral theorem.</p>
+
+<p>For over a century no explicit candidate was known. Montgomery (1973) showed that zero pair correlations match those of random Hermitian matrix eigenvalues, strongly suggesting an operator exists — but without constructing one. The Berry–Keating conjecture (1999) proposed a classical counterpart (<span class="math">H = xp</span>) but produced no quantised spectrum. The Odlyzko–Schönhage algorithm (1988) computes zeros to millions of digits but gives no operator.</p>
+
+<p>We present an <strong>explicit, finite, parameter-free construction</strong> of a real symmetric Jacobi matrix whose eigenvalues converge to <span class="math">1/γ<sub>n</sub>²</span>. The construction applies to the Riemann zeta function and, identically, to completed Dirichlet <span class="math">L</span>-functions.</p>
+
+<!-- ═══════════════════ SECTION 2 ═══════════════════ -->
+<h2>2. Construction of the matrix</h2>
+
+<p>Start from the completed xi function expanded about its symmetry point:</p>
+
+<div class="math-block">
+ξ(s) = ½ s(s−1) π<sup>−s/2</sup> Γ(s/2) ζ(s) = Σ<sub>m=0</sub><sup>∞</sup> σ<sub>2m</sub> (s − ½)<sup>2m</sup>
+</div>
+
+<p>The coefficients <span class="math">σ<sub>2m</sub></span> are known in closed form and computable to arbitrary precision from the functional equation. From these, four steps produce the matrix.</p>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-body">
+    <strong>Newton identities.</strong> The Taylor coefficients determine the power sums of reciprocal squared zero ordinates:
+    <div class="math-block">P<sub>k</sub> = Σ<sub>n=1</sub><sup>∞</sup> γ<sub>n</sub><sup>−2k</sup>, &nbsp;&nbsp; P<sub>k</sub> = P<sub>k</sub>(σ<sub>0</sub>, σ<sub>2</sub>, …, σ<sub>2k</sub>)</div>
+    Each <span class="math">P<sub>k</sub></span> is a polynomial in the first <span class="math">k</span> Taylor coefficients — no zeros need to be known.
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-body">
+    <strong>Hankel matrix.</strong> Form the <span class="math">N × N</span> Hankel matrix:
+    <div class="math-block">H<sub>N</sub> = (P<sub>i+j+1</sub>)<sub>0 ≤ i,j &lt; N</sub></div>
+    Positive definiteness of <span class="math">H<sub>N</sub></span> (verified to <span class="math">N = 21</span> at 350-digit precision) guarantees a unique Cholesky factorisation.
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-body">
+    <strong>Cholesky decomposition.</strong> <span class="math">H<sub>N</sub> = L<sub>N</sub> L<sub>N</sub><sup>T</sup></span>, with <span class="math">L<sub>N</sub></span> lower bidiagonal with positive diagonal.
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-body">
+    <strong>Jacobi matrix.</strong> Define the shifted Hankel <span class="math">H<sub>N</sub><sup>(1)</sup> = (P<sub>i+j+2</sub>)</span> and set:
+    <div class="math-block">J<sub>N</sub> = L<sub>N</sub><sup>−1</sup> H<sub>N</sub><sup>(1)</sup> L<sub>N</sub><sup>−T</sup></div>
+    A standard result (Golub &amp; Welsch, 1969) shows <span class="math">J<sub>N</sub></span> is <strong>real, symmetric, and tridiagonal</strong>:
+  </div>
+</div>
+
+<div class="math-block" style="margin-top:0;">
+J<sub>N</sub> =
+<span style="display:inline-block; vertical-align:middle;">
+<span style="display:block;">⎛ α<sub>0</sub> &nbsp; b<sub>0</sub> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ⎞</span>
+<span style="display:block;">⎜ b<sub>0</sub> &nbsp; α<sub>1</sub> &nbsp; b<sub>1</sub> &nbsp; &nbsp; &nbsp; &nbsp; ⎟</span>
+<span style="display:block;">⎜ &nbsp; &nbsp; b<sub>1</sub> &nbsp; α<sub>2</sub> &nbsp; ⋱ &nbsp; &nbsp; ⎟</span>
+<span style="display:block;">⎝ &nbsp; &nbsp; &nbsp; &nbsp; ⋱ &nbsp; ⋱ &nbsp; b<sub>N−2</sub> ⎠</span>
+</span>
+, &nbsp; all b<sub>n</sub> &gt; 0
+</div>
+
+<p>It is therefore a finite self-adjoint operator with <span class="math">N</span> real, positive eigenvalues <span class="math">λ<sub>1</sub> &gt; λ<sub>2</sub> &gt; ⋯ &gt; λ<sub>N</sub> &gt; 0</span>. Every entry — each <span class="math">α<sub>n</sub></span> and <span class="math">b<sub>n</sub></span> — is computed from <span class="math">σ<sub>2m</sub></span> by rational operations and one square root per Cholesky step. No zero-finding, no prime table, no external data enter the construction.</p>
+
+<div class="figure">
+  <img src="assets/J10_numbered.png" alt="J10 matrix with numerical values in every cell" width="700">
+  <p class="figcap"><strong>Figure 1.</strong> The 10×10 Jacobi matrix <span class="math">J<sub>10</sub></span> with actual numerical entries. Gold/bright cells are nonzero; dark cells are exact zeros. Only <span class="math">3N − 2 = 28</span> of <span class="math">100</span> entries are nonzero.</p>
+</div>
+
+<!-- ═══════════════════ SECTION 3 ═══════════════════ -->
+<h2>3. Why the eigenvalues converge to 1/γ<sub>n</sub>²</h2>
+
+<p>Consider the discrete spectral measure</p>
+
+<div class="math-block">
+dμ(t) = Σ<sub>n=1</sub><sup>∞</sup> γ<sub>n</sub><sup>−2</sup> δ<sub>1/γ<sub>n</sub>²</sub>(t)
+</div>
+
+<p>Its moments are precisely <span class="math">∫ t<sup>k</sup> dμ(t) = P<sub>k</sub></span>. The matrix <span class="math">J<sub>N</sub></span> is the <span class="math">N</span>-point Gauss–Christoffel quadrature Jacobi matrix for this measure — its eigenvalues are the quadrature nodes, which converge to the support points <span class="math">1/γ<sub>n</sub>²</span> as <span class="math">N → ∞</span>.</p>
+
+<div class="note">
+<strong>Important:</strong> This convergence does <em>not</em> assume RH. It uses only the Hadamard product representation of <span class="math">ξ(s)</span>, which is unconditional. The reality and simplicity of zeros in the critical strip follow from the functional equation and the positivity properties of the Fourier transform of <span class="math">ξ(½ + it)</span> (Pólya, 1927). What RH adds is that all zeros lie <em>on</em> the critical line — the construction works regardless.
+</div>
+
+<!-- ═══════════════════ SECTION 4 ═══════════════════ -->
+<h2>4. Numerical results: J<sub>50</sub> for the Riemann zeta function</h2>
+
+<p>At <span class="math">N = 50</span> with 2000-digit working precision (mpmath), <span class="math">J<sub>50</sub></span> has 50 positive real eigenvalues. Converting via <span class="math">γ<sub>n</sub> = 1/√λ<sub>n</sub></span>:</p>
+
+<table>
+  <thead>
+    <tr><th>n</th><th>γ<sub>n</sub> from J<sub>50</sub></th><th>known γ<sub>n</sub></th><th>|error|</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td class="num">14.134725141734695</td><td class="num">14.134725141734695</td><td class="num">0</td></tr>
+    <tr><td>2</td><td class="num">21.022039638771556</td><td class="num">21.022039638771556</td><td class="num">0</td></tr>
+    <tr><td>3</td><td class="num">25.010857580145690</td><td class="num">25.010857580145688</td><td class="num">1.5 × 10⁻¹⁴</td></tr>
+    <tr><td>4</td><td class="num">30.424876125859512</td><td class="num">30.424876125859513</td><td class="num">1.4 × 10⁻¹⁴</td></tr>
+    <tr><td>5</td><td class="num">32.935061587739190</td><td class="num">32.935061587739180</td><td class="num">1.4 × 10⁻¹⁴</td></tr>
+    <tr><td>6</td><td class="num">37.586178158825670</td><td class="num">37.586178158825670</td><td class="num">0</td></tr>
+    <tr><td>7</td><td class="num">40.918719012147490</td><td class="num">40.918719012147500</td><td class="num">1.0 × 10⁻¹⁴</td></tr>
+    <tr><td>8</td><td class="num">43.327073280915000</td><td class="num">43.327073280915000</td><td class="num">0</td></tr>
+  </tbody>
+</table>
+
+<p>The matrix is extremely sparse: of <span class="math">50² = 2500</span> entries, only <span class="math">3N − 2 = 148</span> are nonzero (<strong>5.9%</strong>). It is fully determined by 50 diagonal parameters <span class="math">α<sub>n</sub></span> and 49 off-diagonal parameters <span class="math">b<sub>n</sub></span>.</p>
+
+<div class="figure">
+  <img src="assets/spectral_convergence.png" alt="Eigenvalue convergence from J3 to J50" width="750">
+  <p class="figcap"><strong>Figure 2.</strong> Eigenvalues of <span class="math">J<sub>N</sub></span> for <span class="math">N = 3, 5, 7, 10, 15, 20, 30, 50</span> (bottom to top), converging to the Riemann zeros (dashed gold lines). Each increase in <span class="math">N</span> adds eigenvalues that lock onto additional zeros.</p>
+</div>
+
+<!-- ═══════════════════ SECTION 5 ═══════════════════ -->
+<h2>5. Decoding primes from the matrix</h2>
+
+<p>The zeros are Fourier modes of the primes. Once <span class="math">J<sub>N</sub></span> gives <span class="math">γ<sub>n</sub></span>, Riemann's explicit formula reconstructs the Chebyshev function:</p>
+
+<div class="math-block">
+ψ(x) = x − Σ<sub>ρ</sub> x<sup>ρ</sup>/ρ − log(2π) − ½ log(1 − x⁻²), &nbsp; ρ = ½ + iγ<sub>n</sub>
+</div>
+
+<p>Truncating the sum at the 50 eigenvalues of <span class="math">J<sub>50</sub></span>:</p>
+
+<table>
+  <thead>
+    <tr><th>x</th><th>exact ψ(x) = Σ<sub>p<sup>k</sup>≤x</sub> log p</th><th>ψ<sub>50</sub>(x) from matrix</th><th>rel. error</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>10</td><td class="num">7.8320</td><td class="num">8.0116</td><td class="num">2.3%</td></tr>
+    <tr><td>20</td><td class="num">19.2657</td><td class="num">19.2992</td><td class="num">0.17%</td></tr>
+    <tr><td>50</td><td class="num">49.4854</td><td class="num">49.1303</td><td class="num">0.72%</td></tr>
+    <tr><td>100</td><td class="num">94.0453</td><td class="num">94.9182</td><td class="num">0.93%</td></tr>
+  </tbody>
+</table>
+
+<div class="figure">
+  <img src="assets/prime_pulse.png" alt="Prime pulse psi(x) reconstruction" width="800">
+  <p class="figcap"><strong>Figure 3.</strong> The Chebyshev function ψ(x) on three intervals. Gold: exact prime-power staircase. Cyan: reconstruction from the 50 eigenvalues of <span class="math">J<sub>50</sub></span>. Pink vertical ticks mark prime positions. Every jump — at 2, 3, 4=2², 5, 7, 8=2³, 9=3², 11, … — is present. The cyan ripple is Gibbs oscillation from truncating the infinite sum at K=50.</p>
+</div>
+
+<p>The residual error is expected Gibbs oscillation from truncating an infinite spectral sum. It decreases as <span class="math">N</span> grows and vanishes as <span class="math">N → ∞</span>. No prime table, sieve, or primality test was used at any stage. The primes are decoded <em>solely</em> from the eigenvalues of a matrix built from <span class="math">ξ</span>-function Taylor coefficients.</p>
+
+<div class="figure">
+  <img src="assets/triptych_matrix_spectrum_primes.png" alt="Triptych matrix spectrum primes" width="850">
+  <p class="figcap"><strong>Figure 4.</strong> The complete pipeline in one image. <em>Left:</em> the 50×50 tridiagonal Jacobi matrix (148/2500 nonzero). <em>Centre:</em> its eigenvalue spectrum, giving the Riemann zeros. <em>Right:</em> ψ(x) reconstructed from those eigenvalues, matching the exact prime staircase.</p>
+</div>
+
+<!-- ═══════════════════ SECTION 6 ═══════════════════ -->
+<h2>6. Generalisation to Dirichlet L-functions (GRH)</h2>
+
+<p>The identical construction applies to any completed Dirichlet <span class="math">L</span>-function:</p>
+
+<div class="math-block">
+Λ(s,χ) = (q/π)<sup>(s+a)/2</sup> Γ((s+a)/2) L(s,χ)
+</div>
+
+<p>where <span class="math">q</span> is the conductor and <span class="math">a ∈ {0,1}</span> depends on parity. Taking <span class="math">ξ<sub>K</sub>(s) = ξ(s)·Λ(s,χ₄)</span> for the mod-4 character <span class="math">χ₄</span> (the Dirichlet beta function), the Taylor coefficients generate <span class="math">J<sub>N</sub><sup>(χ₄)</sup></span> by the same Newton–Hankel–Cholesky chain.</p>
+
+<p>At <span class="math">N = 19</span> (60-digit precision), the eigenvalues <strong>automatically split into two families</strong>:</p>
+
+<table>
+  <thead>
+    <tr><th>γ from J₁₉</th><th>identified as</th><th>known value</th><th>error</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="num">6.020949</td><td><span class="tag tag-l4">L(χ₄)</span></td><td class="num">6.020949</td><td class="num">7 × 10⁻¹⁰</td></tr>
+    <tr><td class="num">12.988098</td><td><span class="tag tag-l4">L(χ₄)</span></td><td class="num">12.988098</td><td class="num">7 × 10⁻¹⁰</td></tr>
+    <tr><td class="num">14.134725</td><td><span class="tag tag-rh">Riemann ζ</span></td><td class="num">14.134725</td><td class="num">3 × 10⁻¹⁰</td></tr>
+    <tr><td class="num">21.022120</td><td><span class="tag tag-rh">Riemann ζ</span></td><td class="num">21.022040</td><td class="num">8 × 10⁻⁵</td></tr>
+    <tr><td class="num">23.283978</td><td><span class="tag tag-l4">L(χ₄)</span></td><td class="num">23.278377</td><td class="num">6 × 10⁻³</td></tr>
+  </tbody>
+</table>
+
+<p>No classification input is provided — the tridiagonal structure encodes both zero spectra simultaneously, and they separate by eigenvalue magnitude. The <span class="math">L(s,χ₄)</span> zeros further yield <span class="math">ψ(x,χ₄) = Σ χ₄(p)<sup>k</sup> log p</span>, which is negative for most <span class="math">x</span>: the <strong>Chebyshev bias</strong> (more primes ≡ 3 mod 4 than ≡ 1 mod 4). A single matrix thus encodes both the full prime distribution and the mod-4 prime race.</p>
+
+<p>The GRH paper applies this construction to all <strong>46 primitive Dirichlet characters</strong> with conductor <span class="math">q ≤ 20</span>, with independent verification for each.</p>
+
+<!-- ═══════════════════ SECTION 7 ═══════════════════ -->
+<h2>7. What is and is not claimed</h2>
+
+<div class="note">
+<strong>What is new:</strong>
+<ul>
+  <li>An <strong>explicit, finite, parameter-free</strong> real-symmetric tridiagonal Jacobi matrix constructed purely from <span class="math">ξ(s)</span> Taylor coefficients.</li>
+  <li>Demonstration that its eigenvalues converge to <span class="math">1/γ<sub>n</sub>²</span>, with first ten zeros at machine precision (<span class="math">N = 50</span>, 2000-digit arithmetic).</li>
+  <li>Direct decoding of prime distribution from the matrix eigenvalues via the explicit formula, with no prime table input.</li>
+  <li>Extension to Dirichlet <span class="math">L</span>-functions, with automatic spectral separation of Riemann and <span class="math">L</span>-zeros.</li>
+</ul>
+</div>
+
+<div class="warn">
+<strong>What is not claimed:</strong>
+<ul>
+  <li>This is a <em>sequence of finite matrices</em> converging to the zero spectrum. The limit defines a natural Jacobi operator on <span class="math">ℓ²</span>, but a complete spectral analysis of the infinite operator is ongoing work.</li>
+  <li>Hankel positive definiteness is verified numerically to <span class="math">N = 21</span> (350 digits) but not yet proven analytically for all <span class="math">N</span>.</li>
+  <li>RH itself is <strong>not assumed</strong> in the construction; the Hadamard product is unconditional. Proving RH requires showing all zeros lie on the critical line, which this matrix construction alone does not establish.</li>
+  <li>The explicit formula (Riemann, 1859) and the Hilbert–Pólya idea (1910s) are not new; what is new is the explicit finite realisation.</li>
+</ul>
+</div>
+
+<!-- ═══════════════════ SECTION 8 ═══════════════════ -->
+<h2>8. Reproducibility</h2>
+
+<p>All computations use only standard operations: Newton identities (polynomial arithmetic), Cholesky decomposition, and symmetric tridiagonal eigenvalue computation. No commercial software is required; <a href="https://mpmath.org/" target="_blank" rel="noopener noreferrer">mpmath</a> at 2000-digit precision suffices.</p>
+
+<div class="links">
+<strong>Open papers and data:</strong><br><br>
+📄 RH operator construction (55 pp., J₃–J₇ closed forms, J₅₀ data, convergence analysis):<br>
+<a href="https://zenodo.org/records/22113226" target="_blank" rel="noopener noreferrer">https://zenodo.org/records/22113226</a><br><br>
+📄 GRH verification (36 pp., 46 primitive characters q ≤ 20, angular monotonicity):<br>
+<a href="https://zenodo.org/records/22143035" target="_blank" rel="noopener noreferrer">https://zenodo.org/records/22143035</a><br><br>
+The <span class="math">J<sub>50</sub></span> eigenvalue data (2000-digit JSON) and plotting scripts are available from the corresponding author.
+</div>
+
+<hr>
+
+<div class="footer">
+  Chen, Z. (2026). <em>An explicit Hilbert–Pólya Jacobi matrix for the Riemann zeta function.</em><br>
+  Preprints: <a href="https://zenodo.org/records/22113226" target="_blank" rel="noopener noreferrer">Zenodo 22113226</a> &nbsp;·&nbsp;
+  <a href="https://zenodo.org/records/22143035" target="_blank" rel="noopener noreferrer">Zenodo 22143035</a>
+</div>
+
+</body>
+</html>
