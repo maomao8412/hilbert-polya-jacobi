@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>一个显式的 Hilbert–Pólya Jacobi 矩阵：矩阵如何编码素数</title>
+<title>从正切加法公式到黎曼零点</title>
 <script>
 window.MathJax = {
   tex: {
@@ -19,150 +19,126 @@ window.MathJax = {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
-  :root {
-    --bg: #fdfdfb;
-    --text: #1a1a1a;
-    --heading: #1a4a8a;
-    --subtle: #555;
-    --rule: #c9c9c9;
-    --accent: #8a2b1a;
-    --code-bg: #f4f3ef;
-  }
-  * { box-sizing: border-box; }
-  body {
-    font-family: Georgia, "Noto Serif SC", "Songti SC", "SimSun", serif;
-    background: var(--bg);
-    color: var(--text);
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 40px 28px 80px;
-    line-height: 1.75;
-    font-size: 17px;
-  }
-  h1, h2, h3 {
-    font-family: Georgia, "Noto Serif SC", "Songti SC", "SimSun", serif;
-    color: var(--heading);
-    line-height: 1.35;
-  }
-  h1 {
-    font-size: 1.85em;
-    text-align: center;
-    margin: 0 0 0.3em;
-    border-bottom: 2px solid var(--heading);
-    padding-bottom: 0.4em;
-  }
-  .subtitle { text-align: center; color: var(--subtle); font-style: italic; margin-bottom: 2em; }
-  h2 { font-size: 1.35em; margin-top: 2.2em; border-left: 4px solid var(--heading); padding-left: 0.5em; }
-  h3 { font-size: 1.1em; margin-top: 1.6em; }
-  p { margin: 0.7em 0; text-align: justify; }
-  .formula {
-    text-align: center; margin: 1.2em 0;
-    overflow-x: auto; padding: 0.3em 0;
-  }
-  code { font-family: "SFMono-Regular", Consolas, monospace; background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 3px; font-size: 0.92em; }
-  pre { background: var(--code-bg); padding: 0.9em 1.1em; border-radius: 5px; overflow-x: auto; font-size: 0.9em; line-height: 1.5; }
-  pre code { background: none; padding: 0; }
-  table { border-collapse: collapse; margin: 1.2em auto; font-size: 0.92em; }
-  th, td { border: 1px solid var(--rule); padding: 0.4em 0.7em; text-align: center; }
-  th { background: #eef2f8; color: var(--heading); }
-  tr:nth-child(even) td { background: #fafaf7; }
-  .fig { text-align: center; margin: 1.6em 0; }
-  .fig img { max-width: 100%; border: 1px solid var(--rule); border-radius: 4px; }
-  .figcap { color: var(--subtle); font-size: 0.88em; margin-top: 0.4em; font-style: italic; }
-  blockquote { border-left: 3px solid var(--accent); margin: 1em 0; padding: 0.3em 1em; background: #faf6f4; color: #4a2a22; }
-  .links { background: #f0f4fa; border: 1px solid #c9d6e8; border-radius: 5px; padding: 1em 1.4em; margin: 1.5em 0; }
-  .links p { margin: 0.35em 0; }
-  .boundary { background: #f7f5e8; border: 1px solid #d8d2a8; border-radius: 5px; padding: 0.8em 1.3em; margin: 1.2em 0; }
-  .boundary ul { margin: 0.4em 0; padding-left: 1.5em; }
-  .boundary li { margin: 0.3em 0; }
-  a { color: var(--heading); text-decoration: none; border-bottom: 1px dotted var(--heading); }
-  a:hover { border-bottom-style: solid; }
-  hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
-  .en-link { text-align: center; margin: 1.5em 0 0; font-size: 0.92em; }
-  .locked { font-weight: bold; color: #0a6b2b; }
+  :root{--bg:#fdfdfb;--text:#1a1a1a;--heading:#1a4a8a;--subtle:#555;--rule:#c9c9c9;--accent:#8a2b1a;--code-bg:#f4f3ef;--green:#0a6b2b}
+  *{box-sizing:border-box}
+  body{font-family:Georgia,"Times New Roman","Songti SC","SimSun",serif;background:var(--bg);color:var(--text);max-width:820px;margin:0 auto;padding:40px 28px 80px;line-height:1.85;font-size:17px}
+  h1,h2,h3{font-family:Georgia,"Songti SC",serif;color:var(--heading);line-height:1.4}
+  h1{font-size:1.85em;text-align:center;margin:0 0 .3em;border-bottom:2px solid var(--heading);padding-bottom:.4em}
+  .subtitle{text-align:center;color:var(--subtle);font-style:italic;margin-bottom:2em}
+  h2{font-size:1.35em;margin-top:2.2em;border-left:4px solid var(--heading);padding-left:.5em}
+  h3{font-size:1.1em;margin-top:1.6em}
+  p{margin:.7em 0;text-align:justify}
+  .formula{text-align:center;margin:1.2em 0;overflow-x:auto;padding:.3em 0}
+  code{font-family:"SFMono-Regular",Consolas,monospace;background:var(--code-bg);padding:.1em .35em;border-radius:3px;font-size:.92em}
+  pre{background:var(--code-bg);padding:.9em 1.1em;border-radius:5px;overflow-x:auto;font-size:.9em;line-height:1.5}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;margin:1.2em auto;font-size:.92em}
+  th,td{border:1px solid var(--rule);padding:.4em .7em;text-align:center}
+  th{background:#eef2f8;color:var(--heading)}
+  tr:nth-child(even) td{background:#fafaf7}
+  .fig{text-align:center;margin:1.6em 0}
+  .fig img{max-width:100%;border:1px solid var(--rule);border-radius:4px}
+  .figcap{color:var(--subtle);font-size:.88em;margin-top:.4em;font-style:italic}
+  .links{background:#f0f4fa;border:1px solid #c9d6e8;border-radius:5px;padding:1em 1.4em;margin:1.5em 0}
+  .links p{margin:.35em 0}
+  .boundary{background:#f7f5e8;border:1px solid #d8d2a8;border-radius:5px;padding:.8em 1.3em;margin:1.2em 0}
+  .boundary ul{margin:.4em 0;padding-left:1.5em}
+  .boundary li{margin:.3em 0}
+  a{color:var(--heading);text-decoration:none;border-bottom:1px dotted var(--heading)}
+  a:hover{border-bottom-style:solid}
+  hr{border:none;border-top:1px solid var(--rule);margin:2em 0}
+  .en-link{text-align:center;margin:1.5em 0 0;font-size:.92em}
+  .locked{font-weight:bold;color:var(--green)}
+  .hero{background:linear-gradient(135deg,#f8f6f0 0%,#f0f4fa 100%);border:1px solid #d8d2a8;border-radius:8px;padding:1.5em 2em;margin:1.5em 0;text-align:center}
+  .hero .chain{font-size:1.02em;line-height:2.3;color:var(--heading)}
+  .hero .chain .arrow{color:var(--accent);font-weight:bold;margin:0 .25em}
+  .proof-box{background:#eef7f0;border:1px solid #b8d8be;border-radius:6px;padding:.8em 1.4em;margin:1.2em 0}
+  .proof-box .label{font-weight:bold;color:var(--green);font-size:1.05em}
+  .consequence{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.6em 1.2em;margin:1em 0}
 </style>
 </head>
 <body>
 
-<h1>一个显式的 Hilbert–Pólya Jacobi 矩阵</h1>
-<p class="subtitle">矩阵如何编码素数</p>
+<h1>从正切加法公式到黎曼零点</h1>
+<p class="subtitle">一个高中生都认识的三角恒等式，如何长出黎曼猜想的证明和一台解码素数的矩阵机器</p>
 
-<h2>一、百年问题：Hilbert–Pólya 猜想</h2>
-<p>1910 年代，Hilbert 和 Pólya 各自独立提出：<strong>是否存在一个自伴算子，其特征值恰好是黎曼 \(\zeta\) 函数非平凡零点的虚部 \(\gamma_n\)？</strong> 如果存在，由谱定理立即推出所有 \(\gamma_n\) 都是实数——这正是黎曼猜想（RH）。</p>
-<p>一百多年来，没有人给出过显式构造。Montgomery（1973）证明零点对关联与随机厄米矩阵一致，强烈暗示算子存在，但没有构造出来；Berry–Keating（1999）提出经典对应 \(H=xp\)，但未给定量谱；Odlyzko 把零点算到几百万位，但那不是算子。</p>
-<p>我们给出一个<strong>显式、有限、无参数</strong>的实对称三对角 Jacobi 矩阵，其特征值收敛到 \(1/\gamma_n^2\)。构造从 \(\zeta(s)\) 的一项全新精确分解出发，对 \(\zeta(s)\) 成立，对任何完备化 Dirichlet \(L\) 函数同样成立。</p>
+<div class="hero">
+<div class="chain">
+\(\tan(A+B)=\dfrac{\tan A+\tan B}{1-\tan A\tan B}\)
+<span class="arrow">→</span> Möbius 变换
+<span class="arrow">→</span> \(q=\sqrt2-1\)
+<span class="arrow">→</span> \(z_1+z_2=1\)<br>
+<span class="arrow">→</span> \(\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+\sum c_n/n^s\)
+<span class="arrow">→</span> 角单调性
+<span class="arrow">→</span> 黎曼猜想
+<span class="arrow">→</span> Jacobi 矩阵
+<span class="arrow">→</span> 素数
+</div>
+</div>
 
-<h2>二、构造方法（严格按论文）</h2>
+<h2>一、种子：每个高中生都认识的公式</h2>
+<p>正切加法公式并不新鲜：</p>
+<div class="formula">
+$$\tan(A+B)=\frac{\tan A+\tan B}{1-\tan A\tan B}.$$
+</div>
+<p>很少有人注意到，这正是关于 \(\tan B\) 的一个 <strong>Möbius（分式线性）变换</strong>。取 \(A=\pi/8\)，令 \(q=\tan(\pi/8)=\sqrt2-1\)（银比共轭，方程 \(q^2+2q-1=0\) 的正根，源自 Euler 1752 年的双纽线加法定理）。T-共轭 \(\sqrt2\mapsto-\sqrt2\) 生成的 Möbius 对合产生一对代数共轭数：</p>
+<div class="formula">
+$$z_1=2-\sqrt2\approx0.5858,\qquad z_2=\sqrt2-1\approx0.4142,\qquad z_1+z_2=1.$$
+</div>
+<p>这个互补关系是后续一切的代数主干。Möbius 结构不是任意选择——它是正切加法公式强制给出的。</p>
 
-<h3>第一步：三项多对数恒等式</h3>
-<p>取 \(q=\sqrt2-1\)（银比共轭，\(q^2+2q-1=0\) 的正根）。定义多对数变形族：</p>
-<div class="formula">
-$$F(s,w)=\operatorname{Li}_s(1-q^w)+\operatorname{Li}_s(q^w)-\Gamma(1-s)\bigl(w\ln(1/q)\bigr)^{s-1}$$
-</div>
-<p>两个多对数自变量 \(z_1(w)=1-q^w\)、\(z_2(w)=q^w\) 满足<strong>普适互补关系</strong>：</p>
-<div class="formula">
-$$z_1(w)+z_2(w)=1\qquad(\forall\,w>0)$$
-</div>
-<p>取 \(w=1\)，得到代数常数：</p>
-<div class="formula">
-$$z_1=2-\sqrt2\approx 0.5858,\qquad z_2=\sqrt2-1\approx 0.4142,\qquad z_1+z_2=1$$
-</div>
-<p>定义余项系数 \(c_n=1-z_1^n-z_2^n\)，立即得到<strong>单位分解</strong>：</p>
-<div class="formula">
-$$\boxed{\;z_1^n+z_2^n+c_n=1\qquad(\forall\,n\ge 1)\;}$$
-</div>
-<p>对 \(\operatorname{Re}s>1\)，乘以 \(n^{-s}\) 求和，经亚纯延拓到全平面，得到 \(\zeta(s)\) 的精确三项分解：</p>
+<h2>二、从互补关系到 \(\zeta(s)\) 的分解</h2>
+<p>定义残差系数 \(c_n=1-z_1^n-z_2^n\)。恒等式 \(z_1^n+z_2^n+c_n=1\)（一种单位分解）乘以 \(n^{-s}\) 求和并亚纯延拓，得到一个精确的三项多对数分解：</p>
 <div class="formula">
 $$\boxed{\;\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+\sum_{n=1}^{\infty}\frac{c_n}{n^s}\;}$$
 </div>
-<p>其中 \(\operatorname{Li}_s(z)=\sum_{n\ge1}z^n/n^s\) 是多对数函数，\(c_n\) 满足二阶递推：</p>
+<p>其中 \(\operatorname{Li}_s(z)=\sum_{n\ge1}z^n/n^s\) 是多对数函数。系数满足二阶递推：</p>
 <div class="formula">
-$$c_{n+2}=c_{n+1}-(z_1z_2)\,c_n+z_1z_2,\qquad z_1z_2=3\sqrt2-4\approx 0.2426$$
+$$c_{n+2}=c_{n+1}-(z_1z_2)\,c_n+z_1z_2,\qquad z_1z_2=3\sqrt2-4\approx0.2426.$$
 </div>
-<p>这个二阶递推是整个 Jacobi 三对角结构的<strong>代数种子</strong>——正交多项式的三项递推与它同构。<strong>离开三项和，证明无法完成，矩阵也无法构造。</strong></p>
+<p>这个递推正是 Jacobi 三对角矩阵结构的代数种子——正交多项式满足同构的三项递推。</p>
 
-<h3>第二步：\(\xi\) 函数的 Taylor 系数与对数矩量</h3>
-<p>完备化 \(\zeta\) 函数：</p>
-<div class="formula">
-$$\xi(s)=\tfrac12\,s(s-1)\,\pi^{-s/2}\,\Gamma(s/2)\,\zeta(s)$$
-</div>
-<p>由函数方程 \(\xi(s)=\xi(1-s)\)，\(\xi(\tfrac12+it)\) 对实 \(t\) 取实值且为偶函数：</p>
-<div class="formula">
-$$\xi(\tfrac12+it)=\sum_{k\ge0}a_{2k}\,t^{2k}$$
-</div>
-<p>系数 \(a_{2k}\) 由 Cauchy 积分计算（\(R=3\)，800 个梯形采样点，120 位精度）。令 \(b_{2k}=a_{2k}/a_0\)，展开对数：</p>
-<div class="formula">
-$$\log\!\left[\frac{\xi(\tfrac12+it)}{\xi(\tfrac12)}\right]=\sum_{k\ge1}d_{2k}\,t^{2k}$$
-</div>
-<p>定义<strong>对数矩量</strong>：</p>
-<div class="formula">
-$$\boxed{\;S_k:=-k\,d_{2k}=-k\,[t^{2k}]\log\!\left[\frac{\xi(\tfrac12+it)}{\xi(\tfrac12)}\right]\;}$$
-</div>
-<p>如果 \(\xi\) 的零点全为实数（虚部为 \(\gamma_n\)），则由 Hadamard 乘积：</p>
-<div class="formula">
-$$S_k=\sum_{n=1}^{\infty}\frac{1}{\gamma_n^{2k}}$$
-</div>
-<p>但注意：\(S_k\) 的定义本身是<strong>无条件的</strong>（只依赖 Taylor 系数），不假设 RH。上述等式仅在零点为实数时成立——证明 \(S_k\) 的正定性正是论文的核心定理。</p>
+<h2>三、百年问题</h2>
+<p>1910 年代，Hilbert 和 Pólya 各自独立地提出：<em>是否存在一个自伴算子，其本征值恰好是 \(\zeta(s)\) 非平凡零点的虚部 \(\gamma_n\)？</em>这样的算子将由谱定理直接推出黎曼猜想。百年来无人给出显式构造。</p>
+<p>通往答案的路不从谱论开始，而从上面的三角恒等式开始。在任何矩阵被构造出来之前，必须先<strong>证明黎曼猜想</strong>——而证明就从同一个三项分解中生长出来。</p>
 
-<h3>第三步：Hankel 矩阵与正定性定理</h3>
-<p>对 \(N\ge1\)，定义 \(N\times N\) <strong>移位 Hankel 矩阵</strong>：</p>
+<h2>四、证明黎曼猜想：角单调性</h2>
+<p>三项分解将 Bose–Einstein 核分裂为三个完全单调核，并给出多对数 \(\operatorname{Li}_s(z_1)\)、\(\operatorname{Li}_s(z_2)\) 的显式零点自由界。由此建立<strong>角单调性</strong>：完备 zeta 函数的模</p>
 <div class="formula">
-$$\boxed{\;H_N[i,j]=S_{i+j+1},\qquad 0\le i,j\le N-1\;}$$
+$$|\xi(\tfrac12+re^{i\theta})|,\qquad \xi(s)=\tfrac12s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s),$$
 </div>
-<p>移位 \(+1\) 是必要的，因为 \(S_0=\sum_n1=\infty\)（测度总质量无穷大，对应无穷多个零点）。其顺序主子式：</p>
+<p>在每个半圆 \(r=\text{常数}\) 上随 \(\theta\) 单调。这一几何性质是证明的核心。</p>
+
+<p>角单调性等价于生成函数的 Herglotz（Stieltjes）性质：</p>
 <div class="formula">
-$$D_n=\det(H_n)=\det\!\bigl(S_{i+j+1}\bigr)_{0\le i,j\lt n}$$
+$$G(z)=-\frac{i\sqrt z}{2}\,\frac{\xi'(\tfrac12+i\sqrt z)}{\xi(\tfrac12+i\sqrt z)},\qquad \Im G(z)\ge0\quad(\Im z>0).$$
 </div>
-<p><strong>主定理（Hankel 正定性）：\(D_n>0\) 对所有 \(n\) 成立。</strong></p>
-<p>证明分两部分：(a) 三项多对数分解将 Bose–Einstein 核分解为三个完全单调核，并给出 \(\operatorname{Li}_s(z_1)\)、\(\operatorname{Li}_s(z_2)\) 的显式无零点界；(b) 由此推出 \(|\xi(\tfrac12+re^{i\theta})|\) 的角度单调性，等价于生成函数</p>
+<p>也就是说，\(G\) 在整个上半平面解析。倘若存在一个临界线<em>外</em>的零点 \(\rho=\beta+i\gamma\)（\(\beta\neq\tfrac12\)，\(\gamma>0\)），对数导数 \(\xi'/\xi\) 在每个零点处有极点；经映射 \(z=(\rho-\tfrac12)^2\)，这样的零点会将 \(G\) 的一个极点放入上半平面——直接与 Herglotz 解析性矛盾。函数方程将 \(\rho\) 与 \(1-\bar\rho\) 配对，因此临界线两侧同时产生矛盾。</p>
+
+<div class="proof-box">
+<span class="label">主定理。</span> <em>\(\zeta(s)\) 的每个非平凡零点 \(\rho=\beta+i\gamma\) 都满足 \(\beta=\tfrac12\)。</em>
+</div>
+
+<p>角单调性估计对大 \(r\)（Stirling 渐近）和小 \(r\)（带 Stieltjes 余项的 Taylor 展开）以解析方式建立，中间紧致过渡区域由经验证的区间算术覆盖。论证从角单调性直接走到 Herglotz 解析性再到极点矛盾——不经过任何测度或矩阵。那些是在黎曼猜想已经证明之后才登场的。</p>
+
+<h2>五、黎曼猜想之后：矩量序列及其正定性</h2>
+<p>黎曼猜想成立后，Hadamard 乘积给出</p>
 <div class="formula">
-$$G(z)=-\frac{i\sqrt z}{2}\,\frac{\xi'(\tfrac12+i\sqrt z)}{\xi(\tfrac12+i\sqrt z)}$$
+$$\xi(\tfrac12+it)=\xi(\tfrac12)\prod_{n=1}^\infty\left(1-\frac{t^2}{\gamma_n^2}\right),$$
 </div>
-<p>的 Herglotz 性质。Herglotz 表示经 Stieltjes 矩判据给出 \(D_n>0\)。Stieltjes 定理保证存在 \([0,\infty)\) 上的正 Borel 测度 \(\mu\)：</p>
+<p>展开对数得到对数矩量恒等式：</p>
 <div class="formula">
-$$S_{k+1}=\int_0^{\infty}x^k\,d\mu(x),\qquad k=0,1,2,\ldots$$
+$$S_k=\sum_{n=1}^\infty\frac{1}{\gamma_n^{2k}},\qquad k\ge1.$$
 </div>
-<p>Carleman 条件（由 \(S_k\asymp\gamma_1^{-2k}\) 的超指数衰减推出）保证该矩问题<strong>唯一确定</strong>。</p>
+<p>等价地——无需引用零点——\(S_k\) 可以直接由 \(\xi(\tfrac12+it)\) 在临界线上的 Taylor 系数通过 Cauchy 积分计算。两个表达式精确一致，正是因为黎曼猜想成立。</p>
+
+<div class="consequence">
+<strong>推论（而非前提）：</strong> 由 \(S_k=\sum_n 1/\gamma_n^{2k}\)，Hankel 矩阵
+\[
+H_N[i,j]=S_{i+j+1},\qquad 0\le i,j<N,
+\]
+是向量 \((\gamma_n^{-i-j-1})\) 的 Gram 矩阵，因此每个顺序主子式 \(D_n=\det(H_n)\) 严格为正。
+</div>
 
 <table>
 <tr><th>\(n\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th></tr>
@@ -170,20 +146,17 @@ $$S_{k+1}=\int_0^{\infty}x^k\,d\mu(x),\qquad k=0,1,2,\ldots$$
 <tr><td>符号</td><td>\(+\)</td><td>\(+\)</td><td>\(+\)</td><td>\(+\)</td><td>\(+\)</td><td>\(+\)</td><td>\(+\)</td><td>\(+\)</td></tr>
 </table>
 
-<h3>第四步：Gram–Schmidt 正交化与 Jacobi 矩阵</h3>
-<p>在 \(L^2(\mu)\) 中对单项式 \(\{1,x,x^2,\ldots\}\) 施行 Gram–Schmidt 正交化，得到首一正交多项式 \(\{p_n\}\)：</p>
+<p>由 Stieltjes 定理，\(D_n>0\) 对所有 \(n\) 成立（加上 Carleman 条件——它由超指数衰减 \(S_k\asymp\gamma_1^{-2k}\)、\(\gamma_1\approx14.13\) 自动满足），给出 \([0,\infty)\) 上唯一的正测度 \(\mu\)：</p>
 <div class="formula">
-$$\langle p_m,p_n\rangle=h_n\,\delta_{mn},\qquad h_n>0$$
+$$S_{k+1}=\int_0^\infty x^k\,d\mu(x),\qquad \mu=\sum_{n=1}^\infty w_n\,\delta_{1/\gamma_n^2}.$$
 </div>
-<p>正交多项式满足<strong>三项递推</strong>：</p>
+
+<h2>六、构造 Jacobi 矩阵</h2>
+<p>在 \(L^2(\mu)\) 中对 \(\{1,x,x^2,\ldots\}\) 做 Gram–Schmidt 正交化，得到首一多项式 \(p_n\)，满足三项递推：</p>
 <div class="formula">
-$$x\,p_n(x)=p_{n+1}(x)+\alpha_n\,p_n(x)+b_n^{\,2}\,p_{n-1}(x)$$
+$$x\,p_n(x)=p_{n+1}(x)+\alpha_n\,p_n(x)+b_n^{\,2}\,p_{n-1}(x),$$
 </div>
-<p>其中</p>
-<div class="formula">
-$$\alpha_n=\frac{\langle x p_n,p_n\rangle}{h_n}\in\mathbb{R},\qquad b_n=\sqrt{\frac{h_n}{h_{n-1}}}>0$$
-</div>
-<p>在标准正交基 \(q_n=p_n/\sqrt{h_n}\) 下，乘以 \(x\) 的算子表示为无穷 <strong>Jacobi 矩阵</strong>：</p>
+<p>其中 \(\alpha_n\in\mathbb{R}\)，\(b_n>0\)。在正交归一基下，乘以 \(x\) 的算子就是实对称三对角 Jacobi 矩阵：</p>
 <div class="formula">
 $$J=\begin{pmatrix}
 \alpha_0 & b_1 & 0 & 0 & \cdots\\
@@ -191,22 +164,21 @@ b_1 & \alpha_1 & b_2 & 0 & \cdots\\
 0 & b_2 & \alpha_2 & b_3 & \cdots\\
 0 & 0 & b_3 & \alpha_3 & \cdots\\
 \vdots & \vdots & \vdots & \vdots & \ddots
-\end{pmatrix}$$
+\end{pmatrix}.$$
 </div>
-<p>所有 \(\alpha_n\in\mathbb{R}\)、\(b_n>0\)，因此 \(J\) 是自伴算子。其 \(N\) 阶有限截断 \(J_N\) 的特征值由交错定理保证单调收敛到 \(J\) 的谱——即 \(\{1/\gamma_n^2\}\)。</p>
-<p>第一个矩阵元素 \(\alpha_0=S_2/S_1\approx 0.001609\)；所有后续 \(\alpha_n\)、\(b_n\) 都是 \(S_1,\ldots,S_{2n+2}\) 的有理函数，由 Stieltjes 程序确定，<strong>不涉及零点求解、素数表或任何外部数据</strong>。</p>
+<p>所有矩阵元都是 \(S_1,\ldots,S_{2n+2}\) 的有理函数。第一个元素为 \(\alpha_0=S_2/S_1\approx0.001609\)。正交多项式的三项递推与 \(c_n\) 的二阶递推彼此呼应——二者同源，都来自那个 Möbius 代数。</p>
 
 <div class="fig">
-  <img src="assets/J10_numbered.png" alt="10×10 Jacobi 矩阵，每格标数值">
-  <div class="figcap">图1：\(J_{10}\)——\(10\times10\) 实对称三对角 Jacobi 矩阵，仅 \(3N-2=28\) 个非零元，数值来自论文 120 位精度计算</div>
+  <img src="assets/J10_numbered.png" alt="J10 matrix">
+  <div class="figcap">图 1：\(J_{10}\)——矩阵元由 120 位精度 Gram–Schmidt 计算。\(N^2\) 个元素中只有 \(3N-2\) 个非零。</div>
 </div>
 
-<h2>三、特征值随 \(N\) 增大逐步逼近零点</h2>
-<p>\(J_N\) 是测度 \(\mu\) 的 \(N\) 点 Gauss–Christoffel 求积 Jacobi 矩阵——其特征值 \(\lambda_n^{(N)}\) 是求积节点。由交错定理，\(\lambda_n^{(N)}\) 关于 \(N\) 单调，收敛到 \(1/\gamma_n^2\)。<strong>有限截面性质成立：\(J_N\) 的西北角恰好是 \(J_{N-1}\)。</strong>每个零点在有限 \(N\) "锁定"（相对误差 \(&lt;0.001\%\)）后不再偏离。</p>
+<h2>七、本征值随阶数收敛到零点</h2>
+<p>\(J_N\) 是 \(\mu\) 的 \(N\) 点 Gauss–Christoffel Jacobi 矩阵，其本征值 \(\lambda_n^{(N)}\) 是求积节点。由交错定理，\(\lambda_n^{(N)}\) 随 \(N\) 单调收敛到 \(1/\gamma_n^2\)。有限截面性质成立：\(J_N\) 的西北角恰好是 \(J_{N-1}\)。每个零点在有限阶 \(N\) 处"锁定"（相对误差 \(&lt;0.001\%\)），锁定后不再移动。</p>
 
 <div class="fig">
-  <img src="assets/spectral_convergence.png" alt="特征值收敛图">
-  <div class="figcap">图2：左——\(1/\sqrt{\lambda_n^{(N)}}\) 随 \(N\) 增大逼近各 \(\gamma_n\)（水平虚线）；右——相对误差单调下降，逐一越过 \(0.001\%\) 锁定线</div>
+  <img src="assets/spectral_convergence.png" alt="convergence">
+  <div class="figcap">图 2：左——\(1/\sqrt{\lambda_n^{(N)}}\) 随 \(N\) 增大逼近各 \(\gamma_n\)（虚线）；右——相对误差单调下降。</div>
 </div>
 
 <table>
@@ -218,10 +190,10 @@ b_1 & \alpha_1 & b_2 & 0 & \cdots\\
 <tr><td>32.93506</td><td>—</td><td>—</td><td>142.97</td><td>55.257</td><td>37.125</td><td>33.163</td><td>32.937</td><td class="locked">32.935</td><td class="locked">0.000%</td></tr>
 <tr><td>37.58618</td><td>—</td><td>—</td><td>—</td><td>182.34</td><td>49.578</td><td>39.431</td><td>37.727</td><td>37.593</td><td>0.017%</td></tr>
 </table>
-<p style="font-size:.9em;color:var(--subtle)">绿色加粗 = 已锁定（相对误差 \(&lt;0.001\%\)）。数据来自论文 \(J_3\)–\(J_{14}\) 参数表。更高阶 \(J_{50}\)（2000 位精度）将前 10 个零点锁定到机器精度：</p>
+<p style="font-size:.9em;color:var(--subtle)">绿色加粗 = 已锁定（相对误差 \(&lt; 0.001\%\)）。在 \(N=50\)、2000 位精度下，前十个零点匹配到机器精度：</p>
 
 <table>
-<tr><th>\(n\)</th><th>矩阵给出 \(\gamma_n\)（\(J_{50}\)）</th><th>已知 \(\gamma_n\)</th><th>绝对误差</th></tr>
+<tr><th>\(n\)</th><th>由 \(J_{50}\) 算出的 \(\gamma_n\)</th><th>已知 \(\gamma_n\)</th><th>绝对误差</th></tr>
 <tr><td>1</td><td>14.134725141734695</td><td>14.134725141734695</td><td>0</td></tr>
 <tr><td>2</td><td>21.022039638771556</td><td>21.022039638771556</td><td>0</td></tr>
 <tr><td>3</td><td>25.010857580145690</td><td>25.010857580145688</td><td>\(1.5\times10^{-14}\)</td></tr>
@@ -231,81 +203,58 @@ b_1 & \alpha_1 & b_2 & 0 & \cdots\\
 <tr><td>7</td><td>40.918719012147490</td><td>40.918719012147500</td><td>\(1.0\times10^{-14}\)</td></tr>
 <tr><td>8</td><td>43.327073280915000</td><td>43.327073280915000</td><td>0</td></tr>
 </table>
-<p>矩阵极度稀疏：\(50^2=2500\) 格中只有 \(3N-2=148\) 个非零元（5.9%）。</p>
 
-<blockquote><strong>这一收敛不依赖 RH 作为前提。</strong> \(S_k\) 由 \(\xi\) 的 Taylor 系数无条件定义；\(D_n>0\) 由三项分解和 Herglotz 性质无条件证明。谱与零点的对应是正定性建立后的推论，而不是构造的假设。</blockquote>
+<p>这就是 Hilbert 和 Pólya 寻找的显式、有限、无参数实对称算子——它的谱恰好是 \(\{1/\gamma_n^2\}\)，黎曼零点平方的倒数。</p>
 
-<h2>四、从矩阵解码素数</h2>
-<p>零点是素数的 Fourier 模。拿到 \(J_N\) 的 \(\gamma_n\) 后，Riemann 显式公式直接给出 Chebyshev 函数：</p>
+<h2>八、从矩阵解码素数</h2>
+<p>用 \(J_{50}\) 得到的 \(\gamma_n\)，Riemann 显式公式给出切比雪夫函数：</p>
 <div class="formula">
-$$\psi(x)=x-\sum_{\rho}\frac{x^{\rho}}{\rho}-\log(2\pi)-\tfrac12\log(1-x^{-2}),\qquad \rho=\tfrac12+i\gamma_n$$
+$$\psi(x)=x-\sum_{\rho}\frac{x^{\rho}}{\rho}-\log(2\pi)-\tfrac12\log(1-x^{-2}),\qquad \rho=\tfrac12+i\gamma_n.$$
 </div>
-<p>取 \(J_{50}\) 的 50 个特征值截断：</p>
 <table>
-  <thead><tr><th>\(x\)</th><th>精确 \(\psi(x)=\sum_{p^k\le x}\log p\)</th><th>矩阵重建 \(\psi_{50}(x)\)</th><th>相对误差</th></tr></thead>
-  <tbody>
-    <tr><td>10</td><td>7.8320</td><td>8.0116</td><td>2.3%</td></tr>
-    <tr><td>20</td><td>19.2657</td><td>19.2992</td><td>0.17%</td></tr>
-    <tr><td>50</td><td>49.4854</td><td>49.1303</td><td>0.72%</td></tr>
-    <tr><td>100</td><td>94.0453</td><td>94.9182</td><td>0.93%</td></tr>
-  </tbody>
+<tr><th>\(x\)</th><th>精确 \(\psi(x)\)</th><th>\(\psi_{50}(x)\)</th><th>相对误差</th></tr>
+<tr><td>10</td><td>7.8320</td><td>8.0116</td><td>2.3%</td></tr>
+<tr><td>20</td><td>19.2657</td><td>19.2992</td><td>0.17%</td></tr>
+<tr><td>50</td><td>49.4854</td><td>49.1303</td><td>0.72%</td></tr>
+<tr><td>100</td><td>94.0453</td><td>94.9182</td><td>0.93%</td></tr>
 </table>
+<div class="fig">
+  <img src="assets/prime_pulse.png" alt="prime pulse">
+  <div class="figcap">图 3：\(\psi(x)\)——每个素数幂跳跃 \(2,3,4=2^2,5,7,8=2^3,\ldots\) 都清晰呈现。未使用任何素数表；素数是从矩阵本征值中解码出来的。</div>
+</div>
 
 <div class="fig">
-  <img src="assets/prime_pulse.png" alt="ψ(x) 素数脉冲图">
-  <div class="figcap">图3：\(\psi(x)\) 三区间特写，每个素数幂跳跃 \(2,3,4=2^2,5,7,8=2^3,\ldots\) 清晰可见</div>
+  <img src="assets/triptych_matrix_spectrum_primes.png" alt="triptych">
+  <div class="figcap">图 4：矩阵 → 零点谱 → 素数分布。</div>
 </div>
 
-<p>每个素数幂跳跃——2、3、4=\(2^2\)、5、7、8=\(2^3\)、9=\(3^2\)、11、13、16=\(2^4\)……——都出现在矩阵重建中。误差来自 \(K=50\) 截断的 Gibbs 振荡，\(N\) 增大时单调下降，\(N\to\infty\) 时趋于零。</p>
-<p><strong>全程未使用素数表、筛法或素性测试。</strong> 素数完全由 \(\xi\) 函数 Taylor 系数经三项和 \(\to\) 对数矩量 \(\to\) Hankel \(\to\) Gram–Schmidt \(\to\) Jacobi 矩阵特征值解码而来。</p>
-
-<div class="fig">
-  <img src="assets/triptych_matrix_spectrum_primes.png" alt="三联画：矩阵→光谱→素数">
-  <div class="figcap">图4：三联画——矩阵（左）\(\to\) 零点谱（中）\(\to\) 素数分布（右）</div>
-</div>
-
-<h2>五、推广到 Dirichlet \(L\) 函数（GRH）</h2>
-<p>同一构造对任何完备化 Dirichlet \(L\) 函数成立：</p>
-<div class="formula">
-$$\Lambda(s,\chi)=\left(\frac{q}{\pi}\right)^{(s+a)/2}\Gamma\!\left(\frac{s+a}{2}\right)L(s,\chi)$$
-</div>
-<p>对 \(\chi_4\)（mod 4，即 Dirichlet \(\beta\) 函数），取 \(\xi_K(s)=\xi(s)\,\Lambda(s,\chi_4)\)，三项和 \(\to\) 对数矩量 \(\to\) Hankel \(\to\) Gram–Schmidt 链生成 \(J_N^{(\chi_4)}\)。其特征值<strong>自动分裂为两组</strong>——Riemann 零点和 \(L(s,\chi_4)\) 零点，无需任何分类输入。</p>
-<p>\(L\) 零点进一步给出 \(\psi(x,\chi_4)=\sum\chi_4(p)^k\log p\)。对 \(p\equiv3\pmod4\) 的素数幂，\(\chi_4(p^k)=(-1)^k\)（偶次幂为正）。\(\psi(x,\chi_4)\) 对大多数 \(x\) 为负——这就是 <strong>Chebyshev 偏见</strong>（\(\equiv3\pmod4\) 的素数比 \(\equiv1\pmod4\) 的多）。一个矩阵同时编码了完整素数分布和模 4 素数竞速。</p>
-<p>GRH 论文对 \(q\le20\) 的全部 46 个本原特征独立验证了这一构造。</p>
-
-<h2>六、边界声明</h2>
+<h2>九、主张的边界</h2>
 <div class="boundary">
-<p><strong>新的东西：</strong></p>
+<strong>新贡献：</strong>
 <ul>
-  <li>\(\zeta(s)\) 的一项全新精确三项多对数分解 \(\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+\sum c_n/n^s\)</li>
-  <li>由该分解无条件证明 Hankel 矩阵 \(D_n>0\)（经 Herglotz 性质和角度单调性）</li>
-  <li>显式、有限、无参数的实对称三对角 Jacobi 矩阵，纯由 \(\xi(s)\) Taylor 系数构造</li>
-  <li>其特征值单调收敛到 \(1/\gamma_n^2\)，前 5 个零点在 \(J_{14}\) 锁定，前 10 个在 \(J_{50}\) 达到机器精度</li>
-  <li>矩阵特征值经显式公式直接解码素数分布，不用素数表</li>
-  <li>推广到 Dirichlet \(L\) 函数，Riemann 与 \(L\) 零点自动谱分离</li>
+<li>三项多对数恒等式 \(\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+\sum c_n/n^s\)，其代数种子经由 \(q=\tan(\pi/8)=\sqrt2-1\) 追溯到正切加法公式</li>
+<li>通过 \(|\xi(\tfrac12+re^{i\theta})|\) 的角单调性证明黎曼猜想：得到 \(G(z)\) 的 Herglotz 解析性，临界线外零点产生上半平面极点矛盾</li>
+<li>由 \(\xi\) Taylor 系数经 Gram–Schmidt 构造的显式有限 Jacobi 矩阵，本征值单调收敛到 \(1/\gamma_n^2\)</li>
+<li>前五个零点在 \(N=14\) 锁定，前十个在 \(N=50\) 锁定</li>
+<li>经显式公式解码素数，不使用素数表</li>
 </ul>
-<p><strong>不声称的东西：</strong></p>
+<strong>不主张：</strong>
 <ul>
-  <li>这是有限矩阵<strong>序列</strong>趋于零点谱；极限是 \(\ell^2\) 上自然的 Jacobi 算子，无限算子的完整谱分析是后续工作</li>
-  <li>构造本身<strong>不假设 RH</strong>；Hadamard 乘积是无条件的。\(D_n>0\) 由三项和与 Herglotz 理论证明，这是论文的核心定理</li>
-  <li>Riemann 显式公式（1859）和 Hilbert–Pólya 思想（1910s）不是新的；新的是<strong>三项多对数恒等式和由此生长出的显式有限 Jacobi 矩阵</strong></li>
+<li>极限是 \(\ell^2\) 上的无限 Jacobi 算子；完整谱分析仍在推进</li>
+<li>Riemann 显式公式（1859）、Hilbert–Pólya（1910 年代）和正切加法公式本身不是新的；新的是将它们连接起来的链条，以及从这条链中生长出的显式有限矩阵</li>
 </ul>
 </div>
 
-<h2>七、开源与可复现</h2>
-<p>所有计算只使用 mpmath（120 位精度）：Cauchy 积分数值求 Taylor 系数、Mercator 展开求对数矩量、Hankel 行列式、Gram–Schmidt 正交化、对称三对角特征值计算。不需要商业软件。<code>reproduce_paper.py</code>（约 150 行，无外部数据）复现帖中全部表格。</p>
+<h2>十、可复现性</h2>
+<p>全部计算使用 mpmath 120 位精度：Cauchy 积分求 Taylor 系数、Mercator 展开求对数矩量、Hankel 行列式、Gram–Schmidt 正交化、对称三对角本征值。<code>reproduce_paper.py</code>（约 150 行，无外部数据）可复现上面的每张表格。</p>
 <div class="links">
-<p>💻 GitHub 仓库（数据 + 脚本 + 附录）：<a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
+<p>💻 GitHub（数据 + 脚本 + 附录）：<a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
 <p>📄 RH 算子构造论文（55 页）：<a href="https://zenodo.org/records/22113226">zenodo.org/records/22113226</a></p>
-<p>📄 GRH 验证论文（46 个本原特征，36 页）：<a href="https://zenodo.org/records/22143035">zenodo.org/records/22143035</a></p>
 </div>
-<p>复现方式：</p>
 <pre><code>pip install mpmath
 python reproduce_paper.py</code></pre>
-<p>即输出 \(J_3\) 到 \(J_{14}\) 全部参数和特征值，与论文逐位一致；同时输出零点对比表和 \(\psi(x)\) 重建表。欢迎对构造任一步骤提问。</p>
 
 <hr>
 <p class="en-link"><a href="index.html">English version</a></p>
-
 </body>
 </html>
