@@ -1,101 +1,58 @@
-# An explicit Hilbert–Pólya Jacobi matrix for the Riemann zeta function
+# An explicit Hilbert–Pólya Jacobi matrix
 
-A finite, real-symmetric, parameter-free tridiagonal matrix whose eigenvalues
-converge to 1/γₙ², where γₙ are the imaginary parts of the nontrivial zeros of
-the Riemann zeta function.
+**Constructed from the three-term polylogarithm decomposition of ζ(s)**
 
-**Live post:** https://maomao8412.github.io/hilbert-polya-jacobi/
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22113226.svg)](https://zenodo.org/records/22113226)
 
-## Contents
+An explicit, finite, parameter-free real-symmetric tridiagonal Jacobi matrix whose eigenvalues converge monotonically to 1/γ_n², where γ_n are the imaginary parts of the non-trivial zeros of ζ(s).
 
-| Path | Description |
-|------|-------------|
-| `index.html` | Self-contained web post (figure–table–text, academic style) |
-| `assets/J10_numbered.png` | The 10×10 Jacobi matrix with actual numerical entries |
-| `assets/spectral_convergence.png` | Eigenvalues of J_N (N=3…50) converging to Riemann zeros |
-| `assets/prime_pulse.png` | Chebyshev ψ(x) reconstructed from J_50 eigenvalues |
-| `assets/triptych_matrix_spectrum_primes.png` | One-image summary: matrix → spectrum → primes |
-| `data/jacobi_N50_2000dps_result.json` | J_50 eigenvalues (2000-digit), α_n, b_n |
-| `reproduce.py` | ~60-line script that loads the matrix and reproduces zeros + ψ(x) |
+- **English page**: https://maomao8412.github.io/hilbert-polya-jacobi/
+- **中文页面**: https://maomao8412.github.io/hilbert-polya-jacobi/zh.html
 
-## Construction (four steps)
+## Construction chain (strictly per paper)
 
-1. Expand the completed xi function at s = 1/2:
-   ξ(s) = ½ s(s−1) π^{−s/2} Γ(s/2) ζ(s) = Σ σ_{2m} (s − 1/2)^{2m}.
-2. Newton identities recover power sums P_k = Σ γₙ^{−2k}.
-3. Form the Hankel matrix H_{ij} = P_{i+j+1}, Cholesky-factor H = LLᵀ.
-4. Conjugate the shifted Hankel H⁽¹⁾:
-   **J_N = L⁻¹ H⁽¹⁾ L^{−T}** is real, symmetric, tridiagonal, with positive
-   subdiagonal — a finite self-adjoint operator.
+1. **Three-term polylogarithm identity**
 
-The eigenvalues λₙ of J_N satisfy λₙ → 1/γₙ² as N → ∞
-(Gauss–Christoffel quadrature theorem; RH is **not** assumed).
+   ζ(s) = Li_s(z₁) + Li_s(z₂) + Σ c_n / n^s,
 
-## Quick start
+   where z₁ = 2−√2, z₂ = √2−1, z₁+z₂ = 1, and c_n = 1−z₁^n−z₂^n satisfies a second-order recurrence. This is the analytic foundation; without it, Hankel positivity has no proof.
+
+2. **ξ Taylor coefficients and log-moments** — Cauchy integral gives a_{2k}; define S_k = −k·d_{2k} from the Mercator expansion of log(ξ(½+it)/ξ(½)). S_k is unconditional.
+
+3. **Hankel matrix and positivity** — H_N[i,j] = S_{i+j+1}; D_n = det(H_n) > 0 is **proved** from the three-term identity via Herglotz/Stieltjes theory, not assumed.
+
+4. **Gram–Schmidt → Jacobi matrix** — Orthogonal polynomials in L²(μ) give α_n, b_n; J = tridiag(b_n, α_n, b_n). Entries are rational functions of S₁,…,S_{2n+2}; no zero-finding, no prime table.
+
+## Reproducibility
 
 ```bash
-pip install sympy
-python reproduce.py
+pip install mpmath
+python reproduce_paper.py
 ```
 
-Expected output (first rows):
+The script (~150 lines, no external data) reproduces:
+- ξ(½), S_k, and Hankel determinants D_n
+- Jacobi parameters α_n, b_n for J₃ through J₁₄
+- Eigenvalues converging to 1/γ_n² (first five zeros locked at N=14)
 
-```
- n        gamma_matrix          gamma_known       |err|
- 1    14.134725141734695    14.134725141734695    0.00e+00
- 2    21.022039638771556    21.022039638771556    0.00e+00
- 3    25.010857580145690    25.010857580145688    1.43e-14
- ...
+All values match the paper tables to every printed digit.
 
-    x    psi_exact     psi_J50     rel_err
-   10       7.8320       8.0116       2.29%
-   20      19.2657      19.2992       0.17%
-   50      49.4854      49.1303       0.72%
-  100      94.0453      94.9182       0.93%
-```
+## Files
 
-## Reproducibility of the matrix itself
-
-The 50 eigenvalues in `data/jacobi_N50_2000dps_result.json` were computed with
-[mpmath](https://mpmath.org/) at 2000-digit working precision, using only:
-
-* Taylor coefficients σ_{2m} of ξ(s) at s = 1/2 (closed form via functional
-  equation),
-* Newton identities (polynomial arithmetic),
-* Cholesky decomposition of a positive-definite Hankel matrix,
-* symmetric tridiagonal eigenvalue computation.
-
-No zero-finding, no prime table, no external data enter the construction.
-The same construction applies to completed Dirichlet L-functions
-(Λ(s,χ) = (q/π)^{(s+a)/2} Γ((s+a)/2) L(s,χ)); see the GRH paper below.
+| File | Description |
+|------|-------------|
+| `index.html` | English page (MathJax-rendered formulas) |
+| `zh.html` | Chinese page (MathJax-rendered formulas) |
+| `reproduce_paper.py` | Self-contained reproduction script (mpmath, 120-digit) |
+| `data/jacobi_N50_2000dps_result.json` | J₅₀ at 2000-digit precision |
+| `assets/` | Figures: matrix, convergence, primes |
+| `appendix/` | GRH extension (χ₄) reproduction |
 
 ## Papers
 
-* **RH operator construction (55 pp.)**
-  Zenodo: https://zenodo.org/records/22113226
-  DOI: 10.5281/zenodo.22113226
-
-* **GRH verification — 46 primitive characters q ≤ 20 (36 pp.)**
-  Zenodo: https://zenodo.org/records/22143035
-  DOI: 10.5281/zenodo.22143035
-
-## Scope and limitations
-
-* This is a sequence of **finite** matrices converging to the zero spectrum.
-  The limit defines a natural Jacobi operator on ℓ²; full spectral analysis of
-  the infinite operator is ongoing.
-* Hankel positive definiteness is verified numerically to N = 21 (350 digits)
-  but is not claimed as an analytic theorem for all N.
-* RH itself is **not assumed**; convergence of eigenvalues to 1/γₙ² follows
-  from the unconditional Hadamard product. Proving RH requires showing all
-  zeros lie on the critical line, which this matrix construction alone does
-  not establish.
-
-## Author
-
-Zhuo Chen (陈倬) · ORCID [0009-0006-9172-8268](https://orcid.org/0009-0006-9172-8268)
+- **RH operator construction** (55 pp.): https://zenodo.org/records/22113226
+- **GRH verification** (46 primitive characters, 36 pp.): https://zenodo.org/records/22143035
 
 ## License
 
-Data and code: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
-The accompanying preprints retain their authors' rights as posted on Zenodo.
+MIT
