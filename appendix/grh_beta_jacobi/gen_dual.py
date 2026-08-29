@@ -34,7 +34,7 @@ ZETA_Y, BETA_Y = 38, 112
 def xof(g): return X0 + (g / GAMMA_MAX) * (X1 - X0)
 GOLD, TEAL = '#b8860b', '#0a5c23'
 
-parts = [f'<svg id="dual-rail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+parts = [f'<svg id="dual-rail" class="zoomable" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
          'style="width:100%;min-width:760px;max-width:940px;height:auto;background:#fff;'
          'border:1px solid #e0e0e0;border-radius:6px;display:block;margin:.6em auto;overflow:visible">']
 parts.append(f'<line x1="{X0}" y1="{AXIS_Y}" x2="{X1}" y2="{AXIS_Y}" stroke="#999" stroke-width="1"/>')
