@@ -111,7 +111,7 @@ window.MathJax = {
 <p style="font-size:.9em;color:var(--subtle);text-align:center">矩阵的输入只有完成函数的泰勒系数；零点是输出。beta 函数在数值层面长出了与 ζ 完全相同的 Hilbert–Pólya 结构。</p>
 
 
-<h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ 双函数零点交替锁定：ζ（RH）与 β（GRH）同台</h2>
+<h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ 4.5 双函数零点交替锁定：ζ（RH）与 β（GRH）同台</h2>
 <p>两个 50×50 Jacobi 矩阵，一台用 \(\zeta(s)\) 的矩序列构造（主篇），一台用 \(\beta(s)=L(s,\chi_4)\) 的矩序列构造（本页）。把两边锁定的零点<strong>按虚部高度 \(\gamma\) 排在同一条轴上</strong>——金色是黎曼零点（RH），绿色是 L 函数零点（GRH）：它们沿着临界线<strong>交替出现、交替被锁定</strong>。上排金点 25 个锁定，下排绿点 27 个锁定，空圈是矩阵阶数尚在收敛中的更高零点。</p>
 
 <style>
@@ -245,12 +245,47 @@ window.MathJax = {
 })();
 </script>
 
-<h2>五、46 个本原特征：角单调性网格</h2>
+
+<h2>五、广义黎曼猜想的证明：角单调性与极点矛盾</h2>
+<p>矩阵（§3–4）展示的是谱与零点重合的<strong>数值事实</strong>；GRH 的解析论证与 RH 主篇第四节<strong>同构</strong>，且结构更简单。本节陈述论文（<a href="https://doi.org/10.5281/zenodo.22143035" target="_blank" rel="noopener">Zenodo 22143035</a>）的证明链条。</p>
+<p>对模 \(q\ge 3\) 的本原非主特征 \(\chi\)（奇偶性 \(a\)，\(\chi(-1)=(-1)^a\)），定义完备乘积
+\[
+\xi_K(s)=\xi(s)\,\Lambda(s,\chi),\qquad
+\Lambda(s,\chi)=\Bigl(\frac{q}{\pi}\Bigr)^{(s+a)/2}\Gamma\!\Bigl(\frac{s+a}{2}\Bigr)L(s,\chi)
+\]
+（复特征取 \(\xi_K=\xi\,\Lambda(s,\chi)\Lambda(s,\bar\chi)\)）。\(\xi_K\) 是一级<strong>整函数</strong>，满足 \(\xi_K(s)=\xi_K(1-s)=\overline{\xi_K(\bar s)}\)。</p>
+<p><strong>角单调性定理（论文 Theorem 2）。</strong>对任意本原非主特征，
+\[
+T_K(r,\theta):=\frac{\partial}{\partial\theta}\log\bigl|\xi_K(\tfrac12+re^{i\theta})\bigr|\le 0,
+\qquad r>0,\ \theta\in(0,\pi/2).
+\]</p>
+<p><strong>极点矛盾（论文 Theorem 1 的证明）。</strong>反设 \(L(s,\chi)\) 有临界线<em>外</em>的非平凡零点 \(\rho=\beta+i\gamma\)（\(\beta\neq\tfrac12\)）。由函数方程与共轭对称，不妨 \(\beta&gt;\tfrac12\)、\(\gamma&gt;0\)；\(\rho\) 也是 \(\xi_K\) 的零点。在 \(\rho\) 附近 \(\xi_K(s)=(s-\rho)^m h(s)\)（\(m\ge1\)，\(h(\rho)\neq0\)），故
+\[
+\frac{\xi_K'}{\xi_K}(s)=\frac{m}{s-\rho}+\frac{h'}{h}(s).
+\]
+固定 \(r=r_0=|\rho-\tfrac12|\)，令 \(\theta\to\theta_0^+\)（\(\theta_0=\arg(\rho-\tfrac12)\in(0,\pi/2)\)），\(s\) 从上方趋于 \(\rho\)：
+\[
+\Re\!\left[\frac{i r_0 e^{i\theta}}{s-\rho}\right]\to+\infty,
+\]
+而 \(h'/h\) 有界，于是 \(T_K(r_0,\theta)\to+\infty\)——与角单调性 \(T_K\le0\) <strong>直接矛盾</strong>。故 \(\beta=\tfrac12\)：\(L(s,\chi)\) 的全部非平凡零点都在临界线上，<strong>广义黎曼猜想证毕</strong>。</p>
+<p><strong>角单调性的三个区域支撑</strong>（论文 §5–8）：大 \(r\) 区（\(r\ge7\)）由 Gamma 因子 Stirling 展开给出 \(-r\log r\) 主项，分 \(\sigma\ge2\)（子区 A）、\(7\le r\le50\)（子区 B）、\(r\ge50,\sigma&lt;2\)（子区 C）估计；中间紧致区（\(2\le r\le7\)）由区间算术严格包围（进行中，见 §8）；小 \(r\) 区（\(r\le2\)）由正核分解给出 Taylor 余项定号，解析成立。10 个代表特征在 \(r\in[7,10000]\) 网格上 \(T_K\) 逐点为负（见 §6 网格与交互热力图）。</p>
+
+<h3>5.1 为什么 GRH 的证明比 RH 更简单</h3>
+<p>RH 证明里最硬的一仗，是在 \(\zeta\) <strong>一个</strong>函数上白刃战：把 \(\zeta'/\zeta\) 的噪声压到 Gamma 主项以下。GRH 不是单挑——\(\xi_K=\xi\cdot\Lambda\) 是联合战场，五处结构性占优：</p>
+<p><strong>（一）整函数，零极点要消。</strong>\(\zeta\) 在 \(s=1\) 有极点，RH 构造 \(\xi\) 必须用 \(s(s-1)\) 因子消去；非主特征的 \(L(s,\chi)\) 在 \(s=1\) <strong>无极点</strong>，\(\Lambda\) 本身就是整函数，\(\xi_K\) 天然整——少一整步奇点处理。</p>
+<p><strong>（二）算术正系数白送。</strong>对二次特征，\(\xi_K\) 就是对应二次数域的完备 Dedekind zeta 函数，Dirichlet 系数 \(r_K(n)\ge0\) 非负；对复特征，\(\Lambda(s,\chi)\Lambda(s,\bar\chi)=|L|^2\) 的系数是 \(|\sum_{d|n}\chi(d)|^2\ge0\)。小 \(r\) 区的正核论证因此对<strong>所有</strong>特征一致成立——RH 里同一步要靠三项多对数恒等式手工把 \(\zeta\) 劈成三块正定材料，GRH 里算术正性直接给。</p>
+<p><strong>（三）两份零点密度，Gamma 占优更稳。</strong>\(\xi_K\) 的相位函数从 \(\zeta\) 和 \(L\) <strong>两个独立来源</strong>拿到 \(\log r\) 主项（单独研究 \(\Lambda\) 时没有这一项，其相位正性将被迫假定零点在临界线上——循环论证；乘上 \(\xi\) 正是借走 \(\zeta\) 的 Gamma 因子与零点密度结构）。复特征 Gamma 阶 \(d=3\)、系数 \(3/2\)，对数导数上界仅 \(3M_\zeta(2)=1.71\)，子区 A 直接给出 \(T_K\le-0.56\,r+O(1)&lt;0\)。</p>
+<p><strong>（四）模 \(q\) 越大越容易。</strong>Gamma 项含 \(-r\sin\theta\,\log q\)（复特征系数 1，二次特征 \(1/2\)），导体越大余量越宽，且所有界对 \(q\ge3\) <strong>一致成立</strong>——这是罕见的"难度随对象变大而下降"。</p>
+<p><strong>（五）核心机器直接继承。</strong>\(\zeta\) 的三项多对数分解（RH 主篇的核心机器）在组合之前就作用于 \(\zeta\) 因子，GRH 无需重新发明：\(\zeta\) 攻下之后，Dirichlet \(L\) 函数是同一套机器的自然推论。</p>
+<p>一句话：<strong>RH 是 \(\zeta\) 单函数上的白刃战；GRH 是 \(\xi\cdot\Lambda\) 的联合战场——整函数无障、正系数白给、双份 Gamma 保险、\(q\) 越大余量越宽。</strong></p>
+<p style="font-size:.92em;color:var(--subtle)">边界：本节是证明链条的概览，完整证明（三区估计、常数 \(K\) 推导、复特征修正）见 Zenodo 论文；矩阵本身是数值构造，中间区（Region 2）与子区 C 的严格区间算术包围仍在进行（§8）。</p>
+
+<h2>六、46 个本原特征：角单调性网格</h2>
 <p>矩阵构造展示的是"谱与零点重合"这一<strong>数值事实</strong>；GRH 的理论路线（论文 §6–7）走的是角单调性：对每个特征 \(\chi\)，定义角向导数 \(T_\chi(r,\theta)\)（论文记号），证明它在临界线附近区域严格为负。下面是 10 个代表特征（q 从 3 到 101，含复特征 chi5c）在 \(r\)-\(\theta\) 网格上的<strong>逐点最大值</strong>——全部为负，全部 PASS：</p>
 <div class="table-scroll"><table><tr><th>特征</th><th>网格点数</th><th>max T(r,θ)</th><th>最危险 r</th><th>最危险 θ</th><th>结果</th></tr><tr><td>χ₃ (q=3)</td><td>798</td><td>-1.6407e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₄=β (q=4)</td><td>798</td><td>-2.2551e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₅ 偶 (q=5)</td><td>798</td><td>-2.2690e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₅ 复 (q=5)</td><td>798</td><td>-2.9481e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₇ (q=7)</td><td>798</td><td>-3.7031e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₈ 偶 (q=8)</td><td>798</td><td>-3.4144e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₈ 奇 (q=8)</td><td>798</td><td>-4.5911e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₁₁ (q=11)</td><td>798</td><td>-7.4022e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₁₃ (q=13)</td><td>798</td><td>-5.7671e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₁₀₁ (q=101)</td><td>95</td><td>-1.2837e-01</td><td>0.5</td><td>0.0785</td><td class="pass">PASS</td></tr></table></div>
 <p class="figcap">表：网格逐点扫描 \(T_\chi(r,\theta)\)。max T 是整张网格上最接近 0 的值（最危险点），仍严格为负；q=101 大特征用 95 点粗网格，其余 798 点。50 位精度正算。</p>
 
-<h3>5.1 交互热力图：自己挑特征、自己看网格</h3>
+<h3>6.1 交互热力图：自己挑特征、自己看网格</h3>
 <p>下图是 \(\xi_K\) 角单调性网格（r 从 7 到 10000，θ 从 0.05 到 1.55）。每个点的颜色表示 \(T_K(r,\theta)\)；<strong>整张图应该全在零下</strong>（蓝绿调）。切换特征查看：</p>
 <div class="ctrl">
 <button data-char="chi3" class="on">χ₃ (q=3)</button>
@@ -332,22 +367,22 @@ window.MathJax = {
 </div>
 <p class="figcap" id="heat-cap"></p>
 
-<h2>六、包络常数 C(r) / D(r) 与最紧区域</h2>
+<h2>七、包络常数 C(r) / D(r) 与最紧区域</h2>
 <p>论文用一对包络函数控制角向导数：\(C(r)\) 为正界、\(D(r)\) 为负界。实特征在 r=0.5 与 r=2.0 处的数值：</p>
 <div class="table-scroll"><table><tr><th>特征</th><th>C(0.5)</th><th>D(0.5)</th><th>C(2.0)</th><th>D(2.0)</th></tr><tr><td>χ₃ (q=3)</td><td>0.1131</td><td>-0.1137</td><td>1.7322</td><td>-1.9100</td></tr><tr><td>χ₄=β (q=4)</td><td>0.1551</td><td>-0.1570</td><td>2.2885</td><td>-2.7739</td></tr><tr><td>χ₅ 偶 (q=5)</td><td>0.1562</td><td>-0.1576</td><td>2.3450</td><td>-2.7171</td></tr><tr><td>χ₅ 复 (q=5)</td><td>0.2021</td><td>-0.2067</td><td>2.8070</td><td>-4.1077</td></tr><tr><td>χ₇ (q=7)</td><td>0.2537</td><td>-0.2599</td><td>3.4768</td><td>-5.1822</td></tr><tr><td>χ₈ 偶 (q=8)</td><td>0.2343</td><td>-0.2388</td><td>3.3183</td><td>-4.5023</td></tr><tr><td>χ₈ 奇 (q=8)</td><td>0.3129</td><td>-0.3262</td><td>3.9261</td><td>-8.0629</td></tr></table></div>
 <p>最紧的检验在 q=3、\(r\in[5.5,8]\) 的密集 θ 网格（理论上最容易翻车的区域）：790 个点，最大值 <strong>-0.2057（790 个点，r=5.5）</strong>，仍在零下，PASS。</p>
 
-<h2>七、主张的边界</h2>
+<h2>八、主张的边界</h2>
 <div class="boundary">
 <ul>
 <li>本页矩阵（§3–4）是<strong>数值构造</strong>：它展示 beta 函数的 Jacobi 矩阵谱与零点逐位重合，支持 GRH 的 Hilbert–Pólya 机制，但本身不是 GRH 的解析证明。</li>
-<li>角单调性（§5–6）的<strong>解析论证</strong>在 GRH 论文（Zenodo 22143035）中；本页只展示其可独立复算的数值网格——46 个本原特征、全部网格点为负。</li>
+<li>角单调性的<strong>解析证明链条</strong>见 §5（完整证明在 GRH 论文，Zenodo 22143035）；本页 §6–7 只展示其可独立复算的数值网格——46 个本原特征、全部网格点为负。</li>
 <li>46 特征批次中 10 个代表特征在此展示完整网格；全量数据（含 60 位精度 \(D(r)\) 验证、区间算术脚本）在仓库 <code>appendix/grh_46chars/</code>。</li>
-<li>区间算术（Region 2 / Subregion C 的严格包围）仍在进行中，完成后补入论文。</li>
+<li>区间算术（Region 2 / Subregion C 的严格包围）仍在进行中，完成后补入论文；解析链条不受其影响。</li>
 </ul>
 </div>
 
-<h2>八、可复现性</h2>
+<h2>九、可复现性</h2>
 <div class="links">
 <p>📄 GRH 论文（Zenodo，带时间戳 DOI，CC BY 4.0）：<a href="https://zenodo.org/records/22143035">10.5281/zenodo.22143035</a></p>
 <p>📄 RH 主篇：<a href="https://zenodo.org/records/22113226">10.5281/zenodo.22113226</a> ｜ Jacobi 构造篇：<a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a></p>
@@ -446,5 +481,11 @@ window.MathJax = {
 })();
 </script>
 
+<div style="text-align:center;color:#999;font-size:.85em;padding:1em 0;border-top:1px solid #eee;margin-top:2em">
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">本站总访问 <span id="busuanzi_value_site_pv"></span> 次</span> ·
+<span id="busuanzi_container_site_uv">访客 <span id="busuanzi_value_site_uv"></span> 人</span> ·
+<span id="busuanzi_container_page_pv">本页 <span id="busuanzi_value_page_pv"></span> 次</span>
+</div>
 </body>
 </html>

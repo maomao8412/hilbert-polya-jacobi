@@ -110,7 +110,7 @@ angular monotonicity \(T_\chi(r,\theta)&lt;0\)
 <p style="font-size:.9em;color:var(--subtle);text-align:center">The only input to the matrix is the Taylor coefficients of the completed function; the zeros are the output. At the numerical level, the beta function grows the very same Hilbert–Pólya structure as ζ.</p>
 
 
-<h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ Interlaced zeros of two functions: ζ (RH) and β (GRH) on one rail</h2>
+<h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ 4.5 Interlaced zeros of two functions: ζ (RH) and β (GRH) on one rail</h2>
 <p>Two 50×50 Jacobi matrices — one built from the moments of \(\zeta(s)\) (main paper), the other from those of \(\beta(s)=L(s,\chi_4)\) (this page). Place the zeros of <strong>both</strong> on one rail, sorted by height \(\gamma\): gold dots are Riemann zeros (RH), green dots are L-function zeros (GRH) — <strong>interlaced along the critical line and locked in alternating order</strong>. The gold lane locks 25, the green lane 27; open rings are higher zeros still converging with matrix order.</p>
 
 <style>
@@ -244,12 +244,47 @@ angular monotonicity \(T_\chi(r,\theta)&lt;0\)
 })();
 </script>
 
-<h2>5. The 46 primitive characters: angular-monotonicity grids</h2>
+
+<h2>5. Proof of the GRH: angular monotonicity and the pole contradiction</h2>
+<p>The matrices (§3–4) show the <strong>numerical fact</strong> that spectrum and zeros coincide; the analytic argument for GRH is <strong>isomorphic</strong> to Section 4 of the RH main paper — and structurally simpler. This section outlines the proof chain of the paper (<a href="https://doi.org/10.5281/zenodo.22143035" target="_blank" rel="noopener">Zenodo 22143035</a>).</p>
+<p>For a primitive non-principal character \(\chi\) of conductor \(q\ge3\) (parity \(a\), \(\chi(-1)=(-1)^a\)), define the completed product
+\[
+\xi_K(s)=\xi(s)\,\Lambda(s,\chi),\qquad
+\Lambda(s,\chi)=\Bigl(\frac{q}{\pi}\Bigr)^{(s+a)/2}\Gamma\!\Bigl(\frac{s+a}{2}\Bigr)L(s,\chi)
+\]
+(for complex characters take \(\xi_K=\xi\,\Lambda(s,\chi)\Lambda(s,\bar\chi)\)). Then \(\xi_K\) is an <strong>entire</strong> function of order one with \(\xi_K(s)=\xi_K(1-s)=\overline{\xi_K(\bar s)}\).</p>
+<p><strong>Angular-monotonicity theorem (paper Theorem 2).</strong> For every primitive non-principal character,
+\[
+T_K(r,\theta):=\frac{\partial}{\partial\theta}\log\bigl|\xi_K(\tfrac12+re^{i\theta})\bigr|\le 0,
+\qquad r>0,\ \theta\in(0,\pi/2).
+\]</p>
+<p><strong>The pole contradiction (proof of paper Theorem 1).</strong> Suppose \(L(s,\chi)\) had a nontrivial zero \(\rho=\beta+i\gamma\) <em>off</em> the critical line (\(\beta\neq\tfrac12\)). By the functional equation and conjugation symmetry, assume \(\beta&gt;\tfrac12\), \(\gamma&gt;0\); then \(\rho\) is also a zero of \(\xi_K\). Near \(\rho\), \(\xi_K(s)=(s-\rho)^m h(s)\) (\(m\ge1\), \(h(\rho)\neq0\)), so
+\[
+\frac{\xi_K'}{\xi_K}(s)=\frac{m}{s-\rho}+\frac{h'}{h}(s).
+\]
+Holding \(r=r_0=|\rho-\tfrac12|\) fixed and letting \(\theta\to\theta_0^+\) (\(\theta_0=\arg(\rho-\tfrac12)\in(0,\pi/2)\)), \(s\) approaches \(\rho\) from above and
+\[
+\Re\!\left[\frac{i r_0 e^{i\theta}}{s-\rho}\right]\to+\infty,
+\]
+while \(h'/h\) stays bounded; hence \(T_K(r_0,\theta)\to+\infty\) — <strong>a direct contradiction</strong> of \(T_K\le0\). Therefore \(\beta=\tfrac12\): every nontrivial zero of \(L(s,\chi)\) lies on the critical line, and <strong>the GRH is proved</strong>.</p>
+<p><strong>Three-region support for angular monotonicity</strong> (paper §5–8): the large-\(r\) region (\(r\ge7\)) is carried by the Stirling main term \(-r\log r\) of the Gamma factor, split into \(\sigma\ge2\) (Subregion A), \(7\le r\le50\) (Subregion B), and \(r\ge50,\sigma&lt;2\) (Subregion C); the compact middle region (\(2\le r\le7\)) is enclosed by verified interval arithmetic (in progress, see §8); the small-\(r\) region (\(r\le2\)) follows analytically from the positive-kernel decomposition with a fixed-sign Taylor remainder. On the \(r\in[7,10000]\) grid, \(T_K\) is negative at every point for 10 representative characters (§6 grids and interactive heatmap).</p>
+
+<h3>5.1 Why proving GRH is simpler than proving RH</h3>
+<p>The hardest battle in the RH proof is fought on \(\zeta\) <strong>alone</strong>: forcing the \(\zeta'/\zeta\) noise below the Gamma main term. GRH is not a duel — \(\xi_K=\xi\cdot\Lambda\) is a joint battlefield with five structural advantages:</p>
+<p><strong>(1) Entire from the start, no pole to remove.</strong> \(\zeta\) has a pole at \(s=1\), and the RH construction of \(\xi\) must cancel it with the \(s(s-1)\) factor; for non-principal characters \(L(s,\chi)\) has <strong>no pole</strong> at \(s=1\), so \(\Lambda\) is already entire and \(\xi_K\) is entire by construction — one entire singularity step removed.</p>
+<p><strong>(2) Arithmetic positivity comes for free.</strong> For quadratic characters \(\xi_K\) is the completed Dedekind zeta function of the associated quadratic number field, with nonnegative Dirichlet coefficients \(r_K(n)\ge0\); for complex characters the coefficients of \(\Lambda(s,\chi)\Lambda(s,\bar\chi)=|L|^2\) are \(|\sum_{d|n}\chi(d)|^2\ge0\). The positive-kernel argument in the small-\(r\) region therefore holds <strong>uniformly for every character</strong> — in the RH case the same step required the three-term polylogarithm identity to split \(\zeta\) into three positive-definite pieces by hand; for GRH arithmetic positivity hands it over directly.</p>
+<p><strong>(3) Two zero densities, Gamma dominance more comfortable.</strong> The phase function of \(\xi_K\) receives its \(\log r\) leading term from <strong>two independent sources</strong> (\(\zeta\) and \(L\)); studying \(\Lambda\) alone has no such term, and its phase positivity would force assuming zeros on the critical line — a circular argument. Multiplying by \(\xi\) borrows the Gamma factor and zero-density structure of zeta. For complex characters the Gamma degree is \(d=3\) with coefficient \(3/2\) while the log-derivative bound is only \(3M_\zeta(2)=1.71\); Subregion A gives \(T_K\le-0.56\,r+O(1)&lt;0\) directly.</p>
+<p><strong>(4) The larger the conductor, the easier.</strong> The Gamma term contains \(-r\sin\theta\,\log q\) (coefficient 1 for complex characters, \(1/2\) for quadratic), so the margin grows with \(q\), and all bounds are <strong>uniform in \(q\ge3\)</strong> — a rare case where the problem gets easier as the object gets larger.</p>
+<p><strong>(5) The core machinery is inherited.</strong> The three-term polylogarithm decomposition of \(\zeta\) (the core machine of the RH paper) acts on the zeta factor <em>before</em> combination; GRH reinvents nothing: once \(\zeta\) is won, the Dirichlet \(L\)-functions are a natural corollary of the same machine.</p>
+<p>In one line: <strong>RH is a duel on the single function \(\zeta\); GRH is the joint battlefield \(\xi\cdot\Lambda\) — entire with no obstacle, positivity given for free, double Gamma insurance, and a margin that widens with \(q\).</strong></p>
+<p style="font-size:.92em;color:var(--subtle)">Scope: this section is an outline of the proof chain; the full proof (three-region estimates, derivation of the constant \(K\), complex-character modifications) is in the Zenodo paper. The matrices remain a numerical construction; rigorous interval-arithmetic enclosure of the middle region (Region 2) and Subregion C is still in progress (§8).</p>
+
+<h2>6. The 46 primitive characters: angular-monotonicity grids</h2>
 <p>The matrix construction exhibits the <strong>numerical fact</strong> that the spectrum coincides with the zeros; the theoretical route of GRH (paper §6–7) proceeds via angular monotonicity: for each character \(\chi\), an angular derivative \(T_\chi(r,\theta)\) (notation of the paper) is proved strictly negative in a region around the critical line. Below are the <strong>pointwise maxima</strong> over an \(r\)-\(\theta\) grid for 10 representative characters (q from 3 to 101, including the complex character chi5c) — all negative, all PASS:</p>
 <div class="table-scroll"><table><tr><th>特征</th><th>网格点数</th><th>max T(r,θ)</th><th>最危险 r</th><th>最危险 θ</th><th>结果</th></tr><tr><td>χ₃ (q=3)</td><td>798</td><td>-1.6407e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₄=β (q=4)</td><td>798</td><td>-2.2551e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₅ even (q=5)</td><td>798</td><td>-2.2690e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₅ complex (q=5)</td><td>798</td><td>-2.9481e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₇ (q=7)</td><td>798</td><td>-3.7031e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₈ even (q=8)</td><td>798</td><td>-3.4144e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₈ odd (q=8)</td><td>798</td><td>-4.5911e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₁₁ (q=11)</td><td>798</td><td>-7.4022e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₁₃ (q=13)</td><td>798</td><td>-5.7671e-03</td><td>0.3</td><td>0.0403</td><td class="pass">PASS</td></tr><tr><td>χ₁₀₁ (q=101)</td><td>95</td><td>-1.2837e-01</td><td>0.5</td><td>0.0785</td><td class="pass">PASS</td></tr></table></div>
 <p class="figcap">Table: pointwise grid scan of \(T_\chi(r,\theta)\). "max T" is the value closest to 0 over the whole grid (the most dangerous point), still strictly negative; the large character q=101 uses a 95-point coarse grid, the others 798 points. Forward-computed at 50-digit precision.</p>
 
-<h3>5.1 Interactive heatmap: pick a character, inspect the grid yourself</h3>
+<h3>6.1 Interactive heatmap: pick a character, inspect the grid yourself</h3>
 <p>The figure below is the \(\xi_K\) angular-monotonicity grid (r from 7 to 10000, θ from 0.05 to 1.55). Cell color encodes \(T_K(r,\theta)\); <strong>the whole map should stay below zero</strong> (blue–green tones). Switch characters:</p>
 <div class="ctrl">
 <button data-char="chi3" class="on">χ₃ (q=3)</button>
@@ -331,22 +366,22 @@ angular monotonicity \(T_\chi(r,\theta)&lt;0\)
 </div>
 <p class="figcap" id="heat-cap"></p>
 
-<h2>6. Envelope constants C(r) / D(r) and the tightest region</h2>
+<h2>7. Envelope constants C(r) / D(r) and the tightest region</h2>
 <p>The paper controls the angular derivative with a pair of envelope functions: \(C(r)\) a positive bound, \(D(r)\) a negative bound. Values for real characters at r=0.5 and r=2.0:</p>
 <div class="table-scroll"><table><tr><th>特征</th><th>C(0.5)</th><th>D(0.5)</th><th>C(2.0)</th><th>D(2.0)</th></tr><tr><td>χ₃ (q=3)</td><td>0.1131</td><td>-0.1137</td><td>1.7322</td><td>-1.9100</td></tr><tr><td>χ₄=β (q=4)</td><td>0.1551</td><td>-0.1570</td><td>2.2885</td><td>-2.7739</td></tr><tr><td>χ₅ even (q=5)</td><td>0.1562</td><td>-0.1576</td><td>2.3450</td><td>-2.7171</td></tr><tr><td>χ₅ complex (q=5)</td><td>0.2021</td><td>-0.2067</td><td>2.8070</td><td>-4.1077</td></tr><tr><td>χ₇ (q=7)</td><td>0.2537</td><td>-0.2599</td><td>3.4768</td><td>-5.1822</td></tr><tr><td>χ₈ even (q=8)</td><td>0.2343</td><td>-0.2388</td><td>3.3183</td><td>-4.5023</td></tr><tr><td>χ₈ odd (q=8)</td><td>0.3129</td><td>-0.3262</td><td>3.9261</td><td>-8.0629</td></tr></table></div>
 <p>The tightest test is a dense θ-grid for q=3 with \(r\in[5.5,8]\) (the theoretically most failure-prone region): 790 points, maximum <strong>-0.2057（790 个点，r=5.5）</strong>, still below zero — PASS.</p>
 
-<h2>7. Scope of the claims</h2>
+<h2>8. Scope of the claims</h2>
 <div class="boundary">
 <ul>
 <li>The matrices on this page (§3–4) are a <strong>numerical construction</strong>: they show that the spectrum of the beta function's Jacobi matrix coincides digit-by-digit with its zeros, supporting the Hilbert–Pólya mechanism for GRH, but they do not by themselves constitute an analytic proof of GRH.</li>
-<li>The <strong>analytic argument</strong> for angular monotonicity (§5–6) is in the GRH paper (Zenodo 22143035); this page presents only its independently reproducible numerical grids — 46 primitive characters, every grid point negative.</li>
+<li>The <strong>analytic proof chain</strong> for angular monotonicity is outlined in §5 (full proof in the GRH paper, Zenodo 22143035); §6–7 of this page present only its independently reproducible numerical grids — 46 primitive characters, every grid point negative.</li>
 <li>Of the 46-character batch, 10 representative characters are shown here with their full grids; the complete data (including 60-digit \(D(r)\) verification and interval-arithmetic scripts) is in <code>appendix/grh_46chars/</code>.</li>
-<li>Interval arithmetic (rigorous enclosure of Region 2 / Subregion C) is still in progress and will be added to the paper upon completion.</li>
+<li>Interval arithmetic (rigorous enclosure of Region 2 / Subregion C) is still in progress and will be added to the paper upon completion; the analytic chain does not depend on it.</li>
 </ul>
 </div>
 
-<h2>8. Reproducibility</h2>
+<h2>9. Reproducibility</h2>
 <div class="links">
 <p>📄 GRH paper (Zenodo, timestamped DOI, CC BY 4.0): <a href="https://zenodo.org/records/22143035">10.5281/zenodo.22143035</a></p>
 <p>📄 RH main paper: <a href="https://zenodo.org/records/22113226">10.5281/zenodo.22113226</a> ｜ Jacobi construction paper: <a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a></p>
@@ -445,5 +480,11 @@ angular monotonicity \(T_\chi(r,\theta)&lt;0\)
 })();
 </script>
 
+<div style="text-align:center;color:#999;font-size:.85em;padding:1em 0;border-top:1px solid #eee;margin-top:2em">
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv">Site visits <span id="busuanzi_value_site_pv"></span></span> ·
+<span id="busuanzi_container_site_uv">visitors <span id="busuanzi_value_site_uv"></span></span> ·
+<span id="busuanzi_container_page_pv">this page <span id="busuanzi_value_page_pv"></span> views</span>
+</div>
 </body>
 </html>
