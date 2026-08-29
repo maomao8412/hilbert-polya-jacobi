@@ -206,7 +206,7 @@ $$S_k=\sum_{n=1}^\infty\frac{1}{\gamma_n^{2k}},\qquad k\ge1.$$
 <div class="consequence">
 <strong>The two directions.</strong> RH is proved in Section 4 &mdash; three-term algebra \(\to\) angular monotonicity \(\to\) Herglotz analyticity \(\to\) the pole contradiction, which places every zero on the critical line. After RH, the same three-term algebra proves \(D_n&gt;0\) for all \(n\) <strong>unconditionally</strong> (the Hankel determinants &mdash; the leading principal minors &mdash; all positive), as the foundation of the Stieltjes&ndash;Jacobi construction; reading the spectrum as \(\{1/\gamma_n^2\}\) is a still later identification. The converse is classical (Hadamard + Gram): <em>if</em> all zeros lie on the line, then \(S_k=\sum_n 1/\gamma_n^{2k}\) makes the Hankel matrices
 $$
-H_N[i,j]=S_{i+j+1},\qquad 0\le i,j<N,
+H_N[i,j]=S_{i+j+1},\qquad 0\le i,j&lt;N,
 $$
 Gram matrices of the vectors \((\gamma_n^{-i-j-1})\), so every leading principal minor (Hankel determinant) \(D_n=\det(H_n)\) is strictly positive. What was never available before is the direct proof of RH and the unconditional \(D_n&gt;0\); the Gram picture explains the converse &mdash; it is not the proof of RH itself.
 </div>
@@ -378,7 +378,7 @@ $$\frac{\xi(s)}{\xi(\tfrac12)}=\det(I+u^2J),\qquad \frac{\xi'}{\xi}(s)=2u\;\oper
 <div class="formula" style="font-size:.95em">
 $$\psi(x)=x-2\sqrt{x}\,\operatorname{Re}\operatorname{Tr}\!\left[e^{\,iA\ln x}\bigl(\tfrac12 I+iA\bigr)^{-1}\right]-\log(2\pi)-\tfrac12\log(1-x^{-2})$$
 </div>
-<p>Everything in this formula is a matrix operation. \(A=J^{-1/2}\) is obtained by Cholesky factorisation \(J=LL^\top\) followed by a polar iteration \(Y\leftarrow\tfrac12(Y+(Y^\top)^{-1})\) converging to an orthogonal factor (residual \(\|A^2J-I\|<5\times10^{-13}\) at order 100); the matrix exponential \(e^{iA\ln x}\) is computed by scaling-and-squaring &mdash; <strong>matrix multiplications throughout, not a single integral, zero, or eigenvalue computation</strong>.</p>
+<p>Everything in this formula is a matrix operation. \(A=J^{-1/2}\) is obtained by Cholesky factorisation \(J=LL^\top\) followed by a polar iteration \(Y\leftarrow\tfrac12(Y+(Y^\top)^{-1})\) converging to an orthogonal factor (residual \(\|A^2J-I\|&lt;5\times10^{-13}\) at order 100); the matrix exponential \(e^{iA\ln x}\) is computed by scaling-and-squaring &mdash; <strong>matrix multiplications throughout, not a single integral, zero, or eigenvalue computation</strong>.</p>
 
 <h3 style="margin-top:1.4em;color:#1a4d8f">9.2 The Chebyshev function from matrix arithmetic alone</h3>
 <figure style="margin:1.2em 0">
