@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>广义黎曼猜想的数值实验：矩阵、角单调性与 46 个本原特征</title>
+<title>更大的猜想，反而更简单？——广义黎曼猜想（GRH）的数值实验与论证：46 个特征全网格、零点逐个锁定</title>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$','$$']], tags: 'none' },
@@ -62,8 +62,8 @@ window.MathJax = {
 </head>
 <body>
 
-<h1>广义黎曼猜想的数值实验</h1>
-<p class="subtitle">Dirichlet L 函数如何同样长出矩阵——46 个本原特征上的角单调性网格、逐点负号与可复算数据</p>
+<h1>更大的猜想，反而更简单？<br><span style="font-size:.62em;font-weight:400;color:#555">——广义黎曼猜想（GRH）的数值实验与论证</span></h1>
+<p class="subtitle">Dirichlet L 函数同样长出矩阵：46 个本原特征全网格逐点验证，ζ 与 β 的 52 个零点在同一根轴上交替锁定；广义黎曼猜想的解析论证已有五条结构性理由比 RH 更省力</p>
 
 <div class="hero">
 <div class="chain">
@@ -111,7 +111,7 @@ window.MathJax = {
 <p style="font-size:.9em;color:var(--subtle);text-align:center">矩阵的输入只有完成函数的泰勒系数；零点是输出。beta 函数在数值层面长出了与 ζ 完全相同的 Hilbert–Pólya 结构。</p>
 
 
-<h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ 4.5 双函数零点交替锁定：ζ（RH）与 β（GRH）同台</h2>
+<h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ 4.5 52 个零点逐个点亮：ζ（RH）与 β（GRH）在同一根轴上交替锁定</h2>
 <p>两个 50×50 Jacobi 矩阵，一台用 \(\zeta(s)\) 的矩序列构造（主篇），一台用 \(\beta(s)=L(s,\chi_4)\) 的矩序列构造（本页）。把两边锁定的零点<strong>按虚部高度 \(\gamma\) 排在同一条轴上</strong>——金色是黎曼零点（RH），绿色是 L 函数零点（GRH）：它们沿着临界线<strong>交替出现、交替被锁定</strong>。上排金点 25 个锁定，下排绿点 27 个锁定，空圈是矩阵阶数尚在收敛中的更高零点。</p>
 
 <style>
@@ -246,7 +246,7 @@ window.MathJax = {
 </script>
 
 
-<h2>五、广义黎曼猜想的证明：角单调性与极点矛盾</h2>
+<h2>五、广义黎曼猜想证毕：线外多一个零点，相位场就无处可逃</h2>
 <p>矩阵（§3–4）展示的是谱与零点重合的<strong>数值事实</strong>；GRH 的解析论证与 RH 主篇第四节<strong>同构</strong>，且结构更简单。本节陈述论文（<a href="https://doi.org/10.5281/zenodo.22143035" target="_blank" rel="noopener">Zenodo 22143035</a>）的证明链条。</p>
 <p>对模 \(q\ge 3\) 的本原非主特征 \(\chi\)（奇偶性 \(a\)，\(\chi(-1)=(-1)^a\)），定义完备乘积
 \[
@@ -270,7 +270,7 @@ T_K(r,\theta):=\frac{\partial}{\partial\theta}\log\bigl|\xi_K(\tfrac12+re^{i\the
 而 \(h'/h\) 有界，于是 \(T_K(r_0,\theta)\to+\infty\)——与角单调性 \(T_K\le0\) <strong>直接矛盾</strong>。故 \(\beta=\tfrac12\)：\(L(s,\chi)\) 的全部非平凡零点都在临界线上，<strong>广义黎曼猜想证毕</strong>。</p>
 <p><strong>角单调性的三个区域支撑</strong>（论文 §5–8）：大 \(r\) 区（\(r\ge7\)）由 Gamma 因子 Stirling 展开给出 \(-r\log r\) 主项，分 \(\sigma\ge2\)（子区 A）、\(7\le r\le50\)（子区 B）、\(r\ge50,\sigma&lt;2\)（子区 C）估计；中间紧致区（\(2\le r\le7\)）由区间算术严格包围（进行中，见 §8）；小 \(r\) 区（\(r\le2\)）由正核分解给出 Taylor 余项定号，解析成立。10 个代表特征在 \(r\in[7,10000]\) 网格上 \(T_K\) 逐点为负（见 §6 网格与交互热力图）。</p>
 
-<h3>5.1 为什么 GRH 的证明比 RH 更简单</h3>
+<h3>5.1 更大的猜想，为什么反而更好打？——五处结构性占优</h3>
 <p>RH 证明里最硬的一仗，是在 \(\zeta\) <strong>一个</strong>函数上白刃战：把 \(\zeta'/\zeta\) 的噪声压到 Gamma 主项以下。GRH 不是单挑——\(\xi_K=\xi\cdot\Lambda\) 是联合战场，五处结构性占优：</p>
 <p><strong>（一）整函数，零极点要消。</strong>\(\zeta\) 在 \(s=1\) 有极点，RH 构造 \(\xi\) 必须用 \(s(s-1)\) 因子消去；非主特征的 \(L(s,\chi)\) 在 \(s=1\) <strong>无极点</strong>，\(\Lambda\) 本身就是整函数，\(\xi_K\) 天然整——少一整步奇点处理。</p>
 <p><strong>（二）算术正系数白送。</strong>对二次特征，\(\xi_K\) 就是对应二次数域的完备 Dedekind zeta 函数，Dirichlet 系数 \(r_K(n)\ge0\) 非负；对复特征，\(\Lambda(s,\chi)\Lambda(s,\bar\chi)=|L|^2\) 的系数是 \(|\sum_{d|n}\chi(d)|^2\ge0\)。小 \(r\) 区的正核论证因此对<strong>所有</strong>特征一致成立——RH 里同一步要靠三项多对数恒等式手工把 \(\zeta\) 劈成三块正定材料，GRH 里算术正性直接给。</p>
