@@ -180,9 +180,9 @@ $$G(z)=-\frac{i\sqrt z}{2}\,\frac{\xi'(\tfrac12+i\sqrt z)}{\xi(\tfrac12+i\sqrt z
 <div class="consequence" style="font-size:.95em">
 <strong>为什么角单调性能够被证明——三项和恒等式的三个决定性作用。</strong>角单调性要证 \(\partial_\theta\log|\xi(\tfrac12+re^{i\theta})|\le0\)：Gamma–π 因子经 Stirling 展开给出主项（大小约 \(r\log r\)），而来自 \(\zeta'/\zeta\) 的部分是&ldquo;噪声&rdquo;。经典路线（Backlund–Littlewood 一族）给的噪声上界是 \(O(\log r)\)，乘上 \(r\) 后与主项同量级——<em>越靠近临界线越分不出胜负，这正是 RH 一百六十多年攻不破的技术原因之一</em>。三项和恒等式把这块噪声变成了可控的目标：
 <br><br>
-<strong>（一）大 \(r\) 区——常数界替代对数界。</strong>恒等式 \(\zeta(s)=\Li_s(z_1)+\Li_s(z_2)+\sum_{n\ge1}c_n n^{-s}\) 在实轴上三个级数系数全为正（\(z_i^n&gt;0\)，\(c_n=1-z_1^n-z_2^n&gt;0\)），无消相、截断误差严格可控，于是在任意右半平面 \(\Re s\ge\sigma_0&gt;1\) 给出<em>与 \(r\) 无关的常数界</em>：\(|\zeta'/\zeta|\le0.570\)（\(\sigma_0=2\)）、\(\le1.54\)（\(\sigma_0=\tfrac32\)）。于是 \(|T_\zeta|\le0.570\,r\) 对主项 \(|T_A|\ge0.904\,r\)，<strong>固定余量 \(0.33\,r\) 干净分出符号</strong>。
+<strong>（一）大 \(r\) 区——常数界替代对数界。</strong>恒等式 \(\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+\sum_{n\ge1}c_n n^{-s}\) 在实轴上三个级数系数全为正（\(z_i^n&gt;0\)，\(c_n=1-z_1^n-z_2^n&gt;0\)），无消相、截断误差严格可控，于是在任意右半平面 \(\Re s\ge\sigma_0&gt;1\) 给出<em>与 \(r\) 无关的常数界</em>：\(|\zeta'/\zeta|\le0.570\)（\(\sigma_0=2\)）、\(\le1.54\)（\(\sigma_0=\tfrac32\)）。于是 \(|T_\zeta|\le0.570\,r\) 对主项 \(|T_A|\ge0.904\,r\)，<strong>固定余量 \(0.33\,r\) 干净分出符号</strong>。
 <br>
-<strong>（二）临界带内部——Euler 乘积失效处仍有效。</strong>\(\Re s\le1\) 时素数和 \(\sum\Lambda(n)n^{-s}\) 根本不收敛，经典工具在带内归零；两个多对数项不依赖 Euler 乘积，由几何估计在整个右半临界带给出一致正实部下界：\(\Re\Li_s(z_2)\ge z_2/2&gt;0\)、\(\Re\Li_s(z_1)\ge0.063&gt;0\)——零点自由域由三项和独家控制。
+<strong>（二）临界带内部——Euler 乘积失效处仍有效。</strong>\(\Re s\le1\) 时素数和 \(\sum\Lambda(n)n^{-s}\) 根本不收敛，经典工具在带内归零；两个多对数项不依赖 Euler 乘积，由几何估计在整个右半临界带给出一致正实部下界：\(\Re\operatorname{Li}_s(z_2)\ge z_2/2&gt;0\)、\(\Re\operatorname{Li}_s(z_1)\ge0.063&gt;0\)——零点自由域由三项和独家控制。
 <br>
 <strong>（三）小 \(r\) 区——完全单调性给 Stieltjes 余项。</strong>分割关系 \(z_1^n+z_2^n+c_n=1\) 经 Mellin 变换翻译成 Bose–Einstein 核的三块正定分割 \(1/(e^t-1)=z_1/(e^t-z_1)+z_2/(e^t-z_2)+K_3(t)\)，三块都是完全单调核；log&nbsp;\(\xi\) 的 Taylor 余项由此带确定符号，角单调性在原点附近解析成立。
 <br><br>
