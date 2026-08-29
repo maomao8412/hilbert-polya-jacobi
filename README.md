@@ -47,6 +47,7 @@ All values match the paper tables to every printed digit.
 | `data/jacobi_N50_2000dps_result.json` | J₅₀ at 2000-digit precision |
 | `assets/` | Figures: matrix, convergence, primes |
 | `appendix/` | GRH extension (χ₄) reproduction |
+| `appendix/grh_46chars/` | Full 46-primitive-character GRH verification batch: scripts, JSON data, run log, figure |
 
 ## Papers
 
