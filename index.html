@@ -122,11 +122,11 @@ $$z_1=1-q=2-\sqrt2\approx0.5858,\qquad z_2=q=\sqrt2-1\approx0.4142,\qquad z_1+z_
 <p>This complement relation is the algebraic backbone of everything that follows — the Möbius symmetry runs through the entire chain: from the unique determination of \(z_1,z_2\), to the three-term decomposition of \(\zeta(s)\), to the second-order recurrence for \(c_n\), to the Jacobi tridiagonal matrix, to the positivity of the Hankel determinants, all the way to the reflection symmetry of the functional equation in the final proof. The Möbius structure is not an arbitrary choice — it is forced by the tangent addition formula.</p>
 
 <h2>2. From complement to a decomposition of \(\zeta(s)\)</h2>
-<p>Section&nbsp;1 delivered just two numbers with \(z_1+z_2=1\). This section turns that <strong>single equation</strong> into a <strong>new exact formula</strong> for \(\zeta(s)\). The derivation has four steps, all elementary algebra.</p>
+<p>Section&nbsp;1 delivered just two numbers with \(z_1+z_2=1\). This section turns that <strong>single equation</strong> into a <strong>new exact formula</strong> for \(\zeta(s)\). The derivation has four steps. The partition of unity, the summation with weights \(n^{-s}\), and the recurrence for the coefficients \(c_n\) are elementary algebra; the only complex-analysis step is <strong>analytic continuation</strong> — extending the formula from the convergence region of the series to the whole complex plane. This is a standard basic tool of complex analysis and requires no advanced theory.</p>
 
 <p><strong>Step 1 — Partition of unity (split 1 into three pieces).</strong> For every integer \(n\ge1\), using \(z_1+z_2=1\) with \(0&lt;z_1,z_2&lt;1\), define the <em>residual coefficients</em></p>
 <div class="formula">
-$$c_n:=1-z_1^n-z_2^n.$$
+$$c_n=1-z_1^n-z_2^n.$$
 </div>
 <p>Then, for each \(n\), an identity holds term by term &mdash; the three coefficients on the right sum exactly to the Dirichlet weight 1:</p>
 <div class="formula">
@@ -211,6 +211,7 @@ $$
 Gram matrices of the vectors \((\gamma_n^{-i-j-1})\), so every leading principal minor (Hankel determinant) \(D_n=\det(H_n)\) is strictly positive. What was never available before is the direct proof of RH and the unconditional \(D_n&gt;0\); the Gram picture explains the converse &mdash; it is not the proof of RH itself.
 </div>
 
+<p style="font-size:.92em;margin-bottom:.3em">The table below: the leading principal minors \(D_n=\det H_n\) of the Hankel matrix (the Hankel determinants) &mdash; their logarithms and signs:</p>
 <div class="table-scroll"><table style="font-size:.78em">
 <tr><th style="text-align:left">\(n\)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th><th>31</th><th>32</th><th>33</th><th>34</th><th>35</th><th>36</th><th>37</th><th>38</th><th>39</th><th>40</th><th>41</th><th>42</th><th>43</th><th>44</th><th>45</th><th>46</th><th>47</th><th>48</th><th>49</th><th>50</th></tr>
 <tr><td style="text-align:left">\(\log_{10}D_n\)</td><td>-1.6</td><td>-8.7</td><td>-21.7</td><td>-40.9</td><td>-66.7</td><td>-99.1</td><td>-138.4</td><td>-184.8</td><td>-238.3</td><td>-299.0</td><td>-367.0</td><td>-442.6</td><td>-525.7</td><td>-616.5</td><td>-714.8</td><td>-821.0</td><td>-935.1</td><td>-1057.2</td><td>-1187.1</td><td>-1325.0</td><td>-1471.0</td><td>-1625.1</td><td>-1787.6</td><td>-1958.3</td><td>-2137.2</td><td>-2324.4</td><td>-2520.0</td><td>-2723.9</td><td>-2936.4</td><td>-3157.4</td><td>-3386.8</td><td>-3624.8</td><td>-3871.5</td><td>-4126.8</td><td>-4390.9</td><td>-4663.7</td><td>-4945.1</td><td>-5235.4</td><td>-5534.4</td><td>-5842.3</td><td>-6159.0</td><td>-6484.7</td><td>-6819.4</td><td>-7162.9</td><td>-7515.4</td><td>-7876.9</td><td>-8247.5</td><td>-8627.2</td><td>-9016.0</td><td>-9413.8</td></tr>
