@@ -53,8 +53,8 @@ window.MathJax = {
   .hero{background:linear-gradient(135deg,#f8f6f0 0%,#f0f4fa 100%);border:1px solid #d8d2a8;border-radius:8px;padding:1.5em 2em;margin:1.5em 0;text-align:center}
   .hero .chain{font-size:1.02em;line-height:2.2;color:var(--heading)}
   .hero .chain .arrow{color:var(--accent);font-weight:bold;margin:0 .25em}
-  .proof-box{background:#eef7f0;border:1px solid #b8d8be;border-radius:6px;padding:.8em 1.4em;margin:1.2em 0}
-  .proof-box .label{font-weight:bold;color:var(--green);font-size:1.05em}
+  .proof-box{background:#eef7f0;border:1px solid #b8d8be;border-radius:6px;padding:.8em 1.4em;margin:1.2em auto;max-width:1000px;text-align:center}
+  .proof-box .label{font-weight:bold;color:var(--green);font-size:1.05em;display:inline}
   .consequence{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.6em 1.2em;margin:1em 0}
   .step-badge{display:inline-block;background:var(--heading);color:#fff;border-radius:50%;width:1.6em;height:1.6em;line-height:1.6em;text-align:center;font-size:.85em;margin-right:.4em;font-weight:bold}
 
@@ -109,7 +109,7 @@ $$M(t)=\tan(B+\pi/8)=\frac{t+q}{1-qt},\qquad q=\sqrt2-1.$$
 <div class="formula">
 $$z_1=1-q=2-\sqrt2\approx0.5858,\qquad z_2=q=\sqrt2-1\approx0.4142,\qquad z_1+z_2=1.$$
 </div>
-<p>This complement relation is the algebraic backbone of everything that follows (the full Möbius symmetry of the deformation family is generated precisely by the silver-ratio conjugate \(q=\sqrt2-1\) and its complement \(1-q\)). The Möbius structure is not an arbitrary choice — it is forced by the tangent addition formula.</p>
+<p>This complement relation is the algebraic backbone of everything that follows — the Möbius symmetry runs through the entire chain: from the unique determination of \(z_1,z_2\), to the three-term decomposition of \(\zeta(s)\), to the second-order recurrence for \(c_n\), to the Jacobi tridiagonal matrix, to the positivity of the Hankel determinants, all the way to the reflection symmetry of the functional equation in the final proof. The Möbius structure is not an arbitrary choice — it is forced by the tangent addition formula.</p>
 
 <h2>2. From complement to a decomposition of \(\zeta(s)\)</h2>
 <p>Define residual coefficients \(c_n=1-z_1^n-z_2^n\). The identity \(z_1^n+z_2^n+c_n=1\) (a partition of unity), summed against \(n^{-s}\) and meromorphically continued, gives an exact three-term decomposition:</p>
