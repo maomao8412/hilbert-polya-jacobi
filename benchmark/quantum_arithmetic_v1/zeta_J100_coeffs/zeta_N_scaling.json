@@ -1,0 +1,83 @@
+{
+ "meta": {
+  "source": "zeta_J100v2 1300dps M1536 R2 J100",
+  "locked_tol": 0.0001,
+  "theories": {
+   "Poisson_r": 0.3863,
+   "GOE_r": 0.5359,
+   "GUE_r": 0.5996
+  }
+ },
+ "scaling": [
+  {
+   "N": 22,
+   "n_locked": 22,
+   "gap_ratio_mean": 0.6206244387338165,
+   "min_gap": 1.440149369790916,
+   "mean_gap": 3.2750312243976807,
+   "small_gaps_lt_0p3mean": 0,
+   "IPR_locked_mean": 0.1411715936925386,
+   "IPR_extended_1overN": 0.045454545454545456
+  },
+  {
+   "N": 30,
+   "n_locked": 30,
+   "gap_ratio_mean": 0.6033868596580085,
+   "min_gap": 1.21929018772542,
+   "mean_gap": 3.006314684965402,
+   "small_gaps_lt_0p3mean": 0,
+   "IPR_locked_mean": 0.11615696436774489,
+   "IPR_extended_1overN": 0.03333333333333333
+  },
+  {
+   "N": 40,
+   "n_locked": 40,
+   "gap_ratio_mean": 0.6241131789425995,
+   "min_gap": 0.8451236338228796,
+   "mean_gap": 2.7900539526107173,
+   "small_gaps_lt_0p3mean": 0,
+   "IPR_locked_mean": 0.09707002613466123,
+   "IPR_extended_1overN": 0.025
+  },
+  {
+   "N": 50,
+   "n_locked": 50,
+   "gap_ratio_mean": 0.6223540025361534,
+   "min_gap": 0.8451236338228796,
+   "mean_gap": 2.6321861376238735,
+   "small_gaps_lt_0p3mean": 0,
+   "IPR_locked_mean": 0.0840806273528488,
+   "IPR_extended_1overN": 0.02
+  },
+  {
+   "N": 60,
+   "n_locked": 55,
+   "gap_ratio_mean": 0.6102829500793064,
+   "min_gap": 0.8451236338228796,
+   "mean_gap": 2.5722193620315044,
+   "small_gaps_lt_0p3mean": 0,
+   "IPR_locked_mean": 0.07908075763178818,
+   "IPR_extended_1overN": 0.01818181818181818
+  },
+  {
+   "N": 80,
+   "n_locked": 55,
+   "gap_ratio_mean": 0.6102829500793064,
+   "min_gap": 0.8451236338228796,
+   "mean_gap": 2.5722193620315044,
+   "small_gaps_lt_0p3mean": 0,
+   "IPR_locked_mean": 0.07999773664658971,
+   "IPR_extended_1overN": 0.01818181818181818
+  },
+  {
+   "N": 100,
+   "n_locked": 55,
+   "gap_ratio_mean": 0.6102829500793064,
+   "min_gap": 0.8451236338228796,
+   "mean_gap": 2.5722193620315044,
+   "small_gaps_lt_0p3mean": 0,
+   "IPR_locked_mean": 0.0810440399266031,
+   "IPR_extended_1overN": 0.01818181818181818
+  }
+ ]
+}

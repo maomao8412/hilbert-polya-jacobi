@@ -8,7 +8,7 @@ import json, os, csv
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SLUGS = ["zeta_J50", "beta_J50", "delta_J22", "product_J100"]
+SLUGS = ["zeta_J50", "zeta_J100", "beta_J50", "delta_J22", "product_J100"]
 
 def load(slug):
     d = os.path.join(HERE, slug)

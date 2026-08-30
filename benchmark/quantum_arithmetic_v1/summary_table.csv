@@ -1,5 +1,6 @@
 slug,family,matrix_size_N,locked_levels_relerr<1e-4
 zeta_J50,Riemann zeta,50,25
+zeta_J100,Riemann zeta (1300dps),100,55
 beta_J50,Dirichlet mod 4,50,27
 delta_J22,Ramanujan Delta,22,15
 product_J100,zeta x beta product,100,53

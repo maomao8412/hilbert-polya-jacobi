@@ -35,9 +35,15 @@ Companion construction papers: [10.5281/zenodo.22167882](https://doi.org/10.5281
 | directory | L-function family | size N | locked levels (rel err < 1e-4) |
 |---|---|---|---|
 | `zeta_J50/` | Riemann ζ(s) | 50 | 25 |
+| `zeta_J100/` | Riemann ζ(s), 1300-digit construction | 100 | 55 (rel err ~1e-15) |
 | `beta_J50/` | Dirichlet L mod 4 (χ₄, Catalan) | 50 | 27 |
 | `delta_J22/` | Ramanujan τ, weight-12 cusp form Δ | 22 | 15 (small sample) |
 | `product_J100/` | ξ·Λ_β product (independent families) | 100 | 53 (35 β + 18 ζ) |
+
+A discriminative **control** lives in `controls/e4_eisenstein/`: the Eisenstein
+series E₄, whose L-function zeros lie on two off-symmetry lines, collapses the
+Jacobi chain at order 4 (moments turn negative at m=8) — demonstrating the
+pipeline responds to where the zeros sit. See `controls/README.md`.
 
 Each directory contains:
 
