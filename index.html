@@ -114,7 +114,7 @@ img{display:block;margin:1.2em auto;max-width:100%;width:min(100%,1000px);height
 </div>
 
 <div style="margin:1.4em auto;padding:.85em 1.15em;border:1px solid #b8860b;background:#fbf8ef;border-radius:6px;font-size:.92em;line-height:1.75;text-align:center;max-width:920px">
-<p style="margin:0"><strong>Copyright &amp; citation (CC BY 4.0):</strong> The work presented here is by <strong>Zhuo Chen (陈倬)</strong>, archived on Zenodo in August 2026 with timestamped DOIs establishing priority: RH paper <a href="https://zenodo.org/records/22113226">10.5281/zenodo.22113226</a>, Jacobi construction <a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a>, GRH <a href="https://zenodo.org/records/22167742">10.5281/zenodo.22167742</a>. Reproduction and citation require attribution with DOI. Every matrix is <strong>constructed forward</strong> from the \(c_n\) second-order recurrence and the \(\xi\) Taylor coefficients &mdash; no zero or prime data are used in the construction. Reproducible code and per-order data: <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub repository</a>.</p>
+<p style="margin:0"><strong>Copyright &amp; citation (CC BY 4.0):</strong> The work presented here is by <strong>Zhuo Chen (陈倬)</strong>, archived on Zenodo in August 2026 with timestamped DOIs establishing priority: RH paper <a href="https://zenodo.org/records/22167882">10.5281/zenodo.22167882</a>, Jacobi construction <a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a>, GRH <a href="https://zenodo.org/records/22167742">10.5281/zenodo.22167742</a>. Reproduction and citation require attribution with DOI. Every matrix is <strong>constructed forward</strong> from the \(c_n\) second-order recurrence and the \(\xi\) Taylor coefficients &mdash; no zero or prime data are used in the construction. Reproducible code and per-order data: <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub repository</a>.</p>
 </div>
 
 <h2>1. The seed: a formula every high-school student knows</h2>
@@ -465,7 +465,7 @@ $$\Delta\psi(n)=\psi(n+\tfrac12)-\psi(n-\tfrac12)\approx\Lambda(n),$$
 <p>The prime decoding uses <code>primes_via_matrix_trace.py</code> (pure matrix arithmetic: Cholesky, polar iteration, scaling&ndash;squaring &mdash; the route of Section 9), <code>primes_from_matrix_direct.py</code> (resolvent trace + Perron integral) and <code>prime_decode_forward.py</code> (zeros &rarr; explicit formula, baseline); all figures and the exported \(J_{50}\)/\(J_{100}\) matrix data (<code>J50_matrix.csv</code>, <code>J100_matrix.csv</code>, parameters, eigenvalues, convergence logs) are in the <code>data/</code> directory.</p>
 <div class="links">
 <p>&#128187; GitHub (script, data, matrix entries, appendix): <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
-<p>&#128196; RH operator paper (55 pp.): <a href="https://zenodo.org/records/22113226">zenodo.org/records/22113226</a></p>
+<p>&#128196; RH operator paper (50 pp., v2: positions/multiplicity boundary corrected): <a href="https://zenodo.org/records/22167882">zenodo.org/records/22167882</a></p>
 </div>
 <pre><code>pip install mpmath
 python reproduce_paper.py</code></pre>

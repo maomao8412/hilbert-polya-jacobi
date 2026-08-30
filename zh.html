@@ -111,7 +111,7 @@ img{display:block;margin:1.2em auto;max-width:100%;width:min(100%,1000px);height
 </div>
 
 <div style="margin:1.4em auto;padding:.85em 1.15em;border:1px solid #b8860b;background:#fbf8ef;border-radius:6px;font-size:.92em;line-height:1.75;text-align:center;max-width:920px">
-<p style="margin:0"><strong>版权与引用（CC BY 4.0）：</strong>本页所述工作由 <strong>陈倬（Zhuo Chen）</strong> 完成，全文已于 2026 年 8 月在 Zenodo 公开存档（带时间戳 DOI，可独立核验优先权）：RH 篇 <a href="https://zenodo.org/records/22113226">10.5281/zenodo.22113226</a>、Jacobi 构造篇 <a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a>、GRH 篇 <a href="https://zenodo.org/records/22167742">10.5281/zenodo.22167742</a>。转载、引用须注明作者与 DOI；全部矩阵由 \(c_n\) 二阶递推与 \(\xi\) 泰勒系数<strong>正向构造</strong>，未使用任何零点或素数数据拟合。复现代码与逐阶数据见 <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub 仓库</a>。</p>
+<p style="margin:0"><strong>版权与引用（CC BY 4.0）：</strong>本页所述工作由 <strong>陈倬（Zhuo Chen）</strong> 完成，全文已于 2026 年 8 月在 Zenodo 公开存档（带时间戳 DOI，可独立核验优先权）：RH 篇 <a href="https://zenodo.org/records/22167882">10.5281/zenodo.22167882</a>、Jacobi 构造篇 <a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a>、GRH 篇 <a href="https://zenodo.org/records/22167742">10.5281/zenodo.22167742</a>。转载、引用须注明作者与 DOI；全部矩阵由 \(c_n\) 二阶递推与 \(\xi\) 泰勒系数<strong>正向构造</strong>，未使用任何零点或素数数据拟合。复现代码与逐阶数据见 <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub 仓库</a>。</p>
 </div>
 
 <h2>一、种子：每个高中生都认识的公式</h2>
@@ -462,7 +462,7 @@ $$\Delta\psi(n)=\psi(n+\tfrac12)-\psi(n-\tfrac12)\approx\Lambda(n),$$
 <p>素数解码使用 <code>primes_via_matrix_trace.py</code>（纯矩阵算术：Cholesky、极分解、缩放平方——第九节路线）、<code>primes_from_matrix_direct.py</code>（预解式迹 + Perron 积分）与 <code>prime_decode_forward.py</code>（零点 → 显式公式，基线）；全部图片与导出的 \(J_{50}\)/\(J_{100}\) 矩阵数据（<code>J50_matrix.csv</code>、<code>J100_matrix.csv</code>、参数、本征值、收敛日志）均在 <code>data/</code> 目录。</p>
 <div class="links">
 <p>&#128187; GitHub（脚本、数据、矩阵元素、附录）：<a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
-<p>&#128196; RH 算子论文（55 页）：<a href="https://zenodo.org/records/22113226">zenodo.org/records/22113226</a></p>
+<p>&#128196; RH 算子论文（50 页，v2 已按谱位置/重数边界修订）：<a href="https://zenodo.org/records/22167882">zenodo.org/records/22167882</a></p>
 </div>
 <pre><code>pip install mpmath
 python reproduce_paper.py</code></pre>
