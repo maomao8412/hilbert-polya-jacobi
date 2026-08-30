@@ -276,6 +276,7 @@ $$\beta(s)=1-\frac1{3^s}+\frac1{5^s}-\frac1{7^s}+\frac1{9^s}-\cdots=\sum_{k=0}^{
 
 <h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ 4.5 26 zeros light up one by one: ζ and β interlace and lock on the spectral axis of one single product matrix</h2>
 <p><strong>There is only one 50×50 Jacobi matrix</strong> — the one built above from the moments of the completed product function \(\xi_K=\xi\cdot\Lambda_\beta\). Its 26 locked spectral points are drawn on <strong>one single spectral axis</strong>: gold dots are Riemann ζ zeros, green dots are β=L(s,χ₄) zeros. <strong>Gold and green alternate along the axis</strong> — β, β, β, ζ, β, β, ζ, β, β, ζ, … This is not two matrices’ results stitched together; it is the order that emerges naturally on the single spectral axis of one matrix. The open rings within 50 (β₁₉, ζ₉, β₂₀, ζ₁₀) are the next batch of zeros still converging with order.</p>
+<p style="margin-top:.6em"><strong>J₁₀₀ upgrade (same construction pipeline, doubled matrix order): the number of locked zeros rises from 26 to <span style="color:#b8860b;font-weight:bold">53</span> (35 β zeros + 18 ζ zeros, relative error vs. independent zeros &lt; 10⁻⁴), and \(b_n&gt;0\) holds through all 100 orders; the first 20 spectral entries all have relative errors of order 10⁻¹⁶. The interactive rail above keeps the J₅₀ version for circle-by-circle reproduction; the full J₁₀₀ lock data are in §9.4 and the reproducibility package.</strong></p>
 
 <style>
 .dual-dot.locked{transition:fill-opacity .25s}
@@ -550,9 +551,48 @@ $$\psi_K(x)=x-2\sqrt{x}\,\operatorname{Re}\operatorname{Tr}\!\left[e^{\,iA_K\ln 
 </ul>
 <p>Overall accuracy: RMS error 0.364 for the ζ matrix decoding rational \(\Lambda\), and 0.434 for the product matrix decoding Gaussian \(\Lambda_K\) — the same level of precision.</p>
 
-<h3 style="margin-top:1.4em;color:#1a4d8f">9.4 What this means</h3>
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.4 The J₁₀₀ upgrade: doubling the matrix order widens the decoding range</h3>
+<p>Running the very same \(\xi_K=\xi\cdot\Lambda_\beta\) whole-matrix construction pipeline (Stieltjes orthogonalization + Gauss quadrature) from a 50×50 matrix to a 100×100 one (650-digit precision, moments through \(P_{210}\)):</p>
+<ul>
+<li><strong>26 → 53 locked zeros</strong> (35 β + 18 ζ), with \(b_n&gt;0\) through all 100 orders;</li>
+<li><strong>spike RMS error 2.75 → 1.20</strong> (a 56% reduction); the trustworthy spike range widens from \(n\leq25\) to <strong>\(n\leq32\)</strong>;</li>
+<li><strong>the split-prime spike at n=29 is repaired</strong>: 1.79 on J₅₀, rising to 5.91 on J₁₀₀ (theory \(2\log29=6.73\));</li>
+<li><strong>the inert-square spike at n=49=7² is newly decoded</strong>: 0.88 on J₅₀, rising to 3.34 on J₁₀₀ (theory \(2\log7=3.89\)) — the arithmetic of the inert prime 7 leaves its first trace mark;</li>
+<li><strong>the ramified sequence at n=32=2⁵ recovers</strong>: the spike height returns near \(\log2=0.69\) (J₁₀₀ reads 1.13; J₅₀ read −0.42).</li>
+</ul>
+<figure style="margin:1.2em 0">
+<div class="img-scroll"><a href="data/gaussian_primes_j100.png" target="_blank" rel="noopener" title="Open the full-size image in a new tab; pinch to zoom"><img src="data/gaussian_primes_j100.png" alt="Product-matrix J50 vs J100 decoding Gaussian primes: spike RMS drops from 2.75 to 1.20, valid range widens to n≤32, the n=29 split spike is repaired, the n=49=7² inert square is newly decoded" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">Top J₅₀, bottom J₁₀₀: integer-point spikes of the same trace formula on two product matrices. Blue bars — ζ matrix; red bars — product matrix; black ticks — theory. On J₁₀₀ the valid range widens to \(n\leq32\), and the inert-square spike at \(n=49=7^2\) newly appears (the region n&gt;32 is truncation ringing; spikes farther out need higher-order matrices for quantitative confirmation). (Click for the full-size image.)</figcaption>
+</figure>
+<p style="font-size:.9em;color:var(--subtle);text-align:center">Honest scope: the J₁₀₀ spectral density is about twice that of the ζ-only matrix, and 100 quadrature nodes feed two zero families at once, so far-node drift limits the valid range to \(n\leq32\) (not \(n\leq52\)); every number still comes from forward matrix arithmetic — no prime table input, no fitting.</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.5 What this means</h3>
 <p>What looked like a spectral curiosity in §4.5 — ζ and β zeros locking alternately on one axis — is explained away at the arithmetic level: <strong>the product matrix is the matrix representation of \(\zeta_{\mathbb Q(i)}\), so of course it distributes prime weights by the rules of \(\mathbb Q(i)\)</strong>. No Gaussian integer, no splitting law, no prime table was ever fed into the matrix construction — only the Taylor coefficients of \(\xi_K=\xi\cdot\Lambda_\beta\) — yet the arithmetic of \(\mathbb Z[i]\) appears automatically as the "genes" of the β factor. This is the number-field version of the RH main paper's principle ("the matrix grows ζ from a single seed; primes are its arithmetic coordinates"): change the number field, and the matrix decodes that field's primes.</p>
 <p style="font-size:.9em;color:var(--subtle);text-align:center">Honest scope: \(J_{50}\) contains the spectrum only up to about the 25th zero, so spikes are trustworthy only within \(n\leq25\); every number comes from forward matrix arithmetic (Cholesky, polar decomposition, scaling-and-squaring, traces) — no prime table input, no fitting.</p>
+
+<h3 id="catalan" style="margin-top:1.4em;color:#1a4d8f">9.6 Reading Catalan's constant from a determinant: Q(i)'s own constant</h3>
+<p>In RH-main §9.8, the determinant of the ζ matrix reads \(\pi\) at integer points. Applied to the product matrix, the same trick cancels the \(\pi\) part against the ζ side, leaving Q(i)'s own constant. The β-side completed function of the product \(\xi_K=\xi\cdot\Lambda_\beta\) is</p>
+<div class="formula">
+$$\Lambda_\beta(s)=\left(\frac{\pi}{4}\right)^{-\frac{s+1}{2}}\Gamma\!\left(\frac{s+1}{2}\right)\beta(s),\qquad \beta(s)=L(s,\chi_4),$$
+</div>
+<p>with integer-point values \(\Lambda_\beta(1)=1\) and \(\Lambda_\beta(2)=4G/\pi\), where \(G=\beta(2)=\sum_{k=0}^\infty(-1)^k/(2k+1)^2=0.91597\ldots\) is <strong>Catalan's constant</strong>. Gauss quadrature drives the determinant to the ratio of completed-function values:</p>
+<div class="formula" style="font-size:.95em">
+$$\lim_{N\to\infty}\frac{\det\!igl(I+\tfrac94J_{K,N}\bigr)}{\det\!igl(I+\tfrac14J_{K,N}\bigr)}=\frac{\xi_K(2)}{\xi_K(1)}=\frac{\xi(2)\,\Lambda_\beta(2)}{\xi(1)\,\Lambda_\beta(1)}=\frac{4G}{3}=1.22129\ldots$$
+</div>
+<p>J₁₀₀ reads 1.1865 (2.9% off) and J₅₀ reads 1.1709 — the same tail-error level as the \(\pi\) decoding in the main paper (J₁₀₀ 2.3% off), fading with matrix order. Only the Taylor coefficients of \(\xi_K\) were fed in; Catalan's constant appears automatically as the "genes" of the β factor.</p>
+<figure style="margin:1.2em 0">
+<div class="img-scroll"><a href="data/catalan_decode.png" target="_blank" rel="noopener" title="Open the full-size image in a new tab; pinch to zoom"><img src="data/catalan_decode.png" alt="Determinant-ratio convergence: the ζ matrix reads π=3.14159, the product matrix reads 4G/3=1.22129 (Catalan's constant)" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">Left: the ζ-matrix determinant ratio converges to \(\pi=3.14159\) (RH-main §9.8); right: the same ratio on the product matrix converges to \(4G/3=1.22129\). The \(\pi\) cancels in the ratio, and the remainder — Catalan's constant \(G\) — belongs to \(\mathbb Q(i)\). (Click for the full-size image.)</figcaption>
+</figure>
+<p><strong>The constant ladder.</strong> Writing the determinant ratio as \(B(s)=F_K(s)/F_\zeta(s)\) (dividing by the ζ side cancels the truncation tail common to both) and climbing the integer points:</p>
+<div class="table-scroll"><table style="font-size:.92em">
+<tr><th>Integer rung</th><th>Limit of the ratio</th><th>J₁₀₀ reading</th><th>Constant read off</th></tr>
+<tr style="background:#f4f8fc"><td>\(B(2)/B(1)\)</td><td>\(4G/\pi=1.16624\)</td><td>1.1412</td><td>\(G=0.8963\) (theory 0.9160, 2.1% off)</td></tr>
+<tr><td>\(B(3)/B(2)\)</td><td>\(\pi^2/(8G)=1.34689\)</td><td>1.2897</td><td>pure \(\pi\) and \(G\), no new constant</td></tr>
+<tr style="background:#f4f8fc"><td>\(B(4)/B(3)\)</td><td>\(48\beta(4)/\pi^3=1.53096\)</td><td>1.4345</td><td>\(\beta(4)=0.9267\) (theory 0.9889, 6.3% off)</td></tr>
+</table></div>
+<p><strong>Every odd rung collapses to a pure power of \(\pi\), and each even rung hands over a new independent constant</strong> — \(G=\beta(2)\), \(\beta(4)\), \(\beta(6)\), … This is exactly Dirichlet's parity criterion: the odd character \(\chi_4\) takes critical values at odd integers (\(\beta(1)=\pi/4\), \(\beta(3)=\pi^3/32\), with closed \(\pi\)-forms) and non-critical values at even integers (\(G\), \(\beta(4)\), with no known \(\pi\)-form); the ζ side is fully parallel (closed \(\pi\)-forms at even integers, while \(\zeta(3)\), \(\zeta(5)\) are independent constants at odd ones). The same matrix marks directly on its spectrum which integer rungs belong to \(\pi\) and which carry the number field's own constants.</p>
+<p style="font-size:.9em;color:var(--subtle);text-align:center">Honest scope: the determinant reads an exact infinite-product representation of the constant (a matrix-quadrature approximation), not a closed identity in \(\pi^2\); the irrationality of \(G\) and its algebraic relation to \(\pi^2\) remain open, and this section does not claim to solve that open problem — it only exhibits the matrix's ability to read off periods (\(\pi\)) versus regulators (\(G\)) in separate rungs on the spectrum. Every number comes from forward matrix arithmetic and standard special-function formulas, with no fitting.</p>
 
 <h2>10. Reproducibility</h2>
 <div class="links">

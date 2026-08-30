@@ -456,6 +456,7 @@ $$\pi_{\text{矩阵}}=3\,\frac{\det(I+\tfrac94 J_N)}{\det(I+\tfrac14 J_N)}.$$
 <figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">左：矩阵行列式解码出的 π 随阶数单调逼近真值（\(J_{50}\)：3.1088；\(J_{100}\)：3.1190，误差 0.023）。右：双反正切参数化 π 级数的每步收敛比在 \(\lambda^*=1+\sqrt2\) 处取极小值 \(\sqrt2-1\)——正是种子 q。（点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
 </figure>
 <p>有限阶偏差来自 \(u=\tfrac32\) 已在收敛带边缘——它随阶数增大单调消退，和 §9.2 的阶梯、§9.4 的行列式恒等式是同一种截断伪影。矩阵算 π 用的是行列式（\(\xi\) 特殊值），解码素数用的是演化迹（整数点差分）：<strong>同一台矩阵，一个读数给常数，一个读数给素数</strong>。</p>
+<p style="background:#f4f8fc;border-left:3px solid #1a4d8f;padding:.6em 1em;margin-top:1em"><strong>跨章节注记（常数阶梯的另一半）。</strong>同一台行列式读数搬到 GRH 篇的乘积矩阵（\(\xi_K=\xi\cdot\Lambda_\beta\)）上，π 的幂约掉之后读到的不再是 \(\zeta\)，而是狄利克雷 \(\beta\) 函数：\(s=2\) 档读出 Catalan 常数 \(G=\beta(2)\)（行列式比的极限为 \(4G/3\approx1.2213\)），\(s=4\) 档读出 \(\beta(4)\)。也就是说，\(\zeta\) 矩阵的整数档只产出 π 的有理幂（偶整数点 \(\zeta(2n)\) 本就是 π 的幂），而 \(\beta\) 的偶整数档产出全新的常数（\(G、\beta(4)、\ldots\)），它们至今没有已知的 π 闭式——Catalan 常数的无理性本身仍是公开问题。矩阵把"周期"（π）与"regulator"（\(G\)）在谱上清晰分档，但不声称、也尚未解决后者。详见 <a href="grh_zh.html#catalan">GRH 篇 §9.6</a>。</p>
 
 <h3 style="margin-top:1.4em;color:#1a4d8f">9.9 种子自己长回来：π → tan(π/8) → q</h3>
 <p>更紧的闭环。把矩阵算出的 π 代入半角公式：</p>

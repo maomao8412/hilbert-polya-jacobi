@@ -277,6 +277,7 @@ $$\beta(s)=1-\frac1{3^s}+\frac1{5^s}-\frac1{7^s}+\frac1{9^s}-\cdots=\sum_{k=0}^{
 
 <h2 id="dual" style="border-left:4px solid #b8860b;padding-left:10px">★ 4.5 26 个零点逐个点亮：同一台乘积矩阵的谱轴上 ζ 与 β 交替锁定</h2>
 <p><strong>只有一台 50×50 Jacobi 矩阵</strong>——就是上面用乘积完成函数 \(\xi_K=\xi\cdot\Lambda_\beta\) 的矩序列构造的那台。把它锁定的 26 个谱点画在<strong>同一根谱轴</strong>上：金色是黎曼 ζ 零点，绿色是 β=L(s,χ₄) 零点。<strong>金点绿点沿轴交替出现</strong>——β、β、β、ζ、β、β、ζ、β、β、ζ……这不是把两台矩阵的结果拼在一起，而是一台矩阵单根谱轴上自然涌现的顺序。轴端 50 以内的空圈（β₁₉、ζ₉、β₂₀、ζ₁₀）是阶数尚在收敛中的下一批零点。</p>
+<p style="margin-top:.6em"><strong>J₁₀₀ 升级（同一条构造管线，矩阵阶数翻倍）：锁定数 26 → <span style="color:#b8860b;font-weight:bold">53</span>（35 个 β 零点 + 18 个 ζ 零点，与独立零点相对误差 &lt; 10⁻⁴），b_n&gt;0 在全部 100 阶成立；前 20 个谱点的相对误差均为 10⁻¹⁶ 量级。本文交互谱轴保留 J₅₀ 版本以便逐圈复现，J₁₀₀ 的完整锁定数据见 §9.4 与可复现性数据包。</strong></p>
 
 <style>
 .dual-dot.locked{transition:fill-opacity .25s}
@@ -551,9 +552,48 @@ $$\psi_K(x)=x-2\sqrt{x}\,\operatorname{Re}\operatorname{Tr}\!\left[e^{\,iA_K\ln 
 </ul>
 <p>全局精度：ζ 矩阵解码有理 \(\Lambda\) 的 RMS 误差 0.364，乘积矩阵解码高斯 \(\Lambda_K\) 的 RMS 误差 0.434——同一精度水平。</p>
 
-<h3 style="margin-top:1.4em;color:#1a4d8f">9.4 这说明什么</h3>
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.4 J₁₀₀ 升级：矩阵阶数翻倍，有效解码区扩展</h3>
+<p>同一条 \(\xi_K=\xi\cdot\Lambda_\beta\) 整体构造管线（Stieltjes 正交化 + 高斯求积），把矩阵从 50×50 提升到 100×100（650 位精度、矩到 \(P_{210}\)）：</p>
+<ul>
+<li><strong>锁定 26 → 53 个零点</strong>（35 个 β + 18 个 ζ），\(b_n&gt;0\) 在全部 100 阶成立；</li>
+<li><strong>尖峰 RMS 误差 2.75 → 1.20</strong>（下降 56%），可信尖峰区间 \(n\leq25\) 扩展到 <strong>\(n\leq32\)</strong>；</li>
+<li><strong>n=29 分裂素数尖峰修复</strong>：J₅₀ 仅 1.79，J₁₀₀ 升到 5.91（理论 \(2\log29=6.73\)）；</li>
+<li><strong>n=49=7² 惰性平方尖峰新解码</strong>：J₅₀ 仅 0.88，J₁₀₀ 升到 3.34（理论 \(2\log7=3.89\)）——惰性素数 7 的算术第一次在迹上留痕；</li>
+<li><strong>n=32=2⁵ 分歧序列恢复</strong>：尖峰高度回到 \(\log2=0.69\) 附近（J₁₀₀ 读数 1.13，J₅₀ 为 −0.42）。</li>
+</ul>
+<figure style="margin:1.2em 0">
+<div class="img-scroll"><a href="data/gaussian_primes_j100.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/gaussian_primes_j100.png" alt="乘积矩阵 J50 与 J100 解码高斯素数对比：J100 尖峰 RMS 从 2.75 降到 1.20，有效区扩展到 n≤32，n=29 分裂尖峰修复、n=49=7² 惰性平方新解码" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">上图 J₅₀、下图 J₁₀₀：同一迹公式在两台乘积矩阵上的整数点尖峰。蓝柱 ζ 单矩阵、红柱乘积矩阵、黑色刻度理论值；J₁₀₀ 有效区扩展到 \(n\leq32\)，\(n=49=7^2\) 处的惰性平方尖峰在 J₁₀₀ 新显形（n&gt;32 区域为截断振铃，更远尖峰需更高阶矩阵定量确认）。（点按图片可打开全尺寸大图）</figcaption>
+</figure>
+<p style="font-size:.9em;color:var(--subtle);text-align:center">诚实范围：J₁₀₀ 谱密度约为 ζ 单矩阵的两倍，100 个求积节点同时喂两套零点，远端漂移使有效区到 \(n\leq32\) 为止（未达 \(n\leq52\)）；全部数字仍来自正向矩阵算术，未输入素数表，未作拟合。</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.5 这说明什么</h3>
 <p>§4.5 看到"ζ 与 β 零点在同一谱轴上交替锁定"时，它还像是谱的巧合；算术层把它解释掉了：<strong>乘积矩阵是 \(\zeta_{\mathbb Q(i)}\) 的矩阵表示，它当然按 \(\mathbb Q(i)\) 的规则分配素数权重</strong>。矩阵构造中没有输入过任何高斯整数、分裂法则或素数表——只用了 \(\xi_K=\xi\cdot\Lambda_\beta\) 的泰勒系数——但 \(\mathbb Z[i]\) 的算术作为 β 因子的"基因"自动显形。这与 RH 主篇"矩阵从种子长出 ζ、素数是算术坐标"是同一原理的数域版本：换一个数域，矩阵就解码那个数域的素数。</p>
 <p style="font-size:.9em;color:var(--subtle);text-align:center">诚实范围：\(J_{50}\) 只含到约第 25 个零点的谱，尖峰只在有效区间 \(n\leq25\) 可信；每个数字都来自正向矩阵算术（Cholesky、极分解、缩放平方、求迹），未输入素数表，未对结果作拟合。</p>
+
+<h3 id="catalan" style="margin-top:1.4em;color:#1a4d8f">9.6 行列式读出 Catalan 常数：Q(i) 自己的常数</h3>
+<p>RH 主篇 §9.8 里，ζ 矩阵的行列式在整数点读出 \(\pi\)。同一招用在乘积矩阵上，比值里 \(\pi\) 部分被 ζ 侧约光，剩下的是 Q(i) 自己的常数。乘积完成函数 \(\xi_K=\xi\cdot\Lambda_\beta\) 的 β 侧完成函数为</p>
+<div class="formula">
+$$\Lambda_\beta(s)=\left(\frac{\pi}{4}\right)^{-\frac{s+1}{2}}\Gamma\!\left(\frac{s+1}{2}\right)\beta(s),\qquad \beta(s)=L(s,\chi_4),$$
+</div>
+<p>其整数点值：\(\Lambda_\beta(1)=1\)、\(\Lambda_\beta(2)=4G/\pi\)，其中 \(G=\beta(2)=\sum_{k=0}^\infty(-1)^k/(2k+1)^2=0.91597\ldots\) 是 <strong>Catalan 常数</strong>。高斯求积把行列式收敛到完成函数值之比：</p>
+<div class="formula" style="font-size:.95em">
+$$\lim_{N\to\infty}\frac{\det\!igl(I+\tfrac94J_{K,N}\bigr)}{\det\!igl(I+\tfrac14J_{K,N}\bigr)}=\frac{\xi_K(2)}{\xi_K(1)}=\frac{\xi(2)\,\Lambda_\beta(2)}{\xi(1)\,\Lambda_\beta(1)}=\frac{4G}{3}=1.22129\ldots$$
+</div>
+<p>J₁₀₀ 读数 1.1865（偏差 2.9%），J₅₀ 为 1.1709——与主篇 \(\pi\) 解码 J₁₀₀ 偏差 2.3% 同一档尾差，随矩阵阶数消退。矩阵构造只输入了 \(\xi_K\) 的泰勒系数，Catalan 常数是 β 因子的"基因"自动显形。</p>
+<figure style="margin:1.2em 0">
+<div class="img-scroll"><a href="data/catalan_decode.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/catalan_decode.png" alt="行列式比值收敛：ζ 矩阵读出 π=3.14159，乘积矩阵读出 4G/3=1.22129（Catalan 常数）" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">左：ζ 矩阵行列式比随阶数收敛到 \(\pi=3.14159\)（RH 主篇 §9.8）；右：乘积矩阵同一比值收敛到 \(4G/3=1.22129\)。\(\pi\) 在比值中约光，剩下的 Catalan 常数 \(G\) 属于 \(\mathbb Q(i)\)。（点按图片可打开全尺寸大图）</figcaption>
+</figure>
+<p><strong>常数阶梯。</strong>把行列式比写成 \(B(s)=F_K(s)/F_\zeta(s)\)（除以 ζ 侧，消掉两边共有的截断尾差），沿整数点上爬：</p>
+<div class="table-scroll"><table style="font-size:.92em">
+<tr><th>整数档</th><th>比值极限</th><th>J₁₀₀ 读数</th><th>读出的常数</th></tr>
+<tr style="background:#f4f8fc"><td>\(B(2)/B(1)\)</td><td>\(4G/\pi=1.16624\)</td><td>1.1412</td><td>\(G=0.8963\)（理论 0.9160，偏差 2.1%）</td></tr>
+<tr><td>\(B(3)/B(2)\)</td><td>\(\pi^2/(8G)=1.34689\)</td><td>1.2897</td><td>纯 \(\pi\) 与 \(G\)，无新常数</td></tr>
+<tr style="background:#f4f8fc"><td>\(B(4)/B(3)\)</td><td>\(48\beta(4)/\pi^3=1.53096\)</td><td>1.4345</td><td>\(\beta(4)=0.9267\)（理论 0.9889，偏差 6.3%）</td></tr>
+</table></div>
+<p><strong>奇数档全部塌缩成 \(\pi\) 的幂，每爬一个偶数档，矩阵交出一个新的独立常数</strong>——\(G=\beta(2)\)、\(\beta(4)\)、\(\beta(6)\)、……。这正是 Dirichlet 奇偶判据：奇特征 \(\chi_4\) 在奇数点取临界值（\(\beta(1)=\pi/4\)、\(\beta(3)=\pi^3/32\)，有 \(\pi\) 闭式），偶数点取非临界值（\(G\)、\(\beta(4)\)，无已知 \(\pi\) 闭式）；ζ 侧完全平行（偶数点 \(\pi\) 闭式，奇数点 \(\zeta(3)\)、\(\zeta(5)\) 是独立常数）。同一台矩阵把"哪些整数档属于 \(\pi\)、哪些档是数域自己的常数"直接标在谱上。</p>
+<p style="font-size:.9em;color:var(--subtle);text-align:center">诚实范围：行列式读出的是常数的精确无穷乘积表示（矩阵求积逼近），不是 \(\pi^2\) 的闭式恒等式；\(G\) 的无理性及其与 \(\pi^2\) 的代数关系至今开放，本节不声称解决该公开问题，只展示矩阵在谱上把周期（\(\pi\)）与 regulator（\(G\)）分档读出的能力。每个数字均来自正向矩阵算术与标准特殊函数公式，未作拟合。</p>
 
 <h2>十、可复现性</h2>
 <div class="links">
