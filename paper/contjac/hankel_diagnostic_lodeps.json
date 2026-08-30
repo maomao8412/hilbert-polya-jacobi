@@ -1,0 +1,30 @@
+{
+ "object": "Hankel/GS failure-order vs working precision (zeta xi, R=2, M=1536)",
+ "note": "moments recomputed from 1300dps contour samples, truncated to target dps",
+ "rows": [
+  {
+   "dps": 16,
+   "cholesky_fail_order": 6,
+   "gs_bad_first_index": 7,
+   "min_pivot_log10": -22.24010705430821
+  },
+  {
+   "dps": 30,
+   "cholesky_fail_order": 7,
+   "gs_bad_first_index": 8,
+   "min_pivot_log10": -32.384318587176594
+  },
+  {
+   "dps": 50,
+   "cholesky_fail_order": 11,
+   "gs_bad_first_index": 12,
+   "min_pivot_log10": -60.990385194446375
+  },
+  {
+   "dps": 75,
+   "cholesky_fail_order": 15,
+   "gs_bad_first_index": 16,
+   "min_pivot_log10": -91.34446345371916
+  }
+ ]
+}

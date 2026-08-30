@@ -1,0 +1,45 @@
+{
+ "object": "Hankel failure order (rebuilt from log)",
+ "rows": [
+  {
+   "dps": 100,
+   "cholesky_fail_order": 18,
+   "gs_bad_first_index": 19
+  },
+  {
+   "dps": 150,
+   "cholesky_fail_order": 28,
+   "gs_bad_first_index": 29
+  },
+  {
+   "dps": 200,
+   "cholesky_fail_order": 32,
+   "gs_bad_first_index": 33
+  },
+  {
+   "dps": 300,
+   "cholesky_fail_order": 46,
+   "gs_bad_first_index": 47
+  },
+  {
+   "dps": 400,
+   "cholesky_fail_order": 59,
+   "gs_bad_first_index": 60
+  },
+  {
+   "dps": 500,
+   "cholesky_fail_order": 71,
+   "gs_bad_first_index": 72
+  },
+  {
+   "dps": 650,
+   "cholesky_fail_order": 91,
+   "gs_bad_first_index": 92
+  },
+  {
+   "dps": 800,
+   "cholesky_fail_order": 105,
+   "gs_bad_first_index": 106
+  }
+ ]
+}
