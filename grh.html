@@ -49,7 +49,7 @@ window.MathJax = {
   .hero .chain{font-size:1.02em;line-height:2.3;color:var(--heading)}
   .hero .chain .arrow{color:var(--accent);font-weight:bold;margin:0 .25em}
   h1,h2,h3,p,blockquote,.boundary,.links,.hero,.fig,.formula,pre,.subtitle,.en-link{max-width:1000px;margin-left:auto;margin-right:auto}
-  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;margin:.8em auto;border:1px solid #eee;border-radius:6px;padding:.4em .5em;background:#fff;max-width:1000px}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y;margin:.8em 0;border:1px solid #eee;border-radius:6px;padding:.4em .5em;background:#fff;}
   .table-scroll table{min-width:560px;margin:0 auto}
   td,th{white-space:nowrap}
   .pass{color:#0a5c23;font-weight:bold}
@@ -57,7 +57,7 @@ window.MathJax = {
   .ctrl button{font-size:.95em;margin:0 .3em;padding:.35em 1em;border:1px solid var(--heading);background:#fff;color:var(--heading);border-radius:5px;cursor:pointer}
   .ctrl button.on{background:var(--heading);color:#fff}
   .ctrl label{font-size:.9em;margin:0 .4em}
-  @media (max-width:768px){body{padding:16px 10px 60px;font-size:16px;line-height:1.8}h1{font-size:1.4em}h2{font-size:1.18em}h3{font-size:1.05em}.hero{padding:1em .7em}.hero .chain{font-size:.9em;line-height:2.05}.table-scroll{margin-left:-6px;margin-right:-6px}}
+  @media (max-width:768px){body{padding:16px 10px 60px;font-size:16px;line-height:1.8}h1{font-size:1.4em}h2{font-size:1.18em}h3{font-size:1.05em}.hero{padding:1em .7em}.hero .chain{font-size:.9em;line-height:2.05}.table-scroll{margin-left:-6px;margin-right:-6px;padding:.3em .2em;}}
 /* j50-tables-grh */
 table.j50-data{min-width:3400px;font-size:.62em;border-collapse:collapse;font-variant-numeric:tabular-nums;margin:0 auto;}
 table.j50-data th,table.j50-data td{border:1px solid var(--rule);padding:.18em .3em;text-align:center;white-space:nowrap;}
@@ -71,6 +71,19 @@ table.j50-data td.far{color:#999;}
 table.j50-data td.dim{color:#ccc;}
 table.j50-data tr.tr-zeta td.rl{background:#fff8e1;color:#8a6d1a;}
 table.j50-data tr.tr-beta td.rl{background:#e6f5ea;color:#1a6b2a;}
+/* conv-table 逐阶收敛表（与 RH 主页 .conv-table 完全一致） */
+.conv-table{font-size:.82em;margin:1.2em auto;min-width:2900px;font-variant-numeric:tabular-nums;border-collapse:collapse}
+.conv-table th,.conv-table td{border:1px solid var(--rule);padding:.25em .42em;text-align:center;white-space:nowrap}
+.conv-table th{background:#eef2f8;font-size:.92em}
+.conv-table td.rl,.conv-table th.rl{background:#f0f4fa;font-weight:bold;white-space:nowrap;position:sticky;left:0;z-index:2}
+.conv-table td.lk{background:#d4edda;color:#0a5c23;font-weight:bold}
+.conv-table td.near{color:#856404;font-size:.85em}
+.conv-table td.far{color:#ccc;font-size:.8em}
+.conv-table td.dim{color:#e0e0e0}
+.table-scroll table.conv-table{min-width:2900px;}
+.conv-table tr.tr-zeta td.rl{background:#fff8e1;color:#8a6d1a;}
+.conv-table tr.tr-beta td.rl{background:#e6f5ea;color:#1a6b2a;}
+
 </style>
 </head>
 <body>
@@ -140,7 +153,7 @@ $$\beta(s)=1-\frac1{3^s}+\frac1{5^s}-\frac1{7^s}+\frac1{9^s}-\cdots=\sum_{k=0}^{
 
 <h3 style="text-align:center;color:var(--heading)">★. Step-by-step convergence: how 50 eigenvalues stabilize digit by digit from N=3 to 50</h3>
 <div class="table-scroll">
-<table class="j50-data">
+<table class="conv-table">
 <tr><th class="rl">n</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th><th>31</th><th>32</th><th>33</th><th>34</th><th>35</th><th>36</th><th>37</th><th>38</th><th>39</th><th>40</th><th>41</th><th>42</th><th>43</th><th>44</th><th>45</th><th>46</th><th>47</th><th>48</th><th>49</th><th>50</th><th class="rl">lock</th></tr>
 <tr class="tr-beta"><td class="rl"><b>β<sub>1</sub></b></td><td class="near">6.02260</td><td class="lk"><b>6.02096</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="lk"><b>6.02095</b></td><td class="rl"><b>N<sub>4</sub></b></td></tr>
 <tr class="tr-beta"><td class="rl"><b>β<sub>2</sub></b></td><td class="far">11.48938</td><td class="far">10.39592</td><td class="near">10.25360</td><td class="near">10.24439</td><td class="lk"><b>10.24381</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="lk"><b>10.24377</b></td><td class="rl"><b>N<sub>7</sub></b></td></tr>
