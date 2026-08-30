@@ -455,8 +455,8 @@ $$\frac{\xi(2)}{\xi(1)}=\frac{\pi}{3},\qquad
 $$\pi_{\text{matrix}}=3\,\frac{\det(I+\tfrac94 J_N)}{\det(I+\tfrac14 J_N)}.$$
 </div>
 <figure style="margin:1.2em 0">
-<div class="img-scroll"><a href="data/pi_decode.png" target="_blank" rel="noopener" title="Open the full-size image in a new tab; pinch to zoom"><img src="data/pi_decode.png" alt="pi decoded from a matrix determinant converging with order; the minimax-optimal point of the Chen-Zu parametrised series is the seed q" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
-<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">Left: π from the matrix determinant approaches the true value monotonically with order (\(J_{50}\): 3.1088; \(J_{100}\): 3.1190, error 0.023). Right: the per-step convergence ratio of the Chen–Zu double-arctangent parametrisation attains its minimum \(\sqrt2-1\) at \(\lambda^*=1+\sqrt2\) — precisely the seed q. (Click for the full-size image; pinch to zoom.)</figcaption>
+<div class="img-scroll"><a href="data/pi_decode.png" target="_blank" rel="noopener" title="Open the full-size image in a new tab; pinch to zoom"><img src="data/pi_decode.png" alt="pi decoded from a matrix determinant converging with order; the minimax-fastest point of the parametrised pi series is the seed q" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">Left: π from the matrix determinant approaches the true value monotonically with order (\(J_{50}\): 3.1088; \(J_{100}\): 3.1190, error 0.023). Right: the per-step convergence ratio of the double-arctangent parametrised π series attains its minimum \(\sqrt2-1\) at \(\lambda^*=1+\sqrt2\) — precisely the seed q. (Click for the full-size image; pinch to zoom.)</figcaption>
 </figure>
 <p>The finite-order deviation comes from \(u=\tfrac32\) lying at the edge of the convergence band; it recedes monotonically with order, the same truncation artefact as the staircase of §9.2 and the determinant identity of §9.4. Computing π uses the determinant (a special value of \(\xi\)); decoding primes uses the evolution trace (integer-time differences): <strong>one and the same matrix — one reading gives the constant, the other gives the primes</strong>.</p>
 
@@ -465,11 +465,24 @@ $$\pi_{\text{matrix}}=3\,\frac{\det(I+\tfrac94 J_N)}{\det(I+\tfrac14 J_N)}.$$
 <div class="formula">
 $$q_{\text{matrix}}=\tan\!\left(\frac{\pi_{\text{matrix}}}{8}\right).$$
 </div>
-<p>\(J_{50}\) gives \(q_{\text{matrix}}=0.4094\), \(J_{100}\) gives 0.4109 — converging monotonically to the true seed \(q=\sqrt2-1=0.414214\) (error 0.0033 at \(J_{100}\)). The matrix was never told q, π, or any constant — it is a finite table of positive numbers — yet the seed is read back out of the very matrix it grew into. At the limit \(\arctan q=\pi/8\), and \(\beta(1)=1-\tfrac13+\tfrac15-\cdots=\pi/4=2\arctan q\): the sum of the Leibniz series, the seed, and the optimal Chen–Zu parameter are three faces of one number. This is also the same source as the \(\chi_4\) splitting law in the GRH page's Gaussian-prime section — \(\pi/4\) is the class number of \(\mathbb Q(i)\).</p>
+<p>\(J_{50}\) gives \(q_{\text{matrix}}=0.4094\), \(J_{100}\) gives 0.4109 — converging monotonically to the true seed \(q=\sqrt2-1=0.414214\) (error 0.0033 at \(J_{100}\)). The matrix was never told q, π, or any constant — it is a finite table of positive numbers — yet the seed is read back out of the very matrix it grew into. At the limit \(\arctan q=\pi/8\), and \(\beta(1)=1-\tfrac13+\tfrac15-\cdots=\pi/4=2\arctan q\): the sum of the Leibniz series, the seed, and the fastest-converging point of the parametrised π series are three faces of one number. This is also the same source as the \(\chi_4\) splitting law in the GRH page's Gaussian-prime section — \(\pi/4\) is the class number of \(\mathbb Q(i)\).</p>
+<p>This point is not a coincidence — it has a one-page proof. By the tangent addition formula, for every \(\lambda>1\) there is an arctangent identity</p>
+<div class="formula">
+$$\arctan\frac1\lambda+\arctan\frac{\lambda-1}{\lambda+1}=\frac{\pi}{4}$$
+</div>
+<p>(let \(A,B\) be the two arctangents; then \(\tan(A+B)=\dfrac{1/\lambda+(\lambda-1)/(\lambda+1)}{1-\frac1\lambda\cdot\frac{\lambda-1}{\lambda+1}}=1\), and \(A,B\in(0,\pi/4)\), hence \(A+B=\pi/4\)). Substituting the alternating power series of \(\arctan x\) gives a parametrised family of π series:</p>
+<div class="formula" style="font-size:.92em">
+$$\pi=4\sum_{n=0}^{\infty}\frac{(-1)^n}{2n+1}\left[\lambda^{-(2n+1)}+\left(\frac{\lambda-1}{\lambda+1}\right)^{2n+1}\right]\quad(\lambda>1).$$
+</div>
+<p>The two terms decay with geometric ratios \(1/\lambda\) and \((\lambda-1)/(\lambda+1)\); the per-step dominant ratio is \(r(\lambda)=\max\bigl\{1/\lambda,\;(\lambda-1)/(\lambda+1)\bigr\}\). The first decreases with λ, the second increases with λ, so the minimax optimum sits at their crossing: \(1/\lambda=(\lambda-1)/(\lambda+1)\), i.e. \(\lambda^2-2\lambda-1=0\), positive root \(\lambda^*=1+\sqrt2\), where</p>
+<div class="formula">
+$$r_{\min}=\frac1{\lambda^*}=\sqrt2-1=q.$$
+</div>
+<p>As λ→∞ the series degenerates to the Leibniz series (ratio → 1, i.e. slow term-by-term convergence); at \(\lambda^*=1+\sqrt2\) each step multiplies by q≈0.414 — roughly one extra decimal digit per 1.3 terms. <strong>The seed q is exactly the fastest-converging point of this parametrised π-series family</strong> — it was first found in the optimal parametrisation for computing π, and now it grows back, unchanged, out of the matrix determinant.</p>
 <div class="table-scroll"><table style="font-size:.92em">
 <tr><th>Identity</th><th>Expression</th><th>Value</th></tr>
 <tr style="background:#f4f8fc"><td>The seed (parameter of the tangent-addition Möbius map)</td><td>\(q=\tan(\pi/8)\)</td><td>0.414214</td></tr>
-<tr><td>Reciprocal of the optimal Chen–Zu parameter</td><td>\(\lambda^*=1/q=1+\sqrt2\) (minimax where \(1/\lambda=(\lambda-1)/(\lambda+1)\))</td><td>2.414214</td></tr>
+<tr><td>Reciprocal of the fastest-convergence parameter of the parametrised π series</td><td>\(\lambda^*=1/q=1+\sqrt2\) (minimax where \(1/\lambda=(\lambda-1)/(\lambda+1)\))</td><td>2.414214</td></tr>
 <tr style="background:#f4f8fc"><td>Half-angle of the Leibniz series sum</td><td>\(\beta(1)=\pi/4=2\arctan q\)</td><td>0.785398</td></tr>
 <tr><td>Class number of the Gaussian integers</td><td>\(\operatorname{Res}_{s=1}\zeta_{\mathbb Q(i)}=\pi/4\)</td><td>0.785398</td></tr>
 </table></div>
