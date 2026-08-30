@@ -393,7 +393,7 @@ $$\psi(x)=x-2\sqrt{x}\,\operatorname{Re}\operatorname{Tr}\!\left[e^{\,iA\ln x}\b
 
 <h3 style="margin-top:1.4em;color:#1a4d8f">9.2 仅凭矩阵算术重建切比雪夫函数</h3>
 <figure style="margin:1.2em 0">
-<div class="img-scroll"><a href="data/primes_matrix_trace_psi.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/primes_matrix_trace_psi.png" alt="纯矩阵迹公式重建的 psi(x)" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<div class="img-scroll"><a href="data/primes_matrix_trace_psi_zh.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/primes_matrix_trace_psi_zh.png" alt="纯矩阵迹公式重建的 psi(x)" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
 <figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">迹公式仅凭 100&times;100 矩阵（红）重建切比雪夫阶梯 \(\psi(x)=\sum_{n\leq x}\Lambda(n)\)（黑）：\(x\gt40\) 区间 RMS 误差 0.97。未提取任何零点，未计算任何积分。 （点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
 </figure>
 
@@ -404,24 +404,24 @@ $$\Delta\psi(n)=\psi(n+\tfrac12)-\psi(n-\tfrac12)\approx\Lambda(n),$$
 </div>
 <p>von Mangoldt 尖峰直接蹦出：每当 \(n\) 是素数或素数幂 \(p^k\)，就出现高度 \(\log p\) 的尖峰。<strong>52 以内 23 个素数幂中 19 个被恢复，尖峰误差小于 0.5</strong>（2、4、16、49 的小漏检需要截断矩阵所缺的更高零点；45–52 附近的少数假峰是截断振铃——两者都是有限阶伪影，不是方法缺陷）。</p>
 <figure style="margin:1.2em 0">
-<div class="img-scroll"><a href="data/primes_pop_out_spikes.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/primes_pop_out_spikes.png" alt="纯矩阵算术恢复的 von Mangoldt 尖峰" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<div class="img-scroll"><a href="data/primes_pop_out_spikes_zh.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/primes_pop_out_spikes_zh.png" alt="纯矩阵算术恢复的 von Mangoldt 尖峰" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
 <figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">上：矩阵迹差分（红）对真实 von Mangoldt 值 \(\Lambda(n)\)（深色）——素数 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47 … 以尖峰挺立；素数幂 8, 9, 25, 27, 32 以高度 \(\log p\) 出现。下：解码误差，绿色为误差小于 0.5 的尖峰。\(J_{100}\) 有效范围 \(n\leq52\)。 （点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
 </figure>
 
 <figure style="margin:1.2em 0">
-<div class="img-scroll"><a href="data/matrix_trace_order.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/matrix_trace_order.png" alt="迹随矩阵阶数收紧" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<div class="img-scroll"><a href="data/matrix_trace_order_zh.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/matrix_trace_order_zh.png" alt="迹随矩阵阶数收紧" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
 <figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">矩阵元素越多，素数越多：同一条迹公式在 50 阶（蓝）与 100 阶（红）下向真实阶梯（黑）收紧，可读区间随阶数稳步扩大。 （点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
 </figure>
 
 <h3 style="margin-top:1.4em;color:#1a4d8f">9.4 函数本身是矩阵行列式</h3>
 <figure style="margin:1.2em 0">
-<div class="img-scroll"><a href="data/zeta_is_determinant.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/zeta_is_determinant.png" alt="zeta 函数作为矩阵行列式" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<div class="img-scroll"><a href="data/zeta_is_determinant_zh.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/zeta_is_determinant_zh.png" alt="zeta 函数作为矩阵行列式" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
 <figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">\(\log\det(I+u^2J_{100})\)（红）在收敛带 \(|u|\leq3\) 内与精确值 \(2\log|\xi(\tfrac12+u)/\xi(\tfrac12)|\)（黑色虚线）完全重合；带外有限阶行列式开始偏离——收敛带随阶数单调扩展。 （点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
 </figure>
 
 <h3 style="margin-top:1.4em;color:#1a4d8f">9.5 矩阵幂即 ζ 矩量</h3>
 <figure style="margin:1.2em 0">
-<div class="img-scroll"><a href="data/matrix_powers_are_moments.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/matrix_powers_are_moments.png" alt="矩阵幂等于 zeta 矩量" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<div class="img-scroll"><a href="data/matrix_powers_are_moments_zh.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/matrix_powers_are_moments_zh.png" alt="矩阵幂等于 zeta 矩量" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
 <figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">\(\operatorname{Tr}(J^k)=S_k=\sum_\gamma\gamma^{-2k}\)：矩阵幂的迹等于 \(\xi\) 的对数矩量，\(k=2\) 时符合到 \(8.5\times10^{-4}\)，\(k=8\) 时到 \(2.4\times10^{-16}\)。\(k=1\) 的缺口正是 100 阶以外的零点尾部。 （点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
 </figure>
 <p>于是一张有限矩阵同时编码：ζ 函数（行列式）、其对数导数（预解式迹）、零点（预解式极点，从不提取）、矩量 \(S_k\)（幂迹），以及素数本身（演化迹在整数时刻的差分）。素数计数函数 \(\pi(x)\)、零点密度、素数间距统计，原则上都能在更高阶的同一矩阵上解码。</p>
