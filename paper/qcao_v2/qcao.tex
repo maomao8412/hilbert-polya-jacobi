@@ -531,6 +531,128 @@ Conjecture~\ref{conj:sup}: the two factors $\zeta(s)$ and $\zeta(s-3)$ share
 the \emph{same} zero heights $\gamma_k$, so $E_4$ is a correlated, not
 independent, superposition and lies outside that conjecture's hypothesis.
 
+\subsection{Dynamical non-integrability: out-of-time-order correlators}
+\label{sec:otoc}
+Spectral statistics alone cannot distinguish a non-integrable but localized
+system from a truly ergodic one. We therefore compute the squared
+commutator---the standard OTOC diagnostic~\cite{maldacena2016}---to
+ask whether the arithmetic Jacobi chain exhibits information scrambling
+dynamics independent of its spectral fingerprint.
+
+\paragraph{Setup.}
+For a Hamiltonian $H$ with eigenbasis $\{|n\rangle\}$ and thermal density
+matrix $\rho=\sum_n e^{-\beta E_n}/Z$, the squared commutator is
+$C(t)=\langle[W(t),V(0)]^\dagger[W(t),V(0)]\rangle_\beta$, with
+$V=W=\hat{n}_{N/2}$ the center-site number operator. We rescale all
+Hamiltonians by their spectral bandwidth $W=E_{\max}-E_{\min}$ so that time
+is dimensionless and cross-system comparison is meaningful. The arithmetic
+chains are single-particle tight-binding models ($N=100$ for $\zeta$, $J100$;
+$N=50$ for $\beta$, $J50$; $N=100$ for product $J100$); the GOE baseline is
+an ensemble average over $40$ realizations (dimension $100$) to suppress
+sample-to-sample fluctuations; the integrable reference is a uniform nearest-
+neighbour chain ($N=100$).
+
+\paragraph{Results (Fig.~\ref{fig:otoc}).}
+All three arithmetic chains yield indistinguishable growth rates
+$\lambda_L\approx 0.073$ (defined by $C(t)\sim e^{2\lambda_L t}$ in the
+window $C\in[0.02,0.4]$), \emph{independent of inverse temperature $\beta$}
+over the range $0.5$--$10$. The GOE ensemble shows instantaneous
+scrambling at $t\sim 0.5$ followed by saturation; the uniform chain
+exhibits periodic ballistic revivals at integer multiples of $t\approx 5$
+---the textbook signature of an integrable system. The arithmetic chains
+display none of these features: no instantaneous jump, no revivals, only a
+smooth, monotonic, slow exponential rise.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figure_otoc.png}
+\caption{Out-of-time-order correlator $C(t)$ (log scale). \textbf{Left:}
+$\beta=1$ comparison of five systems: GOE ensemble (40 realizations,
+instantaneous scrambling), arithmetic chains ($\zeta$-$J100$, $\beta$-$J50$,
+product-$J100$, all smooth monotonic growth, $\lambda_L\approx 0.073$),
+uniform chain (periodic revivals, integrable). \textbf{Right:} $\zeta$-$J100$
+at five inverse temperatures $\beta=0.5,1,2,5,10$; the curves overlap,
+showing $\lambda_L$ is temperature-independent.}
+\label{fig:otoc}
+\end{figure}
+
+\paragraph{Applicability of the MSS bound.}
+The Maldacena--Shenker--Stanford bound $\lambda_L\le 2\pi/\beta$ is a
+constraint on \emph{spatially extended, many-body, thermal quantum systems}
+in the thermodynamic limit---black holes, SYK models, and certain holographic
+CFTs. The arithmetic Jacobi chains are \emph{single-particle} tight-binding
+Hamiltonians on a finite lattice; the inverse temperature $\beta$ is a
+formal parameter applied to the single-particle spectrum after bandwidth
+rescaling, not a thermodynamic conjugate to an extensive energy. The
+observed $\lambda_L\approx 0.073$ therefore cannot be meaningfully compared
+to $2\pi/\beta$ (which ranges from $0.63$ to $12.6$ over $\beta=10$ to
+$0.5$): the bound simply does not apply. We do not claim that the arithmetic
+chains saturate, approach, or violate any holographic chaos limit.
+
+\paragraph{Physical interpretation.}
+The OTOC nonetheless carries unambiguous dynamical information. The
+\emph{absence of revivals} rules out integrability: a quasi-periodic
+spectrum would produce Poincar\'e recurrences on a timescale set by the
+level spacing, yet $C(t)$ grows monotonically over the entire observed
+window. The \emph{slowness} of the growth ($\lambda_L\sim 10^{-1}$, much
+smaller than the GOE scrambling rate $\sim 1$) is consistent with the
+finite-size localization seen in the IPR analysis (\S\ref{sec:exp3}): the
+eigenstates are extended enough to avoid revivals but localized enough to
+scramble slowly. We read the OTOC as a third, dynamically independent
+confirmation of the same picture painted by the spectral statistics and the
+spatial structure: \emph{Wigner--Dyson level repulsion + sub-diffusive
+eigenstate structure + slow, non-integrable scrambling}---a coherent
+fingerprint of arithmetic quantum chaos of a kind not previously catalogued.
+
+\section{Discussion: three conceptual implications}
+\label{sec:discussion}
+
+The numerical results above, taken together, carry implications that extend
+beyond the specific systems studied. We distill three conceptual points; each
+is grounded in a concrete experimental comparison from the preceding sections.
+
+\paragraph{First: quantum chaos does not require randomness as an input.}
+The standard routes to quantum-chaotic spectra are (i)~quantisation of a
+classically chaotic Hamiltonian (BGS conjecture) and (ii)~stochastic disorder
+(Anderson route). Our construction follows neither route: the Hamiltonian
+entries are produced by a fully deterministic arithmetic recurrence with no
+random source whatsoever, yet the spectrum exhibits Wigner--Dyson level
+repulsion (\S\ref{sec:exp1}), sub-diffusive eigenstate structure
+(\S\ref{sec:exp3}), and non-integrable scrambling dynamics (\S\ref{sec:otoc}).
+The shuffle control (\S\ref{sec:exp1}) is decisive here: the \emph{same}
+multiset of matrix elements, when their ordered correlations are destroyed,
+yields Poisson statistics and Anderson localisation. Randomness is a
+\emph{sufficient} but not a \emph{necessary} condition for quantum-chaotic
+spectra; deterministic ordered recurrence is an independent route.
+
+\paragraph{Second: the correlational structure of matrix elements has
+independent physical power.}
+Traditional Anderson localisation theory focuses on the probability
+distribution of matrix-element magnitudes. Our results show that for
+tridiagonal (Jacobi) Hamiltonians, the spectral and eigenstate properties
+are governed not merely by \emph{what} the entries are, but by \emph{how
+they are arranged}---the recurrence relation and the associated Hankel-moment
+structure. Identical sets of entries, under permutation, produce entirely
+different physics. The matrix elements are the ``characters''; the recurrence
+correlations are the ``grammar'' that determines the physical ``meaning''.
+This highlights a degree of freedom---the correlational structure of a
+Hamiltonian's entries---that is invisible to distribution-based analyses.
+
+\paragraph{Third: a structural correspondence, beyond statistical analogy,
+between analytic number theory and quantum Hamiltonians.}
+The Montgomery--Odlyzko observation that Riemann zeros follow GUE statistics
+has traditionally been read as an intriguing analogy. The Berry--Keating
+program sought a quantum Hamiltonian whose spectrum would reproduce the
+zeros. Our results suggest a different relationship: the $L$-function's
+analytic structure (via the Hadamard product and the functional equation)
+\emph{directly encodes} a complete Jacobi-operator structure that can be
+extracted algorithmically. The number-theoretic object carries, within its
+own analytic fabric, the skeleton of a quantum mechanical Hamiltonian---not
+as an externally imposed fit, but as an intrinsic algebraic output. This
+realises, in a concrete if finite-dimensional sense, the spirit of the
+Hilbert--P\'olya conjecture: the zeros are eigenvalues of a self-adjoint
+operator that the arithmetic itself constructs.
+
 \section{The mirror image of classical arithmetic quantum chaos}
 \label{sec:mirror}
 
@@ -1105,6 +1227,9 @@ Nat. Phys. \textbf{12}, 1037 (2016).
 R.~Schittko, P.~M. Preiss, M.~Greiner, \emph{Quantum thermalization through
 entanglement in an isolated many-body system}, Science \textbf{353}, 794
 (2016).
+
+\bibitem{maldacena2016} J.~Maldacena, S.~H. Shenker, D.~Stanford,
+  \emph{A bound on chaos}, JHEP \textbf{08} (2016) 106.
 \end{thebibliography}
 
 \end{document}
