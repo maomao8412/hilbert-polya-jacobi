@@ -508,7 +508,54 @@ T_K(r,\theta):=\frac{\partial}{\partial\theta}\log\bigl|\xi_K(\tfrac12+re^{i\the
 </ul>
 </div>
 
-<h2>九、可复现性</h2>
+
+<h2>九、从乘积矩阵到高斯素数：Q(i) 的纯矩阵算术解码</h2>
+<p>§4 说乘积矩阵的谱轴上 ζ 与 β 零点逐个交替锁定——这背后有更硬的算术事实。乘积矩阵构造自 \(\xi_K=\xi\cdot\Lambda_\beta\)，而</p>
+<div class="formula">
+$$\zeta_K(s)=\zeta(s)\,\beta(s)=\zeta_{\mathbb Q(i)}(s)$$
+</div>
+<p>恰好是<em>高斯整数域</em> \(\mathbb Q(i)\) 的 Dedekind ζ 函数（\(\beta(s)=L(s,\chi_4)\) 是模 4 狄利克雷特征）。把 RH 主篇 §9 的同一条素数迹公式——Cholesky 分解、极分解迭代、矩阵指数缩放平方、求迹差分；不对角化、不提取零点、不做任何积分——套到这台 50×50 乘积矩阵上，解码出来的就不是普通素数，而是<em>高斯素数</em>。</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.1 有理素数在高斯整数里的三种命运</h3>
+<p>\(\zeta_{\mathbb Q(i)}\) 的欧拉因子把每个有理素数按模 4 分成三类（\(\chi_4\) 为模 4 二次特征：\(p\equiv1\pmod4\) 时 \(\chi_4(p)=1\)，\(p\equiv3\pmod4\) 时为 \(-1\)，\(p=2\) 时为 \(0\)）：</p>
+<div class="table-scroll"><table style="font-size:.92em">
+<tr><th>类型</th><th>有理素数</th><th>在 \(\mathbb Z[i]\) 中的行为</th><th>von Mangoldt 权重 \(\Lambda_K(n)\)</th></tr>
+<tr style="background:#f4f8fc"><td><strong>分裂 split</strong></td><td>\(p\equiv1\pmod4\)（5, 13, 17, …）</td><td>\(p=\pi\bar\pi\)，拆成两个高斯素数</td><td>\(2\log p\) 出现在 \(n=p\)</td></tr>
+<tr><td><strong>惰性 inert</strong></td><td>\(p\equiv3\pmod4\)（3, 7, 11, 19, 23, …）</td><td>\(p\) 本身仍是高斯素数</td><td>\(n=p\) 处静默，\(2\log p\) 出现在 \(n=p^2\)</td></tr>
+<tr style="background:#f4f8fc"><td><strong>分歧 ramified</strong></td><td>\(p=2=(1+i)(1-i)\)</td><td>唯一分歧素数</td><td>\(\log 2\) 出现在 \(n=2^k\)</td></tr>
+</table></div>
+<p>三类权重写成一行就是</p>
+<div class="formula">
+$$\Lambda_K(n)=\Lambda(n)\bigl(1+\chi_4(n)\bigr).$$
+</div>
+<p>莱布尼茨级数 \(\beta(1)=1-\tfrac13+\tfrac15-\cdots=\pi/4\) 在这里不是装饰：\(\chi_4\) 决定的正是有理素数在 \(\mathbb Z[i]\) 里的分裂法则。</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.2 迹公式：乘积矩阵上的同一条算术</h3>
+<p>令 \(A_K=J_K^{-1/2}\)（谱即乘积函数的零点，从不提取），高斯整数域的切比雪夫阶梯由纯矩阵算术重建：</p>
+<div class="formula" style="font-size:.95em">
+$$\psi_K(x)=x-2\sqrt{x}\,\operatorname{Re}\operatorname{Tr}\!\left[e^{\,iA_K\ln x}\bigl(\tfrac12 I+iA_K\bigr)^{-1}\right]-C,$$
+</div>
+<p>在整数点作尖峰差分 \(\Delta\psi_K(n)=\psi_K(n+\tfrac12)-\psi_K(n-\tfrac12)\approx\Lambda_K(n)\)。对照实验用<em>完全同一套矩阵算术</em>：ζ 单矩阵应解码有理权重 \(\Lambda(n)\)，乘积矩阵应解码高斯权重 \(\Lambda_K(n)\)。</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.3 三种命运在尖峰图上全部显形</h3>
+<figure style="margin:1.2em 0">
+<div class="img-scroll"><a href="data/gaussian_prime_decode.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/gaussian_prime_decode.png" alt="乘积矩阵迹公式解码高斯素数：惰性素数尖峰被抑制、分裂素数翻倍、惰性平方处冒头" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">整数点尖峰差分：蓝柱为 ζ 单矩阵（解码有理 \(\Lambda(n)\)），红柱为乘积矩阵（解码高斯 \(\Lambda_K(n)\)）；黑色刻度为理论值。惰性素数 3,7,11,19,23 的红柱塌平、分裂素数 5,13,17 的红柱近翻倍、\(9=3^2\) 处冒出 \(2\log3\) 尖峰。有效区间 \(n\leq25\)。（点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
+</figure>
+<p>有效区间 \(n\leq25\) 内（\(J_{50}\) 的谱只收敛到约第 25 个零点；\(n\gt28\) 的杂乱尖峰是有限阶截断振铃——与 RH 主篇 \(J_{100}\) 有效区 \(n\leq52\) 同理，更大范围需要更高阶的乘积矩阵）：</p>
+<ul>
+<li><strong>惰性素数的尖峰被关掉</strong>：3、7、11、19、23 在 ζ 矩阵里平均尖峰 2.576，在乘积矩阵里塌到 0.299（理论值 0）——\(p\equiv3\pmod4\) 的权重是 \(\log p\,(1-1)=0\)；</li>
+<li><strong>分裂素数的尖峰近翻倍</strong>：5 处 1.57→3.00（理论 3.22）、13 处 2.82→4.15（理论 5.13）、17 处 3.03→5.52（理论 5.67）——\(p\equiv1\pmod4\) 的权重是 \(\log p\,(1+1)=2\log p\)；</li>
+<li><strong>惰性素数在平方处冒头</strong>：\(9=3^2\) 处尖峰 2.17（理论 \(2\log3=2.20\)）——惰性素数要走到 \(p^2\) 才在 \(\mathbb Q(i)\) 的阶梯里留痕；</li>
+<li><strong>分歧素数 2 照常</strong>：\(2,4,8,16\) 处尖峰高度 \(\log2\) 不变（\(\chi_4(2^k)=0\)，权重不受影响）。</li>
+</ul>
+<p>全局精度：ζ 矩阵解码有理 \(\Lambda\) 的 RMS 误差 0.364，乘积矩阵解码高斯 \(\Lambda_K\) 的 RMS 误差 0.434——同一精度水平。</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.4 这说明什么</h3>
+<p>§4.5 看到"ζ 与 β 零点在同一谱轴上交替锁定"时，它还像是谱的巧合；算术层把它解释掉了：<strong>乘积矩阵是 \(\zeta_{\mathbb Q(i)}\) 的矩阵表示，它当然按 \(\mathbb Q(i)\) 的规则分配素数权重</strong>。矩阵构造中没有输入过任何高斯整数、分裂法则或素数表——只用了 \(\xi_K=\xi\cdot\Lambda_\beta\) 的泰勒系数——但 \(\mathbb Z[i]\) 的算术作为 β 因子的"基因"自动显形。这与 RH 主篇"矩阵从种子长出 ζ、素数是算术坐标"是同一原理的数域版本：换一个数域，矩阵就解码那个数域的素数。</p>
+<p style="font-size:.9em;color:var(--subtle);text-align:center">诚实范围：\(J_{50}\) 只含到约第 25 个零点的谱，尖峰只在有效区间 \(n\leq25\) 可信；每个数字都来自正向矩阵算术（Cholesky、极分解、缩放平方、求迹），未输入素数表，未对结果作拟合。</p>
+
+<h2>十、可复现性</h2>
 <div class="links">
 <p>📄 GRH 论文（Zenodo，带时间戳 DOI，CC BY 4.0）：<a href="https://zenodo.org/records/22167742">10.5281/zenodo.22167742</a></p>
 <p>📄 RH 主篇：<a href="https://zenodo.org/records/22167882">10.5281/zenodo.22167882</a> ｜ Jacobi 构造篇：<a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a></p>

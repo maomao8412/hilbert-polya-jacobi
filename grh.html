@@ -507,7 +507,54 @@ while \(h'/h\) stays bounded; hence \(T_K(r_0,\theta)\to+\infty\) — <strong>a 
 </ul>
 </div>
 
-<h2>9. Reproducibility</h2>
+
+<h2>9. From the product matrix to Gaussian primes: pure matrix-arithmetic decoding of &#8474;(i)</h2>
+<p>The alternating lock-on of ζ and β zeros on one spectral axis (§4) has a harder arithmetic reason. The product matrix is built from \(\xi_K=\xi\cdot\Lambda_\beta\), and</p>
+<div class="formula">
+$$\zeta_K(s)=\zeta(s)\,\beta(s)=\zeta_{\mathbb Q(i)}(s)$$
+</div>
+<p>is exactly the Dedekind zeta function of the <em>Gaussian integer field</em> \(\mathbb Q(i)\) (\(\beta(s)=L(s,\chi_4)\), the mod-4 Dirichlet character). Applying the very same prime trace formula as in §9 of the RH main paper — Cholesky factorisation, polar-decomposition iteration, scaling-and-squaring matrix exponential, trace differences; no diagonalisation, no zero extraction, no integration — to this 50×50 product matrix decodes not rational primes but <em>Gaussian primes</em>.</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.1 Three fates of rational primes in &#8484;[i]</h3>
+<p>The Euler factors of \(\zeta_{\mathbb Q(i)}\) sort every rational prime into three classes modulo 4 (\(\chi_4\), the mod-4 quadratic character: \(\chi_4(p)=1\) for \(p\equiv1\pmod4\), \(-1\) for \(p\equiv3\pmod4\), and \(0\) for \(p=2\)):</p>
+<div class="table-scroll"><table style="font-size:.92em">
+<tr><th>Type</th><th>Rational primes</th><th>Behaviour in \(\mathbb Z[i]\)</th><th>von Mangoldt weight \(\Lambda_K(n)\)</th></tr>
+<tr style="background:#f4f8fc"><td><strong>Split</strong></td><td>\(p\equiv1\pmod4\) (5, 13, 17, …)</td><td>\(p=\pi\bar\pi\), two Gaussian primes</td><td>\(2\log p\) at \(n=p\)</td></tr>
+<tr><td><strong>Inert</strong></td><td>\(p\equiv3\pmod4\) (3, 7, 11, 19, 23, …)</td><td>\(p\) stays prime in \(\mathbb Z[i]\)</td><td>silent at \(n=p\); \(2\log p\) at \(n=p^2\)</td></tr>
+<tr style="background:#f4f8fc"><td><strong>Ramified</strong></td><td>\(p=2=(1+i)(1-i)\)</td><td>the unique ramified prime</td><td>\(\log 2\) at \(n=2^k\)</td></tr>
+</table></div>
+<p>The three weights in one line:</p>
+<div class="formula">
+$$\Lambda_K(n)=\Lambda(n)\bigl(1+\chi_4(n)\bigr).$$
+</div>
+<p>The Leibniz series \(\beta(1)=1-\tfrac13+\tfrac15-\cdots=\pi/4\) is no ornament here: \(\chi_4\) is precisely the splitting law of rational primes in \(\mathbb Z[i]\).</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.2 The trace formula: the same arithmetic on the product matrix</h3>
+<p>With \(A_K=J_K^{-1/2}\) (its spectrum is the zeros of the product function — never extracted), the Chebyshev staircase of the Gaussian field is rebuilt by pure matrix arithmetic:</p>
+<div class="formula" style="font-size:.95em">
+$$\psi_K(x)=x-2\sqrt{x}\,\operatorname{Re}\operatorname{Tr}\!\left[e^{\,iA_K\ln x}\bigl(\tfrac12 I+iA_K\bigr)^{-1}\right]-C,$$
+</div>
+<p>sampled at integers and differenced into spikes: \(\Delta\psi_K(n)=\psi_K(n+\tfrac12)-\psi_K(n-\tfrac12)\approx\Lambda_K(n)\). The control experiment uses the <em>identical</em> matrix arithmetic: the ζ matrix should decode rational weights \(\Lambda(n)\), the product matrix Gaussian weights \(\Lambda_K(n)\).</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.3 All three fates show up in the spikes</h3>
+<figure style="margin:1.2em 0">
+<div class="img-scroll"><a href="data/gaussian_prime_decode.png" target="_blank" rel="noopener" title="Open the full-size image in a new tab; pinch to zoom"><img src="data/gaussian_prime_decode.png" alt="Product-matrix trace formula decoding Gaussian primes: inert spikes suppressed, split spikes doubled, inert squares pop up" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">Integer spike differences: blue bars — ζ matrix (decodes rational \(\Lambda(n)\)); red bars — product matrix (decodes Gaussian \(\Lambda_K(n)\)); black ticks — theoretical values. Inert primes 3,7,11,19,23 collapse in red; split primes 5,13,17 nearly double; a \(2\log3\) spike appears at \(9=3^2\). Valid range \(n\leq25\). (Click for the full-size image; pinch to zoom.)</figcaption>
+</figure>
+<p>Within the valid range \(n\leq25\) (the spectrum of \(J_{50}\) converges only up to about the 25th zero; the messy spikes for \(n\gt28\) are finite-order truncation ringing — the same phenomenon as the \(n\leq52\) range of \(J_{100}\) in the RH main paper; a wider range needs a higher-order product matrix):</p>
+<ul>
+<li><strong>Inert spikes are switched off</strong>: the mean spike at 3, 7, 11, 19, 23 drops from 2.576 (ζ matrix) to 0.299 (product matrix; theory: 0) — the weight of \(p\equiv3\pmod4\) is \(\log p\,(1-1)=0\);</li>
+<li><strong>Split spikes nearly double</strong>: 1.57→3.00 at 5 (theory 3.22), 2.82→4.15 at 13 (theory 5.13), 3.03→5.52 at 17 (theory 5.67) — the weight of \(p\equiv1\pmod4\) is \(\log p\,(1+1)=2\log p\);</li>
+<li><strong>Inert primes surface at their squares</strong>: a spike of 2.17 at \(9=3^2\) (theory \(2\log3=2.20\)) — inert primes leave their mark on the \(\mathbb Q(i)\) staircase only at \(p^2\);</li>
+<li><strong>The ramified prime 2 is unchanged</strong>: spikes of height \(\log2\) at \(2,4,8,16\) as usual (\(\chi_4(2^k)=0\), the weight is unaffected).</li>
+</ul>
+<p>Overall accuracy: RMS error 0.364 for the ζ matrix decoding rational \(\Lambda\), and 0.434 for the product matrix decoding Gaussian \(\Lambda_K\) — the same level of precision.</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.4 What this means</h3>
+<p>What looked like a spectral curiosity in §4.5 — ζ and β zeros locking alternately on one axis — is explained away at the arithmetic level: <strong>the product matrix is the matrix representation of \(\zeta_{\mathbb Q(i)}\), so of course it distributes prime weights by the rules of \(\mathbb Q(i)\)</strong>. No Gaussian integer, no splitting law, no prime table was ever fed into the matrix construction — only the Taylor coefficients of \(\xi_K=\xi\cdot\Lambda_\beta\) — yet the arithmetic of \(\mathbb Z[i]\) appears automatically as the "genes" of the β factor. This is the number-field version of the RH main paper's principle ("the matrix grows ζ from a single seed; primes are its arithmetic coordinates"): change the number field, and the matrix decodes that field's primes.</p>
+<p style="font-size:.9em;color:var(--subtle);text-align:center">Honest scope: \(J_{50}\) contains the spectrum only up to about the 25th zero, so spikes are trustworthy only within \(n\leq25\); every number comes from forward matrix arithmetic (Cholesky, polar decomposition, scaling-and-squaring, traces) — no prime table input, no fitting.</p>
+
+<h2>10. Reproducibility</h2>
 <div class="links">
 <p>📄 GRH paper (Zenodo, timestamped DOI, CC BY 4.0): <a href="https://zenodo.org/records/22167742">10.5281/zenodo.22167742</a></p>
 <p>📄 RH main paper: <a href="https://zenodo.org/records/22167882">10.5281/zenodo.22167882</a> ｜ Jacobi construction paper: <a href="https://zenodo.org/records/22053797">10.5281/zenodo.22053797</a></p>

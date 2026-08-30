@@ -439,6 +439,39 @@ $$\Delta\psi(n)=\psi(n+\tfrac12)-\psi(n-\tfrac12)\approx\Lambda(n),$$
 <p>矩阵空间里没有整数——“整数”二字只经由采样时刻 \(\ln x\) 进入。自伴演化 \(e^{iAt}\) 连续运行，其中没有素数；只有当这套谱动力学<strong>在整数时刻 \(t=\ln n\) 被采样</strong>并差分时，算术内容——von Mangoldt 尖峰——才显形。素数没有被放进矩阵，也不是无中生有地“生成”：它们是同一对象的<strong>算术坐标</strong>，零点是其<strong>谱坐标</strong>，Jacobi 矩阵是其<strong>构造坐标</strong>。欧拉乘积从素数造 ζ，Hadamard 乘积从零点造 ζ，而我们的矩阵从单一代数种子经三项恒等式长出 ζ。三种描述，同一个函数。</p>
 <p style="font-size:.9em;color:var(--subtle);text-align:center">诚实范围：有限矩阵只含到其阶数为止的谱——\(J_{100}\) 收敛到约第 50 个零点（\(\gamma\lesssim143\)）——故行列式恒等式只在收敛带 \(|u|\leq3\) 展示、尖峰只在有效区间 \(n\leq52\) 展示。图中每个数字都来自正向矩阵算术，没有任何外推，也没有对素数数据作拟合。</p>
 
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.8 矩阵里的 π：行列式读出的圆周率</h3>
+<p>π 不需要被输入：它藏在 \(\xi\) 的特殊值里，而 \(\xi\) 就是矩阵行列式。\(\xi(1)=\tfrac12\)（平凡零点与极点相消后的常数），\(\xi(2)=\pi/6\)——两处一除，\(\Gamma\) 与 \(\zeta(2)\) 里的 π 恰好约干净，只留一个裸 π：</p>
+<div class="formula">
+$$\frac{\xi(2)}{\xi(1)}=\frac{\pi}{3},\qquad
+\det(I+\tfrac94 J)=\frac{\xi(2)}{\xi(\tfrac12)},\qquad
+\det(I+\tfrac14 J)=\frac{\xi(1)}{\xi(\tfrac12)}.$$
+</div>
+<p>于是仅凭矩阵乘法与 Cholesky 分解就能算出 π，全程没有输入任何零点、素数或特殊常数：</p>
+<div class="formula" style="font-size:.95em">
+$$\pi_{\text{矩阵}}=3\,\frac{\det(I+\tfrac94 J_N)}{\det(I+\tfrac14 J_N)}.$$
+</div>
+<figure style="margin:1.2em 0">
+<div class="img-scroll"><a href="data/pi_decode.png" target="_blank" rel="noopener" title="点击在新标签页打开全尺寸图片，可双指放大查看细节"><img src="data/pi_decode.png" alt="纯矩阵行列式解码 pi 随阶数收敛；陈-祖级数的极小极大最优点即种子 q" style="border:1px solid #e0e0e0;border-radius:6px;cursor:zoom-in"/></a></div>
+<figcaption style="font-size:.88em;color:var(--subtle);margin-top:.4em;text-align:center">左：矩阵行列式解码出的 π 随阶数单调逼近真值（\(J_{50}\)：3.1088；\(J_{100}\)：3.1190，误差 0.023）。右：陈-祖双反正切参数化的每步收敛比在 \(\lambda^*=1+\sqrt2\) 处取极小值 \(\sqrt2-1\)——正是种子 q。（点按图片可打开全尺寸大图、双指放大查看细节）</figcaption>
+</figure>
+<p>有限阶偏差来自 \(u=\tfrac32\) 已在收敛带边缘——它随阶数增大单调消退，和 §9.2 的阶梯、§9.4 的行列式恒等式是同一种截断伪影。矩阵算 π 用的是行列式（\(\xi\) 特殊值），解码素数用的是演化迹（整数点差分）：<strong>同一台矩阵，一个读数给常数，一个读数给素数</strong>。</p>
+
+<h3 style="margin-top:1.4em;color:#1a4d8f">9.9 种子自己长回来：π → tan(π/8) → q</h3>
+<p>更紧的闭环。把矩阵算出的 π 代入半角公式：</p>
+<div class="formula">
+$$q_{\text{矩阵}}=\tan\!\left(\frac{\pi_{\text{矩阵}}}{8}\right).$$
+</div>
+<p>\(J_{50}\) 给出 \(q_{\text{矩阵}}=0.4094\)，\(J_{100}\) 给出 \(0.4109\)，随阶数单调收敛到种子真值 \(q=\sqrt2-1=0.414214\)（\(J_{100}\) 误差 0.0033）。矩阵从未被告知 q、π 或任何常数——它是一张有限的正数表——种子从它自己长成的矩阵里被反向读了出来。极限处 \(\arctan q=\pi/8\)，而 \(\beta(1)=1-\tfrac13+\tfrac15-\cdots=\pi/4=2\arctan q\)：莱布尼茨级数的和、种子、陈-祖最优参数，是同一个数的三张面孔。这也与 GRH 页高斯素数章节里的 \(\chi_4\) 分裂法则同源——\(\pi/4\) 是 \(\mathbb Q(i)\) 的类数。</p>
+<div class="table-scroll"><table style="font-size:.92em">
+<tr><th>身份</th><th>表达式</th><th>值</th></tr>
+<tr style="background:#f4f8fc"><td>种子（正切加法 Möbius 变换参数）</td><td>\(q=\tan(\pi/8)\)</td><td>0.414214</td></tr>
+<tr><td>陈-祖参数化级数最优参数的倒数</td><td>\(\lambda^*=1/q=1+\sqrt2\)（极小极大：\(1/\lambda=(\lambda-1)/(\lambda+1)\) 处）</td><td>2.414214</td></tr>
+<tr style="background:#f4f8fc"><td>莱布尼茨级数和的一半角度</td><td>\(\beta(1)=\pi/4=2\arctan q\)</td><td>0.785398</td></tr>
+<tr><td>高斯整数域类数</td><td>\(\operatorname{Res}_{s=1}\zeta_{\mathbb Q(i)}=\pi/4\)</td><td>0.785398</td></tr>
+</table></div>
+<p>q 不是某个矩阵元——它是矩阵所表示的那个函数的<strong>装配参数</strong>；函数携带种子，矩阵忠实表示函数，种子就隐式写在整张（无限精度的）表里，有限截断只给近似。这与 §9.7 "同一对象的三面"完全一致：构造坐标（种子 q）、谱坐标（零点）、算术坐标（素数、π）描述的是同一个函数。</p>
+
 <h2>十、主张的边界</h2>
 
 <div class="boundary">
