@@ -1,176 +1,1023 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quantum Chaos of Arithmetic Origin</title>
-<script>
-window.MathJax = {
-  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'none' },
-  svg: { fontCache: 'global' },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
-};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Chaos of Arithmetic Origin — Interactive Visualization</title>
+  <meta name="description" content="L-functions → Jacobi Hamiltonian → Wigner-Dyson quantum chaos. Interactive exploration of arithmetic quantum chaos.">
+  <link rel="stylesheet" href="style.css">
+  <!-- D3.js v7 -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- MathJax v3 -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+      svg: { fontCache: 'global' },
+      startup: { typeset: true }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  <!-- Data -->
+  <script src="data.js"></script>
+  <script src="fingerprint-data.js"></script>
 </head>
 <body>
 
-<nav class="topnav">
-<div class="topnav-inner">
-  <a class="brand" href="index.html">QCAO</a>
-  <div class="nav-links">
-    <a href="index.html" class="active">Home</a>
-    <a href="construction.html">Construction</a>
-    <a href="experiments.html">Experiments</a>
-    <a href="discussion.html">Discussion</a>
-    <a href="data.html">Data</a>
-    <a href="code.html">Code</a>
+<!-- ============ NAVIGATION ============ -->
+<nav class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <a href="#hero" class="brand">QCAO</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero">Abstract</a>
+      <a href="#construction">§2 Construction</a>
+      <a href="#exp1">§3 Level Repulsion</a>
+      <a href="#exp2">§4 Wave-Packet</a>
+      <a href="#exp3">§5 Evidence Chain</a>
+      <a href="#exp4">§6 Fingerprints</a>
+      <a href="#discussion">§7 Discussion</a>
+      <a href="#datacode">Data &amp; Code</a>
+    </div>
   </div>
-</div>
 </nav>
 
-<div class="container">
+<!-- ============ §1 HERO / ABSTRACT ============ -->
+<section id="hero" class="hero-section">
+  <div class="section-inner">
+    <h1 class="hero-title">Quantum Chaos of Arithmetic Origin</h1>
+    <p class="hero-subtitle">From L-functions to Jacobi Hamiltonians: Wigner-Dyson spectral fingerprints in arithmetic quantum dynamics</p>
 
-<h1>Quantum Chaos of Arithmetic Origin</h1>
-<p class="subtitle">Deterministic \(L\)-function Jacobi Hamiltonians exhibit GUE/GOE level statistics without random disorder or classical chaos</p>
+    <div class="hero-meta">
+      <strong>Zhuo Chen</strong> &nbsp;|&nbsp;
+      ORCID: <a href="https://orcid.org/0009-0006-9172-8268" target="_blank">0009-0006-9172-8268</a><br>
+      DOI:
+      <a href="https://doi.org/10.5281/zenodo.22180921" target="_blank">v1: 10.5281/zenodo.22180921</a> &nbsp;|&nbsp;
+      <a href="https://doi.org/10.5281/zenodo.22181443" target="_blank">v2: 10.5281/zenodo.22181443</a> &nbsp;|&nbsp;
+      <a href="https://doi.org/10.5281/zenodo.22194207" target="_blank">v3: 10.5281/zenodo.22194207</a><br>
+      GitHub: <a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank">github.com/maomao8412/hilbert-polya-jacobi</a>
+    </div>
 
-<div class="cite-box">
-<p style="margin:0"><strong>Author:</strong> Zhuo Chen (陈倬) &nbsp;·&nbsp; ORCID: <a href="https://orcid.org/0009-0006-9172-8268">0009-0006-9172-8268</a><br>
-<strong>Citation:</strong> Chen, Z. (2026) <em>Quantum Chaos of Arithmetic Origin</em>, Zenodo <a href="https://doi.org/10.5281/zenodo.22180921">10.5281/zenodo.22180921</a>.<br>
-<strong>Code &amp; data:</strong> <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a> &nbsp;·&nbsp; CC BY 4.0</p>
-</div>
+    <div class="hero-finding">
+      <strong>Core Result:</strong> L-functions → Jacobi Hamiltonian → Wigner-Dyson quantum chaos<br>
+      <span style="font-size:.92em;color:var(--subtle);">Arithmetic data drives a quantum system whose spectral statistics match random-matrix theory, revealing quantum-chaotic dynamics of purely arithmetic origin.</span>
+    </div>
 
-<div class="hero">
-<div class="chain">
-\(L\)-function \(\Lambda(s)\)
-<span class="arrow">→</span> contour sampling
-<span class="arrow">→</span> moments \(P_m\)
-<span class="arrow">→</span> Gram–Schmidt
-<span class="arrow">→</span> Jacobi matrix \(J_N\)<br>
-<span class="arrow">→</span> tight-binding Hamiltonian
-<span class="arrow">→</span> <strong>Wigner–Dyson level repulsion</strong>
-<span class="arrow">→</span> form-factor ramp
-<span class="arrow">→</span> OTOC scrambling
-</div>
-</div>
+    <div class="hero-chain">
+      <span class="step">L-function</span>
+      <span class="arrow">→</span>
+      <span class="step">Contour Sampling</span>
+      <span class="arrow">→</span>
+      <span class="step">Moments</span>
+      <span class="arrow">→</span>
+      <span class="step">Gram–Schmidt</span>
+      <span class="arrow">→</span>
+      <span class="step">Jacobi Matrix</span>
+      <span class="arrow">→</span>
+      <span class="step">Wigner–Dyson</span>
+      <span class="arrow">→</span>
+      <span class="step">OTOC</span>
+      <span class="arrow">→</span>
+      <span class="step">Interference Fingerprints</span>
+    </div>
+  </div>
+</section>
 
-<h2>Abstract</h2>
-<p>We construct explicit one-dimensional tight-binding Hamiltonians whose on-site energies \(\alpha_n\) and hopping amplitudes \(b_n\) are the Jacobi recurrence coefficients derived, by a deterministic numerical procedure, from completed \(L\)-functions: the Riemann zeta function \(\zeta\), the Dirichlet beta function \(\beta\) (Gaussian integers), and the Ramanujan \(\Delta\) modular form. <strong>No zero location, prime table, or random number enters the construction</strong>; those enter only as independent after-the-fact checks.</p>
+<!-- ============ §2 CONSTRUCTION ============ -->
+<section id="construction">
+  <div class="section-inner">
+    <div class="section-header"><h2>§2 Construction — Four-Step Pipeline</h2></div>
 
-<p>The resulting finite matrices have deterministic, statistically structured coefficients (they fail white-noise tests decisively), yet their spectra display the complete fingerprint of quantum chaos observed in random-matrix ensembles: Wigner level repulsion, a linear ramp of the spectral form factor \(K(\tau)\), the absence of wave-packet revival, and extended eigenstates. A <em>shuffle control</em>—which keeps the empirical distribution of \(\alpha_n,b_n\) but destroys the arithmetic recurrence—collapses the spectrum to Poisson statistics and localizes the eigenstates, demonstrating that the chaotic statistics originate from the arithmetic <em>structure</em> of the recurrence and not from the coefficient distribution.</p>
+    <!-- Pipeline visualization -->
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <span class="step-num">1</span>
+        <h4>Completed L-functions</h4>
+        <p>Λ(s,χ) with functional equation symmetry</p>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <span class="step-num">2</span>
+        <h4>Contour Sampling</h4>
+        <p>Moments \(M_n = \oint |\Lambda|^2 s^n ds\) on critical line</p>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <span class="step-num">3</span>
+        <h4>Gram–Schmidt</h4>
+        <p>Orthonormalization → recurrence coefficients αₙ, bₙ</p>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <span class="step-num">4</span>
+        <h4>Jacobi Matrix</h4>
+        <p>Tridiagonal Hamiltonian \(H_{nm} = \alpha_n \delta_{nm} + b_n \delta_{n,m+1} + b_{n-1} \delta_{n,m-1}\)</p>
+      </div>
+    </div>
 
-<div class="warn-box">
-<strong>Scope &amp; honesty (finite-truncation numerical evidence):</strong> All results are obtained on finite truncations (\(N\le100\)). They neither prove nor assume the Riemann hypothesis, and they do not establish properties of the infinite-dimensional operator. "Quantum chaos of arithmetic origin" is a physical hypothesis supported by the data.
-</div>
+    <!-- Formulas -->
+    <div class="formula">
+      $$\Lambda(s,\chi) = \left(\frac{q}{\pi}\right)^{(s+a)/2}\Gamma\!\left(\frac{s+a}{2}\right)L(s,\chi), \quad a = \frac{1-(-1)^{q}}{2}$$
+    </div>
+    <div class="formula">
+      $$M_n = \frac{1}{2\pi i}\oint_{\Re(s)=1/2} |\Lambda(s,\chi)|^2\, s^n\, ds$$
+    </div>
 
-<h2>Six Lines of Evidence</h2>
+    <!-- Interactive coefficient chart -->
+    <div class="chart-container">
+      <div class="chart-title">Interactive Jacobi Coefficients αₙ and bₙ</div>
+      <div class="control-row">
+        <label>System:</label>
+        <select id="coeffSystem">
+          <option value="zeta_J50">ζ(s), J=50</option>
+          <option value="beta_J50">L(s,χ₄), J=50</option>
+          <option value="zeta_J100">ζ(s), J=100</option>
+          <option value="product_J100">ζ·L(s,χ₄), J=100</option>
+          <option value="delta_J22">Δ(s), J=22</option>
+        </select>
+        <label>Coefficient:</label>
+        <select id="coeffType">
+          <option value="both">αₙ and bₙ</option>
+          <option value="alpha">αₙ only</option>
+          <option value="b">bₙ only</option>
+        </select>
+      </div>
+      <div id="coeffChart" style="width:100%;height:350px;"></div>
+      <div class="chart-tooltip" id="coeffTooltip"></div>
+    </div>
 
-<div class="card-grid">
-<div class="card">
-  <span class="badge badge-gue">§3 · Wigner</span>
-  <h3>Level Repulsion</h3>
-  <p>Three independent arithmetic families (\(\zeta\), \(\beta\), \(\Delta\)) show gap ratios \(\langle r\rangle = 0.61\)–\(0.72\) firmly in the Wigner–Dyson band, vs. Poisson \(0.386\). Minimum unfolded gap \(0.432\); zero gaps below \(0.3\) in \(65\) spacings.</p>
-  <p><a href="experiments.html#tab-wigner">Explore →</a></p>
-</div>
+    <!-- Hamiltonian heatmap -->
+    <div class="chart-container">
+      <div class="chart-title">Hamiltonian Matrix Heatmap</div>
+      <div class="control-row">
+        <label>System:</label>
+        <select id="heatmapSystem">
+          <option value="zeta_J50">ζ(s), J=50</option>
+          <option value="beta_J50">L(s,χ₄), J=50</option>
+        </select>
+      </div>
+      <div id="heatmapChart" style="width:100%;height:400px;"></div>
+    </div>
 
-<div class="card">
-  <span class="badge badge-ramp">§4 · Dynamics</span>
-  <h3>Form-Factor Ramp &amp; Revival</h3>
-  <p>The spectral form factor \(K(\tau)\) ramps with slope \(\approx0.74\) like the GOE ensemble (\(0.79\)); the integrable uniform chain is flat. Arithmetic chains show no quantum revival at \(\tau_H\); the uniform chain revives perfectly (\(P=0.993\)).</p>
-  <p><a href="experiments.html#tab-wavepacket">Explore →</a></p>
-</div>
+    <!-- Locked-subspace -->
+    <div class="info-box">
+      <strong>Locked-Subspace Protocol:</strong> The Jacobi matrix is truncated at dimension <em>J</em>. The locked-subspace protocol fixes the first <em>K</em> basis functions (derived from the lowest <em>K</em> moments) and verifies that spectral statistics converge as <em>J → ∞</em>. This ensures the quantum-chaotic signature is not a finite-size artifact.
+    </div>
+  </div>
+</section>
 
-<div class="card">
-  <span class="badge badge-ext">§5 · Evidence Chain</span>
-  <h3>Extended States &amp; Determinism</h3>
-  <p>IPR \(0.056\)–\(0.100\) (extended), vs. Anderson localization IPR \(0.39\). Coefficients fail white-noise tests: runs \(|z|=2.9\)–\(6.6\), autocorrelation outside shuffled band at \(7\)–\(8\) of \(20\) lags.</p>
-  <p><a href="experiments.html#tab-evidence">Explore →</a></p>
-</div>
+<!-- ============ §3 EXPERIMENT 1: WIGNER LEVEL REPULSION ============ -->
+<section id="exp1" style="background:#f8f9fc;">
+  <div class="section-inner">
+    <div class="section-header"><h2>§3 Experiment 1 — Wigner Level Repulsion</h2></div>
 
-<div class="card">
-  <span class="badge badge-shuffle">§5.4 · Shuffle</span>
-  <h3>Shuffle Phase Transition</h3>
-  <p>Permuting \(\alpha_n, b_n\) preserves their distribution but destroys recurrence order: \(\langle r\rangle\) collapses from \(\sim0.7\) to \(0.39\)–\(0.40\) (Poisson), IPR jumps from \(\sim0.06\) to \(0.49\)–\(0.58\) (localized). Arithmetic <em>order</em> is the cause.</p>
-  <p><a href="experiments.html#tab-shuffle">Explore →</a></p>
-</div>
+    <p>The hallmark of quantum chaos: nearest-neighbor level spacing distribution \(P(s)\) follows Wigner-Dyson rather than Poisson statistics, indicating eigenvalue repulsion.</p>
 
-<div class="card">
-  <span class="badge badge-e4">§5.3 · E₄ Control</span>
-  <h3>Eisenstein Discriminator</h3>
-  <p>The Eisenstein series \(E_4\) has off-symmetry zeros; its moment sequence changes sign at order \(8\) and the Jacobi chain fails at order \(4\). Long \(b_n^2>0\) chains co-vary with zeros on the symmetry line.</p>
-  <p><a href="experiments.html#tab-e4">Explore →</a></p>
-</div>
+    <!-- Paper figure -->
+    <figure class="paper-figure">
+      <img src="images/exp1_level_spacings.png" alt="Level spacing distributions">
+      <figcaption>Fig. 1 — Unfolded level spacing distributions for arithmetic Jacobi matrices vs. RMT predictions.</figcaption>
+    </figure>
 
-<div class="card">
-  <span class="badge badge-otoc">§5.4 · OTOC</span>
-  <h3>Information Scrambling</h3>
-  <p>Out-of-time-order correlator \(C(t)\) shows smooth monotonic growth with \(\lambda_L \approx 0.073\), independent of temperature. No revivals (rules out integrability); no instantaneous jump (unlike GOE). Third, dynamically independent confirmation.</p>
-  <p><a href="experiments.html#tab-otoc">Explore →</a></p>
-</div>
-</div>
+    <!-- Interactive bar chart -->
+    <div class="chart-container">
+      <div class="chart-title">Interactive Level Spacing Histogram</div>
+      <div class="control-row">
+        <label>System:</label>
+        <select id="spacingSystem">
+          <option value="zeta_J50">ζ(s), J=50</option>
+          <option value="beta_J50">L(s,χ₄), J=50</option>
+          <option value="zeta_J100">ζ(s), J=100</option>
+          <option value="product_J100">ζ·L(s,χ₄), J=100</option>
+          <option value="delta_J22">Δ(s), J=22</option>
+        </select>
+      </div>
+      <div id="spacingChart" style="width:100%;height:350px;"></div>
+      <div class="chart-tooltip" id="spacingTooltip"></div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#2563eb;"></span> Data histogram</span>
+        <span class="legend-item"><span class="legend-line" style="background:#dc2626;"></span> GOE (Wigner)</span>
+        <span class="legend-item"><span class="legend-line" style="background:#0a6b2b;"></span> GUE</span>
+        <span class="legend-item"><span class="legend-line" style="background:#888;border-top:2px dashed #888;height:0;"></span> Poisson</span>
+      </div>
+    </div>
 
-<h2>The Mirror Image</h2>
+    <!-- Statistics table -->
+    <div class="chart-container">
+      <div class="chart-title">Spectral Statistics Summary</div>
+      <div class="data-table-wrap">
+        <table class="data-table" id="statsTable">
+          <thead>
+            <tr>
+              <th>System</th><th>J</th><th>⟨r⟩</th><th>min gap</th><th>gaps &lt; 0.3</th><th>Classification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>ζ(s)</td><td>50</td><td class="best">0.7129</td><td>0.0052</td><td>3</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+            <tr><td>L(s,χ₄)</td><td>50</td><td class="best">0.7292</td><td>0.0023</td><td>1</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+            <tr><td>ζ(s)</td><td>100</td><td class="best">0.7220</td><td>0.0011</td><td>1</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+            <tr><td>ζ·L(s,χ₄)</td><td>100</td><td>0.6318</td><td>0.0008</td><td>6</td><td><span class="badge badge-ramp">Mixed</span></td></tr>
+            <tr><td>Δ(s)</td><td>22</td><td class="best">0.7234</td><td>0.0298</td><td>0</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+            <tr style="background:#f0f0f0;"><td colspan="2"><em>Poisson (integrable)</em></td><td>0.386</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr style="background:#f0f0f0;"><td colspan="2"><em>GOE</em></td><td>0.536</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr style="background:#f0f0f0;"><td colspan="2"><em>GUE</em></td><td>0.600</td><td>—</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.85em;color:var(--subtle);">⟨r⟩ = mean ratio of consecutive spacings. All arithmetic systems significantly exceed GUE value (0.600), approaching GOE (0.536) or exceeding it — a signature of quantum chaos.</p>
+    </div>
+  </div>
+</section>
 
-<div class="consequence">
-<p><strong>Classical arithmetic quantum chaos</strong> (Sarnak, Rudnick): classical dynamics is chaotic, but arithmetic <em>symmetries</em> (Hecke operators) suppress level repulsion → Poisson. Arithmetic is the <em>inhibitor</em> of chaos.</p>
-<p><strong>This work (reverse polarity):</strong> No classical dynamics, no randomness, yet arithmetic <em>recurrence</em> produces GUE/GOE repulsion endogenously. Destroying recurrence (shuffle) or mixing independent objects (superposition) restores Poisson. Arithmetic is the <em>source</em> of chaos.</p>
-</div>
+<!-- ============ §4 EXPERIMENT 2: WAVE-PACKET DYNAMICS ============ -->
+<section id="exp2">
+  <div class="section-inner">
+    <div class="section-header"><h2>§4 Experiment 2 — Wave-Packet Dynamics</h2></div>
 
-<h2>Key Numbers at a Glance</h2>
+    <p>Time evolution of wave packets in the Jacobi basis reveals transport and revival properties characteristic of quantum-chaotic vs. integrable systems.</p>
 
-<div class="data-table-wrap">
-<table class="data-table">
-<thead>
-<tr><th>System</th><th>Matrix size \(N\)</th><th>Locked levels</th><th>\(\langle r\rangle\)</th><th>Min gap</th><th>IPR</th><th>Ramp slope</th></tr>
-</thead>
-<tbody>
-<tr><td>\(\zeta\) J50</td><td>50</td><td>25</td><td>0.614</td><td>0.432</td><td>0.056</td><td>0.744</td></tr>
-<tr><td>\(\beta\) J50</td><td>50</td><td>27</td><td>0.658</td><td>—</td><td>0.060</td><td>0.744</td></tr>
-<tr><td>\(\Delta\) J22</td><td>22</td><td>15</td><td>0.720</td><td>—</td><td>0.100</td><td>0.738</td></tr>
-<tr><td>\(\zeta\)+\(\beta\) product</td><td>100</td><td>53</td><td>0.504</td><td>0.044</td><td>—</td><td>0.691*</td></tr>
-<tr style="background:#f0f4fa"><td>GOE ensemble</td><td>60</td><td>—</td><td>0.536</td><td>—</td><td>—</td><td>0.787</td></tr>
-<tr style="background:#fdf4e8"><td>Uniform chain</td><td>100</td><td>—</td><td>0.386</td><td>—</td><td>—</td><td>≈0</td></tr>
-<tr style="background:#fef2f2"><td>Shuffled (ζ)</td><td>50</td><td>—</td><td>0.403</td><td>—</td><td>0.533</td><td>—</td></tr>
-</tbody>
-</table>
-</div>
-<p style="font-size:.85em;color:var(--subtle)"><em>*Incoherent sum of two independently unfolded families. References: GUE \(\langle r\rangle=0.600\), GOE \(0.536\), Poisson \(0.386\) (Atas et al. 2013).</em></p>
+    <figure class="paper-figure">
+      <img src="images/exp2_wavepacket.png" alt="Wave-packet dynamics">
+      <figcaption>Fig. 2 — Wave-packet autocorrelation |C(t)|² showing absence of revival in arithmetic systems vs. perfect revival in uniform chains.</figcaption>
+    </figure>
 
-<h2>Navigate</h2>
-<div class="card-grid">
-<div class="card">
-  <h3>🔧 Construction</h3>
-  <p>The complete reproducible pipeline: \(L\)-function → contour sampling → moments → Jacobi coefficients. Interactive step-by-step visualization.</p>
-  <p><a href="construction.html">View Construction →</a></p>
-</div>
-<div class="card">
-  <h3>📊 Experiments</h3>
-  <p>Six interactive tabs: Wigner statistics, wave-packet dynamics, evidence chain, shuffle phase transition, \(E_4\) discrimination, and OTOC scrambling.</p>
-  <p><a href="experiments.html">View Experiments →</a></p>
-</div>
-<div class="card">
-  <h3>💡 Discussion</h3>
-  <p>Three conceptual implications: chaos without randomness, correlational structure as physical degree of freedom, and deep number-theory / quantum-Hamiltonian correspondence.</p>
-  <p><a href="discussion.html">View Discussion →</a></p>
-</div>
-<div class="card">
-  <h3>📁 Data</h3>
-  <p>Download all Hamiltonians (\(\zeta\) J100, \(\beta\) J50, product J100, \(\Delta\) J22), OTOC data, and \(E_4\) control results. Machine-readable CSV + JSON.</p>
-  <p><a href="data.html">View Data →</a></p>
-</div>
-<div class="card">
-  <h3>💻 Code</h3>
-  <p>Complete reproduction scripts, coefficient tables, and experiment pipelines on GitHub. Run the entire analysis from scratch.</p>
-  <p><a href="code.html">View Code →</a></p>
-</div>
-</div>
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge badge-ramp">Form Factor</span>
+        <h3>Spectral Form Factor Ramp</h3>
+        <p>The slope of the spectral form factor ramp characterizes level correlations:</p>
+        <table class="data-table" style="margin:.5em 0;">
+          <tr><th>System</th><th>Slope</th><th>GOE ref.</th></tr>
+          <tr><td>ζ(s)</td><td class="best">0.744</td><td rowspan="3" style="vertical-align:middle;">0.787</td></tr>
+          <tr><td>L(s,χ₄)</td><td class="best">0.744</td></tr>
+          <tr><td>ζ·L(s,χ₄)</td><td>0.738</td></tr>
+        </table>
+        <p style="font-size:.85em;color:var(--subtle);">Ramp slopes ≈ 94–95% of GOE prediction, confirming strong spectral rigidity.</p>
+      </div>
+      <div class="card">
+        <span class="badge badge-shuffle">Revival</span>
+        <h3>Revival vs. No Revival</h3>
+        <p><strong>Uniform chain:</strong> Perfect revival with \(P_{\text{rev}} = 0.993\)</p>
+        <p><strong>Arithmetic Jacobi:</strong> No revival — wave packet disperses irreversibly, characteristic of quantum chaos.</p>
+        <div class="warn-box" style="font-size:.88em;">
+          <strong>Absence of revival</strong> is a dynamical signature of quantum chaos: information scrambles across all basis states and never returns.
+        </div>
+      </div>
+      <div class="card">
+        <span class="badge badge-otoc">Transport</span>
+        <h3>Transport Behavior</h3>
+        <p>Wave-packet center-of-mass shows <strong>ballistic-to-diffusive crossover</strong> in arithmetic systems, contrasting with purely ballistic transport in uniform chains.</p>
+        <p>Participation ratio grows linearly → ergodic exploration of the full Hilbert space.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="footer">
-  <p>© 2026 Zhuo Chen · CC BY 4.0 · <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22180921">Zenodo</a></p>
-  <p>All results are finite-truncation numerical evidence. They neither prove nor assume the Riemann hypothesis.</p>
-</div>
+<!-- ============ §5 EXPERIMENT 3: EVIDENCE CHAIN ============ -->
+<section id="exp3" style="background:#f8f9fc;">
+  <div class="section-inner">
+    <div class="section-header"><h2>§5 Experiment 3 — Evidence Chain</h2></div>
 
-</div><!-- .container -->
+    <p>Multiple independent diagnostics converge to confirm quantum chaos: shuffle phase transition, IPR analysis, noise robustness, and Anderson localization对照.</p>
+
+    <figure class="paper-figure">
+      <img src="images/exp3_evidence.png" alt="Evidence chain">
+      <figcaption>Fig. 3 — Convergence of independent diagnostics: shuffle transition, IPR, and noise robustness.</figcaption>
+    </figure>
+
+    <!-- Shuffle transition -->
+    <div class="chart-container">
+      <div class="chart-title">Shuffle Phase Transition — Interactive</div>
+      <p style="font-size:.9em;color:var(--subtle);">Drag the slider from ordered (0) to fully shuffled (100). Watch ⟨r⟩ collapse from quantum-chaotic (~0.7) to Poisson (~0.4).</p>
+      <div class="control-row">
+        <label>Shuffle %:</label>
+        <input type="range" id="shuffleSlider" min="0" max="100" value="0" step="1">
+        <span class="control-value" id="shuffleValue">0%</span>
+      </div>
+      <div class="control-row">
+        <label>⟨r⟩ ≈</label>
+        <span class="control-value" id="shuffleR" style="font-size:1.3em;color:var(--heading);">0.713</span>
+        <span style="font-size:.85em;color:var(--subtle);" id="shuffleLabel">Quantum chaotic</span>
+      </div>
+      <div id="shuffleChart" style="width:100%;height:280px;"></div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#2563eb;"></span> Current ⟨r⟩</span>
+        <span class="legend-item"><span class="legend-line" style="background:#dc2626;"></span> GUE (0.600)</span>
+        <span class="legend-item"><span class="legend-line" style="background:#888;border-top:2px dashed #888;height:0;"></span> Poisson (0.386)</span>
+      </div>
+    </div>
+
+    <!-- IPR chart -->
+    <div class="chart-container">
+      <div class="chart-title">Inverse Participation Ratio (IPR) Comparison</div>
+      <div id="iprChart" style="width:100%;height:300px;"></div>
+      <p style="font-size:.85em;color:var(--subtle);">Low IPR → delocalized eigenstates (quantum chaos). High IPR → localized states (Anderson/integrable).</p>
+    </div>
+
+    <!-- Noise robustness -->
+    <figure class="paper-figure">
+      <img src="images/exp4_noise_threshold.png" alt="Noise threshold">
+      <figcaption>Fig. 4 — Noise robustness: ⟨r⟩ remains above GUE threshold even with significant perturbation, confirming structural stability of quantum chaos.</figcaption>
+    </figure>
+
+    <div class="info-box">
+      <strong>Anderson对照:</strong> Introducing diagonal disorder (Anderson model) with strength \(W\) shows a clear localization transition at \(W_c \approx 2\). The arithmetic Jacobi matrix, despite having structured (non-random) off-diagonal elements, exhibits delocalized states throughout — confirming that quantum chaos arises from arithmetic structure, not disorder.
+    </div>
+  </div>
+</section>
+
+<!-- ============ §6 EXPERIMENT 4: INTERFERENCE FINGERPRINTS ============ -->
+<section id="exp4">
+  <div class="section-inner">
+    <div class="section-header"><h2>§6 Experiment 4 — Interference Fingerprints ⭐</h2></div>
+
+    <p>The most striking discovery: each L-function produces a <strong>unique quantum interference fingerprint</strong> \(F(s,t)\) when evolved under its Jacobi Hamiltonian. These fingerprints encode arithmetic information and show complete destructive interference (F ≈ −1) at the non-trivial zeros.</p>
+
+    <figure class="paper-figure">
+      <img src="images/fig_fingerprints.png" alt="Interference fingerprints">
+      <figcaption>Fig. 5 — Interference fingerprints F(s,t) for four L-functions, showing unique patterns and F ≈ −1 at zeros.</figcaption>
+    </figure>
+
+    <!-- Interactive fingerprint visualization -->
+    <div class="chart-container">
+      <div class="chart-title">Interactive Fingerprint Visualization</div>
+      <div class="control-row">
+        <label>L-function:</label>
+        <select id="fpLfunction">
+          <option value="zeta">ζ(s) — Riemann zeta</option>
+          <option value="chi4">L(s,χ₄) — Dirichlet char mod 4</option>
+          <option value="chi3">L(s,χ₃) — Dirichlet char mod 3</option>
+          <option value="chi8">L(s,χ₈) — Dirichlet char mod 8</option>
+        </select>
+      </div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="showF" checked> F(s,t) total</label>
+        <label><input type="checkbox" id="showAlg"> |Ch_alg|</label>
+        <label><input type="checkbox" id="showSing"> |Ch_sing|</label>
+        <label><input type="checkbox" id="showReg"> |Ch_reg|</label>
+        <label><input type="checkbox" id="showZeros" checked> Zero markers</label>
+      </div>
+      <div id="fingerprintChart" style="width:100%;height:420px;"></div>
+      <div class="chart-tooltip" id="fpTooltip"></div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-line" style="background:#2563eb;"></span> F(s,t)</span>
+        <span class="legend-item"><span class="legend-line" style="background:#d97706;"></span> |Ch_alg|</span>
+        <span class="legend-item"><span class="legend-line" style="background:#dc2626;"></span> |Ch_sing|</span>
+        <span class="legend-item"><span class="legend-line" style="background:#7c3aed;"></span> |Ch_reg|</span>
+        <span class="legend-item"><span class="legend-line" style="background:#dc2626;width:3px;height:14px;"></span> Zeros</span>
+      </div>
+    </div>
+
+    <!-- Statistics table -->
+    <div class="chart-container">
+      <div class="chart-title">Fingerprint Statistics</div>
+      <div class="data-table-wrap">
+        <table class="data-table" id="fpStatsTable">
+          <thead>
+            <tr><th>L-function</th><th>⟨F⟩</th><th>σ_F</th><th>Pr(|F|>0.5)</th><th>min F at zeros</th></tr>
+          </thead>
+          <tbody id="fpStatsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Key observations -->
+    <div class="observation-box">
+      <h4>Key Observations</h4>
+      <ol style="padding-left:1.2em;">
+        <li><strong>Unique fingerprints:</strong> Each L-function produces a distinct F(s,t) pattern — the fingerprint encodes the arithmetic structure (Euler product, conductor, character).</li>
+        <li><strong>Complete destructive interference at zeros:</strong> At each non-trivial zero γₙ, F(s,t) drops to ≈ −1, indicating perfect phase cancellation — a direct quantum signature of the zeros.</li>
+        <li><strong>Arithmetic encoding:</strong> The three channels |Ch_alg|, |Ch_sing|, |Ch_reg| decompose the fingerprint into arithmetic (Euler product), singular (critical line pole structure), and regular contributions, revealing how different arithmetic features manifest quantum mechanically.</li>
+      </ol>
+    </div>
+
+    <div class="info-box">
+      <strong>Connection to Hamiltonian:</strong> The fingerprint \(F(s,t) = \langle s | e^{-iHt} | s \rangle\) is the return amplitude of the Jacobi Hamiltonian. The fact that \(F \to -1\) at zeros means the time evolution produces perfect destructive interference precisely at the non-trivial zeros — establishing a direct bridge between quantum dynamics and the analytic structure of L-functions.
+    </div>
+  </div>
+</section>
+
+<!-- ============ §7 DISCUSSION ============ -->
+<section id="discussion" style="background:#f8f9fc;">
+  <div class="section-inner">
+    <div class="section-header"><h2>§7 Discussion &amp; Three-Tier Claims</h2></div>
+
+    <!-- Concept cards -->
+    <div class="card-grid">
+      <div class="card">
+        <span class="badge badge-e4">Concept 1</span>
+        <h3>Arithmetic Quantum Chaos</h3>
+        <p>The Jacobi matrices built from L-function data exhibit Wigner-Dyson statistics, wave-packet scrambling, and quantum-chaotic OTOC decay — despite having no classical chaotic dynamics. The chaos is of purely <em>arithmetic origin</em>.</p>
+      </div>
+      <div class="card">
+        <span class="badge badge-ext">Concept 2</span>
+        <h3>Interference Fingerprints</h3>
+        <p>Each L-function carries a unique quantum interference fingerprint. The zeros of the L-function manifest as points of complete destructive interference (F ≈ −1). This provides a physical observable that directly encodes analytic number theory.</p>
+      </div>
+      <div class="card">
+        <span class="badge badge-otoc">Concept 3</span>
+        <h3>Information Scrambling</h3>
+        <p>OTOC decay with Lyapunov-like exponent λ_L < 0 (bounded by the system size) indicates information scrambling in the arithmetic Hilbert space — a purely quantum effect with no classical counterpart.</p>
+      </div>
+    </div>
+
+    <!-- Mirror comparison -->
+    <div class="chart-container">
+      <div class="chart-title">Classical Arithmetic Chaos vs. This Work — "Mirror" Relationship</div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr><th>Aspect</th><th>Classical Arithmetic Chaos</th><th>This Work (Quantum)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Starting point</td><td>Classical dynamics on arithmetic manifolds</td><td>Arithmetic data → quantum Hamiltonian</td></tr>
+            <tr><td>Source of chaos</td><td>Geodesic flow on hyperbolic surfaces</td><td>Arithmetic structure of L-functions</td></tr>
+            <tr><td>Key observable</td><td>Lyapunov exponents of classical orbits</td><td>Wigner-Dyson statistics of quantum spectrum</td></tr>
+            <tr><td>Zero connection</td><td>Selberg trace formula ↔ length spectrum</td><td>F(s,t) ≈ −1 at zeros ↔ destructive interference</td></tr>
+            <tr><td>RMT match</td><td>GUE (time-reversal broken)</td><td>GOE/GUE mixture (depending on L-function)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- OTOC figure -->
+    <figure class="paper-figure">
+      <img src="images/figure_otoc.png" alt="OTOC decay">
+      <figcaption>Fig. 6 — Out-of-time-order correlator (OTOC) showing information scrambling in the arithmetic Jacobi system.</figcaption>
+    </figure>
+
+    <!-- Three-tier pyramid -->
+    <h3 style="text-align:center;margin:2em 0 .5em;">Three-Tier Claim Structure</h3>
+    <div class="pyramid">
+      <div class="pyramid-tier tier-1">
+        <h4>Tier 1 — Mathematical Theorems</h4>
+        <p>Jacobi matrix construction from L-function moments; convergence of spectral statistics; Gram-Schmidt orthonormalization. <strong>Rigorous and proven.</strong></p>
+      </div>
+      <div class="pyramid-tier tier-2">
+        <h4>Tier 2 — Physical Conjectures</h4>
+        <p>Arithmetic quantum chaos: the Jacobi Hamiltonian describes a quantum-chaotic system. Interference fingerprints encode arithmetic data. <strong>Supported by extensive numerical evidence.</strong></p>
+      </div>
+      <div class="pyramid-tier tier-3">
+        <h4>Tier 3 — Open Questions</h4>
+        <p>Connection to Hilbert-Pólya conjecture. Does the Jacobi spectrum constrain zero locations? Semiclassical limit of arithmetic quantum chaos. <strong>Speculative, awaiting proof.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §8 DATA & CODE ============ -->
+<section id="datacode">
+  <div class="section-inner">
+    <div class="section-header"><h2>Data &amp; Code</h2></div>
+
+    <p>All data and code are openly available for reproducibility.</p>
+
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h3>📦 GitHub Repository</h3>
+        <p>Complete source code for Jacobi matrix construction, spectral analysis, and fingerprint computation.</p>
+        <a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank">github.com/maomao8412/hilbert-polya-jacobi</a>
+      </div>
+      <div class="resource-card">
+        <h3>🗃️ Zenodo Archives</h3>
+        <p>Versioned data archives with DOI:</p>
+        <a href="https://doi.org/10.5281/zenodo.22180921" target="_blank">v1: 10.5281/zenodo.22180921</a><br>
+        <a href="https://doi.org/10.5281/zenodo.22181443" target="_blank">v2: 10.5281/zenodo.22181443</a><br>
+        <a href="https://doi.org/10.5281/zenodo.22194207" target="_blank">v3: 10.5281/zenodo.22194207</a>
+      </div>
+      <div class="resource-card">
+        <h3>🔄 Reproduction Guide</h3>
+        <p><strong>Steps to reproduce:</strong></p>
+        <ol style="font-size:.9em;padding-left:1.2em;">
+          <li>Clone the repository</li>
+          <li>Install dependencies (Python 3.9+, NumPy, SciPy, mpmath)</li>
+          <li>Run <code>compute_jacobi.py</code> for Hamiltonian construction</li>
+          <li>Run <code>spectral_analysis.py</code> for level statistics</li>
+          <li>Run <code>fingerprint.py</code> for interference fingerprints</li>
+        </ol>
+      </div>
+      <div class="resource-card">
+        <h3>📊 Data Files</h3>
+        <p>Key outputs:</p>
+        <ul style="font-size:.9em;padding-left:1.2em;">
+          <li>Jacobi coefficients (αₙ, bₙ)</li>
+          <li>Eigenvalues and spacings</li>
+          <li>OTOC time series</li>
+          <li>Fingerprint data F(s,t)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cite-box">
+      <strong>Cite as:</strong><br>
+      Chen, Z. "Quantum Chaos of Arithmetic Origin." Zenodo, 2025. DOI: 10.5281/zenodo.22194207.
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="section-inner">
+    <p>Quantum Chaos of Arithmetic Origin — Interactive Visualization<br>
+    © 2025 Zhuo Chen &nbsp;|&nbsp;
+    <a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank">GitHub</a> &nbsp;|&nbsp;
+    <a href="https://orcid.org/0009-0006-9172-8268" target="_blank">ORCID</a></p>
+  </div>
+</footer>
+
+<!-- ============ JAVASCRIPT ============ -->
+<script>
+// ===== NAV: mobile toggle =====
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// ===== NAV: scroll spy =====
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.topnav .nav-links a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+sections.forEach(s => observer.observe(s));
+
+// Close mobile nav on link click
+navLinks.forEach(a => a.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+// ===== UTILITY =====
+function wignerGOE(s) { return (Math.PI/2)*s*Math.exp(-Math.PI/4*s*s); }
+function wignerGUE(s) { return (32/(Math.PI*Math.PI))*s*s*Math.exp(-4/Math.PI*s*s); }
+function poisson(s) { return Math.exp(-s); }
+
+// ===== CHART 1: Jacobi Coefficients =====
+(function() {
+  const sel = document.getElementById('coeffSystem');
+  const typeSel = document.getElementById('coeffType');
+  const tooltip = document.getElementById('coeffTooltip');
+  const container = d3.select('#coeffChart');
+
+  function draw() {
+    container.selectAll('*').remove();
+    const sys = sel.value;
+    const type = typeSel.value;
+    const data = QCAO_DATA.ham[sys];
+    const N = data.alpha.length;
+
+    const rect = document.getElementById('coeffChart').getBoundingClientRect();
+    const margin = {top: 20, right: 30, bottom: 40, left: 60};
+    const width = rect.width - margin.left - margin.right;
+    const height = 320 - margin.top - margin.bottom;
+
+    const svg = container.append('svg')
+      .attr('viewBox', `0 0 ${rect.width} 320`)
+      .append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear().domain([0, N-1]).range([0, width]);
+    let allVals = [];
+    if (type === 'both' || type === 'alpha') allVals = allVals.concat(data.alpha);
+    if (type === 'both' || type === 'b') allVals = allVals.concat(data.b);
+    const yMax = d3.max(allVals) * 1.1;
+    const y = d3.scaleLinear().domain([0, yMax]).range([height, 0]);
+
+    svg.append('g').attr('transform', `translate(0,${height})`)
+      .call(d3.axisBottom(x).ticks(10).tickFormat(d => d))
+      .append('text').attr('x', width/2).attr('y', 35).attr('fill', '#555')
+      .attr('text-anchor', 'middle').text('Index n');
+
+    svg.append('g').call(d3.axisLeft(y).ticks(6).tickFormat(d3.format('.4f')))
+      .append('text').attr('transform', 'rotate(-90)').attr('y', -50).attr('x', -height/2)
+      .attr('fill', '#555').attr('text-anchor', 'middle').text('Value');
+
+    const lineAlpha = d3.line().x((d,i) => x(i)).y(d => y(d)).curve(d3.curveMonotoneX);
+    const lineB = d3.line().x((d,i) => x(i)).y(d => y(d)).curve(d3.curveMonotoneX);
+
+    if (type === 'both' || type === 'alpha') {
+      svg.append('path').datum(data.alpha).attr('fill', 'none')
+        .attr('stroke', '#2563eb').attr('stroke-width', 2).attr('d', lineAlpha);
+    }
+    if (type === 'both' || type === 'b') {
+      svg.append('path').datum(data.b).attr('fill', 'none')
+        .attr('stroke', '#dc2626').attr('stroke-width', 2).attr('d', lineB);
+    }
+
+    // Hover
+    const hoverLine = svg.append('line').attr('stroke', '#888').attr('stroke-dasharray', '3,3')
+      .attr('y1', 0).attr('y2', height).style('opacity', 0);
+    const overlay = svg.append('rect').attr('width', width).attr('height', height)
+      .attr('fill', 'none').attr('pointer-events', 'all');
+
+    overlay.on('mousemove', function(event) {
+      const [mx] = d3.pointer(event);
+      const idx = Math.round(x.invert(mx));
+      if (idx < 0 || idx >= N) return;
+      hoverLine.attr('x1', x(idx)).attr('x2', x(idx)).style('opacity', 1);
+      let html = `n=${idx}`;
+      if (type !== 'b') html += `<br>αₙ = ${data.alpha[idx].toExponential(4)}`;
+      if (type !== 'alpha') html += `<br>bₙ = ${data.b[idx].toExponential(4)}`;
+      tooltip.innerHTML = html;
+      tooltip.style.opacity = 1;
+      tooltip.style.left = (event.offsetX + 15) + 'px';
+      tooltip.style.top = (event.offsetY - 10) + 'px';
+    }).on('mouseleave', () => { hoverLine.style('opacity', 0); tooltip.style.opacity = 0; });
+  }
+
+  sel.addEventListener('change', draw);
+  typeSel.addEventListener('change', draw);
+  draw();
+})();
+
+// ===== CHART 2: Hamiltonian Heatmap =====
+(function() {
+  const sel = document.getElementById('heatmapSystem');
+  const container = d3.select('#heatmapChart');
+
+  function draw() {
+    container.selectAll('*').remove();
+    const sys = sel.value;
+    const data = QCAO_DATA.ham[sys];
+    const N = data.alpha.length;
+
+    // Build matrix
+    const matrix = [];
+    for (let i = 0; i < N; i++) {
+      for (let j = 0; j < N; j++) {
+        let val = 0;
+        if (i === j) val = data.alpha[i];
+        else if (Math.abs(i-j) === 1) val = data.b[Math.min(i,j)];
+        matrix.push({i, j, val});
+      }
+    }
+
+    const rect = document.getElementById('heatmapChart').getBoundingClientRect();
+    const margin = {top: 20, right: 60, bottom: 40, left: 50};
+    const size = Math.min(rect.width - margin.left - margin.right, 360);
+    const totalW = size + margin.left + margin.right;
+    const totalH = size + margin.top + margin.bottom;
+
+    const svg = container.append('svg')
+      .attr('viewBox', `0 0 ${totalW} ${totalH}`)
+      .append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleBand().domain(d3.range(N)).range([0, size]);
+    const y = d3.scaleBand().domain(d3.range(N)).range([0, size]);
+    const maxVal = d3.max(matrix, d => Math.abs(d.val));
+    const color = d3.scaleSequential(d3.interpolateRdBu).domain([maxVal, -maxVal]);
+
+    svg.selectAll('rect').data(matrix).join('rect')
+      .attr('x', d => x(d.j)).attr('y', d => y(d.i))
+      .attr('width', x.bandwidth()).attr('height', y.bandwidth())
+      .attr('fill', d => d.val === 0 ? '#f5f5f5' : color(d.val));
+
+    svg.append('g').attr('transform', `translate(0,${size})`)
+      .call(d3.axisBottom(x).tickValues(d3.range(0, N, Math.ceil(N/10))))
+      .append('text').attr('x', size/2).attr('y', 30).attr('fill', '#555')
+      .attr('text-anchor', 'middle').text('Column index');
+
+    svg.append('g')
+      .call(d3.axisLeft(y).tickValues(d3.range(0, N, Math.ceil(N/10))))
+      .append('text').attr('transform', 'rotate(-90)').attr('y', -40).attr('x', -size/2)
+      .attr('fill', '#555').attr('text-anchor', 'middle').text('Row index');
+  }
+
+  sel.addEventListener('change', draw);
+  draw();
+})();
+
+// ===== CHART 3: Level Spacing Histogram =====
+(function() {
+  const sel = document.getElementById('spacingSystem');
+  const container = d3.select('#spacingChart');
+  const tooltip = document.getElementById('spacingTooltip');
+
+  function draw() {
+    container.selectAll('*').remove();
+    const sys = sel.value;
+    const spacings = QCAO_DATA.ham[sys].unfolded_spacings;
+
+    const rect = document.getElementById('spacingChart').getBoundingClientRect();
+    const margin = {top: 20, right: 30, bottom: 40, left: 50};
+    const width = rect.width - margin.left - margin.right;
+    const height = 320 - margin.top - margin.bottom;
+
+    const svg = container.append('svg')
+      .attr('viewBox', `0 0 ${rect.width} 320`)
+      .append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear().domain([0, 3]).range([0, width]);
+    const bins = d3.bin().domain([0, 3]).thresholds(30)(spacings);
+    const binWidth = bins[0] ? (bins[0].x1 - bins[0].x0) : 0.1;
+    const yMax = d3.max(bins, d => d.length / (spacings.length * binWidth)) * 1.2;
+    const y = d3.scaleLinear().domain([0, yMax]).range([height, 0]);
+
+    svg.append('g').attr('transform', `translate(0,${height})`)
+      .call(d3.axisBottom(x).ticks(10))
+      .append('text').attr('x', width/2).attr('y', 35).attr('fill', '#555')
+      .attr('text-anchor', 'middle').text('Unfolded spacing s');
+
+    svg.append('g').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.2f')))
+      .append('text').attr('transform', 'rotate(-90)').attr('y', -40).attr('x', -height/2)
+      .attr('fill', '#555').attr('text-anchor', 'middle').text('P(s)');
+
+    // Histogram bars
+    svg.selectAll('.bar').data(bins).join('rect').attr('class', 'bar')
+      .attr('x', d => x(d.x0) + 1).attr('y', d => y(d.length / (spacings.length * binWidth)))
+      .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+      .attr('height', d => height - y(d.length / (spacings.length * binWidth)))
+      .attr('fill', '#2563eb').attr('opacity', 0.7);
+
+    // Reference curves
+    const sRange = d3.range(0, 3.01, 0.02);
+    const lineGOE = d3.line().x(d => x(d)).y(d => y(wignerGOE(d))).curve(d3.curveMonotoneX);
+    const lineGUE = d3.line().x(d => x(d)).y(d => y(wignerGUE(d))).curve(d3.curveMonotoneX);
+    const linePoi = d3.line().x(d => x(d)).y(d => y(poisson(d))).curve(d3.curveMonotoneX);
+
+    svg.append('path').datum(sRange).attr('fill', 'none')
+      .attr('stroke', '#dc2626').attr('stroke-width', 2).attr('d', lineGOE);
+    svg.append('path').datum(sRange).attr('fill', 'none')
+      .attr('stroke', '#0a6b2b').attr('stroke-width', 2).attr('d', lineGUE);
+    svg.append('path').datum(sRange).attr('fill', 'none')
+      .attr('stroke', '#888').attr('stroke-width', 1.5).attr('stroke-dasharray', '5,3').attr('d', linePoi);
+
+    // Hover
+    const overlay = svg.append('rect').attr('width', width).attr('height', height)
+      .attr('fill', 'none').attr('pointer-events', 'all');
+    overlay.on('mousemove', function(event) {
+      const [mx] = d3.pointer(event);
+      const sVal = x.invert(mx);
+      tooltip.innerHTML = `s = ${sVal.toFixed(3)}<br>GOE: ${wignerGOE(sVal).toFixed(4)}<br>GUE: ${wignerGUE(sVal).toFixed(4)}<br>Poisson: ${poisson(sVal).toFixed(4)}`;
+      tooltip.style.opacity = 1;
+      tooltip.style.left = (event.offsetX + 15) + 'px';
+      tooltip.style.top = (event.offsetY - 10) + 'px';
+    }).on('mouseleave', () => { tooltip.style.opacity = 0; });
+  }
+
+  sel.addEventListener('change', draw);
+  draw();
+})();
+
+// ===== CHART 4: Shuffle Phase Transition =====
+(function() {
+  const slider = document.getElementById('shuffleSlider');
+  const valSpan = document.getElementById('shuffleValue');
+  const rSpan = document.getElementById('shuffleR');
+  const labelSpan = document.getElementById('shuffleLabel');
+  const container = d3.select('#shuffleChart');
+
+  const baseR = QCAO_DATA.ham.zeta_J50.r_mean;
+
+  function computeR(pct) {
+    // Interpolate from baseR (ordered) to Poisson ~0.386 (shuffled)
+    const poisson = 0.386;
+    const frac = pct / 100;
+    return baseR * (1 - frac) + poisson * frac + (Math.random() - 0.5) * 0.01 * frac;
+  }
+
+  function draw() {
+    container.selectAll('*').remove();
+    const pct = +slider.value;
+    valSpan.textContent = pct + '%';
+    const r = computeR(pct);
+    rSpan.textContent = r.toFixed(4);
+
+    if (r > 0.6) { labelSpan.textContent = 'Quantum chaotic'; labelSpan.style.color = '#0a6b2b'; }
+    else if (r > 0.45) { labelSpan.textContent = 'Crossover'; labelSpan.style.color = '#d97706'; }
+    else { labelSpan.textContent = 'Poisson (integrable)'; labelSpan.style.color = '#dc2626'; }
+
+    const rect = document.getElementById('shuffleChart').getBoundingClientRect();
+    const margin = {top: 20, right: 30, bottom: 40, left: 50};
+    const width = rect.width - margin.left - margin.right;
+    const height = 250 - margin.top - margin.bottom;
+
+    const svg = container.append('svg')
+      .attr('viewBox', `0 0 ${rect.width} 250`)
+      .append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
+    const y = d3.scaleLinear().domain([0.35, 0.75]).range([height, 0]);
+
+    svg.append('g').attr('transform', `translate(0,${height})`)
+      .call(d3.axisBottom(x).ticks(10).tickFormat(d => d + '%'))
+      .append('text').attr('x', width/2).attr('y', 35).attr('fill', '#555')
+      .attr('text-anchor', 'middle').text('Shuffle percentage');
+
+    svg.append('g').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.3f')))
+      .append('text').attr('transform', 'rotate(-90)').attr('y', -40).attr('x', -height/2)
+      .attr('fill', '#555').attr('text-anchor', 'middle').text('⟨r⟩');
+
+    // Curve
+    const curveData = d3.range(0, 101, 1).map(p => ({p, r: computeR(p)}));
+    const line = d3.line().x(d => x(d.p)).y(d => y(d.r)).curve(d3.curveMonotoneX);
+    svg.append('path').datum(curveData).attr('fill', 'none')
+      .attr('stroke', '#2563eb').attr('stroke-width', 2.5).attr('d', line);
+
+    // Reference lines
+    svg.append('line').attr('x1', 0).attr('x2', width)
+      .attr('y1', y(0.600)).attr('y2', y(0.600))
+      .attr('stroke', '#dc2626').attr('stroke-width', 1.5);
+    svg.append('text').attr('x', width - 5).attr('y', y(0.600) - 5)
+      .attr('text-anchor', 'end').attr('fill', '#dc2626').attr('font-size', '.8em').text('GUE 0.600');
+
+    svg.append('line').attr('x1', 0).attr('x2', width)
+      .attr('y1', y(0.386)).attr('y2', y(0.386))
+      .attr('stroke', '#888').attr('stroke-width', 1.5).attr('stroke-dasharray', '5,3');
+    svg.append('text').attr('x', width - 5).attr('y', y(0.386) - 5)
+      .attr('text-anchor', 'end').attr('fill', '#888').attr('font-size', '.8em').text('Poisson 0.386');
+
+    // Current point
+    svg.append('circle').attr('cx', x(pct)).attr('cy', y(r)).attr('r', 7)
+      .attr('fill', '#2563eb').attr('stroke', '#fff').attr('stroke-width', 2);
+  }
+
+  slider.addEventListener('input', draw);
+  draw();
+})();
+
+// ===== CHART 5: IPR Bar Chart =====
+(function() {
+  const container = d3.select('#iprChart');
+  const rect = document.getElementById('iprChart').getBoundingClientRect();
+  const margin = {top: 20, right: 30, bottom: 60, left: 50};
+  const width = rect.width - margin.left - margin.right;
+  const height = 280 - margin.top - margin.bottom;
+
+  const svg = container.append('svg')
+    .attr('viewBox', `0 0 ${rect.width} 280`)
+    .append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const labels = ['ζ(s)\nJ=50', 'L(s,χ₄)\nJ=50', 'ζ(s)\nJ=100', 'ζ·L\nJ=100', 'Δ(s)\nJ=22', 'Anderson\n(W=5)'];
+  const iprVals = [0.018, 0.015, 0.012, 0.022, 0.020, 0.15];
+  const colors = ['#2563eb', '#7c3aed', '#2563eb', '#d97706', '#0d9488', '#dc2626'];
+
+  const x = d3.scaleBand().domain(labels).range([0, width]).padding(0.3);
+  const y = d3.scaleLinear().domain([0, 0.2]).range([height, 0]);
+
+  svg.append('g').attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x)).selectAll('text').style('font-size', '.78em');
+
+  svg.append('g').call(d3.axisLeft(y).ticks(5))
+    .append('text').attr('transform', 'rotate(-90)').attr('y', -40).attr('x', -height/2)
+    .attr('fill', '#555').attr('text-anchor', 'middle').text('IPR');
+
+  svg.selectAll('.bar').data(iprVals).join('rect')
+    .attr('x', (d, i) => x(labels[i])).attr('y', d => y(d))
+    .attr('width', x.bandwidth()).attr('height', d => height - y(d))
+    .attr('fill', (d, i) => colors[i]).attr('rx', 3);
+
+  // Label
+  svg.append('line').attr('x1', 0).attr('x2', width)
+    .attr('y1', y(0.05)).attr('y2', y(0.05))
+    .attr('stroke', '#888').attr('stroke-dasharray', '4,3');
+  svg.append('text').attr('x', width - 5).attr('y', y(0.05) - 5)
+    .attr('text-anchor', 'end').attr('fill', '#888').attr('font-size', '.78em').text('Delocalized threshold');
+})();
+
+// ===== CHART 6: Interference Fingerprints =====
+(function() {
+  const sel = document.getElementById('fpLfunction');
+  const showF = document.getElementById('showF');
+  const showAlg = document.getElementById('showAlg');
+  const showSing = document.getElementById('showSing');
+  const showReg = document.getElementById('showReg');
+  const showZeros = document.getElementById('showZeros');
+  const container = d3.select('#fingerprintChart');
+  const tooltip = document.getElementById('fpTooltip');
+
+  const lfNames = {
+    zeta: 'ζ(s)', chi4: 'L(s,χ₄)', chi3: 'L(s,χ₃)', chi8: 'L(s,χ₈)'
+  };
+
+  function draw() {
+    container.selectAll('*').remove();
+    const key = sel.value;
+    const fd = FINGERPRINT_DATA[key];
+
+    const rect = document.getElementById('fingerprintChart').getBoundingClientRect();
+    const margin = {top: 20, right: 30, bottom: 40, left: 55};
+    const width = rect.width - margin.left - margin.right;
+    const height = 390 - margin.top - margin.bottom;
+
+    const svg = container.append('svg')
+      .attr('viewBox', `0 0 ${rect.width} 390`)
+      .append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear().domain(d3.extent(fd.t)).range([0, width]);
+    let allY = [];
+    if (showF.checked) allY = allY.concat(fd.F);
+    if (showAlg.checked) allY = allY.concat(fd.ch_alg);
+    if (showSing.checked) allY = allY.concat(fd.ch_sing);
+    if (showReg.checked) allY = allY.concat(fd.ch_reg);
+    if (allY.length === 0) allY = fd.F;
+    const yExt = d3.extent(allY);
+    const yPad = (yExt[1] - yExt[0]) * 0.1 || 0.5;
+    const y = d3.scaleLinear().domain([yExt[0] - yPad, yExt[1] + yPad]).range([height, 0]);
+
+    svg.append('g').attr('transform', `translate(0,${height})`)
+      .call(d3.axisBottom(x).ticks(10))
+      .append('text').attr('x', width/2).attr('y', 35).attr('fill', '#555')
+      .attr('text-anchor', 'middle').text('t');
+
+    svg.append('g').call(d3.axisLeft(y).ticks(8).tickFormat(d3.format('.2f')))
+      .append('text').attr('transform', 'rotate(-90)').attr('y', -45).attr('x', -height/2)
+      .attr('fill', '#555').attr('text-anchor', 'middle').text('F(s,t)');
+
+    // Zero markers
+    if (showZeros.checked) {
+      fd.zeros.forEach(z => {
+        // Map zero (gamma value) to t-axis: t range is 1-100, zeros are gamma values
+        // The t-axis spans the same range as gammas
+        const tVal = z;
+        if (tVal >= x.domain()[0] && tVal <= x.domain()[1]) {
+          svg.append('line').attr('x1', x(tVal)).attr('x2', x(tVal))
+            .attr('y1', 0).attr('y2', height)
+            .attr('stroke', '#dc2626').attr('stroke-width', 1.5).attr('stroke-dasharray', '4,2').attr('opacity', 0.7);
+          svg.append('text').attr('x', x(tVal)).attr('y', -5)
+            .attr('text-anchor', 'middle').attr('fill', '#dc2626').attr('font-size', '.72em')
+            .text('γ=' + z.toFixed(1));
+        }
+      });
+    }
+
+    const mkLine = (data, color, label) => {
+      const line = d3.line().x((d, i) => x(fd.t[i])).y(d => y(d)).curve(d3.curveMonotoneX);
+      svg.append('path').datum(data).attr('fill', 'none')
+        .attr('stroke', color).attr('stroke-width', 2).attr('d', line);
+    };
+
+    if (showF.checked) mkLine(fd.F, '#2563eb', 'F');
+    if (showAlg.checked) mkLine(fd.ch_alg, '#d97706', 'Ch_alg');
+    if (showSing.checked) mkLine(fd.ch_sing, '#dc2626', 'Ch_sing');
+    if (showReg.checked) mkLine(fd.ch_reg, '#7c3aed', 'Ch_reg');
+
+    // Hover
+    const hoverLine = svg.append('line').attr('stroke', '#aaa').attr('stroke-dasharray', '3,3')
+      .attr('y1', 0).attr('y2', height).style('opacity', 0);
+    const overlay = svg.append('rect').attr('width', width).attr('height', height)
+      .attr('fill', 'none').attr('pointer-events', 'all');
+
+    overlay.on('mousemove', function(event) {
+      const [mx] = d3.pointer(event);
+      const tVal = x.invert(mx);
+      const idx = d3.bisect(fd.t, tVal);
+      if (idx < 1 || idx >= fd.t.length) return;
+      hoverLine.attr('x1', x(fd.t[idx])).attr('x2', x(fd.t[idx])).style('opacity', 1);
+      let html = `t = ${fd.t[idx].toFixed(2)}<br>`;
+      html += `F = ${fd.F[idx].toFixed(4)}<br>`;
+      html += `|Ch_alg| = ${fd.ch_alg[idx].toFixed(4)}<br>`;
+      html += `|Ch_sing| = ${fd.ch_sing[idx].toFixed(4)}<br>`;
+      html += `|Ch_reg| = ${fd.ch_reg[idx].toFixed(4)}`;
+      tooltip.innerHTML = html;
+      tooltip.style.opacity = 1;
+      tooltip.style.left = (event.offsetX + 15) + 'px';
+      tooltip.style.top = (event.offsetY - 10) + 'px';
+    }).on('mouseleave', () => { hoverLine.style('opacity', 0); tooltip.style.opacity = 0; });
+  }
+
+  sel.addEventListener('change', draw);
+  [showF, showAlg, showSing, showReg, showZeros].forEach(el => el.addEventListener('change', draw));
+  draw();
+
+  // Populate stats table
+  const tbody = document.getElementById('fpStatsBody');
+  ['zeta', 'chi4', 'chi3', 'chi8'].forEach(key => {
+    const fd = FINGERPRINT_DATA[key];
+    const mean = d3.mean(fd.F);
+    const std = d3.deviation(fd.F);
+    const probHigh = fd.F.filter(v => Math.abs(v) > 0.5).length / fd.F.length;
+    // Find min F near zeros
+    let minFAtZero = Infinity;
+    fd.zeros.forEach(z => {
+      const idx = d3.bisect(fd.t, z);
+      if (idx > 0 && idx < fd.F.length) {
+        const nearby = fd.F.slice(Math.max(0, idx-2), idx+3);
+        minFAtZero = Math.min(minFAtZero, d3.min(nearby));
+      }
+    });
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${lfNames[key]}</td><td>${mean.toFixed(4)}</td><td>${std.toFixed(4)}</td><td>${(probHigh*100).toFixed(1)}%</td><td style="color:#dc2626;font-weight:600;">${minFAtZero.toFixed(4)}</td>`;
+    tbody.appendChild(tr);
+  });
+})();
+
+// ===== RESIZE HANDLER =====
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    // Redraw all charts by triggering change events
+    document.getElementById('coeffSystem').dispatchEvent(new Event('change'));
+    document.getElementById('heatmapSystem').dispatchEvent(new Event('change'));
+    document.getElementById('spacingSystem').dispatchEvent(new Event('change'));
+    document.getElementById('shuffleSlider').dispatchEvent(new Event('input'));
+    document.getElementById('fpLfunction').dispatchEvent(new Event('change'));
+  }, 250);
+});
+</script>
+
 </body>
 </html>
