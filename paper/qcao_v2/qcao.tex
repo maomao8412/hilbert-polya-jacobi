@@ -1,11 +1,9 @@
-\documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}
+\documentclass[aps,prx,reprint,floatfix]{revtex4-2}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{caption}
-\usepackage{float}
 \usepackage{enumitem}
 \usepackage{xcolor}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
@@ -14,44 +12,33 @@
 \newtheorem{conjecture}{Conjecture}
 \newtheorem*{remark*}{Remark}
 
-\title{\bf Quantum Chaos of Arithmetic Origin:\\
-\large Deterministic $L$-function Jacobi Hamiltonians exhibit GUE/GOE level
-statistics without random disorder or classical chaos}
-\author{Zhuo Chen\\[2pt]
-\small Independent researcher\quad\textbullet\quad ORCID: 0009-0006-9172-8268}
-\date{\today}
-
 \begin{document}
-\maketitle
+
+\title{Quantum Chaos of Arithmetic Origin: Deterministic $L$-function Jacobi Hamiltonians exhibit GUE/GOE level statistics without random disorder or classical chaos}
+\author{Zhuo Chen}
 
 \begin{abstract}
-We construct explicit one-dimensional tight-binding Hamiltonians whose on-site
-energies $\alpha_n$ and hopping amplitudes $b_n$ are the Jacobi recurrence
-coefficients derived, by a deterministic numerical procedure, from completed
-$L$-functions: the Riemann zeta function $\zeta$, the Dirichlet beta function
-$\beta$ (Gaussian-integers), and the Ramanujan $\Delta$ modular form. No zero
-location, prime table, or random number enters the construction; those enter
-only as independent after-the-fact checks. The resulting finite matrices have
-\emph{deterministic, statistically structured} coefficients (they fail
-white-noise tests decisively), yet their spectra display the complete
-fingerprint of quantum chaos observed in random-matrix ensembles: Wigner
-level repulsion, a linear ramp of the spectral form factor $K(\tau)$, the
-absence of wave-packet revival, and extended eigenstates. A \emph{shuffle
-control}---which keeps the empirical distribution of $\alpha_n,b_n$ but
-destroys the arithmetic recurrence---collapses the spectrum to Poisson
-statistics and localizes the eigenstates, demonstrating that the chaotic
-statistics originate from the arithmetic \emph{structure} of the recurrence
-and not from the coefficient distribution or from random disorder. Superposing
-two independent $L$-function spectra restores Poisson statistics, mirroring
-the known clustering of mixed arithmetic spectra. The phenomenon is robust to
-multiplicative coefficient noise up to roughly $10\%$. We formulate these
-findings as a physical \emph{hypothesis}---that arithmetic structure can be an
-\emph{origin} of quantum-chaotic spectral statistics---and we give a complete,
-reproducible experimental protocol for testing it on superconducting or
-trapped-ion quantum simulators. All results are finite-truncation numerical
-evidence; they neither prove nor assume the Riemann hypothesis, and they do
-not establish properties of the infinite-dimensional operator.
+We construct one-dimensional tight-binding Hamiltonians whose on-site energies
+and hopping amplitudes are Jacobi recurrence coefficients derived deterministically
+from completed $L$-functions---the Riemann zeta function, the Dirichlet beta
+function, and the Ramanujan $\Delta$ modular form---without any fitting or
+optimization. Despite having zero free parameters, these finite matrices exhibit
+the complete fingerprint of quantum chaos: Wigner level repulsion, a linear ramp
+of the spectral form factor, absence of wave-packet revival, and extended
+eigenstates. Crucially, a shuffle control that preserves the coefficient
+distribution but destroys arithmetic recurrence collapses the spectrum to Poisson
+statistics, demonstrating that quantum chaos originates from the arithmetic
+\emph{structure} of the recurrence. The phenomenon is robust to $\sim10\%$
+multiplicative noise. We propose this as a physical hypothesis: arithmetic
+structure can serve as an independent origin of quantum-chaotic statistics,
+distinct from classical chaos or random disorder. We provide a reproducible
+experimental protocol for quantum simulators.
 \end{abstract}
+
+\pacs{05.45.Mt, 03.65.Sq, 02.30.Jr, 11.55.Hx}
+\keywords{$L$-functions, quantum chaos, Jacobi matrices, random matrix theory, arithmetic structure}
+
+\maketitle
 
 \section{Introduction}
 \label{sec:intro}
@@ -290,7 +277,7 @@ correspondingly lower statistical weight; it is reported as a preliminary
 universality indicator alongside the better-sampled $\zeta$ and $\beta$
 families.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{exp1_level_spacings.png}
 \caption{Experiment 1. Unfolded level spacings of the three arithmetic
@@ -312,7 +299,7 @@ full truncated lattice. Controls: a GOE ensemble ($60\times60$, $200$
 realizations) as the chaotic benchmark, and a uniform chain ($\alpha_n=0$,
 $b_n=1$, $N=100$) as the integrable benchmark.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{exp2_wavepacket.png}
 \caption{Experiment 2. (a) Spectral form factor: the three arithmetic
@@ -381,7 +368,7 @@ All three chains share the same coefficient distribution; only the
 $|\psi(0)\rangle = |n{=}50\rangle$, and evolve under the unitary
 $|\psi(t)\rangle = e^{-i J t}|\psi(0)\rangle$.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{fig_quantum_evolution_compare.png}
 \caption{Experiment~2 (Supplementary). Spatiotemporal evolution
@@ -435,7 +422,7 @@ the wave packet appears localized on short time scales, yet the eigenstates
 remain extended (Experiment~3, \S\ref{sec:exp3}) and the spectral statistics
 are Wigner--Dyson rather than Poisson.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{fig_evolution_panel.png}
 \caption{Experiment~2 (Supplementary). Multi-panel view of the $\zeta$-Jacobi
@@ -448,7 +435,7 @@ ergodic exploration within the effective support.}
 \label{fig:evo-panel}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{fig_zeta_evolution_beauty.png}
 \caption{Experiment~2 (Supplementary). High-resolution visualization of the
@@ -477,7 +464,7 @@ condensed-matter or quantum-information literature.
 Figure~\ref{fig:exp3} and Table~\ref{tab:exp3} present the decisive
 controls.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=0.78\textwidth]{exp3_evidence.png}
 \caption{Experiment 3 evidence chain. (a,b) Coefficients are deterministic:
@@ -763,7 +750,7 @@ exactly); $\mathcal{F}>0$ means constructive interference.
 Figure~\ref{fig:fingerprints} displays $\mathcal{F}(\tfrac{1}{2}+it)$ for
 four $L$-functions scanned over $t\in[1,100]$.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=\textwidth]{fig_fingerprints.png}
 \caption{Interference fingerprints $\mathcal{F}(\tfrac{1}{2}+it)$ for four
@@ -776,7 +763,7 @@ darker) interference.}
 \label{fig:fingerprints}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{Interference-fingerprint statistics for four $L$-functions,
 sampled at 1000 points along $t\in[1,100]$ on the critical line.}
@@ -1003,7 +990,7 @@ indistinguishable in their crossover; at $\epsilon\ge0.5$ they sit at the
 Poisson floor $0.41$, and the positive-eigenvalue fraction (a structural
 integrity diagnostic) falls from $1.0$ to $\approx0.64$ at $\epsilon=2$.
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering\small
 \caption{Noise crossover (mean gap ratio $\langle r\rangle$ over the full
 unfolded spectrum; 40 realizations per point). Wigner--Dyson band
@@ -1120,7 +1107,7 @@ Wigner band with no resolved near-degeneracies, (ii) a $K(\tau)$ ramp,
 shuffled and uniform controls in the \emph{same} device show Poisson
 statistics and (for the shuffle) localization.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[width=0.92\textwidth]{exp4_noise_threshold.png}
 \caption{Hardware-noise crossover (40 realizations per point, all three
@@ -1425,6 +1412,23 @@ still shows Wigner--Dyson statistics on the same device, the
 arithmetic-origin claim is falsified---even if the ordered chain looks
 chaotic.} Likewise, a chaotic-looking ordered chain without the same-device
 controls does not count as evidence.
+
+\begin{acknowledgments}
+We thank the open-source mathematical computing community for the tools that
+made this work possible: mpmath for high-precision arithmetic, NumPy/SciPy for
+linear algebra, and Matplotlib for visualization. All computations were
+performed on cloud computing resources. The author acknowledges helpful
+discussions with AI-assisted research collaborators that contributed to the
+numerical experiments and code development.
+\end{acknowledgments}
+
+\begin{widetext}
+\textbf{Data availability.} All code, data, and reproducible scripts are
+publicly available on GitHub at
+\href{https://github.com/maomao8412/hilbert-polya-jacobi}{github.com/maomao8412/hilbert-polya-jacobi}.
+Archived versions are deposited on Zenodo (DOIs: 10.5281/zenodo.22180921,
+10.5281/zenodo.22181443, 10.5281/zenodo.22194207).
+\end{widetext}
 
 \begin{thebibliography}{9}
 \bibitem{berry1977} M.~V. Berry and M.~Tabor,
