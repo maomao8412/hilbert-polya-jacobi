@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code — QCAO</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+<div class="topnav-inner">
+  <a class="brand" href="index.html">QCAO</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="construction.html">Construction</a>
+    <a href="experiments.html">Experiments</a>
+    <a href="discussion.html">Discussion</a>
+    <a href="data.html">Data</a>
+    <a href="code.html" class="active">Code</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+
+<h1>Code &amp; Reproduction</h1>
+<p class="subtitle">Complete source code, coefficient tables, and experiment pipelines — run everything from scratch</p>
+
+<div class="cite-box">
+<strong>GitHub:</strong> <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a><br>
+<strong>Zenodo archive:</strong> <a href="https://doi.org/10.5281/zenodo.22180921">10.5281/zenodo.22180921</a> &nbsp;·&nbsp; CC BY 4.0
+</div>
+
+<h2>Repository Structure</h2>
+
+<pre><code>hilbert-polya-jacobi/
+├── benchmark_v1/
+│   ├── quantum_arithmetic_v1/
+│   │   ├── zeta_J50/
+│   │   │   ├── hamiltonian.csv          # 50×50 tridiagonal matrix
+│   │   │   └── metadata.json            # Full metadata
+│   │   ├── zeta_J100/
+│   │   │   ├── hamiltonian.csv          # 100×100 (1300-digit construction)
+│   │   │   └── metadata.json
+│   │   ├── beta_J50/
+│   │   │   ├── hamiltonian.csv
+│   │   │   └── metadata.json
+│   │   ├── delta_J22/
+│   │   │   ├── hamiltonian.csv
+│   │   │   └── metadata.json
+│   │   ├── product_J100/
+│   │   │   ├── hamiltonian.csv
+│   │   │   └── metadata.json
+│   │   ├── controls/
+│   │   │   └── e4_eisenstein/
+│   │   │       ├── e4_control.py
+│   │   │       └── e4_control_results.json
+│   │   ├── summary_table.csv
+│   │   ├── loader_demo.py               # Load &amp; print diagnostics
+│   │   └── README.md
+│   └── ...
+├── otoc_20260831/
+│   ├── otoc_experiment.py               # OTOC computation
+│   ├── otoc_results.json                # Full time-series data
+│   ├── goe_ensemble.py                  # GOE baseline
+│   └── plot_otoc.py                     # Publication-quality figure
+├── physics_experiments/                 # All experiment scripts
+│   ├── exp1_level_spacings.py
+│   ├── exp2_wavepacket.py
+│   ├── exp3_evidence_chain.py
+│   ├── exp4_noise_threshold.py
+│   └── ...
+├── construction_scripts/
+│   ├── zeta_J50.py
+│   ├── zeta_J100.py
+│   ├── beta_J50.py
+│   ├── delta_J22.py
+│   └── product_J100.py
+└── README.md</code></pre>
+
+<h2>Quick Start: Load a Hamiltonian</h2>
+
+<pre><code># loader_demo.py — Load any Hamiltonian and print diagnostics
+import numpy as np
+import json
+
+def load_hamiltonian(directory):
+    """Load Hamiltonian matrix and metadata from a directory."""
+    H = np.loadtxt(f'{directory}/hamiltonian.csv', delimiter=',')
+    with open(f'{directory}/metadata.json') as f:
+        meta = json.load(f)
+    return H, meta
+
+def spectral_diagnostics(H, meta):
+    """Compute and print basic spectral statistics."""
+    evals = np.sort(np.linalg.eigvalsh(H))[::-1]  # descending
+    pos = evals[evals > 0]
+    gammas = 1.0 / np.sqrt(pos)
+    
+    print(f"System: {meta['name']}")
+    print(f"Matrix size: {H.shape[0]}")
+    print(f"Positive eigenvalues: {len(pos)}")
+    print(f"First 5 γ (1/√λ): {gammas[:5]}")
+    
+    # Level spacings
+    spacings = np.diff(np.sort(pos))
+    spacings /= np.mean(spacings)  # unfold
+    print(f"Min unfolded spacing: {np.min(spacings):.4f}")
+    
+    # Gap ratio
+    r = np.minimum(spacings[:-1], spacings[1:]) / np.maximum(spacings[:-1], spacings[1:])
+    print(f"⟨r⟩ = {np.mean(r):.4f}")
+    print(f"  (GUE: 0.600, GOE: 0.536, Poisson: 0.386)")
+
+# Load ζ J50
+H, meta = load_hamiltonian('benchmark_v1/quantum_arithmetic_v1/zeta_J50')
+spectral_diagnostics(H, meta)</code></pre>
+
+<h2>Pipeline Scripts Index</h2>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead><tr><th>Script</th><th>System</th><th>\(N\)</th><th>Precision</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>zeta_J50.py</code></td><td>\(\zeta(s)\)</td><td>50</td><td>230 dps</td><td>Standard pipeline</td></tr>
+<tr><td><code>zeta_J100.py</code></td><td>\(\zeta(s)\)</td><td>100</td><td>1300 dps</td><td>High-precision pipeline</td></tr>
+<tr><td><code>beta_J50.py</code></td><td>\(\beta(s)\)</td><td>50</td><td>230 dps</td><td>Hurwitz zeta root finding</td></tr>
+<tr><td><code>delta_J22.py</code></td><td>\(\Delta\)</td><td>22</td><td>230 dps</td><td>Ramanujan \(\tau\) cusp form</td></tr>
+<tr><td><code>product_J100.py</code></td><td>\(\xi\cdot\Lambda_\beta\)</td><td>100</td><td>650 dps</td><td>Two-family product</td></tr>
+<tr><td><code>e4_control.py</code></td><td>\(E_4\)</td><td>—</td><td>650 dps</td><td>Off-symmetry discriminant</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Experiment Scripts</h2>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead><tr><th>Script</th><th>Experiment</th><th>Generates</th></tr></thead>
+<tbody>
+<tr><td><code>exp1_level_spacings.py</code></td><td>§3 Wigner repulsion</td><td>Fig. 1: spacing distributions, gap ratios</td></tr>
+<tr><td><code>exp2_wavepacket.py</code></td><td>§4 Dynamics</td><td>Fig. 2: form factor, survival, transport</td></tr>
+<tr><td><code>exp3_evidence_chain.py</code></td><td>§5 Controls</td><td>Fig. 3: IPR, shuffle, autocorrelation, noise</td></tr>
+<tr><td><code>exp4_noise_threshold.py</code></td><td>§5.4 Noise</td><td>Fig. 4: \(\epsilon\) crossover, trackable levels</td></tr>
+<tr><td><code>otoc_experiment.py</code></td><td>§5.4 OTOC</td><td>Fig. 5: \(C(t)\) curves, \(\lambda_L\) fits</td></tr>
+<tr><td><code>plot_otoc.py</code></td><td>OTOC figure</td><td>Publication-quality OTOC plot</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Reproduction Guide</h2>
+
+<h3>Prerequisites</h3>
+<pre><code>Python 3.9+
+mpmath &gt;= 1.3          # High-precision arithmetic
+numpy &gt;= 1.24           # Linear algebra
+scipy &gt;= 1.10           # Special functions (Hurwitz zeta)
+matplotlib &gt;= 3.7       # Plotting</code></pre>
+
+<h3>Step-by-step reproduction</h3>
+
+<pre><code># 1. Clone the repository
+git clone https://github.com/maomao8412/hilbert-polya-jacobi.git
+cd hilbert-polya-jacobi
+
+# 2. Run a construction pipeline (example: ζ J50)
+python construction_scripts/zeta_J50.py
+# Output: coefficient tables, hamiltonian.csv, metadata.json
+# Runtime: ~5 minutes on a modern CPU (230-digit arithmetic)
+
+# 3. Run experiment 1 (level spacings)
+python physics_experiments/exp1_level_spacings.py
+# Output: spacing distributions, gap ratios, Figure 1
+
+# 4. Run experiment 2 (dynamics)
+python physics_experiments/exp2_wavepacket.py
+# Output: form factor, survival probability, transport, Figure 2
+
+# 5. Run OTOC computation
+python otoc_20260831/otoc_experiment.py
+# Output: C(t) for all systems, Figure 5
+
+# 6. Verify data matches released files
+python benchmark_v1/quantum_arithmetic_v1/loader_demo.py</code></pre>
+
+<h3>Key parameters</h3>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead><tr><th>Parameter</th><th>ζ J50</th><th>β J50</th><th>Product J100</th><th>Δ J22</th></tr></thead>
+<tbody>
+<tr><td>Contour radius \(R\)</td><td>2</td><td>2</td><td>2</td><td>4</td></tr>
+<tr><td>Sample points \(M\)</td><td>1536</td><td>1536</td><td>1536</td><td>1024</td></tr>
+<tr><td>Precision (dps)</td><td>230</td><td>230</td><td>650</td><td>230</td></tr>
+<tr><td>Moments computed</td><td>\(P_{100}\)</td><td>\(P_{100}\)</td><td>\(P_{210}\)</td><td>\(P_{211}\)</td></tr>
+<tr><td>RNG seed</td><td>20260831</td><td>20260831</td><td>20260831</td><td>20260831</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Dependencies &amp; Runtime</h2>
+
+<div class="info-box">
+<p><strong>High-precision arithmetic</strong> is the bottleneck. The construction uses <code>mpmath</code> at 230–1300 decimal digits. Runtime scales roughly as:</p>
+<ul>
+<li>\(\zeta\) J50 (230 dps): ~5 min</li>
+<li>\(\zeta\) J100 (1300 dps): ~45 min</li>
+<li>Product J100 (650 dps): ~30 min</li>
+<li>\(\Delta\) J22 (230 dps): ~3 min</li>
+</ul>
+<p>The experiment scripts (spectral statistics, OTOC) run in seconds using standard double-precision linear algebra on the pre-computed Hamiltonians.</p>
+</div>
+
+<h2>Citation</h2>
+
+<pre><code>@misc{chen2026qcao,
+  author = {Chen, Zhuo},
+  title  = {Quantum Chaos of Arithmetic Origin},
+  year   = {2026},
+  doi    = {10.5281/zenodo.22180921},
+  note   = {Code: github.com/maomao8412/hilbert-polya-jacobi}
+}</code></pre>
+
+</div><!-- .container -->
+
+<div class="footer">
+  <p>© 2026 Zhuo Chen · CC BY 4.0 · <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22180921">Zenodo</a></p>
+</div>
+</body>
+</html>

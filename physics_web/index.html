@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Chaos of Arithmetic Origin</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'none' },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+<div class="topnav-inner">
+  <a class="brand" href="index.html">QCAO</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="construction.html">Construction</a>
+    <a href="experiments.html">Experiments</a>
+    <a href="discussion.html">Discussion</a>
+    <a href="data.html">Data</a>
+    <a href="code.html">Code</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+
+<h1>Quantum Chaos of Arithmetic Origin</h1>
+<p class="subtitle">Deterministic \(L\)-function Jacobi Hamiltonians exhibit GUE/GOE level statistics without random disorder or classical chaos</p>
+
+<div class="cite-box">
+<p style="margin:0"><strong>Author:</strong> Zhuo Chen (陈倬) &nbsp;·&nbsp; ORCID: <a href="https://orcid.org/0009-0006-9172-8268">0009-0006-9172-8268</a><br>
+<strong>Citation:</strong> Chen, Z. (2026) <em>Quantum Chaos of Arithmetic Origin</em>, Zenodo <a href="https://doi.org/10.5281/zenodo.22180921">10.5281/zenodo.22180921</a>.<br>
+<strong>Code &amp; data:</strong> <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a> &nbsp;·&nbsp; CC BY 4.0</p>
+</div>
+
+<div class="hero">
+<div class="chain">
+\(L\)-function \(\Lambda(s)\)
+<span class="arrow">→</span> contour sampling
+<span class="arrow">→</span> moments \(P_m\)
+<span class="arrow">→</span> Gram–Schmidt
+<span class="arrow">→</span> Jacobi matrix \(J_N\)<br>
+<span class="arrow">→</span> tight-binding Hamiltonian
+<span class="arrow">→</span> <strong>Wigner–Dyson level repulsion</strong>
+<span class="arrow">→</span> form-factor ramp
+<span class="arrow">→</span> OTOC scrambling
+</div>
+</div>
+
+<h2>Abstract</h2>
+<p>We construct explicit one-dimensional tight-binding Hamiltonians whose on-site energies \(\alpha_n\) and hopping amplitudes \(b_n\) are the Jacobi recurrence coefficients derived, by a deterministic numerical procedure, from completed \(L\)-functions: the Riemann zeta function \(\zeta\), the Dirichlet beta function \(\beta\) (Gaussian integers), and the Ramanujan \(\Delta\) modular form. <strong>No zero location, prime table, or random number enters the construction</strong>; those enter only as independent after-the-fact checks.</p>
+
+<p>The resulting finite matrices have deterministic, statistically structured coefficients (they fail white-noise tests decisively), yet their spectra display the complete fingerprint of quantum chaos observed in random-matrix ensembles: Wigner level repulsion, a linear ramp of the spectral form factor \(K(\tau)\), the absence of wave-packet revival, and extended eigenstates. A <em>shuffle control</em>—which keeps the empirical distribution of \(\alpha_n,b_n\) but destroys the arithmetic recurrence—collapses the spectrum to Poisson statistics and localizes the eigenstates, demonstrating that the chaotic statistics originate from the arithmetic <em>structure</em> of the recurrence and not from the coefficient distribution.</p>
+
+<div class="warn-box">
+<strong>Scope &amp; honesty (finite-truncation numerical evidence):</strong> All results are obtained on finite truncations (\(N\le100\)). They neither prove nor assume the Riemann hypothesis, and they do not establish properties of the infinite-dimensional operator. "Quantum chaos of arithmetic origin" is a physical hypothesis supported by the data.
+</div>
+
+<h2>Six Lines of Evidence</h2>
+
+<div class="card-grid">
+<div class="card">
+  <span class="badge badge-gue">§3 · Wigner</span>
+  <h3>Level Repulsion</h3>
+  <p>Three independent arithmetic families (\(\zeta\), \(\beta\), \(\Delta\)) show gap ratios \(\langle r\rangle = 0.61\)–\(0.72\) firmly in the Wigner–Dyson band, vs. Poisson \(0.386\). Minimum unfolded gap \(0.432\); zero gaps below \(0.3\) in \(65\) spacings.</p>
+  <p><a href="experiments.html#tab-wigner">Explore →</a></p>
+</div>
+
+<div class="card">
+  <span class="badge badge-ramp">§4 · Dynamics</span>
+  <h3>Form-Factor Ramp &amp; Revival</h3>
+  <p>The spectral form factor \(K(\tau)\) ramps with slope \(\approx0.74\) like the GOE ensemble (\(0.79\)); the integrable uniform chain is flat. Arithmetic chains show no quantum revival at \(\tau_H\); the uniform chain revives perfectly (\(P=0.993\)).</p>
+  <p><a href="experiments.html#tab-wavepacket">Explore →</a></p>
+</div>
+
+<div class="card">
+  <span class="badge badge-ext">§5 · Evidence Chain</span>
+  <h3>Extended States &amp; Determinism</h3>
+  <p>IPR \(0.056\)–\(0.100\) (extended), vs. Anderson localization IPR \(0.39\). Coefficients fail white-noise tests: runs \(|z|=2.9\)–\(6.6\), autocorrelation outside shuffled band at \(7\)–\(8\) of \(20\) lags.</p>
+  <p><a href="experiments.html#tab-evidence">Explore →</a></p>
+</div>
+
+<div class="card">
+  <span class="badge badge-shuffle">§5.4 · Shuffle</span>
+  <h3>Shuffle Phase Transition</h3>
+  <p>Permuting \(\alpha_n, b_n\) preserves their distribution but destroys recurrence order: \(\langle r\rangle\) collapses from \(\sim0.7\) to \(0.39\)–\(0.40\) (Poisson), IPR jumps from \(\sim0.06\) to \(0.49\)–\(0.58\) (localized). Arithmetic <em>order</em> is the cause.</p>
+  <p><a href="experiments.html#tab-shuffle">Explore →</a></p>
+</div>
+
+<div class="card">
+  <span class="badge badge-e4">§5.3 · E₄ Control</span>
+  <h3>Eisenstein Discriminator</h3>
+  <p>The Eisenstein series \(E_4\) has off-symmetry zeros; its moment sequence changes sign at order \(8\) and the Jacobi chain fails at order \(4\). Long \(b_n^2>0\) chains co-vary with zeros on the symmetry line.</p>
+  <p><a href="experiments.html#tab-e4">Explore →</a></p>
+</div>
+
+<div class="card">
+  <span class="badge badge-otoc">§5.4 · OTOC</span>
+  <h3>Information Scrambling</h3>
+  <p>Out-of-time-order correlator \(C(t)\) shows smooth monotonic growth with \(\lambda_L \approx 0.073\), independent of temperature. No revivals (rules out integrability); no instantaneous jump (unlike GOE). Third, dynamically independent confirmation.</p>
+  <p><a href="experiments.html#tab-otoc">Explore →</a></p>
+</div>
+</div>
+
+<h2>The Mirror Image</h2>
+
+<div class="consequence">
+<p><strong>Classical arithmetic quantum chaos</strong> (Sarnak, Rudnick): classical dynamics is chaotic, but arithmetic <em>symmetries</em> (Hecke operators) suppress level repulsion → Poisson. Arithmetic is the <em>inhibitor</em> of chaos.</p>
+<p><strong>This work (reverse polarity):</strong> No classical dynamics, no randomness, yet arithmetic <em>recurrence</em> produces GUE/GOE repulsion endogenously. Destroying recurrence (shuffle) or mixing independent objects (superposition) restores Poisson. Arithmetic is the <em>source</em> of chaos.</p>
+</div>
+
+<h2>Key Numbers at a Glance</h2>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead>
+<tr><th>System</th><th>Matrix size \(N\)</th><th>Locked levels</th><th>\(\langle r\rangle\)</th><th>Min gap</th><th>IPR</th><th>Ramp slope</th></tr>
+</thead>
+<tbody>
+<tr><td>\(\zeta\) J50</td><td>50</td><td>25</td><td>0.614</td><td>0.432</td><td>0.056</td><td>0.744</td></tr>
+<tr><td>\(\beta\) J50</td><td>50</td><td>27</td><td>0.658</td><td>—</td><td>0.060</td><td>0.744</td></tr>
+<tr><td>\(\Delta\) J22</td><td>22</td><td>15</td><td>0.720</td><td>—</td><td>0.100</td><td>0.738</td></tr>
+<tr><td>\(\zeta\)+\(\beta\) product</td><td>100</td><td>53</td><td>0.504</td><td>0.044</td><td>—</td><td>0.691*</td></tr>
+<tr style="background:#f0f4fa"><td>GOE ensemble</td><td>60</td><td>—</td><td>0.536</td><td>—</td><td>—</td><td>0.787</td></tr>
+<tr style="background:#fdf4e8"><td>Uniform chain</td><td>100</td><td>—</td><td>0.386</td><td>—</td><td>—</td><td>≈0</td></tr>
+<tr style="background:#fef2f2"><td>Shuffled (ζ)</td><td>50</td><td>—</td><td>0.403</td><td>—</td><td>0.533</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:.85em;color:var(--subtle)"><em>*Incoherent sum of two independently unfolded families. References: GUE \(\langle r\rangle=0.600\), GOE \(0.536\), Poisson \(0.386\) (Atas et al. 2013).</em></p>
+
+<h2>Navigate</h2>
+<div class="card-grid">
+<div class="card">
+  <h3>🔧 Construction</h3>
+  <p>The complete reproducible pipeline: \(L\)-function → contour sampling → moments → Jacobi coefficients. Interactive step-by-step visualization.</p>
+  <p><a href="construction.html">View Construction →</a></p>
+</div>
+<div class="card">
+  <h3>📊 Experiments</h3>
+  <p>Six interactive tabs: Wigner statistics, wave-packet dynamics, evidence chain, shuffle phase transition, \(E_4\) discrimination, and OTOC scrambling.</p>
+  <p><a href="experiments.html">View Experiments →</a></p>
+</div>
+<div class="card">
+  <h3>💡 Discussion</h3>
+  <p>Three conceptual implications: chaos without randomness, correlational structure as physical degree of freedom, and deep number-theory / quantum-Hamiltonian correspondence.</p>
+  <p><a href="discussion.html">View Discussion →</a></p>
+</div>
+<div class="card">
+  <h3>📁 Data</h3>
+  <p>Download all Hamiltonians (\(\zeta\) J100, \(\beta\) J50, product J100, \(\Delta\) J22), OTOC data, and \(E_4\) control results. Machine-readable CSV + JSON.</p>
+  <p><a href="data.html">View Data →</a></p>
+</div>
+<div class="card">
+  <h3>💻 Code</h3>
+  <p>Complete reproduction scripts, coefficient tables, and experiment pipelines on GitHub. Run the entire analysis from scratch.</p>
+  <p><a href="code.html">View Code →</a></p>
+</div>
+</div>
+
+<div class="footer">
+  <p>© 2026 Zhuo Chen · CC BY 4.0 · <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22180921">Zenodo</a></p>
+  <p>All results are finite-truncation numerical evidence. They neither prove nor assume the Riemann hypothesis.</p>
+</div>
+
+</div><!-- .container -->
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data — QCAO</title>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+<div class="topnav-inner">
+  <a class="brand" href="index.html">QCAO</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="construction.html">Construction</a>
+    <a href="experiments.html">Experiments</a>
+    <a href="discussion.html">Discussion</a>
+    <a href="data.html" class="active">Data</a>
+    <a href="code.html">Code</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+
+<h1>Data Release</h1>
+<p class="subtitle">Complete reproducible dataset — Hamiltonians, OTOC dynamics, E₄ control, metadata</p>
+
+<div class="cite-box">
+<strong>DOI:</strong> <a href="https://doi.org/10.5281/zenodo.22180921">10.5281/zenodo.22180921</a> &nbsp;·&nbsp;
+<strong>GitHub:</strong> <a href="https://github.com/maomao8412/hilbert-polya-jacobi">maomao8412/hilbert-polya-jacobi</a> &nbsp;·&nbsp;
+<strong>License:</strong> CC BY 4.0
+</div>
+
+<h2>Dataset Overview</h2>
+
+<div class="card-grid">
+<div class="card">
+  <span class="badge badge-gue">Hamiltonians</span>
+  <h3>Arithmetic Jacobi Matrices</h3>
+  <p>Four real-symmetric tridiagonal matrices. Each entry derived by a deterministic pipeline from \(L\)-function arithmetic Dirichlet coefficients. No zeros, primes, or spectral information enters the construction.</p>
+  <p>Each directory contains:<br>
+  <code>hamiltonian.csv</code> — dense N×N tridiagonal matrix<br>
+  <code>metadata.json</code> — family, pipeline parameters, statistics</p>
+</div>
+<div class="card">
+  <span class="badge badge-otoc">OTOC</span>
+  <h3>Out-of-Time-Order Correlators</h3>
+  <p>Time-domain squared commutator \(C(t)\) for all six systems (4 arithmetic + GOE + uniform), at 5 inverse temperatures \(\beta = 0.5, 1, 2, 5, 10\). 801 time points, \(t \in [0, 40]\).</p>
+</div>
+<div class="card">
+  <span class="badge badge-e4">E₄ Control</span>
+  <h3>Eisenstein Discriminator</h3>
+  <p>Moment sequence, Jacobi coefficients, and sign-change analysis for the weight-4 Eisenstein series \(E_4\), whose zeros lie off the symmetry line.</p>
+</div>
+</div>
+
+<h2>Hamiltonian Files</h2>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead>
+<tr><th>Directory</th><th>\(L\)-function family</th><th>Size \(N\)</th><th>Locked levels</th><th>Construction precision</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zeta_J50/</code></td><td>Riemann \(\zeta(s)\)</td><td>50</td><td>25</td><td>230 dps</td></tr>
+<tr><td><code>zeta_J100/</code></td><td>Riemann \(\zeta(s)\)</td><td>100</td><td>55 (rel err ~10⁻¹⁵)</td><td>1300 dps</td></tr>
+<tr><td><code>beta_J50/</code></td><td>Dirichlet \(L\) mod 4 (\(\chi_4\), Catalan)</td><td>50</td><td>27</td><td>230 dps</td></tr>
+<tr><td><code>delta_J22/</code></td><td>Ramanujan \(\tau\), weight-12 cusp form \(\Delta\)</td><td>22</td><td>15 (small sample)</td><td>230 dps</td></tr>
+<tr><td><code>product_J100/</code></td><td>\(\xi \cdot \Lambda_\beta\) product</td><td>100</td><td>53 (35 \(\beta\) + 18 \(\zeta\))</td><td>650 dps</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>File Format: hamiltonian.csv</h3>
+<p>Dense N×N tridiagonal matrix. Row \(i\), column \(j\):</p>
+<ul>
+<li><code>H[i][i]</code> = \(\alpha_i\) (on-site energy)</li>
+<li><code>H[i][i+1]</code> = <code>H[i+1][i]</code> = \(b_i\) (hopping amplitude)</li>
+<li>All other entries = 0</li>
+</ul>
+<p>Eigenvalues satisfy \(\lambda_k \approx 1/\gamma_k^2\), where \(\gamma_k\) are the corresponding \(L\)-function zero heights on the critical line.</p>
+
+<h3>File Format: metadata.json</h3>
+<pre><code>{
+  "slug": "zeta_J100",
+  "name": "Riemann zeta L-function, Jacobi truncation J=100",
+  "matrix_size": 100,
+  "form": "real symmetric tridiagonal (Jacobi)",
+  "units": "dimensionless; eigenvalues lambda ~ 1/gamma^2",
+  "alpha_diag": [ ... ],
+  "b_offdiag": [ ... ],
+  "locked_levels": 55,
+  "locked_gamma_first5": [14.1347, 21.0220, 25.0109, 30.4249, 32.9351],
+  "gap_ratio_r": 0.722,
+  "pipeline": {
+    "radius_R": 2.0,
+    "sample_points_M": 1536,
+    "working_precision_dps": 1300,
+    "moments_computed": 210
+  }
+}</code></pre>
+
+<h2>Interactive Data Preview</h2>
+<p>Select a system to view its first 10 Jacobi coefficients:</p>
+
+<div class="control-row">
+  <label>System:</label>
+  <select id="dataPreviewSelect">
+    <option value="zeta_J50">ζ J50</option>
+    <option value="beta_J50">β J50</option>
+    <option value="zeta_J100">ζ J100</option>
+    <option value="delta_J22">Δ J22</option>
+    <option value="product_J100">Product J100</option>
+  </select>
+</div>
+
+<div class="data-table-wrap">
+<table class="data-table" id="dataPreviewTable">
+<thead><tr><th>\(n\)</th><th>\(\alpha_n\)</th><th>\(b_n\)</th></tr></thead>
+<tbody id="dataPreviewBody"></tbody>
+</table>
+</div>
+
+<h2>OTOC Data</h2>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead><tr><th>System</th><th>Dimension</th><th>Description</th><th>\(\lambda_L\)</th></tr></thead>
+<tbody>
+<tr><td><code>zeta_J100</code></td><td>100</td><td>ζ Jacobi chain (1300-digit construction)</td><td>0.0732</td></tr>
+<tr><td><code>beta_J50</code></td><td>50</td><td>β Jacobi chain</td><td>0.0739</td></tr>
+<tr><td><code>product_J100</code></td><td>100</td><td>ζ×β product chain</td><td>0.0721</td></tr>
+<tr><td><code>delta_J22</code></td><td>22</td><td>Δ Jacobi chain</td><td>—</td></tr>
+<tr><td><code>GOE100</code></td><td>100</td><td>GOE ensemble average (40 realizations)</td><td>—</td></tr>
+<tr><td><code>uniform_chain100</code></td><td>100</td><td>Uniform NN chain (\(\alpha=0, b=1\))</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Each system provides \(C(t)\) at \(\beta = 0.5, 1.0, 2.0, 5.0, 10.0\) over 801 time points \(t \in [0, 40]\).</p>
+
+<pre><code>otoc_results.json structure:
+{
+  "note": "OTOC C(t) definition and setup...",
+  "ts": [0.0, 0.05, 0.1, ..., 40.0],     // 801 points
+  "betas": [0.5, 1.0, 2.0, 5.0, 10.0],
+  "systems": {
+    "zeta_J100": {
+      "betas": {
+        "1.0": {
+          "C": [0.0, 3.01e-9, 1.20e-8, ...],  // 801 values
+          "lambda_L_fit": 0.0732,
+          "fit_window": [0.25, 40.0]
+        },
+        ...
+      }
+    },
+    ...
+  }
+}</code></pre>
+
+<h2>E₄ Eisenstein Control</h2>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead><tr><th>Property</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Object</td><td>Eisenstein series \(E_4\)</td></tr>
+<tr><td>\(L\)-function</td><td>\(L(E_4,s) = \zeta(s)\zeta(s-3)\), coefficients \(\sigma_3(n)\)</td></tr>
+<tr><td>Functional equation</td><td>\(\Lambda(s) = \Lambda(4-s)\), center \(s=2\)</td></tr>
+<tr><td>Zeros</td><td>\(\Re(s) = 1/2\) and \(\Re(s) = 7/2\) (offset from symmetry)</td></tr>
+<tr><td>Precision</td><td>650 dps, 1536 contour points</td></tr>
+<tr><td>Moment sign change</td><td>Order 8 (predicted by \(\cos(2m\theta_1)\), \(\theta_1 \approx 0.106\))</td></tr>
+<tr><td>Jacobi chain fails</td><td>Order 4 (\(b_n^2\) non-positive)</td></tr>
+<tr><td>Interpretation</td><td>Pipeline discriminates on-line from off-line zero distributions</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Download Links</h2>
+
+<div class="info-box">
+<p><strong>Complete dataset (Zenodo):</strong> <a href="https://doi.org/10.5281/zenodo.22180921">10.5281/zenodo.22180921</a></p>
+<p><strong>GitHub repository:</strong> <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></p>
+<ul>
+<li><code>benchmark_v1/quantum_arithmetic_v1/</code> — All Hamiltonians + metadata</li>
+<li><code>otoc_20260831/</code> — OTOC raw data + experiment scripts</li>
+<li><code>benchmark_v1/quantum_arithmetic_v1/controls/e4_eisenstein/</code> — E₄ control</li>
+</ul>
+</div>
+
+<h2>Scope &amp; Limitations (please read)</h2>
+<div class="warn-box">
+<ul>
+<li>All results are <strong>finite-truncation numerical evidence</strong>. Nothing here proves any statement about infinite-dimensional operators.</li>
+<li>The spectra are <strong>computer-generated</strong>, not measured; this is a simulation benchmark. Physical-simulation experiments are proposed but not yet performed.</li>
+<li>"Quantum chaos of arithmetic origin" is a <strong>physical hypothesis</strong> supported by the data, not an established fact.</li>
+<li>\(\Delta\) reaches only 15 locked levels at 230-digit precision (Hankel conditioning floor); its statistics carry explicit small-sample caveats.</li>
+<li>Gap-ratio estimates from 15–53 levels have a known upward small-sample bias (Atas et al. 2013); the dataset does not claim GUE vs GOE discrimination.</li>
+</ul>
+</div>
+
+</div><!-- .container -->
+
+<script src="data.js"></script>
+<script>
+const D = QCAO_DATA.ham;
+
+function fillPreview(sysKey) {
+  const d = D[sysKey];
+  const tbody = document.getElementById('dataPreviewBody');
+  tbody.innerHTML = '';
+  const n = Math.min(10, d.N);
+  for (let i = 0; i < n; i++) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${i}</td><td>${d.alpha[i].toExponential(6)}</td><td>${i < d.b.length ? d.b[i].toExponential(6) : '—'}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+document.getElementById('dataPreviewSelect').addEventListener('change', e => fillPreview(e.target.value));
+fillPreview('zeta_J50');
+</script>
+
+<div class="footer">
+  <p>© 2026 Zhuo Chen · CC BY 4.0 · <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22180921">Zenodo</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construction — QCAO</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']], tags: 'none' },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+<div class="topnav-inner">
+  <a class="brand" href="index.html">QCAO</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="construction.html" class="active">Construction</a>
+    <a href="experiments.html">Experiments</a>
+    <a href="discussion.html">Discussion</a>
+    <a href="data.html">Data</a>
+    <a href="code.html">Code</a>
+  </div>
+</div>
+</nav>
+
+<div class="container">
+
+<h1>§2 Reproducible Construction</h1>
+<p class="subtitle">From completed \(L\)-functions to Jacobi Hamiltonians — every step deterministic, no zeros, primes, or random numbers</p>
+
+<h2>Overview: The Four-Step Pipeline</h2>
+<div class="hero">
+<div class="chain">
+Completed \(L\)-function \(\Lambda(s)\)
+<span class="arrow">→</span> <strong>Step 1</strong>: Contour sampling
+<span class="arrow">→</span> <strong>Step 2</strong>: Moments \(P_m\)
+<span class="arrow">→</span> <strong>Step 3</strong>: Gram–Schmidt
+<span class="arrow">→</span> <strong>Step 4</strong>: Jacobi matrix \(J_N = \mathrm{tridiag}(\alpha_n, b_n)\)
+</div>
+</div>
+
+<h2>Step 1: Completed \(L\)-functions</h2>
+<p>We use three completed functions \(\Lambda(s) = \Lambda(c - s)\), each entire and real on the symmetry line:</p>
+
+<div class="formula">
+\(\displaystyle \zeta: \quad \xi(s) = \tfrac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\,\zeta(s), \quad c = 1\)
+</div>
+<div class="formula">
+\(\displaystyle \beta: \quad \Lambda_\beta(s) = \big(\tfrac{\pi}{4}\big)^{-(s+1)/2}\Gamma\!\big(\tfrac{s+1}{2}\big)\,4^{-s}\big[\zeta(s,\tfrac{1}{4})-\zeta(s,\tfrac{3}{4})\big], \quad c = 1\)
+</div>
+<div class="formula">
+\(\displaystyle \Delta: \quad \Lambda_\Delta(s) = (2\pi)^{-s}\Gamma(s)\,L(\Delta,s), \quad c = 12\)
+</div>
+
+<p>The Dirichlet beta function encodes the Gaussian integers; \(\Delta\) is a weight-12 modular form. Using three independent arithmetic objects tests universality. We also study the product \(\xi_K(s) = \xi(s)\Lambda_\beta(s)\) as a superposition control.</p>
+
+<h2>Step 2: Contour Sampling &amp; Moments</h2>
+<p>Each \(\Lambda\) is sampled on a circle of radius \(R\) centered on the symmetry point \(s_0 = c/2\):</p>
+<div class="formula">
+\(\displaystyle s_k = s_0 + R\,e^{i\theta_k}, \quad \theta_k = \frac{2\pi k}{M}, \quad k=0,\dots,M-1\)
+</div>
+<p>using high-precision arithmetic (<code>mpmath</code>). The mean \(\sigma_0 = \frac{1}{M}\sum_k \Lambda(s_k)\) normalizes the measure. The Taylor coefficients \(d_n\) of \(\log(\Lambda/\Lambda(s_0))\) on the circle are obtained from the discrete Fourier (trapezoidal) sums, and the Hausdorff moments \(P_m\) follow from the logarithmic derivative recurrence:</p>
+<div class="formula">
+\(\displaystyle c_n = d_n - \frac{1}{n}\sum_{i=1}^{n-1} i\,c_i\,d_{n-i}, \qquad P_m = (-1)^{m+1}\,m\,c_m\)
+</div>
+
+<h2>Step 3: Gram–Schmidt → Jacobi Coefficients</h2>
+<p>Monic orthogonal polynomials for the moment functional \(\langle x^i, x^j\rangle = T(i+j) = P_{i+j+1}\) are built by Gram–Schmidt:</p>
+<div class="formula">
+\(\displaystyle \alpha_{k-1} = \frac{\langle x\,p_{k-1}, p_{k-1}\rangle}{\langle p_{k-1}, p_{k-1}\rangle}, \qquad b_{k-1}^2 = \frac{\langle p_k, p_k\rangle}{\langle p_{k-1}, p_{k-1}\rangle}\)
+</div>
+<p>This yields the tridiagonal Jacobi matrix \(J_N = \mathrm{tridiag}(\alpha_n, b_n)\) with \(b_n > 0\). Positivity of all \(b_n^2\) through the computed order is verified explicitly.</p>
+
+<h2>Parameters Actually Used</h2>
+<div class="data-table-wrap">
+<table class="data-table">
+<thead>
+<tr><th>Object</th><th>Matrix size \(N\)</th><th>Radius \(R\)</th><th>Points \(M\)</th><th>Precision (dps)</th><th>Moments</th></tr>
+</thead>
+<tbody>
+<tr><td>Riemann \(\zeta\)</td><td>50 / 100</td><td>2</td><td>1536</td><td>≥ 230 / 1300</td><td>\(P_{100}\) / \(P_{210}\)</td></tr>
+<tr><td>Dirichlet \(\beta\)</td><td>50</td><td>2</td><td>1536</td><td>≥ 230</td><td>\(P_{100}\)</td></tr>
+<tr><td>\(\zeta\cdot\beta\) product</td><td>100</td><td>2</td><td>1536</td><td>650</td><td>\(P_{210}\)</td></tr>
+<tr><td>Ramanujan \(\Delta\)</td><td>22</td><td>4</td><td>1024</td><td>230</td><td>\(P_{211}\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Interactive: Jacobi Coefficients \(\alpha_n\) and \(b_n\)</h2>
+<p>Select a system to visualize its on-site energies \(\alpha_n\) and hopping amplitudes \(b_n\) as a function of site index \(n\). These are the Hamiltonian parameters — completely deterministic numbers derived from the \(L\)-function.</p>
+
+<div class="control-row">
+  <label>System:</label>
+  <select id="sysSelect">
+    <option value="zeta_J50">ζ J50 (N=50)</option>
+    <option value="beta_J50">β J50 (N=50)</option>
+    <option value="zeta_J100">ζ J100 (N=100)</option>
+    <option value="delta_J22">Δ J22 (N=22)</option>
+    <option value="product_J100">Product J100 (N=100)</option>
+  </select>
+</div>
+
+<div class="chart-container">
+  <div class="chart-title">On-site energies α<sub>n</sub> and hopping amplitudes b<sub>n</sub></div>
+  <div id="coeffChart"></div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#2563eb"></span> α<sub>n</sub> (on-site energy)</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#d97706"></span> b<sub>n</sub> (hopping amplitude)</div>
+  </div>
+</div>
+
+<h2>The Tight-Binding Hamiltonian</h2>
+<p>The Jacobi matrix is interpreted as a one-dimensional tight-binding Hamiltonian:</p>
+<div class="formula">
+\(\displaystyle H = \sum_{n=0}^{N-1}\alpha_n\,|n\rangle\langle n| + \sum_{n=0}^{N-2} b_n\bigl(|n\rangle\langle n\!+\!1| + |n\!+\!1\rangle\langle n|\bigr)\)
+</div>
+
+<div class="chart-container">
+  <div class="chart-title">Hamiltonian matrix structure (ζ J50, first 20×20 block)</div>
+  <div id="matrixViz"></div>
+  <p style="font-size:.82em;color:var(--subtle);margin-top:.5em">The matrix is tridiagonal: diagonal entries \(\alpha_n\) (blue), off-diagonal hoppings \(b_n\) (orange). All other entries are zero.</p>
+</div>
+
+<h2>Locked-Subspace Protocol</h2>
+<p>A truncated \(N\times N\) Jacobi matrix reproduces only the lowest zeros. We <em>lock</em> a computed eigenvalue \(\gamma = 1/\sqrt{\lambda}\) when it agrees, to relative error \(< 10^{-4}\), with a zero computed by an independent method. Zeros enter only this after-the-fact check — never the construction.</p>
+
+<div class="data-table-wrap">
+<table class="data-table">
+<thead>
+<tr><th>System</th><th>Matrix size</th><th>Locked levels</th><th>First 5 γ (locked)</th></tr>
+</thead>
+<tbody id="lockedTable"></tbody>
+</table>
+</div>
+
+<h2>Construction Algorithm (Pseudocode)</h2>
+<pre><code>CONSTRUCT-JACOBI(Lambda, c, R, M, dps, N, JMAX):
+    set arithmetic precision dps
+    for k = 0 .. M-1:                      # Cauchy-circle sampling
+        s_k = c/2 + R * exp(2*pi*i*k/M)
+        f_k = Lambda(s_k)
+    sigma0 = (1/M) sum_k f_k               # normalizes the measure
+    for n = 1 .. JMAX:                     # Taylor (Fourier/trapezoid) coeffs
+        d_n = Re[ (1/M) sum_k f_k exp(-2*pi*i*(2n)*k/M) / R^(2n) ] / sigma0
+    c[1] = d[1]                            # log-derivative recurrence
+    for n = 2 .. JMAX:
+        c[n] = d[n] - (1/n) sum_{i=1}^{n-1} i*c[i]*d[n-i]
+    P[m] = (-1)^(m+1) * m * c[m]          # Hausdorff moments
+    T(i,j) = P[i+j+1]                      # moment functional
+    p[0] = 1 ;  norm[0] = &lt;p0,p0&gt;          # monic Gram-Schmidt
+    for k = 1 .. N:
+        x p[k-1]  -&gt;  alpha[k-1] = &lt;x p[k-1],p[k-1]&gt;/&lt;p[k-1],p[k-1]&gt;
+        orthogonalize against p[k-1] (alpha) and p[k-2] (b^2)
+        b[k-2]^2  = norm[k-1]/norm[k-2]
+        norm[k]   = &lt;p[k],p[k]&gt;
+    assemble tridiagonal J_N = diag(alpha) + diag(b,+1) + diag(b,-1)
+    verify  b_n^2 &gt; 0  for all n           # positive-definiteness check
+    lambda = descending eigenvalues of J_N ;  gamma = 1/sqrt(lambda)
+    LOCK gamma if |gamma - gamma_zero|/gamma_zero &lt; 1e-4</code></pre>
+
+</div><!-- .container -->
+
+<script src="data.js"></script>
+<script>
+// ===== Construction page interactivity =====
+const D = QCAO_DATA.ham;
+const colors = { alpha: '#2563eb', b: '#d97706' };
+
+function drawCoeffChart(sysName) {
+  const data = D[sysName];
+  const N = data.N;
+  const alpha = data.alpha;
+  const b = data.b;
+  
+  const margin = {top: 20, right: 60, bottom: 40, left: 65};
+  const width = Math.min(900, window.innerWidth - 80) - margin.left - margin.right;
+  const height = 320 - margin.top - margin.bottom;
+  
+  d3.select('#coeffChart').selectAll('*').remove();
+  const svg = d3.select('#coeffChart').append('svg')
+    .attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+    .append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+  
+  const x = d3.scaleLinear().domain([0, N-1]).range([0, width]);
+  const yAlpha = d3.scaleLinear().domain([0, d3.max(alpha)*1.1]).range([height, 0]);
+  const yB = d3.scaleLinear().domain([0, d3.max(b)*1.1]).range([height, 0]);
+  
+  // X axis
+  svg.append('g').attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x).ticks(Math.min(N, 10)))
+    .append('text').attr('x', width/2).attr('y', 35).attr('fill', '#555')
+    .attr('text-anchor', 'middle').text('Site index n');
+  
+  // Left Y axis (alpha)
+  svg.append('g').call(d3.axisLeft(yAlpha).ticks(5).tickFormat(d3.format('.4f')))
+    .append('text').attr('transform', 'rotate(-90)').attr('y', -50).attr('x', -height/2)
+    .attr('fill', colors.alpha).attr('text-anchor', 'middle').text('αₙ (on-site energy)');
+  
+  // Right Y axis (b)
+  svg.append('g').attr('transform', `translate(${width},0)`)
+    .call(d3.axisRight(yB).ticks(5).tickFormat(d3.format('.4f')))
+    .append('text').attr('transform', 'rotate(90)').attr('y', -45).attr('x', height/2)
+    .attr('fill', colors.b).attr('text-anchor', 'middle').text('bₙ (hopping)');
+  
+  // Alpha bars
+  const barW = Math.max(1, width / N - 1);
+  svg.selectAll('.bar-alpha').data(alpha).enter().append('rect')
+    .attr('x', (d,i) => x(i) - barW/2).attr('y', d => yAlpha(d))
+    .attr('width', barW).attr('height', d => height - yAlpha(d))
+    .attr('fill', colors.alpha).attr('opacity', 0.7);
+  
+  // B line
+  const line = d3.line().x((d,i) => x(i)).y(d => yB(d)).curve(d3.curveMonotoneX);
+  svg.append('path').datum(b).attr('d', line)
+    .attr('fill', 'none').attr('stroke', colors.b).attr('stroke-width', 2);
+  svg.selectAll('.dot-b').data(b).enter().append('circle')
+    .attr('cx', (d,i) => x(i)).attr('cy', d => yB(d))
+    .attr('r', Math.min(4, width/N/2)).attr('fill', colors.b);
+}
+
+function drawMatrixViz() {
+  const data = D.zeta_J50;
+  const sz = 20;
+  const cellSize = Math.min(28, (window.innerWidth - 120) / sz);
+  
+  d3.select('#matrixViz').selectAll('*').remove();
+  const svg = d3.select('#matrixViz').append('svg')
+    .attr('viewBox', `0 0 ${sz * cellSize + 40} ${sz * cellSize + 40}`)
+    .append('g').attr('transform', 'translate(20,20)');
+  
+  for (let i = 0; i < sz; i++) {
+    for (let j = 0; j < sz; j++) {
+      let val = 0;
+      if (i === j) val = data.alpha[i];
+      else if (Math.abs(i-j) === 1) val = data.b[Math.min(i,j)];
+      
+      const maxVal = Math.max(d3.max(data.alpha), d3.max(data.b));
+      let color = '#f8f8f8';
+      if (val !== 0) {
+        const intensity = val / maxVal;
+        if (i === j) color = d3.interpolateBlues(0.3 + 0.7 * intensity);
+        else color = d3.interpolateOranges(0.3 + 0.7 * intensity);
+      }
+      
+      svg.append('rect')
+        .attr('x', j * cellSize).attr('y', i * cellSize)
+        .attr('width', cellSize - 1).attr('height', cellSize - 1)
+        .attr('fill', color).attr('rx', 1);
+    }
+  }
+}
+
+function fillLockedTable() {
+  const systems = [
+    { key: 'zeta_J50', label: 'ζ J50', N: 50 },
+    { key: 'beta_J50', label: 'β J50', N: 50 },
+    { key: 'delta_J22', label: 'Δ J22', N: 22 },
+    { key: 'zeta_J100', label: 'ζ J100', N: 100 },
+    { key: 'product_J100', label: 'Product J100', N: 100 }
+  ];
+  
+  const tbody = document.getElementById('lockedTable');
+  systems.forEach(s => {
+    const d = D[s.key];
+    const gammas = d.gammas.slice(0, 5).map(g => g.toFixed(4));
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${s.label}</td><td>${s.N}</td><td>${d.gammas.length}</td><td>${gammas.join(', ')}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Init
+document.getElementById('sysSelect').addEventListener('change', e => drawCoeffChart(e.target.value));
+drawCoeffChart('zeta_J50');
+drawMatrixViz();
+fillLockedTable();
+</script>
+
+<div class="footer">
+  <p>© 2026 Zhuo Chen · CC BY 4.0 · <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub</a></p>
+</div>
+</body>
+</html>
