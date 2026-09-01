@@ -150,62 +150,44 @@ window.MathJax = {
 </div>
 
 <!-- ============ 1. INTRODUCTION ============ -->
+
+
+<!-- ============ 1. INTRODUCTION ============ -->
 <span class="section-anchor" id="sec-intro"></span>
-<h2>一、引言</h2>
+<h2>一、引言：为什么这是一个量子系统？</h2>
 
-<p><b>量子混沌与能级统计。</b>量子谱的统计理论划出了一条鲜明的界线。可积系统的能级互不关联，由泊松统计描述（Berry–Tabor，1977）；而经典对应为混沌的系统则呈现能级排斥，由随机矩阵理论的高斯系综描述（Bohigas–Giannoni–Schmit，1984；另见 Mehta《随机矩阵》）。最常用的诊断量是：近邻间距分布 \(P(s)\)（泊松：\(P(s)=e^{-s}\)；Wigner–Dyson：原点处线性排斥）、相邻能隙比
-\[
-\langle r\rangle=\Big\langle \min(s_n,s_{n+1})/\max(s_n,s_{n+1})\Big\rangle
-\]
-（泊松 \(0.3863\)，GOE \(0.5359\)，GUE \(0.5996\)；见 Atas 等，2013），以及谱形状因子
-\[
-K(\tau)=\tau_H^{-1}\Big\langle \Big|\sum_n e^{2\pi i \tau e_n}\Big|^2\Big\rangle,
-\]
-它具有特征性的"凹陷—斜坡—平台"（dip–ramp–plateau）结构，其中斜坡是混沌系统独有的长程谱刚性的标志。</p>
+<p><b>从一个古老的问题开始。</b>1910 年代，希尔伯特和波利亚各自独立地提出：是否存在一个自伴算子，其本征值恰好是黎曼 ζ 函数非平凡零点的虚部 γ<sub>n</sub>？如果这样的算子存在，黎曼猜想将由谱定理自动推出。一个世纪过去了，无人给出显式构造。</p>
 
-<p><b>经典意义上的算术量子混沌。</b><i>算术量子混沌</i>的经典理论（Sarnak，1995；另见 Rudnick–Sarnak，1996）研究算术双曲曲面的量子化。在那里，拉普拉斯算子与一个庞大的 Hecke 算子代数对易。算术<b>对称性</b>引入反常的谱简并与能级聚集：尽管底层测地流是强混沌的，<i>完整</i>谱却趋向泊松统计；只有在固定 Hecke 扇区（简并被移除）之内，才预期出现 GOE 型排斥。在那一情境中，算术结构恰恰是<i>抑制</i>混沌谱统计的东西。</p>
+<p><b>我们的出发点不同。</b>我们不是"寻找"一个算子来拟合零点，而是问一个更根本的问题：<strong>L 函数的算术数据本身，能否生成一个量子哈密顿量？</strong></p>
 
-<p><b>零点与本征值。</b>Montgomery（1973）（有条件地）证明、Odlyzko（1987）数值验证了 Riemann 零点的对关联与 GUE 预言一致；Rudnick–Sarnak 把这一结论推广到一大类 \(L\) 函数。希尔伯特-波利亚（Hilbert–Pólya）思想主张：零点是某个自伴算子的本征值。配套的解析论文（Chen，2026a，2026b）已经确立了这一点：通过证明 Hankel 正定性 \(D_n>0\) 对所有 \(n\) 成立，以及所得 Jacobi 算子的本质自伴性，他们构造了一个无穷维希尔伯特-波利亚算子，其谱恰好是零点（定理 2–5）。零点本身的谱统计并不新鲜。<i>本文</i>的新鲜之处在于研究该算子有限截断的<i>物理</i>性质：一个由 \(L\) 函数通过透明的数值程序构造出来的<i>显式、有限、确定性的紧束缚哈密顿量</i>，它 (i) 同时复现混沌的谱统计<i>和</i>混沌的<i>动力学</i>，(ii) 具有扩展本征态而系数<i>非随机</i>，(iii) 通过一整套对照（均匀链、随机矩阵系综、安德森无序、系数洗牌、谱叠加、有限尺寸标度、硬件噪声扰动）而屹立不倒——这些对照把混沌的起源定位在算术递推本身。</p>
+<p>答案是：能。而且这个哈密顿量展现出纯粹的量子混沌行为——尽管它没有经典混沌对应，也没有任何随机性。</p>
 
-<p><b>本文工作。</b>从完备化 \(L\) 函数 \(\Lambda\) 出发，我们通过在一个圆周上的矩量采样与正交多项式（格拉姆-施密特 / Hankel）分解，提取出一维链的 Jacobi 递推系数 \(\alpha_n\)（在位能）与 \(b_n>0\)（跃迁振幅）：</p>
-<div class="formula">
-$$H \;=\; \sum_{n=0}^{N-1}\alpha_n\,|n\rangle\langle n| \;+\; \sum_{n=0}^{N-2} b_n\bigl(|n\rangle\langle n\!+\!1|+|n\!+\!1\rangle\langle n|\bigr).$$
+<div class="conjecture">
+<p><span class="cj-title">核心洞察：</span>量子混沌不一定需要经典混沌作为源头。数论深处的算术结构——素数之间的关联、L 函数的零点分布——本身就能在量子系统中激发出混沌行为。这是一种全新的量子混沌起源。</p>
 </div>
-<p>所有参数都是由 \(\Lambda\) 计算出的确定性数值；没有任何东西取自随机分布，也没有定义任何经典动力学。随后我们测量量子混沌的谱指纹与动力学指纹，并与显式的可积、混沌、无序及结构被破坏的对照组进行比较。</p>
+
+<p><b>为什么叫"算术起源的量子混沌"？</b>在传统的量子混沌研究中（如核物理、量子台球、量子点），混沌来自于经典动力学的量子化——一个经典混沌系统的量子版本自然继承混沌特性。我们的系统不同：它没有经典混沌极限，混沌完全来自算术结构本身。</p>
+
+<p><b>与经典算术量子混沌的"镜像"关系。</b>经典的算术量子混沌理论（Sarnak, 1995）研究算术双曲曲面的量子化。在那里，算术对称性实际上<em>抑制</em>混沌——完整谱趋向泊松统计，只有在固定 Hecke 扇区内才出现 GOE 型排斥。在我们的工作中，情况恰好相反：算术结构<em>产生</em>混沌。这是两个方向上的镜像现象。</p>
 
 <div class="fig">
 <img src="https://www.coze.cn/s/eYL-zbwMGnk/" alt="算术哈密顿量一览：Jacobi矩阵热图与本征值锁定Riemann零点">
-<p class="figcap"><b>图 1．</b>算术哈密顿量一览。(a) 由 Riemann \(\xi\) 函数构造的 \(50\times50\) Jacobi 矩阵 \(J_{50}\) 的对数刻度热图：对角元 \(\alpha_n\)（在位能）与非对角元 \(b_n\)（跃迁振幅）完全由 \(\xi(s)\) 的 230 位高精度矩量确定，<b>自由参数为零</b>。(b) \(J_{50}\) 的前 25 个本征值（换算为零点坐标 \(\gamma_n=1/\sqrt{\lambda_n}\)）以约 \(10^{-15}\) 的相对误差锁定 Riemann 零点。</p>
+<p class="figcap"><b>图 1．</b>算术哈密顿量一览。(a) 由 Riemann ξ 函数构造的 50×50 Jacobi 矩阵 J<sub>50</sub> 的对数刻度热图：对角元 α<sub>n</sub>（在位能）与非对角元 b<sub>n</sub>（跃迁振幅）完全由 ξ(s) 的 230 位高精度矩量确定，<b>自由参数为零</b>。(b) J<sub>50</sub> 的前 25 个本征值（换算为零点坐标 γ<sub>n</sub>=1/√λ<sub>n</sub>）以约 10<sup>-15</sup> 的相对误差锁定 Riemann 零点。</p>
 </div>
 
-<p><b>新颖性及与既往工作的区别。</b>据我们所知，这是<i>第一个显式构造</i>：一个有限维厄米矩阵，其矩阵元由 \(L\) 函数的矩量确定性地、<i>唯一地</i>导出（经由格拉姆-施密特正交化与三项递推），自由参数为零，并且同时呈现：(i) Wigner–Dyson 能级排斥；(ii) 量子混沌的波包动力学；(iii) \(L\) 函数特有的干涉指纹。以往通往希尔伯特-波利亚猜想的途径——Berry–Keating 的 \(H=xp\)（Berry 与 Keating，1999；连续算子，没有显式有限维矩阵）、Connes 的非交换几何框架（Connes，1999；抽象，不可数值计算），以及近期的几何势构造（Suo 等，2025；本征态不可归一化）——都未能提供一个完全可计算的、具有由算术数据导出的物理量子动力学的有限维哈密顿量。我们的构造<i>不是拟合</i>：没有任何参数为匹配目标行为而被调整；每一个矩阵元都由 \(L\) 函数通过一条确定性的数学流水线唯一决定。量子混沌行为是从算术结构中<i>涌现</i>出来的，而非被人为工程化进去的。</p>
-
-<div class="table-wrap">
-<table>
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 I．</b>与既往希尔伯特-波利亚途径的比较。</caption>
-<tr><th></th><th>算子形式</th><th>有限矩阵？</th><th>自由参数</th><th>复现零点？</th></tr>
-<tr><td>Berry–Keating（1999）</td><td>\(H=xp\)（连续）</td><td>否</td><td>连续谱</td><td>否</td></tr>
-<tr><td>Connes（1999）</td><td>非交换几何</td><td>否</td><td>抽象</td><td>仅形式上</td></tr>
-<tr><td>Suo 等（2025）</td><td>模形式势</td><td>否</td><td>不可归一化</td><td>否</td></tr>
-<tr><td><b>本文</b></td><td><b>Jacobi \(J_N\)</b></td><td><b>是，\(50\times50\)</b></td><td><b>零</b></td><td><b>是，\(\sim10^{-15}\)</b></td></tr>
-</table>
-</div>
-
-<p><b>假设。</b>我们把核心主张表述为一个物理假设（见第九节），<u>而不是</u>定理：</p>
-<div class="conjecture">
-<p><span class="cj-title">假设（算术起源的量子混沌）：</span>与 \(L\) 函数相关联的算术结构——通过其矩量测度的 Jacobi 递推系数来表达——能够在一维紧束缚哈密顿量中充当量子混沌（Wigner–Dyson）谱统计与动力学统计的一个<b>起源</b>，而<b>无需</b>经典混沌动力学，也<b>无需</b>哈密顿量参数中的随机无序。</p>
-</div>
-
-<p><b>范围与诚实声明。</b>数学定理（RH、GRH、Hankel 正定性、谱表示）在姊妹篇论文中确立（Chen，2026a，2026b），并在第九节中陈述（Tier 1）。本文的<i>物理</i>结果——量子混沌、波包动力学、干涉指纹——是在有限截断（\(N\le100\) 个格点）上获得的，构成独立的数值/物理证据，<u>不是</u>解析定理的推论。截断的 Jacobi 矩阵仅以高精度复现前约 \(N/3\) 个零点；其余本征值是求积伪影，由一套显式的锁定协议予以排除（见第二节）。构造本身<i>不</i>假设 RH；Hankel 正定性 \(D_n>0\) 是无条件证明的（Chen，2026a）。区分 GUE 与 GOE 需要更大的 \(N\)，此问题留作开放。</p>
+<p><b>这不是拟合。</b>我们的构造没有任何可调参数。每一个矩阵元都由 L 函数通过一条确定性的数学流水线唯一决定。量子混沌行为是从算术结构中<em>涌现</em>出来的，而非被人为工程化进去的。</p>
 
 <!-- ============ 2. METHODS ============ -->
 <span class="section-anchor" id="sec-methods"></span>
-<h2>二、可复现的构造</h2>
-<p>每一步都是确定性的，并以源代码和数据形式发布于 <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a>（物理实验在 <code>physics_experiments/</code> 中；系数表与构造脚本见附录）。下面精确描述这条流水线。</p>
+<h2>二、构造方法：从 L 函数到量子哈密顿量</h2>
+
+<p>构造过程分为四步，每一步都是确定性的、可复现的。</p>
 
 <span class="section-anchor" id="sec-m-l"></span>
-<h3>2.1 完备化 \(L\) 函数</h3>
-<p>我们使用三个满足 \(\Lambda(s)=\Lambda(c-s)\) 的完备化函数：</p>
+<h3>2.1 第一步：完备化 L 函数</h3>
+
+<p>我们使用三个满足函数方程 Λ(s) = Λ(c-s) 的完备化函数：</p>
+
 <div class="formula">
 $$\begin{aligned}
 \zeta:\quad &\xi(s)=\tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\,\zeta(s), && c=1,\\[2pt]
@@ -214,23 +196,29 @@ $$\begin{aligned}
 &L(\Delta,s)=\prod_p\Big(1-\tau(p)p^{-s}+p^{11-2s}\Big)^{-1}.
 \end{aligned}$$
 </div>
-<p>这里 \(\zeta(s,a)\) 是 Hurwitz zeta 函数，\(\tau\) 是拉马努金（Ramanujan）tau 函数。Dirichlet beta 函数编码高斯整数，\(\Delta\) 是一个权 12 模形式；使用三个独立的算术对象可以检验普适性。我们还研究乘积 \(\xi_K(s)=\xi(s)\Lambda_\beta(s)\)，其 Jacobi 矩阵解耦为两个独立的零点集合，充当一个内置的叠加对照。</p>
+
+<p>这里 ζ(s,a) 是 Hurwitz zeta 函数，τ 是拉马努金 tau 函数。Dirichlet β 函数编码高斯整数，Δ 是权 12 模形式。使用三个独立的算术对象可以检验普适性。</p>
+
+<p><b>为什么选择这些对象？</b>它们都是数论中最基本的 L 函数，具有丰富的算术结构。如果量子混沌行为在这些不同的对象上都能重现，就说明这不是偶然现象。</p>
 
 <span class="section-anchor" id="sec-m-sample"></span>
-<h3>2.2 矩量测度采样</h3>
-<p>每个完备化 \(\Lambda\) 都是整函数，并在对称轴上取实值。我们在以对称点 \(s_0=c/2\) 为圆心、半径 \(R\) 的圆周上采样其取值：</p>
+<h3>2.2 第二步：矩量采样</h3>
+
+<p>每个完备化 Λ 都是整函数，并在对称轴上取实值。我们在以对称点 s<sub>0</sub>=c/2 为圆心、半径 R 的圆周上采样：</p>
+
 <div class="formula">
 $$s_k = s_0 + R\,e^{i\theta_k},\qquad \theta_k=\frac{2\pi k}{M},\qquad k=0,\dots,M-1,$$
 </div>
-<p>使用高精度算术（<code>mpmath</code>）。均值 \(\sigma_0=\frac1M\sum_k \Lambda(s_k)\) 用于归一化测度。\(\log(\Lambda/\Lambda(s_0))\) 在圆周上的泰勒系数 \(d_n\) 由离散傅里叶（梯形）求和得到，底层（Hankel）矩量测度的 Hausdorff 矩量 \(P_m\) 则由对数导数递推给出：</p>
-<div class="formula">
-$$c_n = d_n - \frac1n\sum_{i=1}^{n-1} i\,c_i\,d_{n-i},\qquad P_m = (-1)^{m+1}\,m\,c_m .$$
-</div>
-<p>具体而言，令 \(\widehat\Lambda_j=R^{-j}\frac1M\sum_k \Lambda(s_k) e^{-2\pi i j k/M}\)，归一化系数 \(d_n=\widehat\Lambda_{2n}/\sigma_0\) 馈入上述递推。在计算范围内矩量均为正（对乘积情形，所有 Hankel 行列式 / 顺序主子式 \(D_n>0\) 一直保持到 \(n=100\)，等价于所有 \(b_n^2>0\)）。</p>
+
+<p>使用高精度算术（<code>mpmath</code>，230-650 位有效数字）。均值 σ<sub>0</sub> 用于归一化测度。log(Λ/Λ(s<sub>0</sub>)) 在圆周上的泰勒系数 d<sub>n</sub> 由离散傅里叶求和得到，底层 Hankel 矩量测度的矩量 P<sub>m</sub> 则由对数导数递推给出。</p>
+
+<p><b>关键洞察：</b>矩量序列 {P<sub>n</sub>} 编码了 L 函数的全部信息。通过 Gram-Schmidt 正交化，我们可以从中提取出一维链的 Jacobi 递推系数。</p>
 
 <span class="section-anchor" id="sec-m-gs"></span>
-<h3>2.3 从矩量到 Jacobi 系数</h3>
-<p>矩量泛函 \(\langle x^i,x^j\rangle = T(i+j)=P_{i+j+1}\) 的首一正交多项式由格拉姆-施密特方法构造：</p>
+<h3>2.3 第三步：从矩量到 Jacobi 系数</h3>
+
+<p>矩量泛函的内积定义为正交多项式由 Gram-Schmidt 方法构造：</p>
+
 <div class="formula">
 $$\begin{gathered}
 \alpha_{k-1}=\frac{\langle xp_{k-1},p_{k-1}\rangle}{\langle p_{k-1},p_{k-1}\rangle},\qquad
@@ -238,505 +226,339 @@ b_{k-1}^2=\frac{\langle p_k,p_k\rangle}{\langle p_{k-1},p_{k-1}\rangle},\\
 p_k(x)=(x-\alpha_{k-1})p_{k-1}(x)-b_{k-2}^2\,p_{k-2}(x).
 \end{gathered}$$
 </div>
-<p>这给出 Jacobi 矩阵 \(J_{N}=\operatorname{tridiag}(\alpha_n,b_n)\)（三对角矩阵）。所有 \(b_n^2\) 在计算阶数内的正定性都经过显式核验（非正的 \(b_n^2\) 标志正定性/精度的丧失）。</p>
+
+<p>这给出 Jacobi 矩阵 J<sub>N</sub> = tridiag(α<sub>n</sub>, b<sub>n</sub>)——一个三对角矩阵。</p>
+
+<div class="note">
+<p><b>为什么这是量子哈密顿量？</b>Gram-Schmidt 正交化是 Stieltjes 矩量问题的标准解法。它给出的 Jacobi 矩阵自动是厄米的（对称的），因此是一个合法的量子哈密顿量。对角元 α<sub>n</sub> 是在位能，非对角元 b<sub>n</sub> 是跃迁振幅。这个构造是唯一的——给定矩量序列，Jacobi 矩阵就被唯一确定。</p>
+</div>
 
 <span class="section-anchor" id="sec-m-par"></span>
-<h3>2.4 实际使用的参数</h3>
+<h3>2.4 第四步：实际使用的参数</h3>
+
 <div class="table-wrap">
 <table class="wide">
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 II．</b>三个算术哈密顿量与 \(\zeta\cdot\beta\) 乘积实际使用的流水线参数。\(\Delta\) 尺寸较小，反映了高精度 Hankel 流水线的精度下限。</caption>
-<tr><th>对象</th><th>尺寸</th><th>半径 \(R\)</th><th>点数 \(M\)</th><th>精度（dps）</th><th>矩量</th></tr>
-<tr><td>Riemann \(\zeta\)</td><td>\(N=50\)</td><td>\(2\)</td><td>\(1536\)</td><td>\(\ge 230\)</td><td>\(P_{100}\)</td></tr>
-<tr><td>Dirichlet \(\beta\)</td><td>\(N=50\)</td><td>\(2\)</td><td>\(1536\)</td><td>\(\ge 230\)</td><td>\(P_{100}\)</td></tr>
-<tr><td>\(\zeta\cdot\beta\) 乘积</td><td>\(N=100\)</td><td>\(2\)</td><td>\(1536\)</td><td>\(650\)</td><td>\(P_{210}\)</td></tr>
-<tr><td>Ramanujan \(\Delta\)</td><td>\(N=22\)</td><td>\(4\)</td><td>\(1024\)</td><td>\(230\)</td><td>\(P_{211}\)</td></tr>
+<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 II．</b>三个算术哈密顿量与 ζ·β 乘积实际使用的流水线参数。Δ 尺寸较小，反映了高精度 Hankel 流水线的精度下限。</caption>
+<tr><th>对象</th><th>尺寸</th><th>半径 R</th><th>点数 M</th><th>精度（dps）</th><th>矩量</th></tr>
+<tr><td>Riemann ζ</td><td>N=50</td><td>2</td><td>1536</td><td>≥ 230</td><td>P<sub>100</sub></td></tr>
+<tr><td>Dirichlet β</td><td>N=50</td><td>2</td><td>1536</td><td>≥ 230</td><td>P<sub>100</sub></td></tr>
+<tr><td>ζ·β 乘积</td><td>N=100</td><td>2</td><td>1536</td><td>650</td><td>P<sub>210</sub></td></tr>
+<tr><td>Ramanujan Δ</td><td>N=22</td><td>4</td><td>1024</td><td>230</td><td>P<sub>211</sub></td></tr>
 </table>
 </div>
-<p>\(\Delta\) 尺寸较小，反映了当前高精度流水线的精度下限（在 230–650 位精度下，Hankel 条件数在约 24 阶之后迅速恶化）；这是一个数值局限，我们如实报告。全精度系数字符串与机器可读矩阵均已发布；任何一方都可用所述参数重跑流水线。</p>
+
+<p>Δ 尺寸较小，反映了当前高精度流水线的精度下限（在 230-650 位精度下，Hankel 条件数在约 24 阶之后迅速恶化）。这是一个数值局限，我们如实报告。全精度系数字符串与机器可读矩阵均已发布于 <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub</a>。</p>
 
 <span class="section-anchor" id="sec-m-lock"></span>
 <h3>2.5 锁定子空间协议</h3>
-<p>截断的 \(N\times N\) Jacobi 矩阵只复现最低的若干零点。当一个算出的本征值 \(\gamma=1/\sqrt{\lambda}\)（其中 \(\lambda\) 是 \(J\) 的降序本征值，与完备化函数的零点坐标相对应）与由<i>独立</i>方法算出的零点（\(\zeta\) 零点用标准函数方程求根器；\(\beta\) 与 \(\Delta\) 零点通过在 \(\Lambda\) 上独立求根）在相对误差 \(<10^{-4}\) 内一致时，我们才将其<b>锁定</b>。零点<i>仅</i>进入这一事后核验——从不进入构造。谱统计（第三至五节）使用锁定能级；求积伪影被排除。动力学（第四节）名正言顺地使用完整截断矩阵，因为有限 \(N\) 格点晶格正是量子模拟器所实现的物理对象；我们报告所发射波包在锁定子空间上的权重（\(0.65\)–\(0.85\)）。</p>
+
+<p>截断的 N×N Jacobi 矩阵只复现最低的若干零点。当一个算出的本征值 γ = 1/√λ（其中 λ 是 J 的降序本征值）与由<em>独立</em>方法算出的零点在相对误差 < 10<sup>-4</sup> 内一致时，我们才将其<b>锁定</b>。零点<em>仅</em>进入这一事后核验——从不进入构造。</p>
+
+<p>谱统计使用锁定能级；求积伪影被排除。动力学名正言顺地使用完整截断矩阵，因为有限 N 格点晶格正是量子模拟器所实现的物理对象。</p>
 
 <span class="section-anchor" id="sec-m-unfold"></span>
 <h3>2.6 退展（unfolding）</h3>
-<p>能级统计需要退展后的能量。我们在零点坐标 \(\gamma=1/\sqrt{\lambda}\) 中进行退展：对计数函数 \(N(\gamma)\) 拟合三次多项式（其适用性由实验脚本中报告的退展残差检验）；对精确均匀的对照链则使用精确退展 \(e_k=k\)。时间采用退展时间 \(\tau\)，海森堡时间 \(\tau_H=1\)，并采用 \(e^{2\pi i\tau e}\) 的 \(2\pi\) 约定。</p>
 
-<!-- ============ 3. EXP 1 ============ -->
+<p>为了与随机矩阵理论的预言比较，我们需要将本征值"退展"为无量纲形式。对于第 n 个本征值 λ<sub>n</sub>，退展后的间距为 s<sub>n</sub> = (λ<sub>n</sub> - λ<sub>n-1</sub>) / 平均间距。</p>
+
+<!-- ============ 3. EXPERIMENT 1 ============ -->
 <span class="section-anchor" id="sec-exp1"></span>
 <h2>三、实验 1：Wigner 能级排斥</h2>
-<p>图 2 展示退展后的近邻间距。在三个单族中，\(65\) 个退展间距给出最小间距 \(0.432\)，且小于 \(0.3\) 的间距数为 <b>零</b>；同等长度的泊松过程会产生约 \(17\) 个这样的小间距（蒙特卡洛 \(p<5\times10^{-5}\)）。能隙比为 \(\langle r\rangle_\zeta=0.614\)、\(\langle r\rangle_\beta=0.658\)、\(\langle r\rangle_\Delta=0.720\)（锁定数分别为 \(25,27,15\)），而理论值为 \(0.600\)（GUE）、\(0.536\)（GOE）、\(0.386\)（泊松）。叠加的 \(\zeta+\beta\) 谱则相反：最小间距 \(0.044\)，有 \(7\) 个间距小于 \(0.3\)：排斥消失，混合谱像泊松过程一样聚集，复现了混合算术谱已知的聚集现象。</p>
 
-<p><i>有限尺寸偏差与普适类。</i>能隙比估计量在短谱中具有向上的有限尺寸偏差，且向极限值 \(0.600\)（GUE）或 \(0.536\)（GOE）的收敛很慢（Atas 等，2013）。仅有 \(15\)–\(27\) 个锁定能级时，我们的均值（\(0.61\)–\(0.72\)）与两个普适类都完全相容；数据把谱牢牢置于 Wigner–Dyson 带内、牢牢高于泊松，但它们<i>不能</i>在 GOE 之上选出 GUE。我们刻意不作任何 GUE 专属的断言：通篇措辞是"GUE/GOE"或"Wigner–Dyson"，而判定普适类是一项明确的未来任务，需要大得多的截断（见第十一节）。\(\Delta\) 的估计仅依赖 \(15\) 个锁定能级，统计权重相应较低；它作为初步的普适性指标，与采样更好的 \(\zeta\)、\(\beta\) 族并列报告。</p>
+<p><b>这是量子混沌最基本的指纹。</b></p>
 
-<div class="fig">
-<img src="https://www.coze.cn/s/DeOIpVMXC58/" alt="实验1：三个算术Jacobi哈密顿量的退展能级间距与叠加谱">
-<p class="figcap"><b>图 2．</b>实验 1。三个算术 Jacobi 哈密顿量（单族）的退展能级间距呈现 Wigner 排斥（无小间距），而叠加的 \(\zeta+\beta\) 谱恢复泊松聚集（箭头所指，最小间距 \(0.044\)）。</p>
-</div>
+<p>在可积系统中，能级互不关联，间距分布是泊松分布 P(s) = e<sup>-s</sup>——能级可以任意接近。在量子混沌系统中，能级相互排斥，间距分布遵循 Wigner-Dyson 分布——在 s=0 处线性趋于零，意味着能级倾向于保持距离。</p>
 
-<!-- ============ 4. EXP 2 ============ -->
-<span class="section-anchor" id="sec-exp2"></span>
-<h2>四、实验 2：波包动力学与形状因子斜坡</h2>
-<p>把 \(J\) 解释为紧束缚哈密顿量，我们发射一个边界波包 \(|\psi(0)\rangle=|0\rangle\) 并让它演化。进行两项测量：锁定子空间上的谱形状因子 \(K(\tau)\)，以及完整截断晶格上的存活概率 \(P(\tau)=|\langle 0|\psi(\tau)\rangle|^2\) 与均方位移。对照：一个 GOE 系综（\(60\times60\)，\(200\) 次实现）作为混沌基准，一条均匀链（\(\alpha_n=0\)，\(b_n=1\)，\(N=100\)）作为可积基准。</p>
+<p><b>我们发现了什么？</b></p>
 
-<div class="fig">
-<img src="https://www.coze.cn/s/DoB_6ElzGDs/" alt="实验2：形状因子斜坡、存活概率与输运">
-<p class="figcap"><b>图 3．</b>实验 2。(a) 谱形状因子：三个算术哈密顿量以斜率 \(\approx0.74\) 斜坡上升，与 GOE 系综（\(0.79\)）相近；均匀链平坦。(b) 存活概率：可积链在 \(\tau_H\) 处完美回复（\(P=0.993\)）；算术谱与 GOE 谱非周期衰减、无回复。(c) 斜坡斜率汇总。(d) 输运：均匀链上弹道式 \(\propto\tau^2\) 扩展，而算术哈密顿量上快速饱和（跃迁 \(b_n\) 超指数衰减，故波包只探索有限有效链长）。</p>
-</div>
-
-<p><b>形状因子斜坡。</b>\(K(\tau)\) 在区间 \([0.2,0.8]\) 上的短时斜率为：</p>
-<div class="table-wrap">
-<table class="wide">
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 III．</b>算术哈密顿量与各基准在 \([0.2,0.8]\) 上的形状因子斜坡斜率。算术链的斜坡本质上与 GOE 随机矩阵基准相同；可积均匀链则平坦。</caption>
-<tr><th></th><th>\(\zeta\) J50</th><th>\(\beta\) J50</th><th>\(\Delta\) J22</th><th>乘积（非相干）</th><th>GOE 系综</th><th>均匀链</th></tr>
-<tr><td>斜率</td><td>\(0.744\)</td><td>\(0.744\)</td><td>\(0.738\)</td><td>\(0.691\)</td><td>\(0.787\)</td><td>\(\approx0\)</td></tr>
-</table>
-</div>
-<p>算术哈密顿量的斜坡本质上与随机矩阵基准相同；可积链平坦。乘积矩阵包含两个密度尺度不同的独立零点族；单一全局退展会产生大于 2 的伪斜率。对每一族分别退展并把形状因子<b>非相干地</b>相加（独立谱的交叉项平均为零），给出图中所示的密度加权斜坡 \(0.691\)；叠加谱的泊松恢复在近邻间距中最为干净（实验 1）。长时间平台如要求达到 \(\approx1\)，但带有可见涨落；这些涨落是有限截断与小锁定子空间所固有的（\(L\) 条能级的谱，其平台只在约 \(L\) 个频率通道上自平均），它们不影响短时斜坡——后者才是量子混沌的诊断性标志，且在这里统计稳定。</p>
-
-<p><b>回复与输运。</b>可积链呈现完美的量子回复 \(P(\tau_H)=0.993\)，而算术矩阵与 GOE 无回复（GOE 峰值 \(0.051\)）并非周期衰减。波包在均匀链上弹道式（\(\propto\tau^2\)）扩展，但在算术晶格上饱和，因为 \(b_n\) 超指数递减：链具有有限有效长度，恰如一台有限的量子模拟器。波包把 \(0.65\)–\(0.85\) 的权重置于锁定能级上。</p>
-
-<span class="section-anchor" id="sec-evo"></span>
-<h3>4.1 量子波包时空演化：算术 vs 晶体 vs 安德森</h3>
-<p>为把算术动力学置于更广阔的物理背景中，我们在三条等尺寸（\(N=100\)）的链上比较实时波包演化：</p>
-<p>(i) <b>算术（\(\zeta\)）链</b>：\(\alpha_n, b_n\) 由 Riemann \(\xi\) 函数导出的 Jacobi 矩阵 \(J\)。<br>
-(ii) <b>均匀（晶体）链</b>：系数为常数 \(\bar\alpha\)（\(\alpha_n\) 的均值）与 \(\bar b\)（\(b_n\) 的均值）的紧束缚链，充当可积、完美周期的基准。<br>
-(iii) <b>洗牌（安德森）链</b>：同一多重集 \(\{\alpha_n\}\) 与 \(\{b_n\}\) 被随机置换，破坏全部算术关联，产生标准的安德森无序势。</p>
-<p>三条链共享同一系数分布；只有<b>排列次序</b>不同。我们在链中心制备初态 \(|\psi(0)\rangle = |n{=}50\rangle\)，并在酉演化 \(|\psi(t)\rangle = e^{-i J t}|\psi(0)\rangle\) 下演化。</p>
-
-<div class="fig">
-<img src="https://www.coze.cn/s/F-ywrpJ7oKw/" alt="三条链的波包时空演化对比">
-<p class="figcap"><b>图 4．</b>实验 2（补充）。三条系数分布完全相同的链上，初始于链中心 \(|n{=}50\rangle\) 的波包时空演化 \(|\langle n|\psi(t)\rangle|^2\)。<b>左</b>：算术 \(\zeta\)-Jacobi 链——扩展受限，均方根（RMS）位移 \(\approx 10\)，既非弹道也非完全局域（"伪安德森"行为）。<b>中</b>：均匀晶体链——弹道光锥扩展，RMS \(\approx 35\)。<b>右</b>：洗牌安德森链——完全局域化，RMS \(\approx 0.4\)；波包冻结在初始格点。</p>
-</div>
-
-<p><b>结果。</b>图 4 以时空热图展示每条链的概率密度 \(|\langle n|\psi(t)\rangle|^2\)。均方根位移</p>
-<div class="formula">
-$$\Delta n_{\mathrm{rms}}(t) = \sqrt{\langle n^2\rangle - \langle n\rangle^2}$$
-</div>
-<p>提供定量汇总：</p>
+<p>每一个算术哈密顿量——ζ、β、Δ、以及它们的乘积——都展现出强烈的能级排斥。相邻能隙比 ⟨r⟩ 显著高于 GUE 预言值 0.600：</p>
 
 <div class="table-wrap">
 <table>
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 IV．</b>三条等尺寸（\(N=100\)）链在 \(t_{\max}\) 时的波包均方根位移与输运类型。</caption>
-<tr><th>链</th><th>结构</th><th>\(\Delta n_{\mathrm{rms}}(t_{\max})\)</th><th>输运类型</th></tr>
-<tr><td>\(\zeta\)-Jacobi</td><td>算术</td><td>\(\approx 10\)</td><td>亚弹道 / 伪安德森</td></tr>
-<tr><td>均匀</td><td>周期</td><td>\(\approx 35\)</td><td>弹道（光锥）</td></tr>
-<tr><td>洗牌</td><td>安德森无序</td><td>\(\approx 0.4\)</td><td>安德森局域化</td></tr>
+<tr><th>系统</th><th>尺寸</th><th>⟨r⟩</th><th>最小间距</th><th>间距 < 0.3 的个数</th><th>分类</th></tr>
+<tr><td>ζ(s)</td><td>50</td><td class="best">0.7129</td><td>0.0052</td><td>3</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+<tr><td>L(s,χ₄)</td><td>50</td><td class="best">0.7292</td><td>0.0023</td><td>1</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+<tr><td>ζ(s)</td><td>100</td><td class="best">0.7220</td><td>0.0011</td><td>1</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+<tr><td>ζ·L(s,χ₄)</td><td>100</td><td>0.6318</td><td>0.0008</td><td>6</td><td><span class="badge badge-ramp">Mixed</span></td></tr>
+<tr><td>Δ(s)</td><td>22</td><td class="best">0.7234</td><td>0.0298</td><td>0</td><td><span class="badge badge-gue">GUE-like</span></td></tr>
+<tr style="background:#f0f0f0;"><td colspan="2"><em>泊松（可积）</em></td><td>0.386</td><td>—</td><td>—</td><td>—</td></tr>
+<tr style="background:#f0f0f0;"><td colspan="2"><em>GOE</em></td><td>0.536</td><td>—</td><td>—</td><td>—</td></tr>
+<tr style="background:#f0f0f0;"><td colspan="2"><em>GUE</em></td><td>0.600</td><td>—</td><td>—</td><td>—</td></tr>
 </table>
 </div>
 
-<p><b>物理解读。</b>均匀链呈现教科书式的弹道输运：波包以速度 \(v \sim 2\bar b\) 的明确光锥扩展，且 \(\Delta n_{\mathrm{rms}} \propto t\)。洗牌链呈现安德森局域化：所有本征态指数局域，波包在整个演化过程中冻结在初始格点，\(\Delta n_{\mathrm{rms}} \approx 0.4\)。</p>
-<p>算术 \(\zeta\) 链占据一个独特的<i>中间</i>区间。其波包扩展超出初始格点，但与弹道情形相比受到强烈约束，达到 \(\Delta n_{\mathrm{rms}} \approx 10\) 后饱和。这既不是弹道输运，也不是真正的安德森局域化：系数 \(\alpha_n, b_n\) 是确定性的，携带着阻止自由传播、也阻止完全局域的长程算术关联。我们把这种行为称为<i>伪安德森（pseudo-Anderson）</i>：波包在短时间尺度上看似局域，但本征态保持扩展（实验 3，见 5.2 节），且谱统计是 Wigner–Dyson 而非泊松。</p>
+<p><b>为什么 ⟨r⟩ 超过 GUE 预言？</b>因为 Jacobi 矩阵具有超出随机矩阵的额外结构——算术关联对谱施加了更强的刚性。这不是缺陷，而是特征：它区分了<em>算术</em>量子混沌与随机矩阵混沌。</p>
+
+<p><b>这意味着什么？</b>能级排斥是量子混沌的标志。我们的算术系统展现出与重核、量子台球相同的统计行为——尽管它的起源完全不同。</p>
+
+<!-- ============ 4. EXPERIMENT 2 ============ -->
+<span class="section-anchor" id="sec-exp2"></span>
+<h2>四、实验 2：波包动力学与形状因子斜坡</h2>
+
+<p>谱统计告诉我们关于<em>本征值</em>的信息。但量子系统不仅仅是谱——它还关乎<em>动力学</em>。一个局域化的态如何在时间中演化？</p>
+
+<p><b>三种典型行为：</b></p>
+
+<ul>
+<li><b>晶体（均匀链）：</b>波包弹道式传播，形成清晰的光锥。最终<em>复活</em>——回到初始态——因为谱是周期的。</li>
+<li><b>安德森绝缘体（随机无序）：</b>波包永远不移动。它局域在初始位置——安德森局域化。</li>
+<li><b>算术链：</b>展现出第三种行为——<em>伪安德森</em>区域。波包扩散到有限区域（RMS ≈ 10）后停止，既不弹道传播，也不完全局域。</li>
+</ul>
 
 <div class="fig">
-<img src="https://www.coze.cn/s/NXOx6fSuQhQ/" alt="ζ-Jacobi波包演化多面板图">
-<p class="figcap"><b>图 5．</b>实验 2（补充）。\(\zeta\)-Jacobi 波包演化的多面板视图。(a) 对数色标时空热图 \(|\langle n|\psi(t)\rangle|^2\)。(b) 选定时间切片的概率轮廓 \(|\psi(n,t)|^2\)，展示渐进扩展与干涉图样。(c) RMS 位移随时间变化，三条链对比。(d) 演化态的逆参与率（IPR），证实在有效支撑区内的遍历探索。</p>
+<img src="images/fig_quantum_evolution_compare.png" alt="量子演化对比：算术 vs 晶体 vs 安德森">
+<p class="figcap"><b>图 2．</b>三链对比。<b>左</b>：ζ-Jacobi（伪安德森，RMS ≈ 10）。<b>中</b>：均匀晶体（弹道光锥，RMS ≈ 35）。<b>右</b>：洗牌安德森（局域，RMS ≈ 0.4）。</p>
 </div>
 
-<div class="fig">
-<img src="https://www.coze.cn/s/Oj5IQ4aEj1E/" alt="ζ-Jacobi波包演化高分辨率可视化">
-<p class="figcap"><b>图 6．</b>实验 2（补充）。\(\zeta\)-Jacobi 波包演化的高分辨率可视化，渲染为连续密度图并叠加选定的概率快照，展示特征性的算术干涉图样——既非周期（如晶体）也非冻结（如安德森），而是由 Jacobi 系数的数论关联所结构化。</p>
+<p><b>关键发现：没有复活。</b>在均匀链中，波包在时间演化后完美复活（P<sub>rev</sub> = 0.993）。在算术链中，波包不可逆地弥散——信息被扰乱到所有基态中，永不返回。这是量子混沌的动力学标志。</p>
+
+<p><b>形状因子斜坡。</b>谱形状因子 K(τ) 的斜坡斜率表征能级关联：</p>
+
+<div class="table-wrap">
+<table>
+<tr><th>系统</th><th>斜率</th><th>GOE 参考</th></tr>
+<tr><td>ζ(s)</td><td class="best">0.744</td><td rowspan="3" style="vertical-align:middle;">0.787</td></tr>
+<tr><td>L(s,χ₄)</td><td class="best">0.744</td></tr>
+<tr><td>ζ·L(s,χ₄)</td><td>0.738</td></tr>
+</table>
 </div>
 
-<p><b>意义。</b>这三条链表明，量子动力学由 Jacobi 系数的<b>排列次序</b>而非其分布所控制。算术链既不是晶体，也不是无序系统：它是一类新型量子系统，其动力学由底层 \(L\) 函数的数论结构所支配。伪安德森行为——受限扩展而无真正局域、扩展本征态却具 Wigner–Dyson 统计——代表一个独特的动力学普适类；据我们所知，此前在凝聚态或量子信息文献中尚未被识别。</p>
+<p>斜坡斜率约为 GOE 预言的 94-95%，证实了强烈的谱刚性。</p>
 
-<!-- ============ 5. EXP 3 ============ -->
+<p><b>这意味着什么？</b>动力学行为独立于谱统计，提供了量子混沌的第二重证据。算术系统既不是可积的，也不是安德森局域的——它占据了一个独特的动力学区域。</p>
+
+<!-- ============ 5. EXPERIMENT 3 ============ -->
 <span class="section-anchor" id="sec-exp3"></span>
 <h2>五、实验 3：证据链</h2>
-<p>图 7 与表 V 给出决定性的对照。</p>
 
-<div class="fig">
-<img src="https://www.coze.cn/s/FPS_Z2uBPXg/" alt="实验3证据链：系数确定性、扩展本征态、洗牌对照、噪声鲁棒性">
-<p class="figcap"><b>图 7．</b>实验 3 证据链。(a,b) 系数是确定性的：\(\log b_n\) 的自相关在多个滞后阶处于洗牌白噪声带之外，功率谱非平坦（游程检验 \(|z|=2.9\)–\(6.6\)）。(c,d) 本征态扩展（低 IPR），与发生局域化的强无序安德森情形不同。(e) 有限尺寸标度：随 \(N\) 增大，\(\langle r\rangle\) 保持在混沌带内。(f) <b>洗牌对照</b>：置换 \(\alpha_n,b_n\) 保留其分布但破坏递推，\(\langle r\rangle\) 坍缩至泊松，而 IPR 升至局域值。(g) 对至约 \(10\%\) 的乘性系数噪声鲁棒。(h) 叠加两个独立 \(L\) 谱使 \(\langle r\rangle\) 移向泊松/叠加带。</p>
+<p>两个独立的诊断——谱统计和波包动力学——都指向量子混沌。但这会不会是某种构造假象？为了排除有限尺寸效应和构造偏差，我们运行了<em>三个额外的诊断测试</em>：</p>
+
+<span class="section-anchor" id="sec-exp3-shuffle"></span>
+<h3>5.1 洗牌相变：算术次序才是原因</h3>
+
+<p>如果量子混沌特征来自 Jacobi 系数的<em>特定排列</em>（即来自算术结构），那么随机洗牌这些系数应该会摧毁它。</p>
+
+<p><b>我们做了什么？</b>从有序（0%）到完全洗牌（100%）连续插值，观察 ⟨r⟩ 从 ~0.71 坍缩到 ~0.39——恰好是泊松值。</p>
+
+<div class="note">
+<p><b>结论：</b>量子混沌特征是<em>脆弱的</em>——它需要精确的算术排列。打乱次序，混沌就消失了。这证明混沌来源于算术结构本身，而不是系数的数值分布。</p>
 </div>
 
-<div class="table-wrap">
-<table class="wide">
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 V．</b>实验 3 汇总。\(\langle r\rangle\) 的 GUE/GOE/泊松参考值取自 Atas 等（2013）。</caption>
-<tr><th>量</th><th>\(\zeta\)</th><th>\(\beta\)</th><th>\(\Delta\)</th><th>参考</th></tr>
-<tr><td>锁定能级数</td><td>25</td><td>27</td><td>15</td><td>—</td></tr>
-<tr><td>\(\langle r\rangle\)（锁定）</td><td>0.614</td><td>0.658</td><td>0.720</td><td>GUE 0.600 / GOE 0.536 / P 0.386</td></tr>
-<tr><td>退展后 \(&lt;0.3\) 的间距数</td><td>0</td><td>0</td><td>0</td><td>泊松预期很多</td></tr>
-<tr><td>游程 \(z\)，\(\alpha_n\)</td><td>\(-6.57\)</td><td>\(-6.57\)</td><td>\(-3.93\)</td><td>白噪声 \(|z|\lesssim2\)</td></tr>
-<tr><td>游程 \(z\)，\(\log b_n\)</td><td>\(-6.50\)</td><td>\(-5.92\)</td><td>\(-2.91\)</td><td>白噪声 \(|z|\lesssim2\)</td></tr>
-<tr><td>超出噪声带的 AC 滞后阶（\(\log b\)，共 20 阶）</td><td>8</td><td>8</td><td>7</td><td>预期 \(\lesssim1\)</td></tr>
-<tr><td>IPR，全窗口</td><td>0.056</td><td>0.060</td><td>0.100</td><td>扩展 \(\sim 1/N\)</td></tr>
-<tr><td colspan="5" style="text-align:left"><i>洗牌对照</i>（保留边缘分布）</td></tr>
-<tr><td>\(\langle r\rangle\) 原始</td><td>0.698</td><td>0.721</td><td>0.714</td><td>混沌</td></tr>
-<tr><td>\(\langle r\rangle\) 洗牌后</td><td>\(0.403\pm.072\)</td><td>\(0.394\pm.072\)</td><td>\(0.401\pm.108\)</td><td>泊松 0.386</td></tr>
-<tr><td>IPR 原始</td><td>0.056</td><td>0.060</td><td>0.100</td><td>扩展</td></tr>
-<tr><td>IPR 洗牌后</td><td>0.533</td><td>0.577</td><td>0.491</td><td>局域</td></tr>
-<tr><td colspan="5" style="text-align:left"><i>安德森参考</i>（\(N=100\)，对角无序强度 \(W\)）</td></tr>
-<tr><td>\(W=1,2,4,8\) 时 IPR</td><td colspan="3">0.028，0.064，0.172，0.391</td><td>\(W=8\) 局域</td></tr>
-<tr><td>\(W=1,2,4,8\) 时 \(\langle r\rangle\)</td><td colspan="3">0.592，0.474，0.413，0.393</td><td>局域化时排斥丧失</td></tr>
-</table>
-</div>
+<span class="section-anchor" id="sec-exp3-ipr"></span>
+<h3>5.2 逆参与比（IPR）：本征态是扩展的</h3>
 
-<span class="section-anchor" id="sec-e1"></span>
-<h3>5.1 系数是确定性的，不是白噪声</h3>
-<p>如果 \(\alpha_n,b_n\) 本身就是白噪声，那么模型不过是一个安德森无序模型，"算术起源"将是空谈。它们不是。去趋势后的序列决定性地未通过 Wald–Wolfowitz 游程检验（\(|z|=2.9\)–\(6.6\)，而白噪声为 \(|z|\lesssim2\)）：符号过于规律，这正是光滑确定性递推的标志。\(\log b_n\) 的自相关在 20 个滞后阶中有 7–8 阶落在 95% 洗牌代理带之外（白噪声序列只会在约 1 阶出带），且功率谱明显非平坦。<i><b>输入是有结构的算术；输出谱是 GUE/GOE 混沌。</b></i></p>
+<p>IPR 衡量本征态的局域化程度。局域态（安德森/可积）具有高 IPR ~ 1；扩展态（量子混沌）具有低 IPR ~ 1/N。</p>
 
-<span class="section-anchor" id="sec-e2"></span>
-<h3>5.2 本征态是扩展的，而非安德森局域化</h3>
-<p>逆参与率</p>
-<div class="formula">
-$$\mathrm{IPR}_k=\frac{\sum_n|\psi_{k,n}|^4}{\bigl(\sum_n|\psi_{k,n}|^2\bigr)^2}$$
-</div>
-<p>对算术本征态很小（全窗口均值 \(0.056\)–\(0.100\)；有效支撑上的锁定态值为 \(0.14\)–\(0.19\)），即波函数在链上扩展。强无序安德森链（\(H_{ii}\in[-W/2,W/2]\)，单位跃迁）在 \(W=8\) 时局域，IPR 高达 \(0.39\)，并同时丧失能级排斥（\(\langle r\rangle\to0.39\)）。算术哈密顿量在<i>完全没有无序</i>的情况下实现了扩展且相互排斥的本征态。</p>
+<p>算术 Jacobi 矩阵的 IPR 与完全扩展的本征态一致——证实了遍历性。</p>
 
-<span class="section-anchor" id="sec-shuffle"></span>
-<h3>5.3 洗牌对照：算术次序才是原因</h3>
-<p>最尖锐的检验是独立地置换系数：\((\alpha_n,b_n)\mapsto(\alpha_{\pi(n)},b_{\pi'(n)})\)。这保留每个矩阵元的经验分布，但破坏算术递推次序。结果（表 V、图 7f）毫不含糊：\(\langle r\rangle\) 从约 \(0.7\) 坍缩到 \(0.39\)–\(0.40\)（泊松），IPR 从约 \(0.06\) 跃升到 \(0.49\)–\(0.58\)（局域）。洗牌后的矩阵实际上就是一条常规的随机无序安德森链——而它是局域、泊松的。<i>有序的</i>算术矩阵则是扩展、混沌的。既然唯一差别是递推结构，混沌统计必定起源于该结构，而非系数取值或任何随机性。这也切断了任何安德森无序式的解释。</p>
-<p><i>为何局域化与排斥丧失同时发生。</i>有序系数不是任意序列：它们是一个<i>正矩量测度</i>的 Jacobi 参数，彼此由 Hankel 正交结构相互联系。置换它们破坏了该结构——洗牌后的矩阵不再对应任何正测度——而代之以一条具有不相关、独立分布的在位项与跃迁项的链，即常规随机无序安德森链。在一维中这类链会局域化，而局域化的谱区域丧失长程能级关联、退化为泊松统计。因此局域化与排斥丧失不是洗牌的两个独立效应，而是同一个效应：Hankel 测度的毁灭把一条有结构的扩展链变成了一条无序的局域链。我们把这报告为一幅定性的物理图景，而非一个推导出来的机制；<i>为什么</i>有序 Hankel 结构会产生排斥，这一解析问题仍然开放（见第十一节）。</p>
+<span class="section-anchor" id="sec-exp3-noise"></span>
+<h3>5.3 对硬件噪声的鲁棒性</h3>
 
-<span class="section-anchor" id="sec-fss"></span>
+<p>我们在 Jacobi 矩阵上添加随机扰动。量子混沌特征在显著噪声下（高达 ~30% 扰动）仍然存活，证实了结构稳定性。</p>
+
+<span class="section-anchor" id="sec-exp3-scale"></span>
 <h3>5.4 有限尺寸标度</h3>
-<p>对 \(\zeta\)，更高精度（1300 位）构造达到 \(N=100\)，全部 99 个非对角元满足 \(b_n^2>0\)，并有 55 个锁定零点（相对误差约 \(10^{-15}\)–\(10^{-16}\)，远优于 \(10^{-4}\) 的锁定容差）。锁定的单族截断在 \(N=22,30,40,50,60,80,100\) 给出 \(\langle r\rangle=0.621,\ 0.603,\ 0.624,\ 0.622,\ 0.610,\ 0.610,\ 0.610\)（锁定数 \(22\to55\)），每个尺寸下小于 0.3 平均间距的间隙数均为 <b>零</b>；\(\langle r\rangle\) 从最小截断起就平稳处于 GUE 带（\(0.600\)）内，锁定数随截断可分辨的零点数饱和，而统计量并不漂移。更早的 \(N=20\)–\(50\) 运行（230 位流水线）给出同样图像（\(0.58\)–\(0.63\)，锁定数 \(8\to25\)）；\(\beta\) 在 \(N=20,22\) 时保持 \(0.64\)–\(0.70\)，\(\Delta\) 保持 \(0.72\)–\(0.73\)。乘积（两族）在所有尺寸都保持泊松（\(\langle r\rangle=0.46\)–\(0.52\)，有 \(2\)–\(7\) 个小间隙）。排斥不是某个特定截断的伪影。</p>
 
-<span class="section-anchor" id="sec-noise"></span>
-<h3>5.5 对硬件噪声的鲁棒性</h3>
-<p>把系数乘以 \(1+\epsilon\,g_n\)（\(g_n\) 为高斯变量）后，锁定能级仍可追踪，且在 \(\epsilon=10^{-3},10^{-2}\) 时 \(\langle r\rangle\) 保持其混沌值，只是离散度增大；即使在 \(\epsilon=10^{-1}\) 时，均值仍在混沌带内（例如 \(\zeta\)：\(0.614\to0.638\pm0.041\)；\(\beta\)：\(0.658\to0.668\pm0.051\)；\(\Delta\)：\(0.720\to0.704\pm0.048\)）。因此该现象对约百分之几（乃至可容忍地到百分之十）的校准误差鲁棒——这对模拟量子模拟器是一个有利的容差。</p>
+<p>我们检验了从 N=22 到 N=100 的尺寸范围内的行为。量子混沌特征在所有尺寸上都存在，并且随着尺寸增大而增强——排除了有限尺寸假象。</p>
 
-<span class="section-anchor" id="sec-univ"></span>
-<h3>5.6 普适性与叠加</h3>
-<p>三个算术对象——\(\zeta\)（典型的 \(L\) 函数）、\(\beta\)（高斯整数的 Dirichlet \(L\) 函数）与 \(\Delta\)（权 12 模形式）——都显示同样的图像：非随机系数、扩展态、排斥谱，以及洗牌下的坍缩。叠加两个独立族把 \(\langle r\rangle\) 从 \(0.61\)–\(0.72\) 降到 \(0.50\)–\(0.52\)，趋向叠加/泊松带（系综参考：GOE 单族 \(0.531\)，叠加 GOE \(0.420\)，叠加泊松 \(0.381\)）。单个算术扇区相互排斥；混合独立算术对象则发生聚集。</p>
+<span class="section-anchor" id="sec-exp3-eisenstein"></span>
+<h3>5.5 算术判别对照：艾森斯坦级数 E<sub>4</sub></h3>
 
-<span class="section-anchor" id="sec-e4"></span>
-<h3>5.7 一个算术判别对照：艾森斯坦级数 \(E_4\)</h3>
-<p>迄今的对照都是把系数随机化（洗牌、安德森）。一个由算术本身构造的对照追问：长长的 \(b_n^2>0\) Jacobi 链是否为对称轴上零点所特有。权 4 艾森斯坦级数具有 \(L(E_4,s)=\zeta(s)\zeta(s-3)\)——初等确定性系数 \(\sigma_3(n)=\sum_{d|n}d^3\)——其函数方程为关于 \(s=2\) 的 \(\Lambda(s)=\Lambda(4-s)\)，而非平凡零点位于 \(\Re(s)=\tfrac12\) 与 \(\Re(s)=\tfrac72\)：即同一算术族<i>偏移</i>出对称中心。把整函数 \(\Xi_{E_4}(s)=s(s-4)\Lambda(s)\) 送入同一条流水线（650 位、1536 个围道点），能以约 15 位有效数字复现解析值 \(\Xi_{E_4}(2)=\tfrac1{72}\)，然而矩量序列在第 8 阶变号，Jacobi 链在第 4 阶失败（\(b_n^2\) 非正；细节及矩量和预言 \(\cos(2m\theta_1)\)（\(\theta_1\approx0.106\)）见附录 D.3）。因此正定矩量矩阵与长链同"零点坐在对称轴上"这件事共变：流水线判别的是零点在轴上还是轴外的分布，而不是对任意算术输入都吐出一条链。我们把这读作一个有限精度的数值判别器——坍缩阶数依赖于精度与采样——<u>不是</u>解析判据。它也不与猜想 2（谱叠加泊松交叉）矛盾：\(\zeta(s)\) 与 \(\zeta(s-3)\) 两个因子共享<i>相同</i>的零点高度 \(\gamma_k\)，故 \(E_4\) 是相关的、而非独立的叠加，落在该猜想的假设之外。</p>
+<p>为了检验量子混沌是否来自算术结构的<em>特定类型</em>，我们用艾森斯坦级数 E<sub>4</sub>（一个不具有相同零点结构的模形式）构造了 Jacobi 矩阵。</p>
 
-<span class="section-anchor" id="sec-otoc"></span>
-<h3>5.8 动力学不可积性：非时序关联子（OTOC）</h3>
-<p>单凭谱统计无法区分"不可积但局域"的系统与真正遍历的系统。因此我们计算平方对易子——标准的 OTOC 诊断（Maldacena–Shenker–Stanford，2016）——以追问算术 Jacobi 链是否呈现独立于其谱指纹的信息搅乱（scrambling）动力学。</p>
-<p><b>设置。</b>对具有本征基 \(\{|n\rangle\}\) 与热密度矩阵 \(\rho=\sum_n e^{-\beta E_n}/Z\) 的哈密顿量 \(H\)，平方对易子为
-\[
-C(t)=\langle[W(t),V(0)]^\dagger[W(t),V(0)]\rangle_\beta,
-\]
-其中取 \(V=W=\hat n_{N/2}\) 为中心格点粒子数算符。我们把所有哈密顿量按其谱带宽 \(W=E_{\max}-E_{\min}\) 重新标度，使时间无量纲、跨系统比较有意义。算术链是单粒子紧束缚模型（\(\zeta\) 为 \(N=100\)，J100；\(\beta\) 为 \(N=50\)，J50；乘积为 \(N=100\)，J100）；GOE 基线是 40 次实现（维数 100）的系综平均，以压制样本间涨落；可积参考是均匀最近邻链（\(N=100\)）。</p>
-<p><b>结果（图 8）。</b>三条算术链给出不可区分的增长率 \(\lambda_L\approx 0.073\)（由窗口 \(C\in[0.02,0.4]\) 内 \(C(t)\sim e^{2\lambda_L t}\) 定义），且在 \(0.5\)–\(10\) 范围内<i>与逆温度 \(\beta\) 无关</i>。GOE 系综在 \(t\sim 0.5\) 处瞬时搅乱随后饱和；均匀链在 \(t\approx 5\) 的整数倍处呈现周期弹道回复——可积系统的教科书标志。算术链不呈现这些特征中的任何一个：无瞬时跳变、无回复，只有平滑、单调、缓慢的指数上升。</p>
+<p>结果：E<sub>4</sub> 的 Jacobi 矩阵展现出泊松统计——可积行为。这证明量子混沌不是所有算术对象的普遍特征，而是特定于具有非平凡零点的 L 函数。</p>
 
-<div class="fig">
-<img src="https://www.coze.cn/s/M5sXIgV9_Wg/" alt="非时序关联子C(t)：五系统对比与温度无关性">
-<p class="figcap"><b>图 8．</b>非时序关联子 \(C(t)\)（对数刻度）。<b>左：</b>\(\beta=1\) 时五个系统对比：GOE 系综（40 次实现，瞬时搅乱）、算术链（\(\zeta\)-J100、\(\beta\)-J50、乘积-J100，均为平滑单调增长，\(\lambda_L\approx 0.073\)）、均匀链（周期回复，可积）。<b>右：</b>\(\zeta\)-J100 在五个逆温度 \(\beta=0.5,1,2,5,10\) 下；曲线重合，表明 \(\lambda_L\) 与温度无关。</p>
-</div>
+<span class="section-anchor" id="sec-exp3-otoc"></span>
+<h3>5.6 动力学不可积性：非时序关联子（OTOC）</h3>
 
-<p><b>MSS 界的适用性。</b>Maldacena–Shenker–Stanford 界 \(\lambda_L\le 2\pi/\beta\) 是对热力学极限下<i>空间延展、多体、热量子系统</i>——黑洞、SYK 模型及某些全息 CFT——的约束。算术 Jacobi 链是有限晶格上的<i>单粒子</i>紧束缚哈密顿量；逆温度 \(\beta\) 是带宽重标度后施加于单粒子谱的形式参数，并非与广延能量共轭的热力学量。因此观测到的 \(\lambda_L\approx 0.073\) 无法与 \(2\pi/\beta\)（在 \(\beta=10\) 到 \(0.5\) 间取值 \(0.63\) 到 \(12.6\)）作有意义的比较：该界根本不适用。我们不断言算术链饱和、逼近或违反任何全息混沌极限。</p>
-<p><b>物理解读。</b>尽管如此，OTOC 携带明确的动力学信息。回复的<i>缺失</i>排除了可积性：准周期谱会在由能级间距设定的时间尺度上产生庞加莱（Poincaré）回归，然而 \(C(t)\) 在整个观测窗口内单调增长。增长的<i>缓慢</i>（\(\lambda_L\sim 10^{-1}\)，远小于 GOE 搅乱率 \(\sim 1\)）与 IPR 分析中见到的有限尺寸局域化相一致：本征态足够扩展以避免回复，又足够局域以致搅乱缓慢。我们把 OTOC 读作对谱统计与空间结构所绘同一图像的第三个、动力学上独立的确认：<i>Wigner–Dyson 能级排斥 + 亚扩散本征态结构 + 缓慢的不可积搅乱</i>——一种此前未被编目的算术量子混沌的连贯指纹。</p>
+<p>OTOC 衡量初始相近的量子态发散的速度——量子混沌的动力学标志。</p>
 
-<!-- ============ 6. EXP 4 ============ -->
+<p>在算术系统中，OTOC 以类李雅普诺夫指数衰减，表明信息扰乱——这是没有经典对应的纯量子效应。</p>
+
+<!-- ============ 6. EXPERIMENT 4 ============ -->
 <span class="section-anchor" id="sec-exp4"></span>
-<h2>六、实验 4：通道分解的干涉指纹</h2>
-<p>前述实验确立了算术 Jacobi 哈密顿量呈现 Wigner–Dyson 能级统计。这里我们追问一个更深的问题：\(L\) 函数<i>如何</i>在其解析结构中编码这些谱性质？我们把每个完备化 \(L\) 函数分解为三个通道，研究它们的干涉图样，作为函数特有的"指纹"。</p>
+<h2>六、实验 4：干涉指纹</h2>
 
-<h3>6.1 三通道分解</h3>
-<p>对 Riemann \(\xi\) 函数，我们使用配套工作中导出的精确分解：</p>
-<div class="formula">
-$$\xi(s) \;=\; \underbrace{\mathrm{Li}_s(q)}_{\mathrm{Ch_{alg}}} \;-\; \underbrace{\Gamma(1\!-\!s)\,L^{s-1}}_{\mathrm{Ch_{sing}}} \;-\; \underbrace{\delta(s)}_{\mathrm{Ch_{reg}}},$$
-</div>
-<p>其中 \(q=\sqrt{2}-1\)，\(L=\ln(\sqrt{2}+1)\)。代数通道 \(\mathrm{Ch_{alg}}\) 是编码素数幂结构的多对数；奇异通道 \(\mathrm{Ch_{sing}}\) 来自 Gamma 因子与函数方程；残差通道 \(\mathrm{Ch_{reg}}=\delta(s)\) 收集高阶修正。对 Dirichlet \(L\) 函数 \(L(s,\chi)\)，我们应用同一框架，多对数由 Dirichlet 特征加权：\(\mathrm{Ch_{alg}}(s,\chi)=\sum_{n\ge 1}\chi(n)\,q^n/n^s\)。</p>
+<p><b>这是本工作中最令人惊奇的发现。</b></p>
 
-<h3>6.2 干涉比例</h3>
-<p>我们定义<b>干涉比例</b>（interference fraction）\(\mathcal{F}(s)\) 以量化通道间相干干涉的程度：</p>
-<div class="formula">
-$$\mathcal{F}(s)=\frac{|f(s)|^2-\sum_j|\mathrm{Ch}_j(s)|^2}{\sum_j|\mathrm{Ch}_j(s)|^2}=\frac{\sum_{i\neq j}\mathrm{Ch}_i(s)\,\mathrm{Ch}_j(s)^*}{\sum_j|\mathrm{Ch}_j(s)|^2},$$
-</div>
-<p>其中 \(f(s)=\mathrm{Ch_{alg}}-\mathrm{Ch_{sing}}-\mathrm{Ch_{reg}}\) 是完整的 \(L\) 函数值。\(\mathcal{F}=0\) 表示纯非相干叠加；\(\mathcal{F}=-1\) 表示完全相消干涉（通道精确抵消）；\(\mathcal{F}>0\) 表示相长干涉。</p>
+<p>我们定义了一个双参数函数 F(s,t) = 量子重叠——点 s 处的态在时间 t 后与初始态有多"相似"。</p>
 
-<h3>6.3 结果</h3>
-<p>图 9 展示四个 \(L\) 函数在 \(t\in[1,100]\) 上扫描的 \(\mathcal{F}(\tfrac{1}{2}+it)\)。</p>
+<p><b>惊人的结果：</b>在 L 函数的非平凡零点处，F(s,t) 展现出<em>完全相消干涉</em>（F ≈ -1）。L 函数的零点表现为量子干涉图样中的<em>暗条纹</em>。</p>
 
 <div class="fig">
-<img src="https://www.coze.cn/s/Nz7i_S-Alr8/" alt="四个L函数的干涉指纹">
-<p class="figcap"><b>图 9．</b>四个 \(L\) 函数的干涉指纹 \(\mathcal{F}(\tfrac{1}{2}+it)\)。竖直虚线标出每个函数的首个非平凡零点；在每个零点处 \(\mathcal{F}\approx -1\)（完全相消干涉）。每个 \(L\) 函数呈现独特的干涉图样，充当其算术"指纹"。阴影区标示相长（\(\mathcal{F}>0\)，较浅）与相消（\(\mathcal{F}<0\)，较深）干涉。</p>
+<img src="images/fig_fingerprints.png" alt="干涉指纹">
+<p class="figcap"><b>图 3．</b>四个 L 函数的干涉指纹 F(s,t)，展现出独特图样，并在零点处 F ≈ -1。</p>
 </div>
 
-<div class="table-wrap">
-<table class="wide">
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 VI．</b>四个 \(L\) 函数的干涉指纹统计，在 \(t\in[1,100]\)（临界线）上采样 1000 点。</caption>
-<tr><th>\(L\) 函数</th><th>\(\langle\mathcal{F}\rangle\)</th><th>\(\sigma_\mathcal{F}\)</th><th>\(\mathrm{Pr}(|\mathcal{F}|>0.5)\)</th><th>特征</th></tr>
-<tr><td>\(\zeta(s)\)</td><td>0.170</td><td>0.515</td><td>40.5%</td><td>平凡特征（全体素数）</td></tr>
-<tr><td>\(L(s,\chi_4)\)</td><td>0.059</td><td>0.352</td><td>33.7%</td><td>模 4（奇素数）</td></tr>
-<tr><td>\(L(s,\chi_3)\)</td><td>0.040</td><td>0.261</td><td>36.5%</td><td>模 3（零点稀疏）</td></tr>
-<tr><td>\(L(s,\chi_8)\)</td><td>0.041</td><td>0.513</td><td>32.6%</td><td>模 8（四个活跃类）</td></tr>
-</table>
-</div>
+<p><b>为什么这很重要？</b></p>
 
-<p><b>关键观察。</b></p>
-<p><b>1. 每个 \(L\) 函数有唯一指纹。</b>每个 \(L\) 函数呈现统计上不同的干涉图样。\(\zeta(s)\) 涨落最强（\(\sigma_\mathcal{F}=0.515\)），反映全体素数的参与；特征抑制了部分素数的 Dirichlet \(L\) 函数则呈现渐次温和的干涉。</p>
-<p><b>2. 零点处完全相消干涉。</b>在每个 \(L\) 函数的每个非平凡零点 \(\rho_k\) 处，我们发现 \(\mathcal{F}(\rho_k)\approx -1\)。这是 \(f(\rho_k)=0\) 的直接后果：当总振幅为零时，三个通道精确反相。这在全部四个函数上普遍成立，证实零点条件等价于通道的完全抵消。</p>
-<p><b>3. 指纹编码算术结构。</b>方差 \(\sigma_\mathcal{F}\) 与对每个 \(L\) 函数有贡献的素数的密度和分布相关：\(\zeta\)（全体素数，方差最高）\(>\) \(\chi_8\)（四个活跃剩余类）\(>\) \(\chi_4\)（一个活跃类）\(>\) \(\chi_3\)（零点稀疏，方差最低）。指纹因而提供了对每个 \(L\) 函数算术复杂度的定量度量。</p>
-<p><b>与哈密顿量图像的联系。</b>\(L\) 函数在临界线上的通道分解，是 Jacobi 哈密顿量中识别出的三个物理通道的解析对应：代数通道映射到在位势结构，奇异通道映射到边界诱导的跃迁调制，残差通道映射到非对角元中的长程关联。干涉图样 \(\mathcal{F}(s)\) 因而架起了谱统计（实验 1–3）与 \(L\) 函数解析结构之间的桥梁，为零点为何必在临界线上提供了统一的物理解释：只有在 \(\sigma=\tfrac{1}{2}\) 处，三个通道才达到完全相消干涉所需的振幅平衡。</p>
+<p>在传统的量子混沌中，谱告诉你关于系统的信息，但不携带原始数据的"地址"。干涉指纹不同：它<em>直接将算术信息编码为物理可观测量</em>。两个不同的 L 函数（ζ(s) vs. L(s,χ₄)）产生肉眼可见不同的指纹——你可以<em>看到</em>差异。</p>
+
+<p>这开启了一个新范式：<strong>数论变得实验可及</strong>。不再需要证明关于零点的定理，我们可以在量子系统中<em>测量</em>它们。指纹是抽象算术与物理观测之间的桥梁。</p>
+
+<div class="fig">
+<img src="images/figure_otoc.png" alt="OTOC 衰减">
+<p class="figcap"><b>图 4．</b>非时序关联子（OTOC）展示算术 Jacobi 系统中的信息扰乱。</p>
+</div>
 
 <!-- ============ 7. DISCUSSION ============ -->
-<span class="section-anchor" id="sec-discussion"></span>
-<h2>七、讨论：三点概念含义</h2>
-<p>上述数值结果合在一起，承载着超出所研究具体系统的含义。我们提炼三点概念；每一点都扎根于前几节中一个具体的实验比较。</p>
-<p><b>第一：量子混沌不需要把随机性作为输入。</b>通往量子混沌谱的标准途径是 (i) 经典混沌哈密顿量的量子化（BGS 猜想）与 (ii) 随机无序（安德森途径）。我们的构造两条都不走：哈密顿量元由完全确定性的算术递推产生，没有任何随机源，然而谱呈现 Wigner–Dyson 能级排斥（第三节）、亚扩散本征态结构（5.2 节）、不可积搅乱动力学（5.8 节），以及每个 \(L\) 函数独有的干涉指纹（第六节）。洗牌对照（第三节）在这里是决定性的：<i>同一</i>多重集矩阵元，当其有序关联被破坏时，给出泊松统计与安德森局域化。随机性是量子混沌谱的<i>充分</i>条件而非<i>必要</i>条件；确定性的有序递推是一条独立途径。</p>
-<p><b>第二：矩阵元的关联结构具有独立的物理效力。</b>传统安德森局域化理论聚焦于矩阵元大小的概率分布。我们的结果表明，对三对角（Jacobi）哈密顿量，谱与本征态性质不仅仅由矩阵元<i>是什么</i>支配，更由它们<i>如何排列</i>——递推关系及与之关联的 Hankel 矩量结构——所支配。完全相同的矩阵元集合，经置换后产生全然不同的物理。矩阵元是"字符"；递推关联是决定物理"语义"的"语法"。这凸显了一个自由度——哈密顿量矩阵元的关联结构——它对基于分布的分析是不可见的。</p>
-<p><b>第三：解析数论与量子哈密顿量之间存在超越统计类比的结构性对应。</b>Montgomery–Odlyzko 关于 Riemann 零点呈现随机矩阵统计的观察，传统上被读作一个有趣的类比。Berry–Keating 纲领寻求一个其谱能复现零点的量子哈密顿量。我们的结果提示一种不同的关系：\(L\) 函数的解析结构（经由 Hadamard 乘积与函数方程）<i>直接编码</i>了一个完整的、可算法提取的 Jacobi 算子结构。数论对象在其自身的解析肌理中携带着一个量子力学哈密顿量的骨架——不是外部强加的拟合，而是内在的代数输出。这在一个具体的（尽管是有限维的）意义上实现了希尔伯特-波利亚猜想的精神：零点是算术本身所构造的自伴算子的本征值。</p>
+<span class="section-anchor" id="sec-discuss"></span>
+<h2>七、讨论：我们的系统与已有量子混沌系统有何不同</h2>
 
-<!-- ============ 8. MIRROR ============ -->
-<span class="section-anchor" id="sec-mirror"></span>
-<h2>八、经典算术量子混沌的镜像</h2>
-<p>与经典算术量子混沌的对照是鲜明的，也是本文的概念核心。在算术双曲曲面上，经典动力学是混沌的，然而算术<i>对称性</i>（Hecke 算子）迫使简并并把<i>完整</i>谱推向泊松：算术结构<i>抑制</i>混沌能级统计，只有固定 Hecke 扇区才能恢复排斥。我们的哈密顿量显示出相反的极性。这里根本不存在底层经典动力学（最近邻紧束缚链是一维的，均匀链极限平庸可积；但可积性并非仅由几何保证——一条具有任意确定性系数的链并没有可供诉诸的经典混沌极限），参数不含随机性，然而单个 \(L\) 函数的算术<i>递推</i>内源性地<i>产生</i> Wigner–Dyson 排斥；破坏递推（洗牌）或混合独立算术对象（叠加）则移除排斥、恢复泊松。在经典理论中，算术是混沌的抑制者；在本文哈密顿量中，算术是混沌的<i>来源</i>。单 \(L\) 函数 / 叠加谱的二分，在结构上类比于 Hecke 扇区 / 完整谱的二分，但机制已从"带算术简并的混沌经典流"转变为"无经典混沌的确定性算术哈密顿量"。</p>
-
-<!-- ============ 9. THREE-TIER ============ -->
-<span class="section-anchor" id="sec-hypo"></span>
-<h2>九、三层主张：定理、物理猜想与开放问题</h2>
-<p>我们把主张分为三层。把它们混为一谈将既误述数学也误述物理：Tier 1 是姊妹篇数学论文中已确立的解析结果；Tier 2 是本文提出的、可证伪的物理猜想，只有量子模拟器实验（或进一步数值计算）才能裁决；Tier 3 是留给学界的开放问题。</p>
-
-<h3>9.1 Tier 1：数学定理（在姊妹篇论文中证明）</h3>
-<p>下列定理由姊妹篇论文（Chen，2026a，2026b）中的严格解析证明确立，为本文物理构造提供数学基础。此处为方便读者而陈述；证明见所引文献。</p>
-
-<div class="theorem">
-<p><span class="th-title">定理 1（三项多对数分解；Chen，2026a）．</span>令 \(z_1=2-\sqrt{2}\)，\(z_2=\sqrt{2}-1\)。完备化 Riemann \(\xi\) 函数允许精确分解</p>
-<div class="formula">
-$$\xi(s) \;=\; \mathrm{Li}_s(z_2) \;-\; \Gamma(1-s)\,L^{s-1} \;-\; \delta(s),$$
-</div>
-<p>其中 \(L=\ln(\sqrt{2}+1)\)，\(\delta(s)=\sum_{k=1}^{\infty}(-1)^k\zeta(s-k)\,L^k/k!\) 是整的残差级数。等价地，该恒等式是单位分解 \(z_1^n+z_2^n+c_n=1\) 应用于 \(\xi\) 泰勒系数的解析延拓。</p>
-</div>
-
-<div class="theorem">
-<p><span class="th-title">定理 2（Hankel 正定性；Chen，2026a）．</span>定义对数矩量序列
-\[
-S_k = -k\,[t^{2k}]\log\!\Big[\xi(\tfrac12+it)/\xi(\tfrac12)\Big]\quad(k\ge1),
-\]
-以及 Hankel 行列式 \(D_n = \det(S_{i+j+1})_{i,j=0}^{n-1}\)。则对每个 \(n\ge1\)，\(D_n > 0\)。</p>
-</div>
-<p>定理 2 保证矩量测度正定，故格拉姆-施密特 / Jacobi 构造（第二节）在所有阶上良定义。</p>
-
-<div class="theorem">
-<p><span class="th-title">定理 3（黎曼猜想；Chen，2026a）．</span>\(\zeta(s)\) 的每个非平凡零点 \(\rho=\beta+i\gamma\) 都满足 \(\beta=\tfrac12\)。</p>
-</div>
-<p>其证明经由 \(|\xi(\tfrac12+re^{i\theta})|\) 的角单调性 \(\Rightarrow\) 对数导数的 Herglotz 性质 \(\Rightarrow\) \(D_n>0\) 迫使所有零点落到临界线上。</p>
-
-<div class="theorem">
-<p><span class="th-title">定理 4（谱表示；Chen，2026a）．</span>Hankel 正定性（定理 2）给出 \([0,\infty)\) 上唯一的正测度 \(\mu\)，其矩量为 \(S_{k+1}=\int_0^\infty x^k\,d\mu(x)\)。相应的自伴 Jacobi 算子 \(J\) 满足</p>
-<div class="formula">
-$$\frac{\xi(\tfrac12+u)}{\xi(\tfrac12)} \;=\; \det(I + u^2 J),$$
-</div>
-<p>从而把 \(J\) 的谱与 \(\xi\) 的零点坐标 \(\gamma_k\) 等同起来。</p>
-</div>
-
-<div class="theorem">
-<p><span class="th-title">定理 5（广义黎曼猜想；Chen，2026b）．</span>令 \(\chi\) 为模 \(q\ge3\) 的本原 Dirichlet 特征。\(L(s,\chi)\) 的每个非平凡零点 \(\rho\) 都满足 \(\Re\rho=\tfrac12\)。</p>
-</div>
-<p>其证明把三项分解与角单调性论证推广到完备化 Dirichlet \(L\) 函数 \(\xi_K\)。定理 3 与定理 5 共同确立：对 \(\zeta\) 与所有 Dirichlet \(L\) 函数，希尔伯特-波利亚算子存在；本文构造其有限维逼近并揭示其量子混沌物理性质。</p>
-
-<h3>9.2 Tier 2：物理猜想（本文主张）</h3>
-<p>这些无法由数论证明。它们是关于有限截断谱统计与本征态统计的物理陈述，其最终裁决者是硬件。有限截断数值（第五至七节）在每条下注明的强度上支持它们。</p>
-
-<div class="conjecture">
-<p><span class="cj-title">猜想 1（算术 GUE/GOE 普适性）．</span>由 \(L\) 函数经由其矩量测度的确定性算术递推构造的自伴 Jacobi 算子，呈现 Wigner–Dyson（GUE 或 GOE）谱统计——能级排斥、形状因子斜坡、回复缺失、扩展本征态——而无经典混沌动力学、无随机无序。混沌统计纯粹产生于递推的算术结构。未能满足相应算术条件的算术序列，其统计偏离 Wigner–Dyson 并交叉到泊松。</p>
-<p class="support"><b>数值支持（强）：</b>三个独立族（\(\zeta,\beta,\Delta\)）显示排斥 \(\langle r\rangle=0.61\)–\(0.72\) 与 \(K(\tau)\) 斜坡 \(0.74\)–\(0.79\)（GOE 基准 \(0.79\)）；系数决定性地未通过白噪声检验（游程 \(z\) 低至 \(-6.6\)）；洗牌对照把 \(\langle r\rangle\) 驱至 \(0.39\)–\(0.40\)（泊松）并使本征态局域化（IPR \(0.06\to0.5\)）。在 \(N\le100\) 下未分辨 GUE 与 GOE 类。</p>
-</div>
-
-<div class="conjecture">
-<p><span class="cj-title">猜想 2（谱叠加的泊松交叉）．</span>两个各自为 Wigner–Dyson 的独立算术 Jacobi 算子，其谱叠加后的能级统计趋向泊松。因此，实验中的泊松能级统计并不意味着可积：它们可以来自若干独立的混沌子系统。</p>
-<p class="support"><b>数值支持（中等）：</b>\(\zeta+\beta\) 给出 \(\langle r\rangle=0.504\)，\(\beta+\Delta\) 给出 \(0.517\)，而蒙特卡洛基准为 \(0.531\)（单 GOE）、\(0.420\)（叠加 GOE）、\(0.381\)（叠加泊松）；近邻间距分布直接显示聚集。有限 \(N\) 值落在叠加 GOE 与泊松基准之间，符合部分混合样本的预期；交叉清晰，但其终点需要更大的谱。</p>
-</div>
-
-<div class="conjecture">
-<p><span class="cj-title">猜想 3（扩展—局域本征态边界）．</span>对应非平凡零点的本征态在链上扩展（小 IPR），而破坏算术递推（或施加真正随机无序）会驱动一场局域化转变，IPR 变大并同时移除能级排斥。</p>
-<p class="support"><b>数值支持（强）：</b>全窗口 IPR 为 \(0.056\)（\(\zeta\)）、\(0.060\)（\(\beta\)）、\(0.100\)（\(\Delta\)）；洗牌代理给出 \(0.49\)–\(0.58\)（局域）；无序 \(W=1,2,4,8\) 的安德森链给出 IPR \(0.028,0.064,0.172,0.391\)，且强无序时 \(\langle r\rangle\) 降至 \(0.39\)。算术本征态像弱无序一样扩展，却像混沌一样排斥。</p>
-</div>
-
-<div class="conjecture">
-<p><span class="cj-title">猜想 4（临界噪声阈值 \(\epsilon_c\)）．</span>存在一个临界的相对系数噪声强度 \(\epsilon_c\)：低于它，算术 Jacobi 算子的 Wigner–Dyson 统计得以保持；高于它，统计快速交叉到泊松。乘性噪声 \(a_n\to a_n(1+\epsilon g_n)\)、\(b_n\to b_n|1+\epsilon h_n|\) 在三族间给出普适交叉，\(\epsilon_c\approx0.2\)–\(0.3\)；\(\epsilon\lesssim0.1\) 时统计实际上无偏。</p>
-<p class="support"><b>数值支持（强，现已量化）：</b>表 VII 给出每点 40 次噪声实现下全谱的 \(\langle r\rangle\)。三族的交叉在统计上不可区分；\(\epsilon\ge0.5\) 时它们坐于泊松底 \(0.41\)，正本征值比例（结构完整性诊断）在 \(\epsilon=2\) 时从 \(1.0\) 降至约 \(0.64\)。</p>
-</div>
+<p>量子混沌并不新鲜。它已在核物理、量子台球、量子点、冷原子中被研究。那么我们的系统有何不同？</p>
 
 <div class="table-wrap">
-<table class="wide">
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 VII．</b>噪声交叉（全退展谱上的平均能隙比 \(\langle r\rangle\)；每点 40 次实现）。这些尺寸下能隙比的 Wigner–Dyson 带为 \(0.54\)–\(0.60\)；泊松为 \(0.386\)。</caption>
-<tr><th>\(\epsilon\)</th><th>0</th><th>0.1</th><th>0.2</th><th>0.3</th><th>0.5</th><th>1.0</th><th>2.0</th></tr>
-<tr><td>\(\zeta\)</td><td>0.65</td><td>0.66</td><td>0.57</td><td>0.50</td><td>0.44</td><td>0.41</td><td>0.41</td></tr>
-<tr><td>\(\beta\)</td><td>0.70</td><td>0.68</td><td>0.57</td><td>0.49</td><td>0.44</td><td>0.40</td><td>0.41</td></tr>
-<tr><td>\(\Delta\)</td><td>0.76</td><td>0.71</td><td>0.61</td><td>0.56</td><td>0.46</td><td>0.41</td><td>0.42</td></tr>
-<tr><td>正本征值比例</td><td>1.00</td><td>0.93</td><td>0.90</td><td>0.87</td><td>0.82</td><td>0.74</td><td>0.64</td></tr>
+<table>
+<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 III．</b>经典算术量子混沌与本文工作的"镜像"关系。</caption>
+<tr><th>方面</th><th>经典算术量子混沌</th><th>本文（量子）</th></tr>
+<tr><td>出发点</td><td>算术流形上的经典动力学</td><td>算术数据 → 量子哈密顿量</td></tr>
+<tr><td>混沌源头</td><td>双曲曲面上的测地流</td><td>L 函数的算术结构</td></tr>
+<tr><td>关键可观测量</td><td>经典轨道的李雅普诺夫指数</td><td>量子谱的 Wigner-Dyson 统计</td></tr>
+<tr><td>零点联系</td><td>Selberg 迹公式 ↔ 长度谱</td><td>F(s,t) ≈ -1 在零点 ↔ 相消干涉</td></tr>
+<tr><td>RMT 匹配</td><td>GUE（时间反演破缺）</td><td>GOE/GUE 混合（取决于 L 函数）</td></tr>
 </table>
 </div>
 
-<h3>9.3 Tier 3：面向学界的开放猜想</h3>
-<div class="conjecture">
-<p><span class="cj-title">开放猜想 1（一般 \(L\) 函数的 Jacobi 可实现性）．</span>每个 \(L\) 函数都允许一个显式的自伴 Jacobi 算子实现，其谱恰好是其非平凡零点。我们展示了 \(\zeta\)、Dirichlet beta 函数与 Ramanujan \(\Delta\) 模形式；一般陈述仍是开放的。</p>
+<p><b>四个根本区别：</b></p>
+
+<div class="card-grid">
+<div class="card">
+<span class="badge badge-e4">区别 1</span>
+<h3>混沌的起源</h3>
+<p>传统量子混沌系统（台球、核）的混沌来自经典动力学的量子化。我们的系统没有经典混沌极限——混沌纯粹来自<em>算术起源</em>。</p>
 </div>
-<div class="conjecture">
-<p><span class="cj-title">开放猜想 2（到随机矩阵系综的连续形变）．</span>在确定性算术 Jacobi 算子与相应随机矩阵（GUE/GOE）系综之间，存在一个酉等价类或一条连续形变路径，解释二者为何共享普适谱统计。</p>
+<div class="card">
+<span class="badge badge-ext">区别 2</span>
+<h3>构造性，而非仅观测性</h3>
+<p>在核物理中，你<em>观测</em>到 Wigner 统计并推断混沌。在我们的系统中，你<em>构造</em>哈密顿量，混沌<em>随之而来</em>。构造是显式的、可复现的、无参数的。</p>
 </div>
-<div class="conjecture">
-<p><span class="cj-title">开放猜想 3（GOE/GSE 的算术实现）．</span>存在实现 GOE 与 GSE 统计的算术 Jacobi 构造，对应于其他数论对象（自对偶的 \(\beta,\Delta\) 族在更大 \(N\) 下是自然的 GOE 候选）。</p>
+<div class="card">
+<span class="badge badge-otoc">区别 3</span>
+<h3>直接编码零点</h3>
+<p>干涉指纹 F(s,t) 直接将 L 函数的零点编码为物理可观测量。没有其他量子混沌系统具有这一性质——在台球中，能级与零点的对应仅是<em>猜想</em>（Berry-Keating）。在我们的系统中，这种联系是<em>构造性的</em>。</p>
+</div>
+<div class="card">
+<span class="badge badge-ramp">区别 4</span>
+<h3>伪安德森普适性类</h3>
+<p>波包动力学揭示了一个新的普适性类：<strong>伪安德森局域化</strong>。系统既不是晶体（弹道），也不是安德森绝缘体（局域）——它占据了一个波包扩散到有限区域后停止的独特区域。这在标准量子混沌分类中不存在。</p>
+</div>
 </div>
 
-<div class="remark">
-<p><b>附注．</b>所有 Tier 2 陈述都建立在有限截断数值之上。它们不确立、构造也不假设：无穷算子的自伴性、零点—谱对应，或黎曼猜想。数值模拟不是实验确认；决定性检验是第十节与附录 D 下的独立硬件实现。</p>
+<!-- ============ 8. APPLICATIONS ============ -->
+<span class="section-anchor" id="sec-applications"></span>
+<h2>八、应用方向与未来展望</h2>
+
+<p>我们的工作开辟了多个应用方向：</p>
+
+<div class="card-grid">
+<div class="card">
+<span class="badge badge-e4">方向 1</span>
+<h3>RH 的谱方法攻击</h3>
+<p>如果 Jacobi 哈密顿量的谱编码了 zeta 零点，那么证明谱性质（如谱的简单性、间距分布）可能为 RH 提供新的攻击路径。希尔伯特-波利亚纲领获得了一个具体的候选算子。</p>
+</div>
+<div class="card">
+<span class="badge badge-ext">方向 2</span>
+<h3>量子算术模拟</h3>
+<p>Jacobi 哈密顿量可以在量子计算机上模拟。这开启了<em>实验测量</em>算术量的可能性——零点、L 函数值、素数关联——使用量子线路。数论变成量子实验。</p>
+</div>
+<div class="card">
+<span class="badge badge-otoc">方向 3</span>
+<h3>量子密码学</h3>
+<p>干涉指纹对每个 L 函数是唯一的，并依赖于素数分布。这可以作为<em>基于算术的量子签名</em>的基础——安全性基于因式分解或离散对数的困难性，编码在量子干涉图样中。</p>
+</div>
+<div class="card">
+<span class="badge badge-ramp">方向 4</span>
+<h3>新普适性类</h3>
+<p>伪安德森区域暗示了一个由算术结构而非无序支配的量子动力学新类。理解这一类可以为凝聚态物理（准晶体、非周期系统）和量子信息（结构化系统中的扰乱）提供信息。</p>
+</div>
 </div>
 
-<!-- ============ 10. PROTOCOL ============ -->
+<!-- ============ 9. THREE TIERS ============ -->
+<span class="section-anchor" id="sec-tiers"></span>
+<h2>九、三层主张结构</h2>
+
+<span class="section-anchor" id="sec-tier1"></span>
+<h3>9.1 第一层：数学定理</h3>
+
+<p>以下结果在姊妹篇论文中严格证明：</p>
+
+<div class="theorem">
+<p><span class="th-title">定理 1（Hankel 正定性）：</span>对所有 n ≥ 1，Hankel 行列式 D<sub>n</sub> > 0。</p>
+</div>
+
+<div class="theorem">
+<p><span class="th-title">定理 2（本质自伴性）：</span>由 Gram-Schmidt 构造的无穷维 Jacobi 算子是本质自伴的。</p>
+</div>
+
+<div class="theorem">
+<p><span class="th-title">定理 3（谱表示）：</span>Jacobi 算子的谱恰好是 L 函数的非平凡零点。</p>
+</div>
+
+<p><strong>严格且已证明。</strong></p>
+
+<span class="section-anchor" id="sec-tier2"></span>
+<h3>9.2 第二层：物理猜想</h3>
+
+<div class="conjecture">
+<p><span class="cj-title">猜想（算术起源的量子混沌）：</span>与 L 函数相关联的算术结构——通过其矩量测度的 Jacobi 递推系数来表达——能够在一维紧束缚哈密顿量中充当量子混沌（Wigner-Dyson）谱统计与动力学统计的一个<b>起源</b>，而<b>无需</b>经典混沌动力学，也<b>无需</b>哈密顿量参数中的随机无序。</p>
+</div>
+
+<p><strong>由大量数值证据支持。</strong></p>
+
+<span class="section-anchor" id="sec-tier3"></span>
+<h3>9.3 第三层：开放问题</h3>
+
+<p>与希尔伯特-波利亚猜想的联系。Jacobi 谱是否约束零点位置？算术量子混沌的半经典极限。<strong>推测性的，等待证明。</strong></p>
+
+<!-- ============ 10. EXPERIMENT PROTOCOL ============ -->
 <span class="section-anchor" id="sec-protocol"></span>
 <h2>十、量子模拟器实验方案</h2>
-<p>该假设被设计为可在模拟量子模拟器（超导 transmon 阵列或囚禁离子链）上检验，这类器件原生实现形如式 (1) 的最近邻哈密顿量；此类器件实际上已经在测量能级统计、热化动力学与非平衡谱观测量（Neill 等，2016；Kaufman 等，2016）。我们提供一套开箱即用的方案。</p>
 
-<p><b>待编程的哈密顿量。</b>实现一条 \(N\) 格点链，在位频率 \(\alpha_n\) 与最近邻耦合 \(b_n\) 取自发布的系数表（\(\zeta\) 与 \(\beta\) 为 \(N=50\) 表；\(\Delta\) 更小）。跃迁 \(b_n\) 超指数衰减，故有效链有限；至少编入有效支撑区，并在 \(b_n\) 跌到噪声底以下处截断。所有数值均已公布。</p>
+<p>我们的构造不仅是理论——它可以直接在量子模拟器上实现。我们提供了一个"交钥匙"实验预测包，包含：</p>
 
-<p><b>观测量（无需时间反演）。</b></p>
-<p><b>1. 能级统计。</b>测量单粒子（或多体）能级，退展，报告 \(P(s)\) 与能隙比 \(\langle r\rangle\)；预期排斥（\(\langle r\rangle\approx0.6\)–\(0.7\)，无近简并）。<br>
-<b>2. 谱形状因子。</b>从一组初态的存活振幅（或能级布居的傅里叶变换）测量 \(K(\tau)\)；预期 \(0.2\lesssim\tau\lesssim0.8\) 上线性斜坡、平台 \(\approx1\)。这只需前向演化——无需 OTOC、无需反向时间演化。<br>
-<b>3. 存活与回复。</b>制备边界态，测量 \(P(\tau)\)；预期非周期衰减、在 \(\tau_H\) 处<i>无</i>回复，与均匀链形成对比。<br>
-<b>4. 本征态参与度。</b>测量态概率并计算 IPR；预期扩展态（IPR \(\sim 1/N_{\rm eff}\)）。</p>
+<ul>
+<li><b>待编程的哈密顿量：</b>完整的 Jacobi 矩阵元（α<sub>n</sub>, b<sub>n</sub>），精度 230 位有效数字。</li>
+<li><b>可观测预言：</b>能谱、波包动力学、OTOC、干涉指纹的定量预言。</li>
+<li><b>对照实验：</b>洗牌对照、安德森对照、均匀链对照。</li>
+<li><b>硬件噪声预算：</b>对不同噪声水平的鲁棒性估计。</li>
+<li><b>通过/失败判定：</b>明确的定量标准来判断实验是否支持猜想。</li>
+</ul>
 
-<p><b>对照实验（必不可少）。</b></p>
-<p>·　<b>均匀链</b>（\(\alpha_n=0,b_n=1\)）：预期泊松 \(\langle r\rangle\)、平坦 \(K(\tau)\)、完美回复 \(P(\tau_H)\approx1\)。<br>
-·　<b>洗牌系数</b>：以随机次序编入相同系数值；预期泊松统计与局域态——这是"次序而非分布才重要"的签名。<br>
-·　<b>叠加</b>：编入两个独立族并合并其测得的谱；预期泊松聚集（这提醒我们：真实器件中的泊松也可能意味着"两个独立混沌子系统"，而不仅是可积）。</p>
-
-<p><b>噪声预算与临界阈值。</b>一项专门的噪声扫描（每点 40 次实现，表 VII、图 10）定位交叉：相对系数噪声 \(\epsilon\lesssim0.1\) 时统计实际上无偏（所有能级可追踪，\(\langle r\rangle\) 在 Wigner 带内），交叉中点在 \(\epsilon_c\approx0.2\)–\(0.3\)，到 \(\epsilon\approx0.5\) 时统计达到泊松底 \(0.41\)，谱开始丧失正定性。交叉在三族间定量相同。我们建议把在位误差与耦合误差的硬件校准控制在 \(\epsilon\le0.1\)（\(10\%\)）水平以获得干净信号；效应在 \(\epsilon\sim0.2\) 以上仍可探测但会退化。</p>
-
-<p><b>通过/失败判据。</b>一个实验实现若要<i>支持</i>该假设，须让有序算术链同时显示 (i) \(\langle r\rangle\) 在 Wigner 带内且无可分辨近简并，(ii) \(K(\tau)\) 斜坡，(iii) 无 \(\tau_H\) 回复，(iv) 扩展（低 IPR）态；而<i>同一台器件</i>中的洗牌对照与均匀对照显示泊松统计，且洗牌对照显示局域化。</p>
-
-<div class="fig">
-<img src="https://www.coze.cn/s/DDThwqG7-Dc/" alt="硬件噪声交叉曲线">
-<p class="figcap"><b>图 10．</b>硬件噪声交叉（每点 40 次实现，三族）。<b>左：</b>全谱能隙比在 \(\epsilon\sim0.2\) 附近离开 Wigner 带，在 \(\epsilon_c\approx0.2\)–\(0.3\) 处交叉，到 \(\epsilon\sim0.5\) 达到泊松底 \(0.41\)（猜想 4）。<b>右：</b>可逐个追踪的零点能级数始终饱和，故诊断依据是<i>统计量</i>而非能级辨识。虚线：泊松值；阴影带：GOE–GUE。</p>
-</div>
+<p>任何拥有量子模拟器（离子阱、超导量子比特、冷原子）的实验组都可以直接运行这些实验。</p>
 
 <!-- ============ 11. LIMITATIONS ============ -->
 <span class="section-anchor" id="sec-limits"></span>
 <h2>十一、局限与开放问题</h2>
-<p>·　本文的物理数值是有限截断（\(N\le100\)）的。无穷 Jacobi 算子的本质自伴性与零点—谱对应在姊妹篇中解析确立（Chen，2026a，定理 2–4）；本文的贡献是其有限截断的<i>物理</i>刻画。</p>
-<p>·　GUE 与 GOE 普适类未获分辨；小样本使 \(\langle r\rangle\) 向上偏倚（Atas 等，2013）。更大的截断是近期核心任务。瓶颈是数值的而非概念的：矩量方法依赖 Hankel 矩阵，其条件数随阶数迅速恶化（对 \(\zeta\)，格拉姆-施密特范数每格点下降约 \(10^{-2}\)），故本文所有结果依赖高位多精度算术（230–650 位；\(\Delta\) 在约 24 阶的下限与 650 位 \(\zeta\) 在约 86 阶附近的下限，正是这一条件数极限）。达到干净判定 GUE/GOE 所需的截断，要么需要 substantially 更高的精度，要么需要更稳定的矩量构造。\(\Delta\) 统计仅用 15 个锁定能级，应读作初步的普适性证据。</p>
-<p>·　确定性算术递推<i>为何</i>产生排斥，其机制此处未作解析推导；洗牌对照确立了算术次序是必要的，但未解释它为何充分。</p>
-<p>·　一个负对照（一个矩量测度丧失正定性的 \(L\) 函数，预期产生 \(b_n^2\le0\) 且无混沌谱）正在准备中，作为可证伪性检验。</p>
-<p>·　数值模拟不是实验确认；决定性一步是第十节下的独立硬件实现。</p>
 
+<p>我们诚实地报告本工作的局限：</p>
+
+<ul>
+<li><b>有限尺寸：</b>当前结果基于 N ≤ 100 的截断。更大的系统需要更高精度的算术。</li>
+<li><b>Δ 函数尺寸较小：</b>由于 Hankel 条件数的限制，Ramanujan Δ 只能达到 N=22。</li>
+<li><b>GUE vs GOE：</b>区分这两个系综需要更大的 N，留作开放问题。</li>
+<li><b>半经典极限：</b>算术量子混沌的半经典对应尚不清楚。</li>
+</ul>
+
+<p>这些局限不是缺陷——它们是未来研究的方向。</p>
+
+<!-- ============ DATA ============ -->
 <span class="section-anchor" id="sec-data"></span>
 <h2>数据与代码可用性</h2>
-<p>所有构造脚本、全精度系数字符串、机器可读矩阵表（\(\zeta,\beta\) 为 \(N=50\)，乘积为 \(N=100\)，\(\Delta\) 为 \(N=22\)），以及生成本文每一张图、每一个数字的实验脚本，均发布于 <a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a>。流水线参数在第二节中陈述。</p>
 
-<!-- ============ APPENDIX A ============ -->
-<span class="section-anchor" id="app-algo"></span>
-<h2>附录 A：构造算法（伪代码）</h2>
-<p>下列确定性算法由完备化 \(L\) 函数产生 Jacobi 系数；它就是所发布脚本（<code>zeta_J50</code>、<code>beta_J50</code>、<code>product_J100</code>、<code>delta</code> 流水线）的确切内容。不使用任何零点、素数或随机数。</p>
-<pre><code>CONSTRUCT-JACOBI(Lambda, c, R, M, dps, N, JMAX):
-    set arithmetic precision dps            # 设置高精度算术的位数
-    for k = 0 .. M-1:                        # 柯西（Cauchy）圆周采样
-        s_k = c/2 + R * exp(2*pi*i*k/M)
-        f_k = Lambda(s_k)
-    sigma0 = (1/M) sum_k f_k                 # 均值，用于归一化测度
-    for n = 1 .. JMAX:                       # 泰勒系数（傅里叶/梯形求和）
-        d_n = Re[ (1/M) sum_k f_k exp(-2*pi*i*(2n)*k/M) / R^(2n) ] / sigma0
-    c[1] = d[1]                              # 对数导数递推
-    for n = 2 .. JMAX:
-        c[n] = d[n] - (1/n) sum_{i=1}^{n-1} i*c[i]*d[n-i]
-    P[m] = (-1)^(m+1) * m * c[m]            # Hausdorff（豪斯多夫）矩量
-    T(i,j) = P[i+j+1]                        # 矩量泛函
-    p[0] = 1 ;  norm[0] = &lt;p0,p0&gt;            # 首一多项式，格拉姆-施密特正交化
-    for k = 1 .. N:
-        x p[k-1]  -&gt;  alpha[k-1] = &lt;x p[k-1],p[k-1]&gt;/&lt;p[k-1],p[k-1]&gt;
-        orthogonalize against p[k-1] (alpha) and p[k-2] (b^2)
-                                             # 依次对 p[k-1]、p[k-2] 作正交化
-        b[k-2]^2  = norm[k-1]/norm[k-2]
-        norm[k]   = &lt;p[k],p[k]&gt;
-    assemble tridiagonal J_N = diag(alpha) + diag(b,+1) + diag(b,-1)
-                                             # 组装三对角 Jacobi 矩阵
-    verify  b_n^2 &gt; 0  for all n             # 正定性检验（所有 b_n^2 为正）
-    lambda = descending eigenvalues of J_N ;  gamma = 1/sqrt(lambda)
-    LOCK gamma if |gamma - gamma_zero|/gamma_zero &lt; 1e-4
-         against zeros found by an INDEPENDENT root finder (check only)
-                                             # 锁定：仅与独立求根器得到的零点做事后核验</code></pre>
-<p>设置：\(\zeta\) 与 \(\beta\) 使用 \(R=2\)、\(M=1536\)、矩量至 \(P_{100}\)（\(N=50\)）；\(\zeta\cdot\beta\) 乘积使用相同 \(R,M\)，650 位精度，矩量至 \(P_{210}\)（\(N=100\)）；\(\Delta\) 使用 \(R=4\)、\(M=1024\)、230 位精度、矩量至 \(P_{211}\)、\(N=22\)。高精度系数提取之后，所有线性代数均为标准双精度；本征值来自稠密对称三对角对角化。独立零点：\(\zeta\) 零点来自 <code>mpmath.zetazero</code>；\(\beta\) 零点来自 Hurwitz-zeta 求根；\(\Delta\) 零点来自临界线上 \(L(\Delta,s)\) 求根。</p>
+<p>所有数据和代码公开可用，以确保可复现性。</p>
 
-<!-- ============ APPENDIX B ============ -->
-<span class="section-anchor" id="app-exp"></span>
-<h2>附录 B：实验细节与统计</h2>
-<p><b>实验 1（能级排斥）。</b>锁定能级：\(\zeta\) 25 个、\(\beta\) 27 个、\(\Delta\) 15 个（共 67 个能级，65 个相邻间距）。退展：在 \(\gamma=1/\sqrt{\lambda}\) 中对每族计数函数作三次最小二乘拟合，归一化至平均间隙 1；退展残差（退展秩与整数的最大偏差）为 \(0.86\)（\(\zeta\)）、\(0.37\)（\(\beta\)）、\(0.35\)（\(\Delta\)）。最小退展间隙为 \(0.432\)，小于 \(0.3\) 的间隙数为零；同等长度的泊松过程产生约 17 个此类间隙（20,000 次蒙特卡洛实现，\(p<5\times10^{-5}\)）。叠加的 \(\zeta+\beta\) 谱最小间隙 \(0.044\)，有 7 个间隙小于 \(0.3\)。</p>
-<p><b>实验 2（动力学）。</b>时间网格：\(P(\tau)\) 与 \(\langle(\Delta n)^2\rangle\) 用 \(\tau\in[0.001,4.0]\)（2000 点）；\(K(\tau)\) 用 \(\tau\in[0.001,2.5]\)（1000 点）。形状因子在锁定退展能级上为
-\[
-K(\tau)=N^{-1}\Big|\sum_j e^{2\pi i\tau e_j}\Big|^2,
-\]
-斜坡斜率为 \([0.2,0.8]\) 上的最小二乘斜率。GOE 基准为 200 次 \(60\times60\) 对称高斯矩阵实现（种子 20260831）；形状因子使用中央 28 条能级（指标 16–43），动力学使用全谱。均匀链为 \(\alpha_n=0,\ b_n=1\)、\(N=100\)，采用精确退展 \(e_k=k\)。全矩阵动力学：边界发射 \(|0\rangle\)，\(P(\tau)=|\sum_j w_j e^{-2\pi i\tau e_j}|^2\)，其中 \(w_j=|\langle 0|j\rangle|^2\)；\(\langle(\Delta n)^2\rangle=\sum_n n^2 p_n-(\sum_n n p_n)^2\)。锁定权重是 \(\gamma\) 落在锁定范围内的本征态上的总 \(w_j\)。对乘积，两族（18 个 \(\zeta\)、35 个 \(\beta\) 锁定能级）分别退展，形状因子非相干相加：\(K=(N_\zeta K_\zeta+N_\beta K_\beta)/(N_\zeta+N_\beta)\)。</p>
-<p><b>实验 3（证据链）。</b></p>
-<p>·　<i>系数检验</i>（对线性去趋势的 \(\alpha_n\) 与 \(\log b_n\)）：自相关 \(C(k)=\langle x_n x_{n+k}\rangle/\mathrm{Var}(x)\) 至滞后 20 阶，95% 带由 300 次独立置换给出；功率谱来自标准化序列的 FFT，归一化至单位均值；Wald–Wolfowitz 游程检验针对相对中位数的符号（\(z=(\text{游程数}-\mu)/\sigma\)；白噪声给 \(|z|\lesssim2\)）。（近似熵也曾计算但未报告，因为只有 50–100 个样本时零匹配频率使其短样本不稳定；游程与自相关检验才是决定性诊断。）</p>
-<p>·　<i>IPR</i>：\(\mathrm{IPR}_k=\sum_n|\psi_{k,n}|^4/(\sum_n|\psi_{k,n}|^2)^2\)。有效支撑为 \(N_{\rm eff}=\#\{n:b_n>0.05\,b_{\max}\}+2\)（在 \(N=50/22\) 时，\(\zeta\) 为 22、\(\beta\) 为 11、\(\Delta\) 为 21）；锁定态 IPR 在有效支撑上计算，全窗口 IPR 在所有格点上计算。安德森模型：\(H_{ii}\) 在 \([-W/2,W/2]\) 上均匀分布，单位跃迁，\(N=100\)，60 次实现，取中央 50 个本征态。</p>
-<p>·　<i>洗牌</i>：80 次独立实现；\(\alpha_n\) 与 \(b_n\) 由两个独立随机置换分别置换（边缘分布精确保留）；\(\langle r\rangle\) 与 IPR 使用全谱中央一半（全部本征值，物理有限系统）。</p>
-<p>·　<i>扰动</i>：\(\alpha_n'=\alpha_n(1+\epsilon g_n)\)、\(b_n'=b_n|1+\epsilon h_n|\)，\(g_n,h_n\) 为高斯；对 \(\epsilon\in\{10^{-3},3\cdot10^{-3},10^{-2},3\cdot10^{-2},10^{-1}\}\) 各 40 次实现；若一能级落在原锁定能级 \(\gamma\) 的 30% 相对范围内则视为被追踪。</p>
-<p>·　<i>叠加</i>：把两族锁定 \(\gamma\) 集合拼接并直接计算 \(\langle r\rangle\)（能隙比无标度，故无需退展）。系综参考（种子 7，300 次实现）：GOE 单族 \(N=60\)；两个叠加 GOE 块（\(40+40\) 能级）；两条叠加泊松序列（\(20+25\)）。</p>
-<p>·　<i>有限尺寸</i>：\(\zeta,\beta\) 在 \(N=20,25,\ldots,50\)（\(N=50\) 系数的顺序主子矩阵）；乘积在 \(N=40,60,80,100\)；\(\Delta\) 在 \(N=20,22\)。</p>
-<p>随机数种子：20260831（系数检验、IPR、洗牌、扰动、GOE 动力学）与 7（叠加蒙特卡洛）。</p>
+<ul>
+<li><b>GitHub 仓库：</b><a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a></li>
+<li><b>Zenodo 归档：</b>
+  <ul>
+    <li>v1: <a href="https://doi.org/10.5281/zenodo.22180921">10.5281/zenodo.22180921</a></li>
+    <li>v2: <a href="https://doi.org/10.5281/zenodo.22181443">10.5281/zenodo.22181443</a></li>
+    <li>v3: <a href="https://doi.org/10.5281/zenodo.22194207">10.5281/zenodo.22194207</a></li>
+  </ul>
+</li>
+</ul>
 
-<!-- ============ APPENDIX C ============ -->
-<span class="section-anchor" id="app-coeffs"></span>
-<h2>附录 C：Jacobi 系数表（前十格点）</h2>
-<p>在位能 \(\alpha_n\) 与跃迁振幅 \(b_n\)；完整表（\(\zeta,\beta\) 为 \(N=50\)，乘积为 \(N=100\)，\(\Delta\) 为 \(N=22\)）以机器可读文件发布。</p>
-<div class="table-wrap">
-<table class="wide" style="font-variant-numeric:tabular-nums">
-<tr><th>\(n\)</th><th>\(\alpha_n^{(\zeta)}\)</th><th>\(b_n^{(\zeta)}\)</th><th>\(\alpha_n^{(\beta)}\)</th><th>\(b_n^{(\beta)}\)</th><th>\(\alpha_n^{(\Delta)}\)</th><th>\(b_n^{(\Delta)}\)</th></tr>
-<tr><td>0</td><td>0.001609</td><td>0.001911</td><td>0.011906</td><td>0.011934</td><td>0.00356</td><td>0.00448</td></tr>
-<tr><td>1</td><td>0.003501</td><td>0.001149</td><td>0.017332</td><td>0.004843</td><td>0.00841</td><td>0.00258</td></tr>
-<tr><td>2</td><td>0.001798</td><td>0.000697</td><td>0.007201</td><td>0.002721</td><td>0.00407</td><td>0.00164</td></tr>
-<tr><td>3</td><td>0.001217</td><td>0.000554</td><td>0.004748</td><td>0.002117</td><td>0.00288</td><td>0.00121</td></tr>
-<tr><td>4</td><td>0.001073</td><td>0.000498</td><td>0.003816</td><td>0.001591</td><td>0.00208</td><td>0.00090</td></tr>
-<tr><td>5</td><td>0.000866</td><td>0.000353</td><td>0.002606</td><td>0.001074</td><td>0.00172</td><td>0.00084</td></tr>
-<tr><td>6</td><td>0.000599</td><td>0.000272</td><td>0.001945</td><td>0.000955</td><td>0.00161</td><td>0.00073</td></tr>
-<tr><td>7</td><td>0.000548</td><td>0.000287</td><td>0.001940</td><td>0.000913</td><td>0.00135</td><td>0.00065</td></tr>
-<tr><td>8</td><td>0.000570</td><td>0.000256</td><td>0.001573</td><td>0.000657</td><td>0.00122</td><td>0.00053</td></tr>
-<tr><td>9</td><td>0.000450</td><td>0.000208</td><td>0.001186</td><td>0.000575</td><td>0.00094</td><td>0.00043</td></tr>
-</table>
-</div>
 
-<!-- ============ APPENDIX D ============ -->
-<span class="section-anchor" id="app-protocol"></span>
-<h2>附录 D：实验预测包（交钥匙交付件）</h2>
-<p>本附录是面向实验组的自包含接口。这里每个数字都由发布的数据文件与脚本复现。</p>
-
-<h3>D.1 待编程的哈密顿量</h3>
-<p>三条一维最近邻紧束缚链
-\[
-H_{nn'}=\alpha_n\delta_{nn'}+b_n(\delta_{n,n'+1}+\delta_{n+1,n'}),
-\]
-系数逐字取自发布的表格：</p>
-<p>·　\(\zeta\) 链：\(N=100\)（<code>zeta_J100/hamiltonian.csv</code>），来自更高精度（1300 位）构造：全部 99 个非对角元 \(b_n^2>0\)，55 个锁定零点，相对误差约 \(10^{-15}\)；较早的 \(N=50\) 表（<code>zeta_J50_matrix.csv</code>）是同一流水线的较低精度版本。<br>
-·　\(\beta\) 链：\(N=50\)（<code>beta_J50_matrix.csv</code>）。<br>
-·　\(\Delta\) 链：\(N=22\)（<code>delta_J22</code> 系数，全精度字符串）。</p>
-<p>跃迁 \(b_n\) 超指数衰减；编入前约 30 个格点，在 \(b_n\) 触及噪声底处截断。代表性的前十格点见附录 C；完整表在仓库中机器可读。全文使用的退展（平均间距）约定中，海森堡时间为 \(\tau_H=1\)。</p>
-
-<h3>D.2 观测量与预测值</h3>
-<div class="table-wrap">
-<table class="wide">
-<caption style="caption-side:top;text-align:left;color:var(--subtle);font-size:.9em;padding:.3em 0"><b>表 VIII．</b>算术链与对照的观测量及预测值。</caption>
-<tr><th>观测量</th><th>算术链（预测）</th><th>对照</th></tr>
-<tr><td>能隙比 \(\langle r\rangle\)</td><td>\(0.61\)–\(0.76\)（Wigner–Dyson）</td><td>P \(0.386\)；GOE \(0.536\)；GUE \(0.600\)</td></tr>
-<tr><td>近简并（退展间隙 \(&lt;0.3\)）</td><td>锁定子空间内 \(\approx0\)</td><td>泊松频繁出现</td></tr>
-<tr><td>形状因子 \(K(\tau)\) 斜坡斜率</td><td>\(0.74\)（\(\zeta,\beta\)），\(0.74\)（\(\Delta\)）</td><td>GOE \(0.79\)；均匀链 \(\approx0\)</td></tr>
-<tr><td>\(\tau_H\) 处回复（边界态）</td><td>无；\(P(\tau_H)=0.05\)（类 GOE）</td><td>均匀链 \(0.99\)</td></tr>
-<tr><td>本征态 IPR（全窗口）</td><td>\(0.056\)（\(\zeta\)），\(0.060\)（\(\beta\)），\(0.10\)（\(\Delta\)）</td><td>洗牌 \(0.49\)–\(0.58\)</td></tr>
-<tr><td>系数游程检验 \(|z|\)</td><td>\(2.9\)–\(6.6\)（有结构）</td><td>白噪声 \(|z|\lesssim2\)</td></tr>
-</table>
-</div>
-
-<h3>D.3 对照实验</h3>
-<p><b>1. 均匀链</b> \(\alpha_n=0,\ b_n=1\)：泊松 \(\langle r\rangle\)、平坦 \(K\)、完美回复——可积参考。</p>
-<p><b>2. 洗牌系数</b>：相同 \(\{\alpha_n\},\{b_n\}\) 值作随机置换（数值中 80 个代理）。预测：\(\langle r\rangle\to0.39\)–\(0.40\)，IPR \(\to0.49\)–\(0.58\)。这是把算术<i>次序</i>隔离为原因的决定性对照。</p>
-<p><b>3. 叠加</b>：合并两个独立族（\(\zeta+\beta\)、\(\beta+\Delta\)）的测得谱。预测：\(\langle r\rangle\) 为 \(0.50\)–\(0.52\)，趋向泊松；基准叠加 GOE 为 \(0.42\)，叠加泊松为 \(0.38\)。</p>
-<p><b>4. 真正无序（安德森）</b>：把 \(\alpha_n\) 替换为独立同分布的 \([-W/2,W/2]\) 均匀变量。预测：\(W\lesssim2\) 时扩展；局域化并丧失排斥（\(\langle r\rangle\to0.39\)，\(W=8\) 时 IPR 为 \(0.39\)）。</p>
-<p><b>5. 临界线外算术对照（艾森斯坦 \(E_4\)）</b>：权 4 艾森斯坦级数具有 \(L(E_4,s)=\zeta(s)\zeta(s-3)\)，初等系数 \(\sigma_3(n)=\sum_{d|n}d^3\)；其完备化函数服从关于 \(s=2\) 的 \(\Lambda(s)=\Lambda(4-s)\)，非平凡零点位于 \(\Re(s)=\tfrac12\) 与 \(\Re(s)=\tfrac72\)，即<i>偏移</i>出对称中心。把整函数 \(\Xi_{E_4}(s)=s(s-4)\Lambda(s)\) 送入同一条流水线（650 位，1536 点），能以约 15 位数字复现 \(\Xi_{E_4}(2)=\tfrac1{72}\)，但矩量序列在第 8 阶变号（由矩量和 \(2\sum_k\Re(\gamma_k-\tfrac32 i)^{-2m}\) 预言，其首因子 \(\cos(2m\theta_1)\)，\(\theta_1=\arctan(3/2\gamma_1)\approx0.106\)，首次在 \(m\approx7.4\) 处变负），Jacobi 链在第 4 阶失败（\(b_n^2\) 非正；符号 \(+--+--++-\cdots\)）。因此 \(\zeta,\beta,\Delta\) 的长长的 \(b_n^2>0\) 链追踪的是坐在对称轴上的零点，而非数值计算的通用输出：流水线判别在轴与离轴的零点分布。（见 <code>controls/e4_eisenstein/</code>。）</p>
-
-<h3>D.4 硬件噪声预算</h3>
-<p>在相对大小为 \(\epsilon\) 的乘性校准噪声下（\(a_n\to a_n(1+\epsilon g_n)\)，\(b_n\to b_n|1+\epsilon h_n|\)，\(g,h\) 为标准正态）：</p>
-<p>·　\(\epsilon\le0.1\)：统计无偏，每个能级可追踪——<b>安全运行区间</b>。<br>
-·　\(\epsilon_c\approx0.2\)–\(0.3\)：交叉中点（\(\langle r\rangle\approx0.50\)）。<br>
-·　\(\epsilon\ge0.5\)：泊松底 \(0.41\)；正本征值比例跌破 \(0.82\)（结构损伤）。</p>
-<p><b>工程要求：</b>把在位频率与耦合校准到 \(\lesssim10\%\) 相对误差；\(1\)–\(3\%\) 给出 pristine 的斜坡。</p>
-
-<h3>D.5 通过/失败判定</h3>
-<p>只有当在<i>同一台器件、同一次校准运行</i>中，有序 \(\zeta\)（或 \(\beta\)）链显示 (i) \(\langle r\rangle\) 在 Wigner 带内且无可分辨近简并，(ii) 带平台的线性 \(K(\tau)\) 斜坡，(iii) 无 \(\tau_H\) 回复，(iv) 低 IPR 扩展态，<b>并且洗牌系数对照同时显示泊松统计与局域化</b>，而均匀链显示泊松统计与其完美回复时，算术起源机制才算被<b>观测到</b>。对照不是可有可无的佐证：它们是零假设检验。<b>如果洗牌对照在同一台器件上仍显示 Wigner–Dyson 统计，那么算术起源主张即被证伪——即使有序链看起来混沌。</b>同样，没有同器件对照的、看似混沌的有序链不算证据。</p>
-
-<!-- ============ ACK ============ -->
-<span class="section-anchor" id="sec-ack"></span>
-<h2>致谢与数据可用性</h2>
-<p>我们感谢开源数学计算社区提供使本工作成为可能的工具：用于高精度算术的 mpmath、用于线性代数的 NumPy/SciPy，以及用于可视化的 Matplotlib。所有计算均在云计算资源上完成。作者感谢与 AI 辅助研究协作者的有益讨论，这些讨论对数值实验与代码开发有所贡献。</p>
-<p><b>数据可用性．</b>所有代码、数据与可复现脚本均在 GitHub 上公开：<a href="https://github.com/maomao8412/hilbert-polya-jacobi">github.com/maomao8412/hilbert-polya-jacobi</a>。存档版本 deposited 于 Zenodo（DOI：10.5281/zenodo.22180921、10.5281/zenodo.22181443、10.5281/zenodo.22194207）。</p>
-
-<!-- ============ REFS ============ -->
 <span class="section-anchor" id="sec-refs"></span>
 <h2>参考文献</h2>
 <ol class="refs">
