@@ -6,7 +6,7 @@
 <title>哥德巴赫猜想的分圆塔证明</title>
 <script>
 window.MathJax = {
-  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$','$$'], ['\\[','\\]']], tags: 'none' },
+  tex: { inlineMath: [['$','$'], ['\\(', '\\)']], displayMath: [['$$','$$'], ['\\[','\\]']], tags: 'none' },
   svg: { fontCache: 'global' },
   options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
 };
@@ -15,7 +15,8 @@ window.MathJax = {
 <style>
   :root{--bg:#fdfdfb;--text:#1a1a1a;--heading:#1a4a8a;--subtle:#555;--rule:#c9c9c9;--accent:#8a2b1a;--code-bg:#f4f3ef;--green:#0a6b2b}
   *{box-sizing:border-box}
-  body{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);max-width:none;margin:0;padding:34px 22px 80px;line-height:1.85;font-size:17px}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);margin:0;padding:34px 22px 80px;line-height:1.85;font-size:17px}
+  .container{max-width:1000px;margin:0 auto}
   h1,h2,h3{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;color:var(--heading);line-height:1.4}
   h1{font-size:1.85em;text-align:center;margin:0 0 .3em;border-bottom:2px solid var(--heading);padding-bottom:.4em}
   .subtitle{text-align:center;color:var(--subtle);font-style:italic;margin-bottom:2em}
@@ -49,7 +50,7 @@ window.MathJax = {
   .proof-box{background:#eef7f0;border:1px solid #b8d8be;border-radius:6px;padding:.8em 1.4em;margin:1.2em auto;max-width:1000px;text-align:center}
   .proof-box .label{font-weight:bold;color:var(--green);font-size:1.05em;display:inline}
   .consequence{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.6em 1.2em;margin:1em 0}
-  h1,h2,h3,p,blockquote,.boundary,.links,.hero,.fig,.formula,pre,.subtitle,.table-scroll{max-width:1000px;margin-left:auto;margin-right:auto}
+  h1,h2,h3,p,blockquote,.boundary,.links,.hero,.fig,.formula,pre,.subtitle,.table-scroll{max-width:100%}
   img{display:block;margin:1.2em auto;max-width:100%;width:min(100%,1000px);height:auto;border:1px solid var(--rule);border-radius:4px}
   @media (max-width:768px){body{padding:16px 10px 60px;font-size:16px;line-height:1.8}h1{font-size:1.45em}h2{font-size:1.18em}h3{font-size:1.05em}.hero{padding:1em .7em}.hero .chain{font-size:.9em;line-height:2.05}.boundary,.links,.proof-box,.consequence{padding:.7em .9em}}
 </style>
@@ -57,6 +58,7 @@ window.MathJax = {
 <body>
 <!-- top-nav -->
 <nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">量子混沌物理论文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">物理论文(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="three_term_viz/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">三通道可视化</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="constants.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">数论常数</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">Goldbach(中文)</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="paper/q_unifies_four_conjectures.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">八字曲线之钥</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">审稿回应</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码仓库</a></nav>
+<div class="container">
 
 <h1>哥德巴赫猜想的分圆塔证明</h1>
 <p class="subtitle">Cyclotomic Tower Proof of Goldbach's Conjecture</p>
@@ -218,5 +220,6 @@ $$c_8(N) = \begin{cases} 4 & N \equiv 0 \pmod{8} \\ -4 & N \equiv 4 \pmod{8} \\ 
 
 <p style="text-align:center;color:var(--subtle);font-size:.9em;margin-top:1.5em">无条件完整证明。分圆塔 CRT 分解是解决劣弧灾难的核心工具。</p>
 
+</div>
 </body>
 </html>
