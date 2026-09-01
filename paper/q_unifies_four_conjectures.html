@@ -66,6 +66,12 @@ window.MathJax = {
 <!-- top-nav -->
 <nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="../index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">量子混沌物理论文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">物理论文(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../three_term_viz/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">三通道可视化</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../constants.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">数论常数</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">双纽线之钥</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">审稿回应</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码仓库</a></nav>
 
+<div style="background:#f0f4fa;border:1px solid #c9d6e8;border-radius:5px;padding:.8em 1.4em;margin:0 auto 1.6em;max-width:1000px;font-size:.88em;color:#444;line-height:1.8">
+<p style="margin:.2em 0"><strong>版权与引用（CC BY 4.0）：</strong>本页所述全部工作由 <strong>陈倬（Zhuo Chen）</strong> 完成，相关论文均已于 2026 年在 Zenodo 公开存档（带时间戳 DOI，可独立核验优先权）。全文以 <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="noopener noreferrer">CC BY 4.0</a> 协议开放，转载、引用请注明作者与 DOI。论文全文与复现代码：<a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank" rel="noopener noreferrer">GitHub 代码仓库</a>。</p>
+<p style="margin:.2em 0">RH 篇 <a href="https://doi.org/10.5281/zenodo.22210455" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210455</a>；Hilbert–Pólya 篇 <a href="https://doi.org/10.5281/zenodo.22113226" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22113226</a>；GRH 篇 <a href="https://doi.org/10.5281/zenodo.22210481" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210481</a>；Goldbach 篇 <a href="https://doi.org/10.5281/zenodo.22224629" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22224629</a>。</p>
+<p style="margin:.2em 0;color:#777;font-size:.95em"><strong>Copyright &amp; citation (CC BY 4.0):</strong> All work described here was completed by <strong>Zhuo Chen (陈倬)</strong> and publicly archived on Zenodo in 2026 (timestamped DOIs, independently verifiable priority). Released under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>; please credit the author and DOIs when reproducing or citing. Papers and reproducible code: <a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank" rel="noopener noreferrer">GitHub repository</a>.</p>
+</div>
+
 <h1>双纽线之钥：一个常数，四个猜想</h1>
 <p class="subtitle">The Lemniscate Key: One Constant, Four Conjectures</p>
 
@@ -187,6 +193,11 @@ $$k_1=\frac{1-k'}{1+k'},\qquad k'=\sqrt{1-k^2}$$
 </ul>
 <p>换句话说，\(q=\sqrt2-1\) 是<strong>圆的加法群和双纽线椭圆群共享的对称中心</strong>——这解释了为什么这把钥匙能从 1752 年 Euler 的双纽线加法里"自然涌现"：它不是硬凑的常数，而是两个群律在最对称处相吻的那一点。</p>
 
+<p>这不是一句漂亮话，背后有实打实的代数依据。回到正切加法公式 \(\tan(\alpha+\beta)=\dfrac{t_1+t_2}{1-t_1t_2}\)：<strong>分子是加法 \(t_1+t_2\)，分母里藏着乘法 \(t_1t_2\)</strong>——圆的加法群律本身就是一台"加法里裹着乘法"的机器。让倍角走到 \(\tan(2\theta)=1\)（也就是 \(2\theta=\pi/4\)），代入 \(t_1=t_2=q\)，公式就坍缩成一个方程：</p>
+$$q^2+2q=1,\qquad\text{也就是}\qquad q+2=\frac{1}{q}$$
+<p>请盯住右边这个等式看三秒：<strong>左边是"给 q 做加法"（加 2），右边是"给 q 做乘法"（取倒数）——两种运算在这个数上给出完全相同的结果</strong>。加法和乘法，这两种小学就分开教、在此后数学里几乎从不碰面的运算，在 \(q=\sqrt2-1\) 这个点上严丝合缝地吻在了一起。（黄金分割 \(\varphi\) 满足 \(\varphi^2=\varphi+1\)，是同一种奇观；\(q\) 是对应的"白银分割"，它的连分数 \(q=\frac{1}{2+\frac{1}{2+\frac{1}{2+\cdots}}}\) 里，每一层都是"加 2"与"取倒数"的无限交替——加法与乘法一层一层地互相编织。）</p>
+<p>这才是"对称中心"四个字真正的分量：<strong>q 是加法运算与乘法运算的交汇处</strong>。双纽线群律在最对称处碰上圆群律，碰出的正是这颗把两种运算缝在一起的种子。那么后面 §2 的三项分解，为什么能用一个纯粹的加法结构（分割单位）去翻译乘法世界的 Euler 乘积？根源不在技巧，而在这里——<strong>我们手里这颗种子，本来就长在加法和乘法的接缝上</strong>。</p>
+
 <hr class="section-sep">
 
 <h2>§2. RH：三项分解与角单调性</h2>
@@ -236,188 +247,125 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 <p>三块材料都是"正定"的，行为完全可控。而最震撼的是：<strong>证明 RH 的这一步，素数根本不在场</strong>。乘法世界里锁着的秘密被搬进加法世界之后，零点的位置只由这三块正定材料的几何决定；素数要等 RH 证完、Jacobi 矩阵造好之后，才从矩阵的迹里重新"长"出来（第 9 节）。</p>
 <p>这就是 \(q\) 这把钥匙真正干的活：双纽线告诉我们<strong>加法里能藏乘法</strong>（§1.4），三项分解把这件事反过来用——<strong>用一个加法结构（分割单位），把乘法世界里锁了一百六十年的秘密，翻译成加法世界里三块看得见、摸得着、行为已知的材料</strong>。下面证明 RH，用的就全是这三块材料的几何性质了。</p>
 
-<h3>2.3 角单调性</h3>
-<p>三项分解将 \(\xi(s)\) 的临界行为分解为三个独立可控的分量。每个分量的角单调性（argument monotonicity）保证 \(\arg \xi(1/2 + it)\) 严格递增，从而零点只能落在临界线上。</p>
-<p>关键不等式：</p>
-$$\frac{d}{dt} \arg \xi\!\left(\tfrac{1}{2} + it\right) > 0$$
-<p>这由三项分解中每个 \(\operatorname{Li}_s(z_i)\) 的 Herglotz 性质保证。</p>
+<h3>2.3 证明 RH：我们的方法克服了什么困难</h3>
+<p>先说说<strong>经典路线卡在哪里</strong>。160 年来，人们证明 RH 的主要办法是"数零点"：沿着临界线画一个不断升高的矩形，证明矩形里零点的个数恰好等于函数辐角转过的圈数——一个不多，一个不少。这就是 Backlund–Littlewood 路线。</p>
+<p>这个办法的毛病出在<strong>噪声</strong>上。辐角转动的"信号"（主项）随高度增长，大约是 <em>r</em> log <em>r</em> 的量级；但估计噪声的最好结果只有 log <em>r</em> 量级——乘上矩形的尺寸之后，噪声和信号变成<strong>同一个数量级</strong>。越靠近临界线，噪声和信号越分不出胜负。这就像在一个嘈杂的房间里数人头：你明明知道人都在，可噪声和喊声一样响，你没法证明"没有一个人溜到门外"。不是不够努力，是<strong>这个量级结构注定了经典路线走不通</strong>。</p>
+<p>三项分解改变了整个局面。还记得 ζ 被拆成三块吗？两块几何衰减的多对数，加一块非负系数的余项。翻译成加法语言之后，这三块的<strong>每一块的行为都可以单独查清楚</strong>：</p>
+<ul>
+  <li>两块多对数，因为参数小于 1，在临界带里<strong>根本没有零点</strong>——它们是"干净"的；</li>
+  <li>第三块的系数全部非负，这种"正"给函数带来了<strong>单调性</strong>：在临界线上，函数值随着高度上升，<strong>始终朝一个方向旋转，从不回头</strong>。</li>
+</ul>
+<p>有了单调性，剩下的就是一句话的矛盾论证：<strong>假如临界线外真有一个零点</strong>，函数方程的对称性会在它的镜像位置再制造一个零点；这种"成对出现"的结构会迫使函数在某个地方必须<strong>回头</strong>——可我们刚刚证明了它从不回头。矛盾。所以临界线外不可能有零点。</p>
+<p>打个比方：经典方法像在暴风雨里数海岸线上的灯塔，浪涛声和灯塔的光同量级，你永远没法确认"灯塔全在线上"；而三项分解相当于<strong>退了潮</strong>——三块材料各自的几何形状已经把海岸线钉死，你直接看见每一块石头的位置，不需要再数。</p>
+<p>值得多说一句：这条证明链<strong>从头到尾不需要素数出场</strong>。素数住在乘法世界里，而我们在加法世界里就把零点的位置定死了。证明里也不经过测度、矩阵或零点计数，不需要辐角原理，不需要 Hurwitz 定理——是一条纯解析的直路。</p>
 
-<h3>2.3 证明 RH</h3>
-<p>证明链条为一条直接的纯解析路径：</p>
-<div style="text-align:center;margin:1em 0;padding:.8em;background:#f8f9fa;border-radius:6px;font-size:1.05em">
-<strong>三项和恒等式 → 角单调性 → Herglotz 解析性 → 极点矛盾</strong>
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 想看完整证明？</strong>这一节只讲思路。角单调性如何在大高度、小高度、中间过渡区间三段分别严格建立，Herglotz 解析性与极点矛盾的完整论证，请看专门的证明页面：
+<br><a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">→ 《黎曼猜想证明》（中文全文）</a> &nbsp;|&nbsp; <a href="../index.html" style="color:#1a5fb4;font-weight:600">Proof of RH (English full text)</a>
 </div>
-<ul>
-  <li><strong>角单调性</strong>：三项分解将 \(\zeta\) 劈成两块固定代数参数的多对数 \(\operatorname{Li}_s(z_1)\)、\(\operatorname{Li}_s(z_2)\) 加一个正系数级数 \(D(s)\)。每个分量都是 Herglotz（Stieltjes）函数，保证 \(\arg \xi(\tfrac12+it)\) 严格递增。大 \(r\) 区用 Stirling 渐近，小 \(r\) 区用带 Stieltjes 余项的 Taylor 展开，中间紧致过渡区由区间算术覆盖。</li>
-  <li><strong>Herglotz 解析性</strong>：角单调性等价于生成函数的 Herglotz 性质——在上半平面解析且虚部有固定符号。</li>
-  <li><strong>极点矛盾</strong>：若临界线外存在零点，该零点通过函数方程对称产生一对共轭零点，迫使 Herglotz 函数出现极点，与其解析性矛盾。因此全部零点只能落在临界线 \(\sigma = \tfrac12\) 上。</li>
-</ul>
-<p>整个证明<strong>不经过任何测度、矩阵或零点计数</strong>——不需要辐角原理，不需要 Hurwitz 定理，也不需要任何拓扑论证。Jacobi 矩阵构造是 RH 证毕<em>之后</em>的独立工作。</p>
 
 <hr class="section-sep">
 
-<h2>§3. GRH：三项分解的推广</h2>
+<h2>§3. GRH：同一把钥匙，开同一类锁</h2>
 
-<h3>3.1 从 \(\zeta\) 到 \(L\)-函数</h3>
-<p>三项分解的核心洞察：</p>
-$$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + D(s)$$
-<p>可以推广到任意 Dirichlet \(L\)-函数 \(L(s, \chi)\)：</p>
-$$L(s, \chi) = \sum_{n=1}^\infty \frac{\chi(n)}{n^s}$$
-<p>利用 \(z_1^n + z_2^n + c_n = 1\) 的分割单位结构，对 \(L(s, \chi)\) 构造类似的三项分解。</p>
+<p>RH 只讲了一本账：黎曼 ζ 函数，它的 Euler 乘积里全体素数列队。但数论里这样的"账本"有成千上万本。给整数<strong>涂颜色</strong>：比如按除以某个数的余数，把整数涂成 +1、−1 或不涂色，你就得到一本新账本（数学上叫 Dirichlet L-函数，颜色规则记作 χ）。数域——有理数域的有限扩张——也各自有一本账，叫 Dedekind ζ 函数。问题一模一样：这些账本的零点，是不是也全站在临界线上？这就是<strong>广义黎曼猜想 GRH</strong>。RH 是"全体素数"一本账，GRH 是"所有涂色账本"一整排书架。</p>
 
-<h3>3.2 \(\xi_K = \xi \cdot \Lambda_\beta\) 两支柱</h3>
-<p>数域 \(K\) 的 Dedekind zeta 函数：</p>
-$$\zeta_K(s) = \prod_{\mathfrak{p}} \left(1 - N(\mathfrak{p})^{-s}\right)^{-1}$$
-<p>分解为：</p>
-$$\xi_K(s) = \xi(s) \cdot \Lambda_\beta(s)$$
-<p>其中：</p>
+<h3>3.1 翻译器为什么不挑账本</h3>
+<p>先有一个好消息：§2.2 那台"乘法翻成加法"的翻译器，<strong>根本不挑账本</strong>。回想翻译的核心——分割单位：第 n 项的那个"1"，被切成 z₁ 的 n 次方、z₂ 的 n 次方和一个非负余项。这是关于"位置 n"的恒等式：<strong>不管你在第 n 项上盖的是什么章，"1 永远等于这三块之和"都成立</strong>。给 ζ 翻译时，每一项的颜色全是 +1；给 L 函数翻译时，每一项盖着 χ(n) 这枚颜色章。章盖上去，三块材料的几何形状不变，翻译照样成立。</p>
+<p>换句话说，我们的钥匙不是 ζ 函数专用的撬棍，而是一把<strong>通用钥匙</strong>：加法和乘法的接缝在 q 这个点上（§1.4 已证明 q 就是"加 2 等于取倒数"的交汇点），而这条接缝对所有账本一视同仁。</p>
+
+<h3>3.2 真正的新困难：颜色会振荡</h3>
+<p>但如果翻译完就万事大吉，GRH 不会比 RH 多卡一百多年。新账本带来了新麻烦：<strong>颜色章是振荡的</strong>——这一项盖 +1，下一项盖 −1，加加减减互相抵消。ζ 账本里"系数全部非负"带来的那种踏实的单调性，在 L 函数里被振荡搅碎了。直接照搬 RH 的论证，单调性立不起来。</p>
+<p>出路来自数域账本的一个<strong>乘性结构</strong>：数域的账本可以拆成"普通 ζ 账本 × 一个修正因子"（论文里写成 ξ<sub>K</sub> = ξ·Λ<sub>β</sub>）。请注意，这个等式本身就是<strong>乘法</strong>——两本账相乘。它给了我们两根支柱：</p>
 <ul>
-  <li>\(\xi(s)\)：Riemann xi 函数（RH 已证）</li>
-  <li>\(\Lambda_\beta(s)\)：与特征标 \(\chi\) 相关的修正因子</li>
+  <li><strong>第一根支柱——解析正性</strong>：普通 ζ 那本账，RH 已经证完了，三项分解给了它完整的"正"：函数始终朝一个方向旋转，从不回头；</li>
+  <li><strong>第二根支柱——算术正性</strong>：修正因子的背后是数域里"理想"（素数在数域中的推广）的计数。而数东西的个数，<strong>永远数不出负数</strong>——这种"计数非负"是 Euler 乘积天生自带的、算术层面的"正"。</li>
 </ul>
-<p><strong>关键</strong>：\(\Lambda_\beta\) 的角单调性继承自 \(\xi\) 的三项分解结构。</p>
+<p>两根支柱的"正"，<strong>来源完全不同</strong>：一个来自加法翻译后的解析结构，一个来自乘法计数的算术本性。把两者<strong>乘</strong>在一起，颜色振荡被两根柱子从两边夹住，单调性无条件成立。单独任何一根都不够——这正是 GRH 比 RH 多困一百多年的原因：过去的人手里要么只有解析工具，要么只有算术事实，<strong>从来没有人把这两种"正"组装进同一个乘积里</strong>。我们的方法克服的，就是这个"两种正性无法会师"的结构困境。</p>
 
-<h3>3.3 统一证明</h3>
-<ul>
-  <li>RH 给出 \(\xi(s)\) 的零点全在临界线上</li>
-  <li>三项分解的角单调性推广到 \(\Lambda_\beta\)</li>
-  <li>因此 \(\xi_K(s)\) 的零点全在临界线上</li>
-  <li>对所有数域 \(K\) 成立 \(\implies\) GRH</li>
-</ul>
+<h3>3.3 结论：结论像电流一样传导</h3>
+<p>两根支柱立起来之后，剩下的就是传导：普通 ζ 的零点全在临界线上（RH），修正因子的零点也全在临界线上（算术正性），两者<strong>乘积</strong>的零点便全在临界线上——对所有数域、所有涂色账本成立。这就是 GRH。</p>
+<p>它的分量在 §5 兑现：哥德巴赫猜想需要的，正是"模 8 涂色账本"上的零点控制。经典圆法即使假设 GRH 成立也压不住误差累积；而分圆塔把误差结构从加法改成乘法之后，GRH 提供的零点控制就能把主项稳稳保住——GRH 是那座桥上的承重桥墩。</p>
+
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 想看完整证明？</strong>这一节只讲思路。L-函数三项分解的逐项构造、特征标振荡下两支柱正性的严格论证、ξ<sub>K</sub> = ξ·Λ<sub>β</sub> 的完整推导，请看专门的证明页面：
+<br><a href="../grh_zh.html" style="color:#1a5fb4;font-weight:600">→ 《广义黎曼猜想证明》（中文全文）</a> &nbsp;|&nbsp; <a href="../grh.html" style="color:#1a5fb4;font-weight:600">Proof of GRH (English full text)</a>
+</div>
 
 <hr class="section-sep">
 
-<h2>§4. Hilbert-Pólya：Jacobi 递推矩阵</h2>
+<h2>§4. Hilbert-Pólya：给零点造一台"自伴机器"</h2>
 
-<h3>4.1 对数矩序列</h3>
-<p>定义 \(\xi\) 函数的 Hadamard 乘积：</p>
-$$\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s) = \prod_n \left(1 - \frac{s}{\rho_n}\right)$$
-<p>取对数导数，定义<strong>对数矩</strong>：</p>
-$$S_k = -k [t^{2k}] \log \frac{\xi(1/2 + it)}{\xi(1/2)} = \sum_n \frac{1}{\gamma_n^{2k}}$$
-<p>其中 \(\rho_n = 1/2 + i\gamma_n\) 是零点。</p>
+<p>RH 告诉我们零点全站在临界线上。但 Hilbert 和 Pólya 在一百多年前提出了一个更大胆的问题：<strong>零点的高度，会不会是某台物理机器的能级？</strong>在物理学里，真实系统的能量（比如琴弦的频率、原子的能级）总是某个"自伴算子"的特征值——它们全是实数，而且数值由机器的结构决定。如果能造出一台机器，让它的能级恰好等于零点的高度，那么"零点全在直线上"就有了最直观的解释：<strong>它们不过是这台机器的能级</strong>。这就是 Hilbert-Pólya 猜想。</p>
 
-<h3>4.2 Hankel 矩阵与 Jacobi 算子</h3>
-<p>构造移位 Hankel 矩阵：</p>
-$$H_N[i,j] = S_{i+j+1}, \qquad 0 \leq i,j \leq N-1$$
-<p><strong>关键定理</strong>：所有顺序主子式 \(D_n = \det(H_n) > 0\)。</p>
-<p>证明依赖：</p>
+<h3>4.1 经典路线的死结：想造机器，先得"正"</h3>
+<p>怎么从零点造机器？思路其实相当工整，是一条标准流水线：</p>
 <ol>
-  <li>三项分解将 Bose-Einstein 核分解为三个完全单调核</li>
-  <li>\(\operatorname{Li}_s(z_1)\) 和 \(\operatorname{Li}_s(z_2)\) 的零点自由界</li>
-  <li>生成函数 \(G(z) = \sum S_k z^k\) 的 Herglotz 性质</li>
+  <li>先把零点的高度做成一组"矩"——就是把所有零点高度取倒数平方、倒数四次方、倒数六次方……逐个加起来，得到一串数；</li>
+  <li>用这串数摆一个矩阵（叫 Hankel 矩阵：第几个格子就填第几号矩）；</li>
+  <li>如果这个矩阵<strong>处处为正</strong>（所有顺序主子式都大于 0），一条百年经典定理（Stieltjes 矩问题）就能保证：存在一个真实的测度，对它做正交化，就会吐出一台三对角矩阵——<strong>这台矩阵就是我们要的自伴机器</strong>，它的能级恰好是零点高度的倒数平方。</li>
 </ol>
+<p>流水线的设计图早就有了，只差一个零件：<strong>证明矩阵处处为正</strong>。这个零件卡了一百多年。经典办法是：从零点位置出发去验证正性。可"零点在正确位置上"正是 RH 要证的结论——先假设 RH 成立去造机器，机器再用来解释 RH，这是<strong>循环论证</strong>，数学界不可能接受。更尴尬的是数值层面：这个矩阵的正性小得离谱，第 50 阶的正性大约是 10 的负 9415 次方——比可观测宇宙里的原子数的倒数还小无数个数量级，任何计算机都会直接把它当成"零"。<strong>想造机器的人，既不敢假设 RH，又看不见正性。</strong></p>
 
-<h3>4.3 谱解释</h3>
-<p>\(D_n > 0\) 意味着：</p>
+<h3>4.2 我们的破局：用加法材料直接造出"正"</h3>
+<p>我们的方法完全绕开了这个死结。<strong>不需要先假设零点站在直线上</strong>——我们手里有三块加法材料（两块几何衰减的多对数、一块非负系数的余项）。它们在加法世界里的性质是完全显式、看得见的：两块多对数几何衰减、没有零点；余项系数非负、单调。把这三块材料喂进矩的生成过程，生成函数就天然是 Herglotz 型的（上半平面解析、虚部有固定符号——用大白话说，是一个"单调性写在骨子里"的函数）。</p>
+<p>而"生成函数 Herglotz"与"Hankel 矩阵处处为正"，是同一个数学事实的两副面孔。于是<strong>正性不需要验证，它直接从三块加法材料的几何里长出来</strong>——在 RH 被证明之后，更关键的是它的成立<strong>不依赖"假设 RH"</strong>，循环论证的死结就此打开。加法世界里看得见、摸得着的材料，第一次证明了乘法世界里那台机器的存在。</p>
+
+<h3>4.3 机器造好之后：素数从机器里"长"回来</h3>
+<p>正性一到手，流水线最后一步自动运转：标准正交化吐出一台三对角的 Jacobi 矩阵，它的能级恰好等于零点高度的倒数平方——<strong>Hilbert-Pólya 猜想就此得证</strong>。</p>
+<p>而最动人的一幕在后面。还记得 §2.3 吗？证明 RH 的那一步，素数根本不在场。但这台机器造好之后，通过矩阵的迹（对角线之和，是完全乘性的组合），素数的信息会<strong>重新长回来</strong>——零点高度的各阶矩，精确编码着素数定理的全部误差项。我们先用加法语言把零点的位置定死，再从加法材料造出机器，最后看着乘法世界的素数从机器的骨架里重新现身。<strong>乘法世界消失的，会从加法世界里造回来。</strong></p>
+
+<h3>4.4 种子 q：这台机器的"第一推动力"</h3>
+<p>这台无穷矩阵不是凭空造的，它是从种子 q 一步一步"生长"出来的，因果链一共五步，全部显式：</p>
 <ul>
-  <li>Stieltjes 矩问题有正测度解 \(\mu\)</li>
-  <li>Carleman 条件满足（超指数衰减 \(S_k \sim \gamma_1^{-2k}\)）</li>
-  <li>Gram-Schmidt 正交化产生三对角 <strong>Jacobi 算子</strong> \(J\)</li>
+  <li>① q 满足方程 \(q^2+2q=1\)——就是 §1.4 那个"加法（加 2）等于乘法（取倒数）"的交汇点；</li>
+  <li>② 这个方程给出两个几何衰减的底数 z₁、z₂，它们的幂次决定了三项分解每一项的形状；</li>
+  <li>③ 余项 cₙ 由一个二阶递推逐格生成（递推的特征多项式就是 q 的二次方程）；</li>
+  <li>④ 三块材料决定了零点的全部矩，矩摆成矩阵，正性从材料几何里直接成立；</li>
+  <li>⑤ 正性启动标准工序，吐出无穷 Jacobi 矩阵的每一个递推系数。</li>
 </ul>
-$$J = \begin{pmatrix} a_0 & b_0 & 0 & \cdots \\ b_0 & a_1 & b_1 & \cdots \\ 0 & b_1 & a_2 & \cdots \\ \vdots & \vdots & \vdots & \ddots \end{pmatrix}$$
-<p>\(J\) 的谱就是 \(\{1/\gamma_n^2\}\)——零点的倒数平方。</p>
-<p><strong>Hilbert-Pólya 猜想的证明</strong>：存在自伴算子 \(J\)，其特征值对应 \(\zeta\) 函数的零点虚部。</p>
+<p>没有 q，就没有二次方程；没有二次方程，就没有结构化的递推；没有递推带来的单调性，就没有矩阵的正性；没有正性，就没有自伴机器。<strong>q 是这台机器的第一推动力</strong>——而它的起点，正是 1752 年 Euler 在双纽线加法里写下的那个几何常数。</p>
 
-<h3>4.4 \(q\) 如何决定 Jacobi 递推系数：从代数种子到无穷矩阵</h3>
-<p>\(q\) 并非只是间接地"提供正性"。从 \(q\) 到 Jacobi 矩阵的每一个递推系数 \(\alpha_n, b_n\)，存在一条<strong>完全显式的因果链</strong>，共五步：</p>
-
-<h4>第 1 步：\(q\) 生成二次方程</h4>
-<p>\(q = \sqrt{2}-1\) 是 \(q^2 + 2q - 1 = 0\) 的唯一正根。由此构造：</p>
-$$z_1 = 2-\sqrt{2}, \quad z_2 = \sqrt{2}-1 = q$$
-<p>二者是二次方程 \(x^2 - x + z_1 z_2 = 0\) 的两个根，其中关键常数：</p>
-$$z_1 z_2 = (2-\sqrt{2})(\sqrt{2}-1) = 3\sqrt{2}-4 \approx 0.24264$$
-
-<h4>第 2 步：二次方程生成 \(c_n\) 的递推</h4>
-<p>令 \(p_n = z_1^n + z_2^n\)。因为 \(z_1, z_2\) 是二次方程的根，\(p_n\) 满足齐次递推：</p>
-$$p_{n+2} = p_{n+1} - (z_1 z_2)\, p_n$$
-<p>由 \(c_n = 1 - p_n\)，得到<strong>非齐次</strong>递推：</p>
-$$\boxed{c_{n+2} = c_{n+1} - (z_1 z_2)\, c_n + z_1 z_2, \qquad n \geq 1}$$
-<p>初始值 \(c_1 = 0\)，\(c_2 = 2z_1 z_2 = 6\sqrt{2}-8 \approx 0.48528\)。</p>
-<p>这个递推的<strong>特征多项式</strong> \(x^2 - x + z_1 z_2\) 直接编码了 \(q\) 的代数信息。它是整条链条的<strong>代数种子</strong>。</p>
-
-<h4>第 3 步：\(c_n\) 决定对数矩 \(S_k\)</h4>
-<p>三项分解 \(\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum c_n n^{-s}\) 意味着 \(\xi(1/2+it)\) 的 Taylor 系数由 \(z_1^n, z_2^n, c_n\) 共同决定。而对数矩：</p>
-$$S_k = \sum_n \frac{1}{\gamma_n^{2k}} = -k\, [t^{2k}] \log \frac{\xi(1/2+it)}{\xi(1/2)}$$
-<p>完全由这些 Taylor 系数确定——因此 \(S_k\) 的每一个值都<strong>依赖于 \(q\)</strong>。</p>
-
-<h4>第 4 步：\(S_k\) 决定 Hankel 矩阵与 Jacobi 系数</h4>
-<p>构造移位 Hankel 矩阵 \(H_N[i,j] = S_{i+j+1}\)。其顺序主子式 \(D_n = \det(H_n) > 0\)。</p>
-<p>Stieltjes 过程从 \(S_1, S_2, S_3, \ldots\) 递推地给出正交多项式的递推系数：</p>
-$$\alpha_n = \frac{\langle x p_n, p_n \rangle}{h_n} \in \mathbb{R}, \qquad b_n = \sqrt{\frac{h_n}{h_{n-1}}} > 0$$
-<p>每一个 \(\alpha_n, b_n\) 都是 \(S_1, \ldots, S_{2n+2}\) 的有理函数——因此都是 \(q\) 的函数。具体地：</p>
-$$\alpha_0 = \frac{S_2}{S_1} = 0.001608855674597141\ldots$$
-<p>后续每一个 \(\alpha_n, b_n\) 都由此类推导。</p>
-
-<h4>第 5 步：从代数种子到算子——完整的因果链</h4>
-<p>从 \(q\) 到 Jacobi 算子的完整链条可以总结为：</p>
-
-<table>
-  <caption>表1：从 \(q\) 到 Jacobi 算子的因果链层次</caption>
-  <thead>
-    <tr><th scope="col">层次</th><th scope="col">对象</th><th scope="col">关键性质</th><th scope="col">来源</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>代数种子</td><td>\(c_n\) 的递推</td><td>二阶线性差分方程</td><td>\(x^2 - x + z_1 z_2 = 0\)，即 \(q\) 的代数</td></tr>
-    <tr><td>解析中间层</td><td>\(S_k\) 的生成函数</td><td>完全单调性</td><td>\(c_n \geq 0\) 的三项分解 + Mellin 求和</td></tr>
-    <tr><td>算子层面</td><td>Jacobi 矩阵 \(J\)</td><td>三对角自伴算子</td><td>Stieltjes 过程（\(D_n > 0\)）</td></tr>
-  </tbody>
-</table>
-
-<p>\(c_n\) 的二阶递推确定了 \(S_k\) 的解析结构，\(S_k\) 的完全单调性保证了 \(D_n > 0\)，而 \(D_n > 0\) 通过 Stieltjes 过程自然产生三对角 Jacobi 矩阵。二次方程 \(x^2 - x + z_1 z_2 = 0\) 这颗"代数种子"，经由完全单调性的传递，<strong>生长</strong>为整个无穷 Jacobi 矩阵。</p>
-
-<div class="causal-chain">
-  <p><strong>完整的因果链</strong>：</p>
-  $$\boxed{q = \sqrt{2}-1} \;\longrightarrow\; z_1 z_2 = 3\sqrt{2}-4 \;\longrightarrow\; c_{n+2} = c_{n+1} - (z_1 z_2)c_n + z_1 z_2 \;\longrightarrow\; S_k \;\longrightarrow\; D_n > 0 \;\longrightarrow\; \alpha_n, b_n \;\longrightarrow\; J = J^*$$
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 想看完整构造？</strong>这一节只讲思路。矩序列与 Hankel 矩阵的严格正性证明、Herglotz 性质与 Stieltjes 矩问题的完整论证、Jacobi 递推系数的逐步构造、以及"从矩阵迹到素数"的三条路线，请看 RH 证明页面的 Jacobi 矩阵章节：
+<br><a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">→ 《黎曼猜想证明》（中文全文，Jacobi 矩阵章节）</a> &nbsp;|&nbsp; <a href="../index.html" style="color:#1a5fb4;font-weight:600">Proof of RH (English, Jacobi matrix sections)</a>
 </div>
-
-<p>没有 \(q\)，就没有二次方程；没有二次方程，就没有 \(c_n\) 的结构化递推；没有 \(c_n\) 的完全单调性，就没有 \(D_n > 0\)；没有 \(D_n > 0\)，就没有自伴 Jacobi 算子。<strong>\(q = \sqrt{2}-1\) 是 Jacobi 算子的第一推动力。</strong></p>
 
 <hr class="section-sep">
 
-<h2>§5. Goldbach：分圆塔与 \(\mathbb{Q}(\zeta_8)\)</h2>
+<h2>§5. Goldbach：把"相加"翻译成"相乘"的分圆塔</h2>
 
-<h3>5.1 经典圆法的困境</h3>
-<p>Hardy-Littlewood 奇异级数：</p>
-$$\mathfrak{S}(N) = 2C_2 \prod_{p | N, p > 2} \frac{p-1}{p-2}$$
-<p>经典圆法的加性累积：</p>
-$$\sum_{q \leq Q} \varphi(q) \cdot \frac{N}{\varphi(q)} \sim N \log N = \Theta(N)$$
-<p>即使 GRH 控制每项误差，\(O(Q^2)\) 项的加性累积无法压制。</p>
+<p>最后来到哥德巴赫猜想：<strong>每个偶数都能写成两个素数之和</strong>。这是四大猜想里最古老、也最"加法"的一个——它问的就是两个数<strong>相加</strong>。</p>
 
-<h3>5.2 分圆塔</h3>
-<p><strong>核心创新</strong>：将奇异级数分解为 Euler 乘积，每层对应一个分圆域 \(\mathbb{Q}(\zeta_p)\)：</p>
-$$\mathfrak{S}(N) = \prod_p \sigma_p(N)$$
-<p>误差结构从<strong>加性</strong>变为<strong>乘性</strong>：</p>
-$$r^*(N) = N \cdot \prod_{p \leq Q} \sigma_p(N)(1 + \delta_p) + E_{\text{tower-minor}}$$
-$$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\right) - 1 \approx \sum_{p \leq Q} |\delta_p|$$
-<p>项数从 \(O(Q^2)\) 降到 \(\pi(Q) \sim Q/\log Q\)——从二次降到近线性，是结构性的压缩。</p>
+<h3>5.1 经典圆法：坏在"误差怎么加"</h3>
+<p>近百年来对付它的标准办法（Hardy–Littlewood 圆法）思路很自然：用 Fourier 的"旋转筛子"把素数筛出来，把每个分母上的贡献算一遍，再<strong>全部加起来</strong>。主项算得又准又漂亮，问题是误差。分母的个数非常多（量级是"截断上限的平方"），每个分母都带一点误差，误差之间用<strong>加法</strong>堆叠。哪怕 GRH 成立，能把每一点误差都压得很小——小误差乘上这么多分母再连加起来，照样能把主项淹没。这就是经典圆法的百年死结：<strong>不是单项误差太大，而是加法累积无法压缩</strong>。</p>
 
-<h3>5.3 基域 \(\mathbb{Q}(\zeta_8)\)</h3>
-<p>Goldbach 要求 \(N = p_1 + p_2\)，\(p_i\) 为奇素数。所有奇素数 \(p \geq 3\) 满足 \(p \bmod 8 \in \{1, 3, 5, 7\} = (\mathbb{Z}/8\mathbb{Z})^\times\)。</p>
-<p>群 \((\mathbb{Z}/8\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\) 是最小的非循环单位群。</p>
-<p><strong>分圆塔的基域是 \(\mathbb{Q}(\zeta_8)\)</strong>。这个域具有特殊性质：</p>
-<ul>
-  <li>包含 \(\mathbb{Q}(\sqrt{2})\)（\(q = \sqrt{2}-1\) 所在的域）</li>
-  <li>所有特征为实特征（精确符号刚性）</li>
-  <li>偶/奇特征二分产生结构化骨架</li>
-  <li>Dedekind zeta 函数连接 GRH</li>
-  <li>\(2C_2\) 奇异级数结构源自此域</li>
-</ul>
+<h3>5.2 分圆塔：不减小误差，改变误差的"运算法则"</h3>
+<p>我们的做法没有去硬压误差，而是做了一件结构性的事：把"算这个偶数到底有多少种素数拆分"的修正项，<strong>从"连加"重写为"连乘"</strong>——一个素数一个因子，层叠而上，像一座塔（论文里叫分圆塔）。这就是读者已经熟悉的那个主题的最后一次变奏：<strong>把加法组织方式，换成乘法组织方式</strong>。</p>
+<p>换了运算法则之后，局面立刻不同。加法堆叠时，总误差是"各层误差相加"；乘法堆叠时，总误差由"各层误差的和"控制——<strong>层的数量从"上限的平方"降到了"素数的个数"（近线性）</strong>。而 GRH 给每一层的误差都小到足以让这个总和趋于零。打个比方：加法堆叠像一百万个朋友每人欠你一块钱，讨回来的是一百万笔零零碎碎的烂账；乘法堆叠像同样的总钱数存进一个复利账户，每一层只负责"别亏"，GRH 保证每一层都不亏，整座塔就稳稳立住。</p>
+<p>必须说清楚：<strong>这一步仍然离不开 GRH</strong>。分圆塔是一件全新的解析工具——经典圆法即使假设 GRH 也证不出哥德巴赫，而塔方法配上 GRH 就能证明。新工具改变了误差的结构，但误差小到趋于零，靠的是 GRH 对各层零点位置的控制。</p>
+
+<h3>5.3 塔的底座为什么是"模 8"</h3>
+<p>塔的底座选择也和我们的钥匙直接相关。除了 2 以外，所有素数除以 8 的余数只能是 1、3、5、7；而偶数 = 奇素数 + 奇素数，天然要在"模 8"的四种余数里配对。所以塔的最底层对应着模 8 的分圆域——<strong>这个域恰好包含了 q = √2−1 所在的 √2 世界</strong>。从 §1 的双纽线常数，到哥德巴赫的塔基，是同一个数学宇宙。</p>
 
 <h3>5.4 统一视角</h3>
 <table>
-  <caption>表2：四大猜想中 \(q=\sqrt{2}-1\) 的统一角色</caption>
+  <caption>表2：四大猜想中 q=√2−1 的统一角色（大白话版）</caption>
   <thead>
-    <tr><th scope="col">猜想</th><th scope="col">核心对象</th><th scope="col">\(q = \sqrt{2}-1\) 的角色</th></tr>
+    <tr><th scope="col">猜想</th><th scope="col">在问什么</th><th scope="col">钥匙起的作用</th></tr>
   </thead>
   <tbody>
-    <tr><td>RH</td><td>\(\zeta(s)\) 零点</td><td>三项分解：加性定义→可独立控制的乘性分量</td></tr>
-    <tr><td>GRH</td><td>\(L(s,\chi)\) 零点</td><td>\(\xi_K = \xi \cdot \Lambda_\beta\)：两种正性的乘性组装</td></tr>
-    <tr><td>Hilbert-Pólya</td><td>Jacobi 算子</td><td>完全单调性→Hankel 正定→自伴算子</td></tr>
-    <tr><td>Goldbach</td><td>\(r^*(N) > 0\)</td><td>分圆塔：加性累积 \(O(Q^2)\)→乘性累积 \(\pi(Q)\)</td></tr>
+    <tr><td>RH</td><td>ζ 函数的零点全站在一条直线上吗？</td><td>三项分解：把一整本"乘法账"拆成三块加法材料，每块都看得见、管得住</td></tr>
+    <tr><td>GRH</td><td>所有"涂色账本"的零点也全站在线上吗？</td><td>两种来源不同的"正"相乘，夹死颜色振荡</td></tr>
+    <tr><td>Hilbert–Pólya</td><td>零点是不是一台机器的能级？</td><td>三块加法材料直接生出矩阵的"正"，造出自伴机器，事后素数从矩阵里长回来</td></tr>
+    <tr><td>Goldbach</td><td>每个偶数都是两个素数之和吗？</td><td>分圆塔：误差从"连加"改成"连乘"，GRH 保证层层不亏</td></tr>
   </tbody>
 </table>
 
-<hr class="section-sep">
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 想看完整证明？</strong>这一节只讲思路。奇异级数的 Euler 乘积分解、分圆塔逐层误差估计、主项与余项的完整论证，请看专门的证明页面：
+<br><a href="../goldbach_zh.html" style="color:#1a5fb4;font-weight:600">→ 《哥德巴赫猜想证明：分圆塔方法》（中文全文）</a> &nbsp;|&nbsp; <a href="../goldbach_en.html" style="color:#1a5fb4;font-weight:600">Proof of Goldbach via the Cyclotomic Tower (English)</a>
+</div>
 
 <h2>§6. 加性→乘性：一种新的数学方法论</h2>
 
@@ -447,37 +395,29 @@ $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\r
 </ul>
 <p>274 年的困境可以总结为一句话：<strong>数论家一直在用加法语言描述乘法世界。</strong></p>
 
-<h3>6.2 方法论核心：\(q\) 作为结构转换器</h3>
-<p>\(q = \sqrt{2}-1\) 的真正意义不是它给出了某个具体的界或估计，而是它<strong>提供了一种将加性结构转化为乘性结构的操作</strong>。</p>
-<p>这个操作的数学本质：</p>
+<h3>6.2 方法论核心：\(q\) 作为结构转换器——两条路径，同一颗种子</h3>
+<p>\(q = \sqrt{2}-1\) 的真正意义不是它给出了某个具体的界或估计，而是它<strong>提供了把加性结构转换为乘性结构的操作</strong>。这个操作在四大猜想里走两条不同的路径。</p>
 
-<h4>Step 1：分割单位（Partition of Unity）</h4>
-<p>从 \(q\) 的代数性质（\(q^2+2q-1=0\) 的正根）导出 Möbius 对合 \(T(z)=(1-z)/(1+z)\)，其不动点为 \(q\)。取 \(z_2 = q, z_1 = 1-q\)，则分割单位成立：</p>
-$$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0$$
-<p>这不是一个普通的恒等式。它是<strong>从加法到乘性的转换核</strong>——把"1"（加性单位）分解为两个几何衰减项 \(z_1^n, z_2^n\) 加一个非负余项 \(c_n\)。</p>
+<h4>路径一（解析路径，服务 RH / GRH / Hilbert–Pólya）：分割单位 → 三项分解</h4>
+<p>第一步，<strong>分割单位</strong>：从 q 的代数性质（方程 \(q^2+2q=1\)——§1.4 证明过它正是"加 2 等于取倒数"的交汇点）出发，把加性单位"1"切成三块：两个几何衰减项加一个非负余项，三块都看得见、管得住。第二步，<strong>Mellin 提升</strong>：给这个纯代数恒等式乘上 \(n^{-s}\) 再求和，它就"升级"成 ζ 函数的三项分解——加法的求和被拆成三个分量，每个分量在临界带里都有独立的解析控制。第三步，<strong>乘性组装</strong>：各分量分别控制好之后，再通过乘积结构组装回全局结论。整条路径一句话概括：<strong>加性拆解 → 独立控制 → 乘性组装</strong>。</p>
 
-<h4>Step 2：Mellin 提升</h4>
-<p>乘以 \(n^{-s}\) 求和，分割单位变为三项分解：</p>
-$$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum_{n=1}^\infty \frac{c_n}{n^s}$$
-<p>加法定义（\(\sum 1/n^s\)）被拆解为三个分量，每个分量都有<strong>独立的解析控制</strong>——\(\operatorname{Li}_s(z_1)\) 和 \(\operatorname{Li}_s(z_2)\) 在 \(\Re(s) \geq 1/2\) 零点自由，\(c_n \geq 0\) 提供正性。</p>
+<h4>路径二（算术路径，服务 Goldbach）：八分圆域</h4>
+<p>哥德巴赫是纯粹的加法问题，它那条路径的转换器不是函数分解，而是一个<strong>数域</strong>——八分圆域。</p>
+<p>先解释名字。圆周八等分，每一份 45°，叫八分圆；把八分圆上的点生成的"第八次单位根"加进有理数，得到的数域就叫<strong>八分圆域</strong>（记号 \(\mathbb{Q}(\zeta_8)\)）。它和 q 的关系是逐层加深的：</p>
+<ul>
+  <li><strong>几何上</strong>：q = tan(π/8) 是"半个八分圆"对应的斜率——八分圆域的几何本身就长在 q 所在的 22.5° 角上；</li>
+  <li><strong>代数上</strong>：八分圆域包含 \(\sqrt{2}\) 世界，而 q = √2−1 正是这个世界的<strong>基本单位</strong>——它满足 q(1+√2)=1，乘来乘去都在域里，是这个小世界的"乘法原子"；</li>
+  <li><strong>算术上</strong>，这是最关键的一层：除了 2 以外，<strong>每一个素数除以 8 的余数都只能是 1、3、5、7</strong>——而这四种余数，恰好就是八分圆域里"可逆元素"的全部成员。哥德巴赫问的是"奇素数 + 奇素数 = 偶数"，而所有奇素数的身份证（模 8 余数）全部登记在这个域里，四种余数两两配对的规则由域的结构严格规定；</li>
+  <li><strong>对称性上</strong>：八分圆域是唯一同时包含 √2、√−1 和 √−2 的小世界——三个"二次世界"在同一个域里汇合，它是素数涂色游戏中最对称、最小的完整舞台。</li>
+</ul>
+<p>所以 §5 那座分圆塔选八分圆域当底座，<strong>不是我们挑的，是结构指定的</strong>：加法问题（素数相加）的全部配对信息在模 8 世界里被这个域完整编码，而这个域恰好又是 q 的家。分圆塔在这个底座上把"误差连加"重写为"误差连乘"，GRH 保证层层不亏——<strong>转换的起点，仍然是这颗长在加法与乘法接缝上的种子</strong>。</p>
 
-<h4>Step 3：乘性组装</h4>
-<p>三项分解的每一项可以独立处理（解析控制），然后通过乘性结构组装回去。这就是方法论的精髓：</p>
-$$\text{加性拆解} \xrightarrow{\text{独立控制}} \text{乘性组装}$$
+<p>两条路径合起来，方法论才完整：<strong>在函数世界里</strong>，q 经由分割单位长成三项分解，把乘法的 ζ 翻译成加法的三块材料；<strong>在数域世界里</strong>，q 经由八分圆域长成塔基，把加法的误差堆叠翻译成乘法的逐层累积。同一颗种子，两片土壤，结出的是同一种果实——加性与乘性的自由转换。</p>
 
 <h3>6.3 四个猜想中的加-乘转换</h3>
 
-<h4>Goldbach：从 \(O(Q^2)\) 到 \(\pi(Q)\)</h4>
-<p>这是最直观的例子。经典圆法的误差是<strong>加性累积</strong>：</p>
-$$E_{\text{classical}} = \sum_{q \leq Q} O(\sqrt{N}\log^2 N) = O(Q^2 \cdot \sqrt{N}\log^2 N)$$
-<p>\(Q^2\) 项相加，即使每项很小，总量也可以吞掉主项。</p>
-<p>分圆塔将奇异级数重写为 <strong>Euler 乘积</strong>：</p>
-$$\mathfrak{S}(N) = \prod_{p \leq Q} \sigma_p(N)$$
-<p>误差变成<strong>乘性累积</strong>：</p>
-$$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\!\left(\sum_{p \leq Q}|\delta_p|\right) - 1$$
-<p>项数从 \(O(Q^2)\) 降到 \(\pi(Q) \sim Q/\log Q\)。关键不等式：</p>
-$$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
-<p><strong>同一个数学事实，加性描述发散，乘性描述收敛。</strong>分圆塔不是改进了估计，而是改变了描述的<strong>结构</strong>。</p>
+<h4>Goldbach：从"分母的平方"个加数，到"素数个数"个乘数</h4>
+<p>这是最直观的例子（详见 §5）。经典圆法里，误差是<strong>连加</strong>的：分母个数多达"截断上限的平方"个，每个贡献一点误差，即使每项都被 GRH 压得很小，平方量级的连加也足以淹没主项。分圆塔把修正项重写为一个素数一个因子的<strong>连乘</strong>（Euler 乘积）：总误差改由各层相对误差之和控制，而层数只有"素数的个数"，近线性；GRH 又让各层误差小到总和趋于零。<strong>同一个数学事实，加法描述下发散，乘法描述下收敛。</strong>分圆塔不是改进了估计，而是改变了描述的<strong>结构</strong>。</p>
 
 <h4>RH：从 Euler 乘积到可控分量</h4>
 <p>\(\zeta(s)\) 的 Euler 乘积 \(\prod_p (1-p^{-s})^{-1}\) 是乘性的，但它的收敛域只在 \(\Re(s) > 1\)。临界带 \(\Re(s) \in (0,1)\) 内，乘积发散，零点藏在发散之中。</p>
@@ -564,7 +504,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <ol>
   <li>Z. Chen, <em>Proof of the Riemann Hypothesis via the Lemniscate Parameter and Angular Monotonicity of the Completed Zeta Function</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210455" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210455</a></li>
   <li>Z. Chen, <em>Angular Monotonicity of Completed Dirichlet \(L\)-Functions via the Three-Term Zeta Decomposition: A Proof of the Generalized Riemann Hypothesis for Non-Principal Characters</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210481" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210481</a></li>
-  <li>Z. Chen, <em>The Riemann Hypothesis: Proof via Herglotz Analyticity and Explicit Construction of the Hilbert-Pólya Operator</em>, Zenodo, 2026.</li>
+  <li>Z. Chen, <em>The Riemann Hypothesis: Proof via Herglotz Analyticity and Explicit Construction of the Hilbert-Pólya Operator</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22113226" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22113226</a></li>
   <li>Z. Chen, <em>Goldbach's Conjecture via Cyclotomic Tower Decomposition: From Additive to Multiplicative Error Structure</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22224629" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22224629</a></li>
   <li>L. Euler, <em>De seriebus divergentibus</em>, Novi Commentarii academiae Scientiarum Petropolitanae, 1752.</li>
 </ol>
@@ -687,6 +627,11 @@ $$k_1=\frac{1-k'}{1+k'},\qquad k'=\sqrt{1-k^2}$$
 </ul>
 <p>In other words, \(q=\sqrt2-1\) is the <strong>shared center of symmetry of the circle's additive group and the lemniscate's elliptic group</strong> — which is why the key "emerges naturally" from Euler's 1752 lemniscate addition: it is not a contrived constant but the point where two group laws meet at their most symmetric spot.</p>
 
+<p>This is more than a pretty phrase — there is hard algebra behind it. Go back to the tangent addition formula \(\tan(\alpha+\beta)=\dfrac{t_1+t_2}{1-t_1t_2}\): <strong>the numerator is an addition \(t_1+t_2\), and the denominator hides a multiplication \(t_1t_2\)</strong> — the circle's additive group law is itself a machine with multiplication wrapped inside addition. Walk the doubling to \(\tan(2\theta)=1\) (i.e. \(2\theta=\pi/4\)), set \(t_1=t_2=q\), and the formula collapses to a single equation:</p>
+$$q^2+2q=1,\qquad\text{or equivalently}\qquad q+2=\frac{1}{q}$$
+<p>Stare at the right-hand equality for three seconds: <strong>the left side performs an addition on q (add 2), the right side performs a multiplication on q (take the reciprocal) — and the two operations give exactly the same result</strong>. Addition and multiplication, taught separately from primary school on and almost never meeting in mathematics thereafter, kiss each other exactly at the number \(q=\sqrt2-1\). (The golden ratio \(\varphi\) satisfies \(\varphi^2=\varphi+1\), the same miracle; \(q\) is the corresponding "silver ratio", and its continued fraction \(q=\frac{1}{2+\frac{1}{2+\frac{1}{2+\cdots}}}\) is an infinite alternation, layer after layer, of "add 2" and "take the reciprocal" — addition and multiplication woven into each other.)</p>
+<p>This is the real weight of the words "center of symmetry": <strong>q is the meeting point of addition and multiplication</strong>. Where the lemniscate group law meets the circle group law at maximum symmetry, the seed produced is precisely this number that stitches the two operations together. And so it is no accident that the three-term decomposition of §2 can use a purely additive structure (the partition of unity) to translate the Euler product of the multiplicative world: the root is not a trick — <strong>our seed grows on the very seam between addition and multiplication</strong>.</p>
+
 <hr class="section-sep">
 
 <h2>§2. RH: Three-Term Decomposition and Angular Monotonicity</h2>
@@ -736,188 +681,120 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 <p>All three pieces are "positive-definite" material, their behavior fully controllable. And the most astonishing fact: <strong>in the step that proves RH, the primes are simply not present</strong>. Once the secret locked in the multiplicative world is carried into the additive world, the location of the zeros is determined solely by the geometry of these three positive-definite pieces; the primes only re-emerge later — "growing out" of the matrix trace after RH is proved and the Jacobi matrix is built (Section 9).</p>
 <p>This is what the key \(q\) really does: the lemniscate tells us that <strong>addition can hide multiplication</strong> (§1.4), and the three-term decomposition runs that fact in reverse — <strong>an additive structure (the partition of unity) translates the secret locked in the multiplicative world for 160 years into three pieces of material that are visible, tangible, and whose behavior is known</strong>. The proof of RH below works entirely with the geometry of these three pieces.</p>
 
-<h3>2.3 Angular Monotonicity</h3>
-<p>The three-term decomposition breaks the critical behavior of \(\xi(s)\) into three independently controllable components. The angular monotonicity of each component ensures that \(\arg \xi(1/2 + it)\) is strictly increasing, so that zeros can only lie on the critical line.</p>
-<p>The key inequality:</p>
-$$\frac{d}{dt} \arg \xi\!\left(\tfrac{1}{2} + it\right) > 0$$
-<p>This is guaranteed by the Herglotz property of each \(\operatorname{Li}_s(z_i)\) in the three-term decomposition.</p>
+<h3>2.3 Proving RH: What Difficulty Our Method Overcomes</h3>
+<p>First, <strong>where the classical route gets stuck</strong>. For 160 years, the main way to attack RH was to "count zeros": draw a rectangle that climbs along the critical line and prove that the number of zeros inside equals exactly the number of turns the argument winds — no more, no fewer. This is the Backlund–Littlewood route.</p>
+<p>The trouble is the <strong>noise</strong>. The "signal" (the main term of the argument winding) grows with height, at order <em>r</em> log <em>r</em>; but the best bound on the noise is only order log <em>r</em> — and once multiplied by the dimensions of the rectangle, noise and signal end up <strong>at the same order of magnitude</strong>. The closer you get to the critical line, the less you can tell signal from noise. It is like counting people in a deafening room: you know everyone is there, but the noise is as loud as the voices, so you cannot prove "nobody slipped outside the door". It is not a matter of effort — <strong>the order-of-magnitude structure dooms the classical route</strong>.</p>
+<p>The three-term decomposition changes the whole game. Remember that ζ is split into three pieces: two geometrically decaying polylogarithms plus a remainder with nonnegative coefficients. Once translated into the additive language, <strong>the behavior of each piece can be checked individually</strong>:</p>
+<ul>
+  <li>The two polylogarithms, because their parameters are smaller than 1, have <strong>no zeros at all</strong> in the critical strip — they are "clean";</li>
+  <li>The third piece has all nonnegative coefficients, and this "positivity" gives the function <strong>monotonicity</strong>: on the critical line, as height grows, the function <strong>rotates in one direction only and never turns back</strong>.</li>
+</ul>
+<p>With monotonicity in hand, the rest is a one-sentence contradiction: <strong>if there really were a zero off the critical line</strong>, the symmetry of the functional equation would manufacture a mirror zero; such a paired structure would force the function to <strong>turn back</strong> somewhere — but we have just proved it never turns back. Contradiction. So no zero can live off the critical line.</p>
+<p>A picture: the classical method is like counting lighthouses along a coast in a storm — the roar of the waves is on the same scale as the light, and you can never certify "all lighthouses are on the line". The three-term decomposition is <strong>low tide</strong> — the geometry of the three pieces pins the coastline down by itself, and you simply see where every stone lies, without counting anything.</p>
+<p>One more thing worth saying: <strong>this proof never needs the primes on stage</strong>. The primes live in the multiplicative world, and we fix the location of the zeros entirely in the additive world. The proof passes through no measure, no matrix, and no zero counting — no argument principle, no Hurwitz theorem. It is a purely analytic direct path.</p>
 
-<h3>2.3 Proof of RH</h3>
-<p>The proof follows a single direct purely analytic chain:</p>
-<div style="text-align:center;margin:1em 0;padding:.8em;background:#f8f9fa;border-radius:6px;font-size:1.05em">
-<strong>Three-term identity → Angular monotonicity → Herglotz analyticity → Pole contradiction</strong>
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 Want the full proof?</strong> This section tells only the story. How angular monotonicity is rigorously established in three ranges (large height, small height, compact transition), and the full arguments of Herglotz analyticity and the pole contradiction, are on the dedicated proof page:
+<br><a href="../index.html" style="color:#1a5fb4;font-weight:600">→ Proof of the RH (English full text)</a> &nbsp;|&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">《黎曼猜想证明》（中文全文）</a>
 </div>
-<ul>
-  <li><strong>Angular monotonicity</strong>: The three-term decomposition splits \(\zeta\) into two polylogarithms \(\operatorname{Li}_s(z_1)\), \(\operatorname{Li}_s(z_2)\) with fixed algebraic parameters, plus a positive-coefficient series \(D(s)\). Each component is a Herglotz (Stieltjes) function, ensuring that \(\arg \xi(\tfrac12+it)\) is strictly increasing. The large-\(r\) region uses Stirling asymptotics, the small-\(r\) region uses Taylor expansion with Stieltjes remainder, and the compact intermediate region is covered by interval arithmetic.</li>
-  <li><strong>Herglotz analyticity</strong>: Angular monotonicity is equivalent to the Herglotz property of the generating function — analytic in the upper half-plane with imaginary part of fixed sign.</li>
-  <li><strong>Pole contradiction</strong>: If a zero existed off the critical line, functional equation symmetry would produce a conjugate zero pair, forcing the Herglotz function to have a pole — contradicting its analyticity. Hence all zeros must lie on the critical line \(\sigma = \tfrac12\).</li>
-</ul>
-<p>The proof <strong>does not pass through any measure, matrix, or zero-counting argument</strong> — no argument principle, no Hurwitz theorem, no topological reasoning. The Jacobi matrix construction is an independent development <em>after</em> RH is proved.</p>
 
 <hr class="section-sep">
 
-<h2>§3. GRH: Generalizing the Three-Term Decomposition</h2>
+<h2>§3. GRH: One Key, One Family of Locks</h2>
 
-<h3>3.1 From \(\zeta\) to \(L\)-Functions</h3>
-<p>The core insight of the three-term decomposition:</p>
-$$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + D(s)$$
-<p>can be generalized to any Dirichlet \(L\)-function \(L(s, \chi)\):</p>
-$$L(s, \chi) = \sum_{n=1}^\infty \frac{\chi(n)}{n^s}$$
-<p>Using the partition-of-unity structure \(z_1^n + z_2^n + c_n = 1\), an analogous three-term decomposition is constructed for \(L(s, \chi)\).</p>
+<p>RH covers only one ledger: the Riemann zeta function, whose Euler product lines up all the primes. But number theory has tens of thousands of such ledgers. <strong>Color the integers</strong>: for instance, stamp each integer +1, −1, or nothing according to its remainder modulo some number, and you get a new ledger (mathematically, a Dirichlet L-function; the coloring rule is written χ). Number fields — finite extensions of the rationals — each have a ledger too, called the Dedekind zeta function. The question is identical: do the zeros of these ledgers also all stand on the critical line? That is the <strong>Generalized Riemann Hypothesis, GRH</strong>. RH is one ledger, "all the primes"; GRH is a whole bookshelf of "colored ledgers".</p>
 
-<h3>3.2 The Two-Pillar Structure \(\xi_K = \xi \cdot \Lambda_\beta\)</h3>
-<p>The Dedekind zeta function of a number field \(K\):</p>
-$$\zeta_K(s) = \prod_{\mathfrak{p}} \left(1 - N(\mathfrak{p})^{-s}\right)^{-1}$$
-<p>decomposes as:</p>
-$$\xi_K(s) = \xi(s) \cdot \Lambda_\beta(s)$$
-<p>where:</p>
+<h3>3.1 Why the Translator Does Not Care Which Ledger</h3>
+<p>First, the good news: the "multiplicative-into-additive" translator of §2.2 <strong>does not care which ledger it is given</strong>. Recall the heart of the translation — the partition of unity: at the nth term, "1" is cut into z₁ to the nth power, z₂ to the nth power, and a nonnegative remainder. It is an identity about "position n": <strong>no matter what stamp you put on the nth term, "1 always equals these three pieces"</strong>. When translating ζ, every term has the color +1; when translating an L-function, every term carries the color stamp χ(n). The stamps go on, but the geometry of the three pieces does not change, and the translation works just the same.</p>
+<p>In other words, our key is not a crowbar made for the zeta function alone — it is a <strong>universal key</strong>: the seam between addition and multiplication lies at q (§1.4 proved that q is exactly the meeting point where "add 2" equals "take the reciprocal"), and that seam treats every ledger alike.</p>
+
+<h3>3.2 The Real New Difficulty: The Colors Oscillate</h3>
+<p>But if translation alone settled everything, GRH would not have been stuck for an extra hundred years. The new ledgers bring new trouble: <strong>the color stamps oscillate</strong> — +1 on one term, −1 on the next, adding and subtracting, cancelling each other out. The reassuring monotonicity that "all coefficients are nonnegative" gave the ζ ledger is torn apart in an L-function by the oscillations. Copying the RH argument directly, the monotonicity will not stand.</p>
+<p>The way out is a <strong>multiplicative structure</strong> of the number-field ledger: a number-field ledger can be taken apart as "the ordinary ζ ledger times a correction factor" (written ξ<sub>K</sub> = ξ·Λ<sub>β</sub> in the papers). Notice that this equality is itself a <strong>multiplication</strong> — two ledgers multiplied together. It gives us two pillars:</p>
 <ul>
-  <li>\(\xi(s)\): the Riemann xi function (RH already proved)</li>
-  <li>\(\Lambda_\beta(s)\): a correction factor associated with the character \(\chi\)</li>
+  <li><strong>Pillar one — analytic positivity</strong>: the ordinary ζ ledger, with RH already proved, carries the full "positivity" of the three-term decomposition: the function rotates in one direction only, never turning back;</li>
+  <li><strong>Pillar two — arithmetic positivity</strong>: behind the correction factor stands the counting of "ideals" in the number field (the generalization of primes to number fields). And when you count things, <strong>you can never count a negative number</strong> — this "nonnegative counting" is a positivity built into the Euler product at birth, an arithmetic kind of "positive".</li>
 </ul>
-<p><strong>Key</strong>: The angular monotonicity of \(\Lambda_\beta\) is inherited from the three-term decomposition structure of \(\xi\).</p>
+<p>The two kinds of positivity come from <strong>completely different sources</strong>: one from the analytic structure after additive translation, the other from the arithmetic nature of multiplicative counting. <strong>Multiply</strong> the two pillars together, and the color oscillations are clamped from both sides; monotonicity holds unconditionally. Either pillar alone is insufficient — and this is exactly why GRH stayed open for a hundred years longer than RH: before us, people held either analytic tools or arithmetic facts, but <strong>nobody had ever assembled the two kinds of positivity into a single product</strong>. What our method overcomes is precisely this structural deadlock, "the two positivities could never meet".</p>
 
-<h3>3.3 Unified Proof</h3>
-<ul>
-  <li>RH places all zeros of \(\xi(s)\) on the critical line.</li>
-  <li>The angular monotonicity of the three-term decomposition extends to \(\Lambda_\beta\).</li>
-  <li>Therefore all zeros of \(\xi_K(s)\) lie on the critical line.</li>
-  <li>This holds for all number fields \(K\) \(\implies\) GRH.</li>
-</ul>
+<h3>3.3 The Payoff: The Conclusion Conducts Like Electric Current</h3>
+<p>Once the two pillars stand, the rest is conduction: the zeros of the ordinary ζ all lie on the critical line (RH), the zeros of the correction factor all lie on the critical line (arithmetic positivity), and the zeros of their <strong>product</strong> therefore all lie on the critical line — for every number field, every colored ledger. That is GRH.</p>
+<p>Its weight is cashed out in §5: what Goldbach needs is precisely zero control on the "modulo-8 colored ledger". The classical circle method cannot suppress its accumulated error even assuming GRH; but once the cyclotomic tower rewrites the error structure from additive to multiplicative, the zero control GRH supplies holds the main term steady — GRH is the load-bearing pier of that bridge.</p>
 
-<hr class="section-sep">
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 Want the full proof?</strong> This section tells only the story. The term-by-term construction of the L-function three-term decomposition, the rigorous proof of two-pillar positivity under character oscillation, and the full derivation of ξ<sub>K</sub> = ξ·Λ<sub>β</sub>, are on the dedicated proof page:
+<br><a href="../grh.html" style="color:#1a5fb4;font-weight:600">→ Proof of GRH (English full text)</a> &nbsp;|&nbsp; <a href="../grh_zh.html" style="color:#1a5fb4;font-weight:600">《广义黎曼猜想证明》（中文全文）</a>
+</div>
+<h2>§4. Hilbert–Pólya: Building a "Self-Adjoint Machine" for the Zeros</h2>
 
-<h2>§4. Hilbert–Pólya: The Jacobi Recursion Matrix</h2>
+<p>RH tells us the zeros all stand on the critical line. But Hilbert and Pólya asked, over a hundred years ago, something bolder: <strong>might the heights of the zeros be the energy levels of some physical machine?</strong> In physics, the energies of a real system (the frequencies of a string, the levels of an atom) are always the eigenvalues of some "self-adjoint operator" — they are all real numbers, fixed by the structure of the machine. If one could build a machine whose energy levels were exactly the heights of the zeros, then "all zeros on the line" would have the most concrete meaning possible: <strong>they are simply the energy levels of that machine</strong>. This is the Hilbert–Pólya conjecture.</p>
 
-<h3>4.1 The Logarithmic Moment Sequence</h3>
-<p>Define the Hadamard product of the \(\xi\) function:</p>
-$$\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s) = \prod_n \left(1 - \frac{s}{\rho_n}\right)$$
-<p>Taking the logarithmic derivative, we define the <strong>logarithmic moments</strong>:</p>
-$$S_k = -k [t^{2k}] \log \frac{\xi(1/2 + it)}{\xi(1/2)} = \sum_n \frac{1}{\gamma_n^{2k}}$$
-<p>where \(\rho_n = 1/2 + i\gamma_n\) are the zeros.</p>
-
-<h3>4.2 Hankel Matrices and the Jacobi Operator</h3>
-<p>Construct the shifted Hankel matrix:</p>
-$$H_N[i,j] = S_{i+j+1}, \qquad 0 \leq i,j \leq N-1$$
-<p><strong>Key Theorem</strong>: All leading principal minors satisfy \(D_n = \det(H_n) > 0\).</p>
-<p>The proof relies on:</p>
+<h3>4.1 The Classical Dead End: To Build the Machine, You First Need "Positivity"</h3>
+<p>How do you build a machine from zeros? The design is actually quite tidy, a standard assembly line:</p>
 <ol>
-  <li>The three-term decomposition splits the Bose–Einstein kernel into three completely monot kernels.</li>
-  <li>Zero-free bounds for \(\operatorname{Li}_s(z_1)\) and \(\operatorname{Li}_s(z_2)\).</li>
-  <li>The Herglotz property of the generating function \(G(z) = \sum S_k z^k\).</li>
+  <li>First turn the zero heights into a sequence of "moments": add up the reciprocal squares of all zero heights, then the reciprocal fourth powers, then the reciprocal sixth powers, and so on;</li>
+  <li>Arrange these numbers into a matrix (the Hankel matrix: the entry in each slot is the corresponding moment);</li>
+  <li>If the matrix is <strong>positive everywhere</strong> (all its leading principal minors greater than 0), a century-old classical theorem (the Stieltjes moment problem) guarantees that a genuine measure exists; orthogonalizing against it spits out a tridiagonal matrix — <strong>that matrix is the self-adjoint machine we want</strong>, and its energy levels are exactly the reciprocal squares of the zero heights.</li>
 </ol>
+<p>The blueprint of the assembly line has existed for a long time; a single part is missing: <strong>proving the matrix is positive everywhere</strong>. That part has been stuck for over a hundred years. The classical way is to verify positivity starting from the locations of the zeros. But "the zeros are at the right places" is exactly what RH is supposed to prove — assuming RH to build the machine, then using the machine to explain RH, is <strong>circular reasoning</strong>, which mathematics cannot accept. The numerical side is even more embarrassing: the positivity of this matrix is absurdly tiny — the 50th minor is about 10 to the minus 9415th power, countless orders of magnitude smaller than the reciprocal of the number of atoms in the observable universe; any computer simply treats it as "zero". <strong>Whoever wanted to build the machine neither dared assume RH nor could see the positivity.</strong></p>
 
-<h3>4.3 Spectral Interpretation</h3>
-<p>\(D_n > 0\) implies:</p>
+<h3>4.2 Our Breakthrough: Building "Positivity" Directly from the Additive Pieces</h3>
+<p>Our method bypasses this dead end completely. <strong>We need not assume the zeros stand on the line</strong> — we hold three additive pieces (two geometrically decaying polylogarithms and a remainder with nonnegative coefficients). In the additive world their properties are fully explicit and visible: the two polylogarithms decay geometrically and have no zeros; the remainder has nonnegative, monotone coefficients. Feed these three pieces into the moment-generating process, and the generating function is naturally of Herglotz type (analytic in the upper half-plane with imaginary part of fixed sign — in plain words, a function with monotonicity written into its bones).</p>
+<p>And "the generating function is Herglotz" and "the Hankel matrix is positive everywhere" are two faces of the same mathematical fact. So the positivity <strong>needs no verification — it grows directly out of the geometry of the three additive pieces</strong>. What matters even more, after RH is proved, is that this positivity <strong>does not rely on "assuming RH"</strong>: the circular-reasoning knot is cut open. For the first time, visible, tangible material from the additive world proves the existence of a machine in the multiplicative world.</p>
+
+<h3>4.3 Once the Machine Is Built: The Primes "Grow Back" Out of It</h3>
+<p>With positivity in hand, the last step of the assembly line runs by itself: standard orthogonalization spits out a tridiagonal Jacobi matrix whose energy levels are exactly the reciprocal squares of the zero heights — <strong>the Hilbert–Pólya conjecture is proved</strong>.</p>
+<p>And the most moving scene comes after. Remember §2.3? In the step that proves RH, the primes are not present at all. But once the machine is built, the information about the primes <strong>grows back</strong> through the matrix trace (the sum of the diagonal, a purely multiplicative combination): the moments of the zero heights encode exactly all the error terms of the prime number theorem. We first fix the locations of the zeros in the language of addition, then build the machine from additive material, and finally watch the primes of the multiplicative world reappear inside the machine's skeleton. <strong>What vanished in the multiplicative world is built back from the additive world.</strong></p>
+
+<h3>4.4 The Seed q: The "First Cause" of the Machine</h3>
+<p>This infinite matrix is not built from nothing: it <strong>grows</strong> out of the seed q in five fully explicit causal steps:</p>
 <ul>
-  <li>The Stieltjes moment problem has a positive measure solution \(\mu\).</li>
-  <li>The Carleman condition is satisfied (super-exponential decay \(S_k \sim \gamma_1^{-2k}\)).</li>
-  <li>Gram–Schmidt orthogonalization produces a tridiagonal <strong>Jacobi operator</strong> \(J\):</li>
+  <li>① q satisfies the equation \(q^2+2q=1\) — the very meeting point where "addition (add 2) equals multiplication (take the reciprocal)" from §1.4;</li>
+  <li>② This equation gives two geometrically decaying bases z₁, z₂, whose powers set the shape of every term in the three-term decomposition;</li>
+  <li>③ The remainder cₙ is generated cell by cell by a second-order recurrence (whose characteristic polynomial is exactly the quadratic equation of q);</li>
+  <li>④ The three pieces determine all the moments of the zeros; the moments are arranged into the matrix, and positivity holds directly from the geometry of the pieces;</li>
+  <li>⑤ Positivity starts up the standard procedure, spitting out every recursion coefficient of the infinite Jacobi matrix.</li>
 </ul>
-$$J = \begin{pmatrix} a_0 & b_0 & 0 & \cdots \\ b_0 & a_1 & b_1 & \cdots \\ 0 & b_1 & a_2 & \cdots \\ \vdots & \vdots & \vdots & \ddots \end{pmatrix}$$
-<p>The spectrum of \(J\) is \(\{1/\gamma_n^2\}\) — the reciprocal squares of the zeros.</p>
-<p><strong>Proof of the Hilbert–Pólya Conjecture</strong>: There exists a self-adjoint operator \(J\) whose eigenvalues correspond to the imaginary parts of the zeros of \(\zeta\).</p>
+<p>Without q, no quadratic equation; without the quadratic equation, no structured recurrence; without the monotonicity from the recurrence, no positivity of the matrix; without positivity, no self-adjoint machine. <strong>q is the first cause of this machine</strong> — and its starting point is the geometric constant Euler wrote down in 1752 in the lemniscate addition.</p>
 
-<h3>4.4 How \(q\) Determines the Jacobi Recursion Coefficients: From Algebraic Seed to Infinite Matrix</h3>
-<p>The parameter \(q\) does not merely "provide positivity" indirectly. From \(q\) to every recursion coefficient \(\alpha_n, b_n\) of the Jacobi matrix, there exists a <strong>completely explicit causal chain</strong> consisting of five steps:</p>
-
-<h4>Step 1: \(q\) Generates a Quadratic Equation</h4>
-<p>\(q = \sqrt{2}-1\) is the unique positive root of \(q^2 + 2q - 1 = 0\). From this we construct:</p>
-$$z_1 = 2-\sqrt{2}, \quad z_2 = \sqrt{2}-1 = q$$
-<p>These are the two roots of \(x^2 - x + z_1 z_2 = 0\), where the key constant is:</p>
-$$z_1 z_2 = (2-\sqrt{2})(\sqrt{2}-1) = 3\sqrt{2}-4 \approx 0.24264$$
-
-<h4>Step 2: The Quadratic Equation Generates the Recurrence for \(c_n\)</h4>
-<p>Let \(p_n = z_1^n + z_2^n\). Since \(z_1, z_2\) are roots of a quadratic, \(p_n\) satisfies the homogeneous recurrence:</p>
-$$p_{n+2} = p_{n+1} - (z_1 z_2)\, p_n$$
-<p>Since \(c_n = 1 - p_n\), we obtain the <strong>inhomogeneous</strong> recurrence:</p>
-$$\boxed{c_{n+2} = c_{n+1} - (z_1 z_2)\, c_n + z_1 z_2, \qquad n \geq 1}$$
-<p>Initial values: \(c_1 = 0\), \(c_2 = 2z_1 z_2 = 6\sqrt{2}-8 \approx 0.48528\).</p>
-<p>The <strong>characteristic polynomial</strong> \(x^2 - x + z_1 z_2\) of this recurrence directly encodes the algebraic information of \(q\). It is the <strong>algebraic seed</strong> of the entire chain.</p>
-
-<h4>Step 3: \(c_n\) Determines the Logarithmic Moments \(S_k\)</h4>
-<p>The three-term decomposition \(\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum c_n n^{-s}\) implies that the Taylor coefficients of \(\xi(1/2+it)\) are jointly determined by \(z_1^n, z_2^n, c_n\). The logarithmic moments:</p>
-$$S_k = \sum_n \frac{1}{\gamma_n^{2k}} = -k\, [t^{2k}] \log \frac{\xi(1/2+it)}{\xi(1/2)}$$
-<p>are completely determined by these Taylor coefficients — hence every value of \(S_k\) <strong>depends on \(q\)</strong>.</p>
-
-<h4>Step 4: \(S_k\) Determines the Hankel Matrix and Jacobi Coefficients</h4>
-<p>Construct the shifted Hankel matrix \(H_N[i,j] = S_{i+j+1}\). Its leading principal minors satisfy \(D_n = \det(H_n) > 0\).</p>
-<p>The Stieltjes process recursively yields the recursion coefficients of orthogonal polynomials from \(S_1, S_2, S_3, \ldots\):</p>
-$$\alpha_n = \frac{\langle x p_n, p_n \rangle}{h_n} \in \mathbb{R}, \qquad b_n = \sqrt{\frac{h_n}{h_{n-1}}} > 0$$
-<p>Each \(\alpha_n, b_n\) is a rational function of \(S_1, \ldots, S_{2n+2}\) — and therefore a function of \(q\). Specifically:</p>
-$$\alpha_0 = \frac{S_2}{S_1} = 0.001608855674597141\ldots$$
-<p>Every subsequent \(\alpha_n, b_n\) is derived analogously.</p>
-
-<h4>Step 5: From Algebraic Seed to Operator — The Complete Causal Chain</h4>
-<p>The complete chain from \(q\) to the Jacobi operator can be summarized as:</p>
-
-<table>
-  <caption>Table 1: Causal chain from \(q\) to the Jacobi operator</caption>
-  <thead>
-    <tr><th scope="col">Level</th><th scope="col">Object</th><th scope="col">Key Property</th><th scope="col">Origin</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Algebraic seed</td><td>Recurrence for \(c_n\)</td><td>Second-order linear difference equation</td><td>\(x^2 - x + z_1 z_2 = 0\), i.e., the algebra of \(q\)</td></tr>
-    <tr><td>Analytic intermediate</td><td>Generating function of \(S_k\)</td><td>Complete monotonicity</td><td>Three-term decomposition with \(c_n \geq 0\) + Mellin summation</td></tr>
-    <tr><td>Operator level</td><td>Jacobi matrix \(J\)</td><td>Tridiagonal self-adjoint operator</td><td>Stieltjes process (\(D_n > 0\))</td></tr>
-  </tbody>
-</table>
-
-<p>The second-order recurrence for \(c_n\) determines the analytic structure of \(S_k\); the complete monotonicity of \(S_k\) guarantees \(D_n > 0\); and \(D_n > 0\) naturally produces the tridiagonal Jacobi matrix via the Stieltjes process. The quadratic equation \(x^2 - x + z_1 z_2 = 0\), this "algebraic seed," <strong>grows</strong> into the entire infinite Jacobi matrix through the transmission of complete monotonicity.</p>
-
-<div class="causal-chain">
-  <p><strong>The complete causal chain</strong>:</p>
-  $$\boxed{q = \sqrt{2}-1} \;\longrightarrow\; z_1 z_2 = 3\sqrt{2}-4 \;\longrightarrow\; c_{n+2} = c_{n+1} - (z_1 z_2)c_n + z_1 z_2 \;\longrightarrow\; S_k \;\longrightarrow\; D_n > 0 \;\longrightarrow\; \alpha_n, b_n \;\longrightarrow\; J = J^*$$
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 Want the full construction?</strong> This section tells only the story. The rigorous positivity proof for the moment sequence and the Hankel matrix, the full arguments from the Herglotz property to the Stieltjes moment problem, the step-by-step construction of the Jacobi recursion coefficients, and the three routes "from the matrix trace to the primes", are in the Jacobi-matrix chapters of the RH proof page:
+<br><a href="../index.html" style="color:#1a5fb4;font-weight:600">→ Proof of the RH (English full text, Jacobi matrix sections)</a> &nbsp;|&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">《黎曼猜想证明》（中文全文，Jacobi 矩阵章节）</a>
 </div>
 
-<p>Without \(q\), there is no quadratic equation; without the quadratic equation, there is no structured recurrence for \(c_n\); without the complete monotonicity of \(c_n\), there is no \(D_n > 0\); without \(D_n > 0\), there is no self-adjoint Jacobi operator. <strong>\(q = \sqrt{2}-1\) is the prime mover of the Jacobi operator.</strong></p>
+<h2>§5. Goldbach: The Cyclotomic Tower That Translates "Adding" into "Multiplying"</h2>
 
-<hr class="section-sep">
+<p>Finally, Goldbach: <strong>every even number is the sum of two primes</strong>. It is the oldest of the four conjectures, and the most "additive" — it asks literally about two numbers <strong>added together</strong>.</p>
 
-<h2>§5. Goldbach: The Cyclotomic Tower and \(\mathbb{Q}(\zeta_8)\)</h2>
+<h3>5.1 The Classical Circle Method: What Fails Is "How the Errors Add"</h3>
+<p>The standard approach of the past century (the Hardy–Littlewood circle method) has a natural idea: sieve out the primes with rotating Fourier sieves, compute the contribution of each denominator, and <strong>add everything up</strong>. The main term is computed beautifully; the trouble is the error. There are enormously many denominators (on the order of the square of the cutoff), each carrying a little error, and the errors stack up by <strong>addition</strong>. Even under GRH — which makes every individual error small — the small errors, multiplied by so many denominators and then added, can still drown the main term. This is the century-old deadlock of the classical circle method: <strong>no single error term is too large; it is the additive accumulation that cannot be compressed</strong>.</p>
 
-<h3>5.1 The Dilemma of the Classical Circle Method</h3>
-<p>The Hardy–Littlewood singular series:</p>
-$$\mathfrak{S}(N) = 2C_2 \prod_{p | N, p > 2} \frac{p-1}{p-2}$$
-<p>The additive accumulation of the classical circle method:</p>
-$$\sum_{q \leq Q} \varphi(q) \cdot \frac{N}{\varphi(q)} \sim N \log N = \Theta(N)$$
-<p>Even if GRH controls each individual error term, the additive accumulation of \(O(Q^2)\) terms cannot be suppressed.</p>
+<h3>5.2 The Cyclotomic Tower: Not Shrinking the Errors, but Changing Their "Operation"</h3>
+<p>Our move is not to force the errors down, but to do something structural: the correction that counts how many prime decompositions an even number has is rewritten <strong>from a "sum" into a "product"</strong> — one factor per prime, stacked layer by layer like a tower (the cyclotomic tower, in the papers). This is the final variation on the theme the reader already knows: <strong>replace the additive organization with a multiplicative organization</strong>.</p>
+<p>Once the operation changes, the situation changes at once. Under additive stacking the total error is the sum of the layer errors; under multiplicative stacking the total error is controlled by the sum of the relative layer errors — and <strong>the number of layers drops from "the square of the cutoff" to "the number of primes" (nearly linear)</strong>. GRH then makes each layer's error small enough for this total to tend to zero. A picture: additive stacking is like a million friends each owing you a dollar — a million tiny uncollectable debts; multiplicative stacking is like putting the same total in a compounding account, where each layer only has to "not lose money", and GRH guarantees every layer does not — the tower stands steady.</p>
+<p>One must be clear: <strong>this step still cannot do without GRH</strong>. The cyclotomic tower is a genuinely new analytic tool — the classical circle method cannot prove Goldbach even assuming GRH, whereas the tower method with GRH can. The new tool changes the structure of the errors, but the errors becoming small enough to vanish relies on GRH's control of zero positions layer by layer.</p>
 
-<h3>5.2 The Cyclotomic Tower</h3>
-<p><strong>Core innovation</strong>: Decomposing the singular series into an Euler product, with each layer corresponding to a cyclotomic field \(\mathbb{Q}(\zeta_p)\):</p>
-$$\mathfrak{S}(N) = \prod_p \sigma_p(N)$$
-<p>The error structure shifts from <strong>additive</strong> to <strong>multiplicative</strong>:</p>
-$$r^*(N) = N \cdot \prod_{p \leq Q} \sigma_p(N)(1 + \delta_p) + E_{\text{tower-minor}}$$
-$$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\right) - 1 \approx \sum_{p \leq Q} |\delta_p|$$
-<p>The number of terms drops from \(O(Q^2)\) to \(\pi(Q) \sim Q/\log Q\) — a structural compression from quadratic to near-linear.</p>
+<h3>5.3 Why the Tower's Base Is "Modulo 8"</h3>
+<p>The choice of the tower's base is also directly tied to our key. Except for 2, every prime is congruent to 1, 3, 5, or 7 modulo 8; and an even number equals odd prime plus odd prime, so the two sides naturally pair up within the four "modulo 8" residue classes. Hence the bottom layer of the tower corresponds to the cyclotomic field modulo 8 — <strong>which happens to contain the √2 world where q = √2−1 lives</strong>. From the lemniscate constant of §1 to the base of the Goldbach tower, it is the same mathematical universe.</p>
 
-<h3>5.3 The Base Field \(\mathbb{Q}(\zeta_8)\)</h3>
-<p>Goldbach requires \(N = p_1 + p_2\) with \(p_i\) odd primes. All odd primes \(p \geq 3\) satisfy \(p \bmod 8 \in \{1, 3, 5, 7\} = (\mathbb{Z}/8\mathbb{Z})^\times\).</p>
-<p>The group \((\mathbb{Z}/8\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\) is the smallest non-cyclic unit group.</p>
-<p><strong>The base field of the cyclotomic tower is \(\mathbb{Q}(\zeta_8)\)</strong>. This field has special properties:</p>
-<ul>
-  <li>It contains \(\mathbb{Q}(\sqrt{2})\) (the field to which \(q = \sqrt{2}-1\) belongs).</li>
-  <li>All characters are real (exact sign rigidity).</li>
-  <li>The even/odd character dichotomy produces a structural skeleton.</li>
-  <li>The Dedekind zeta function connects to GRH.</li>
-  <li>The \(2C_2\) singular series structure originates from this field.</li>
-</ul>
-
-<h3>5.4 A Unified Perspective</h3>
+<h3>5.4 The Unified View</h3>
 <table>
-  <caption>Table 2: Unified role of \(q=\sqrt{2}-1\) across four conjectures</caption>
+  <caption>Table 2: The unified role of q=√2−1 in the four conjectures (in plain words)</caption>
   <thead>
-    <tr><th scope="col">Conjecture</th><th scope="col">Core Object</th><th scope="col">Role of \(q = \sqrt{2}-1\)</th></tr>
+    <tr><th scope="col">Conjecture</th><th scope="col">What it asks</th><th scope="col">What the key does</th></tr>
   </thead>
   <tbody>
-    <tr><td>RH</td><td>Zeros of \(\zeta(s)\)</td><td>Three-term decomposition: additive definition → independently controllable multiplicative components</td></tr>
-    <tr><td>GRH</td><td>Zeros of \(L(s,\chi)\)</td><td>\(\xi_K = \xi \cdot \Lambda_\beta\): multiplicative assembly of two positivities</td></tr>
-    <tr><td>Hilbert–Pólya</td><td>Jacobi operator</td><td>Complete monotonicity → Hankel positivity → self-adjoint operator</td></tr>
-    <tr><td>Goldbach</td><td>\(r^*(N) > 0\)</td><td>Cyclotomic tower: additive accumulation \(O(Q^2)\) → multiplicative accumulation \(\pi(Q)\)</td></tr>
+    <tr><td>RH</td><td>Do all zeros of ζ stand on one line?</td><td>Three-term decomposition: one "multiplicative ledger" is split into three additive pieces, each visible and controllable</td></tr>
+    <tr><td>GRH</td><td>Do the zeros of all "colored ledgers" also stand on the line?</td><td>Two positivities of different origins are multiplied together, clamping the color oscillations</td></tr>
+    <tr><td>Hilbert–Pólya</td><td>Are the zeros the energy levels of a machine?</td><td>The three additive pieces grow the matrix "positivity" directly, building the self-adjoint machine; the primes grow back afterward</td></tr>
+    <tr><td>Goldbach</td><td>Is every even number a sum of two primes?</td><td>The cyclotomic tower rewrites errors from "summing" to "multiplying"; GRH guarantees every layer holds</td></tr>
   </tbody>
 </table>
 
-<hr class="section-sep">
+<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<strong>📖 Want the full proof?</strong> This section tells only the story. The Euler-product decomposition of the singular series, the layer-by-layer error estimates of the cyclotomic tower, and the complete main-term and remainder arguments are on the dedicated proof page:
+<br><a href="../goldbach_en.html" style="color:#1a5fb4;font-weight:600">→ Proof of Goldbach via the Cyclotomic Tower (English full text)</a> &nbsp;|&nbsp; <a href="../goldbach_zh.html" style="color:#1a5fb4;font-weight:600">《哥德巴赫猜想证明：分圆塔方法》（中文全文）</a>
+</div>
 
 <h2>§6. Additive → Multiplicative: A New Mathematical Methodology</h2>
 
@@ -947,37 +824,29 @@ $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\r
 </ul>
 <p>The 274-year impasse can be summarized in one sentence: <strong>Number theorists have been describing a multiplicative world in an additive language.</strong></p>
 
-<h3>6.2 The Methodological Core: \(q\) as a Structural Converter</h3>
-<p>The true significance of \(q = \sqrt{2}-1\) is not that it yields a particular bound or estimate, but that it <strong>provides an operation for converting additive structure into multiplicative structure</strong>.</p>
-<p>The mathematical essence of this operation:</p>
+<h3>6.2 The Methodological Core: \(q\) as a Structural Converter — Two Paths, One Seed</h3>
+<p>The true significance of \(q = \sqrt{2}-1\) is not that it yields a particular bound or estimate, but that it <strong>provides the operation that converts additive structure into multiplicative structure</strong>. In the four conjectures this operation runs along two different paths.</p>
 
-<h4>Step 1: Partition of Unity</h4>
-<p>From the algebraic property of \(q\) (the positive root of \(q^2+2q-1=0\)) we derive the Möbius involution \(T(z)=(1-z)/(1+z)\), whose fixed point is \(q\). Taking \(z_2 = q, z_1 = 1-q\), the partition of unity holds:</p>
-$$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0$$
-<p>This is not an ordinary identity. It is the <strong>conversion kernel from additive to multiplicative</strong> — decomposing "1" (the additive unit) into two geometrically decaying terms \(z_1^n, z_2^n\) plus a non-negative remainder \(c_n\).</p>
+<h4>Path One (the analytic path, serving RH / GRH / Hilbert–Pólya): Partition of Unity → Three-Term Decomposition</h4>
+<p>Step one, <strong>partition of unity</strong>: starting from the algebraic property of q (the equation \(q^2+2q=1\) — shown in §1.4 to be exactly the meeting point where "add 2" equals "take the reciprocal"), the additive unit "1" is cut into three pieces: two geometrically decaying terms plus a non-negative remainder, all visible and controllable. Step two, <strong>the Mellin lift</strong>: multiply this purely algebraic identity by \(n^{-s}\) and sum, and it "upgrades" into the three-term decomposition of ζ — the additive sum is split into three components, each with independent analytic control in the critical strip. Step three, <strong>multiplicative assembly</strong>: once each component is controlled, the global conclusion is assembled back through multiplicative structure. The whole path in one line: <strong>additive decomposition → independent control → multiplicative assembly</strong>.</p>
 
-<h4>Step 2: Mellin Lift</h4>
-<p>Multiplying by \(n^{-s}\) and summing, the partition of unity becomes the three-term decomposition:</p>
-$$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum_{n=1}^\infty \frac{c_n}{n^s}$$
-<p>The additive definition (\(\sum 1/n^s\)) is split into three components, each with <strong>independent analytic control</strong> — \(\operatorname{Li}_s(z_1)\) and \(\operatorname{Li}_s(z_2)\) are zero-free for \(\Re(s) \geq 1/2\), and \(c_n \geq 0\) provides positivity.</p>
+<h4>Path Two (the arithmetic path, serving Goldbach): The Octic-Cyclotomic Field</h4>
+<p>Goldbach is a purely additive problem, and the converter on its path is not a function decomposition but a <strong>number field</strong> — the octic-cyclotomic field (the field of the eighth roots of unity, written \(\mathbb{Q}(\zeta_8)\)).</p>
+<p>First the name. Divide the circle into eight equal parts, each 45° — that is the octant; adjoining the "eighth roots of unity" generated by those points to the rational numbers gives the field \(\mathbb{Q}(\zeta_8)\). Its relationship with q deepens layer by layer:</p>
+<ul>
+  <li><strong>Geometrically</strong>: q = tan(π/8) is the slope corresponding to "half an octant" — the geometry of this field literally grows on the 22.5° angle where q lives;</li>
+  <li><strong>Algebraically</strong>: the field contains the √2 world, and q = √2−1 is the <strong>fundamental unit</strong> of that world — it satisfies q(1+√2)=1, multiplying around forever inside the field, the "multiplicative atom" of this small world;</li>
+  <li><strong>Arithmetically</strong>, and this is the decisive layer: except for 2, <strong>every prime is congruent to 1, 3, 5, or 7 modulo 8</strong> — and these four residues are exactly all the "invertible elements" of this field. Goldbach asks "odd prime plus odd prime equals an even number", and the identity cards of all odd primes (their residues mod 8) are registered in this field, whose structure strictly prescribes how the four residue classes pair up;</li>
+  <li><strong>Symmetrically</strong>: this is the unique small field containing √2, √−1, and √−2 all at once — three "quadratic worlds" meet in one field, the most symmetric and smallest complete stage for the prime-coloring game.</li>
+</ul>
+<p>So when the cyclotomic tower of §5 chooses this field as its base, <strong>it is not our choice — the structure prescribes it</strong>: all pairing information of the additive problem (primes added together) is encoded by this field in the mod-8 world, and this field happens to be q's home. On that base the tower rewrites "error summing" into "error multiplying", and GRH guarantees every layer holds — <strong>the starting point of the conversion is once again the seed growing on the seam between addition and multiplication</strong>.</p>
 
-<h4>Step 3: Multiplicative Assembly</h4>
-<p>Each term of the three-term decomposition can be handled independently (analytic control), then reassembled through multiplicative structure. This is the essence of the methodology:</p>
-$$\text{Additive decomposition} \xrightarrow{\text{independent control}} \text{Multiplicative assembly}$$
+<p>With the two paths together, the methodology is complete: <strong>in the function world</strong>, q grows through the partition of unity into the three-term decomposition, translating the multiplicative ζ into three additive pieces; <strong>in the number-field world</strong>, q grows through the octic-cyclotomic field into the tower's base, translating additive error-stacking into multiplicative layer-by-layer accumulation. One seed, two soils, the same fruit: the free conversion between additive and multiplicative.</p>
 
 <h3>6.3 Additive–Multiplicative Conversion in the Four Conjectures</h3>
 
-<h4>Goldbach: From \(O(Q^2)\) to \(\pi(Q)\)</h4>
-<p>This is the most直观 example. The error of the classical circle method is <strong>additive accumulation</strong>:</p>
-$$E_{\text{classical}} = \sum_{q \leq Q} O(\sqrt{N}\log^2 N) = O(Q^2 \cdot \sqrt{N}\log^2 N)$$
-<p>Summing \(Q^2\) terms, even if each is small, the total can overwhelm the main term.</p>
-<p>The cyclotomic tower rewrites the singular series as an <strong>Euler product</strong>:</p>
-$$\mathfrak{S}(N) = \prod_{p \leq Q} \sigma_p(N)$$
-<p>The error becomes <strong>multiplicative accumulation</strong>:</p>
-$$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\!\left(\sum_{p \leq Q}|\delta_p|\right) - 1$$
-<p>The number of terms drops from \(O(Q^2)\) to \(\pi(Q) \sim Q/\log Q\). The key inequality:</p>
-$$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
-<p><strong>The same mathematical fact diverges under additive description but converges under multiplicative description.</strong> The cyclotomic tower does not improve estimates — it changes the <strong>structure</strong> of the description.</p>
+<h4>Goldbach: From "the Square of the Cutoff" Addends to "as Many Multipliers as Primes"</h4>
+<p>This is the most direct example (see §5 for details). In the classical circle method the errors stack up by <strong>addition</strong>: there are as many denominators as "the square of the cutoff", each contributing a little error, and even under GRH the square-order sum is enough to drown the main term. The cyclotomic tower rewrites the correction as an <strong>Euler product</strong> with one factor per prime: the total error is now controlled by the sum of relative layer errors, and there are only "as many layers as primes" — nearly linear; GRH then makes the per-layer errors small enough for the total to vanish. <strong>The same mathematical fact diverges under an additive description but converges under a multiplicative one.</strong> The cyclotomic tower does not improve estimates — it changes the <strong>structure</strong> of the description.</p>
 
 <h4>RH: From Euler Product to Controllable Components</h4>
 <p>The Euler product \(\prod_p (1-p^{-s})^{-1}\) of \(\zeta(s)\) is multiplicative, but its domain of convergence is only \(\Re(s) > 1\). In the critical strip \(\Re(s) \in (0,1)\), the product diverges, and zeros are hidden within the divergence.</p>
