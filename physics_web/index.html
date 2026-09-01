@@ -23,25 +23,8 @@
 </head>
 <body>
 
-<!-- ============ NAVIGATION ============ -->
-<nav class="topnav" id="topnav">
-  <div class="topnav-inner">
-    <a href="#hero" class="brand">QCAO</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
-    <div class="nav-links" id="navLinks">
-      <a href="#hero">Abstract</a>
-      <a href="#construction">§2 Construction</a>
-      <a href="#exp1">§3 Level Repulsion</a>
-      <a href="#exp2">§4 Wave-Packet</a>
-      <a href="#exp3">§5 Evidence Chain</a>
-      <a href="#exp4">§6 Fingerprints</a>
-      <a href="#discussion">§7 Discussion</a>
-      <a href="#datacode">Data &amp; Code</a>
-      <a href="../index.html" target="_blank" rel="noopener">RH &amp; GRH pages ↗</a>
-      <a href="../constants.html" target="_blank" rel="noopener">Number constants ↗</a>
-    </div>
-  </div>
-</nav>
+<!-- top-nav -->
+<nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="../index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">量子混沌物理论文</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">物理论文(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../three_term_viz/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">三通道可视化</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../constants.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">数论常数</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../paper/q_unifies_four_conjectures.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">八字曲线之钥</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">审稿回应</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码仓库</a></nav>
 
 <!-- ============ §1 HERO / ABSTRACT ============ -->
 <section id="hero" class="hero-section">
@@ -571,30 +554,6 @@
 
 <!-- ============ JAVASCRIPT ============ -->
 <script>
-// ===== NAV: mobile toggle =====
-document.getElementById('navToggle').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-// ===== NAV: scroll spy =====
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.topnav .nav-links a');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(a => a.classList.remove('active'));
-      const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-      if (active) active.classList.add('active');
-    }
-  });
-}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
-sections.forEach(s => observer.observe(s));
-
-// Close mobile nav on link click
-navLinks.forEach(a => a.addEventListener('click', () => {
-  document.getElementById('navLinks').classList.remove('open');
-}));
-
 // ===== UTILITY =====
 function wignerGOE(s) { return (Math.PI/2)*s*Math.exp(-Math.PI/4*s*s); }
 function wignerGUE(s) { return (32/(Math.PI*Math.PI))*s*s*Math.exp(-4/Math.PI*s*s); }
