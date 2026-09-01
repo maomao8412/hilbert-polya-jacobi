@@ -13,45 +13,89 @@ window.MathJax = {
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
-  body{margin:0;padding:0;background:#fafafa;color:#222;
-    font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-    line-height:1.85;}
-  .wrap{max-width:860px;margin:0 auto;padding:24px 20px 80px;background:#fff;
-    box-shadow:0 0 20px rgba(0,0,0,.04);}
-  h1{font-size:1.7em;line-height:1.4;margin:.2em 0 .3em;}
-  h2{font-size:1.3em;margin:1.8em 0 .6em;padding-bottom:.3em;border-bottom:2px solid #eef2f7;}
-  .sub{color:#888;font-size:.95em;margin-bottom:1.2em;}
-  p{margin:.7em 0;}
-  .lead{font-size:1.05em;color:#333;background:#f6f9fc;border-left:4px solid #1a5fb4;
-    padding:.9em 1.1em;border-radius:0 8px 8px 0;margin:1.2em 0;}
-  .card{border:1px solid #e6ecf2;border-radius:10px;padding:1em 1.2em;margin:1em 0;background:#fcfdff;}
-  .card h3{margin:.2em 0 .5em;font-size:1.08em;}
-  .num{font-family:ui-monospace,"SF Mono",Consolas,monospace;}
-  .tag{display:inline-block;font-size:.78em;padding:.1em .6em;border-radius:20px;margin-left:.4em;
-    vertical-align:middle;font-weight:600;}
-  .tag-zeta{background:#fdeceb;color:#c0392b;}
-  .tag-beta{background:#e9f2fb;color:#1a5fb4;}
-  .tag-prime{background:#eaf7ef;color:#1e8449;}
-  figure{margin:1.4em 0;text-align:center;}
-  figure img{max-width:100%;height:auto;border:1px solid #eee;border-radius:8px;}
-  figcaption{color:#888;font-size:.88em;margin-top:.5em;}
-  table{border-collapse:collapse;width:100%;margin:1em 0;font-size:.95em;}
-  th,td{border:1px solid #e6ecf2;padding:.55em .7em;text-align:left;}
-  th{background:#f6f9fc;}
-  .note{background:#fff8ec;border-left:4px solid #e0a53a;border-radius:0 8px 8px 0;
-    padding:.8em 1.1em;font-size:.92em;color:#6b5320;margin:1.2em 0;}
-  a{color:#1a5fb4;}
-  .foot{margin-top:3em;padding-top:1em;border-top:1px solid #eee;color:#999;font-size:.85em;}
+  :root{--bg:#fdfdfb;--text:#1a1a1a;--heading:#1a4a8a;--subtle:#555;--rule:#c9c9c9;--accent:#8a2b1a;--code-bg:#f4f3ef;--green:#0a6b2b}
+  *{box-sizing:border-box}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);max-width:none;margin:0;padding:34px 22px 80px;line-height:1.85;font-size:17px}
+  h1,h2,h3{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;color:var(--heading);line-height:1.4}
+  h1{font-size:1.85em;text-align:center;margin:0 0 .3em;border-bottom:2px solid var(--heading);padding-bottom:.4em}
+  .subtitle{text-align:center;color:var(--subtle);font-style:italic;margin-bottom:2em}
+  h2{font-size:1.35em;margin-top:2.2em;border-left:4px solid var(--heading);padding-left:.5em}
+  h3{font-size:1.1em;margin-top:1.6em}
+  p{margin:.7em 0;text-align:justify}
+  mjx-container[display="false"]{vertical-align:-0.06em}
+  mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  code{font-family:"SFMono-Regular",Consolas,monospace;background:var(--code-bg);padding:.1em .35em;border-radius:3px;font-size:.92em}
+  table{border-collapse:collapse;margin:1.2em auto;font-size:.92em}
+  th,td{border:1px solid var(--rule);padding:.4em .7em;text-align:center}
+  th{background:#eef2f8;color:var(--heading)}
+  tr:nth-child(even) td{background:#fafaf7}
+  .fig{text-align:center;margin:1.6em 0}
+  .fig img{max-width:100%;border:1px solid var(--rule);border-radius:4px}
+  .figcap{color:var(--subtle);font-size:.88em;margin-top:.4em;font-style:italic}
+  .card{background:#f0f4fa;border:1px solid #c9d6e8;border-radius:5px;padding:1em 1.4em;margin:1.5em 0}
+  .card h3{margin:.2em 0 .5em;font-size:1.08em}
+  .num{font-family:"SFMono-Regular",Consolas,monospace;}
+  .tag{display:inline-block;font-size:.78em;padding:.1em .6em;border-radius:20px;margin-left:.4em;vertical-align:middle;font-weight:600}
+  .tag-zeta{background:#fdeceb;color:var(--accent)}
+  .tag-beta{background:#e9f2fb;color:var(--heading)}
+  .tag-prime{background:#eaf7ef;color:var(--green)}
+  .lead{background:linear-gradient(135deg,#f8f6f0 0%,#f0f4fa 100%);border:1px solid #d8d2a8;border-radius:8px;padding:1.2em 1.5em;margin:1.5em 0;font-size:1.05em;color:#333}
+  .note{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.8em 1.3em;font-size:.92em;color:#6b5320;margin:1.2em 0}
+  .boundary{background:#f7f5e8;border:1px solid #d8d2a8;border-radius:5px;padding:.8em 1.3em;margin:1.2em 0}
+  a{color:var(--heading);text-decoration:none;border-bottom:1px dotted var(--heading)}
+  a:hover{border-bottom-style:solid}
+  hr{border:none;border-top:1px solid var(--rule);margin:2em 0}
+  .foot{margin-top:3em;padding-top:1em;border-top:1px solid var(--rule);color:var(--subtle);font-size:.85em}
+
+  h1,h2,h3,p,blockquote,.boundary,.card,.lead,.note,.fig,.formula,pre,.subtitle,.table-scroll{max-width:1000px;margin-left:auto;margin-right:auto}
+  img{display:block;margin:1.2em auto;max-width:100%;width:min(100%,1000px);height:auto;border:1px solid var(--rule);border-radius:4px}
+
+  /* Language switcher */
+  .lang-switcher{display:flex;gap:8px;margin:16px auto;justify-content:center}
+  .lang-switcher button{padding:6px 16px;border:1px solid var(--rule);background:var(--code-bg);cursor:pointer;border-radius:4px;font-size:14px;font-family:inherit;color:var(--text)}
+  .lang-switcher button.active{background:var(--heading);color:#fff;border-color:var(--heading)}
+  .lang-switcher button:hover:not(.active){background:#e8e7e3}
+  .lang-zh,.lang-en,.lang-bi{display:none}
+  .lang-zh.visible,.lang-en.visible,.lang-bi.visible{display:block}
+  .lang-bi .bi-zh,.lang-bi .bi-en{display:block}
+  .lang-bi .bi-zh{margin-bottom:1.8em;padding-bottom:1.2em;border-bottom:1px dashed var(--rule)}
+  .lang-bi .bi-en{opacity:.88}
+
+  @media (max-width:768px){body{padding:16px 10px 60px;font-size:16px;line-height:1.8}h1{font-size:1.45em}h2{font-size:1.18em}h3{font-size:1.05em}.lead,.card,.note{padding:.7em .9em}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
 <!-- top-nav -->
 <nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">量子混沌物理论文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">物理论文(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="three_term_viz/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">三通道可视化</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">数论常数</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="goldbach_complete_proof.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">哥德巴赫猜想</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="paper/q_unifies_four_conjectures.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">八字曲线之钥</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">审稿回应</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码仓库</a></nav>
 
+<!-- Language Switcher -->
+<div class="lang-switcher">
+  <button onclick="switchLang('zh')" class="active" id="btn-zh">中文</button>
+  <button onclick="switchLang('en')" id="btn-en">English</button>
+  <button onclick="switchLang('bi')" id="btn-bi">中英对照</button>
+</div>
+
+<script>
+function switchLang(lang) {
+  document.querySelectorAll('.lang-zh,.lang-en,.lang-bi').forEach(el => el.classList.remove('visible'));
+  document.querySelectorAll('.lang-switcher button').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-' + lang).classList.add('visible');
+  document.getElementById('btn-' + lang).classList.add('active');
+  if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+    MathJax.typesetPromise();
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('.lang-zh').classList.add('visible');
+});
+</script>
+
+<!-- ==================== 中文 ==================== -->
+<div class="lang-zh visible">
+
 <h1>矩阵里"长"出来的数论常数</h1>
-<div class="sub">从 L 函数矩量构造的 Jacobi 矩阵，仅凭算术结构就能读出 π、Catalan 常数与高斯素数分解律</div>
+<p class="subtitle">从 L 函数矩量构造的 Jacobi 矩阵，仅凭算术结构就能读出 π、Catalan 常数与高斯素数分解律</p>
 
 <div class="lead">
 把完备 \(L\) 函数的矩量经 Gram–Schmidt 正交化，唯一确定出一串 Jacobi 递推系数，
@@ -87,12 +131,12 @@ window.MathJax = {
 \(G=\sum_{k=0}^{\infty}\frac{(-1)^k}{(2k+1)^2}=0.915965594\ldots\)。</li>
 </ul>
 
-<figure>
+<div class="fig">
   <img src="assets/catalan_decode.png" alt="行列式读数随矩阵阶数收敛：ζ矩阵给π，乘积矩阵给Catalan">
-  <figcaption>图 1 · 同一个行列式读数，随 Jacobi 矩阵阶数 \(N\) 单调收敛。
+  <p class="figcap">图 1 · 同一个行列式读数，随 Jacobi 矩阵阶数 \(N\) 单调收敛。
   左：ζ 矩阵 \(N=100\) 读 3.11899，趋向真值 \(\pi=3.14159\)（尾差约 0.7%，随 \(N\) 继续收敛）；
-  右：\(\mathbb{Q}(i)\) 乘积矩阵 \(N=100\) 读 1.18648，趋向真值 \(4G/3=1.22129\)。</figcaption>
-</figure>
+  右：\(\mathbb{Q}(i)\) 乘积矩阵 \(N=100\) 读 1.18648，趋向真值 \(4G/3=1.22129\)。</p>
+</div>
 
 <div class="card">
   <h3>📌 Catalan 常数 <span class="tag tag-beta">高斯域 Q(i)</span></h3>
@@ -124,14 +168,14 @@ window.MathJax = {
 <tr><td>分歧素数 \(2\)</td><td>\(2=-i(1+i)^2\) 分歧</td><td>尖峰 @ \(2\) 的幂次</td></tr>
 </table>
 
-<figure>
+<div class="fig">
   <img src="assets/gaussian_primes_j100.png" alt="Q(i) 高斯素数解码：J50 vs J100 乘积矩阵迹尖峰">
-  <figcaption>图 2 · 乘积矩阵迹的尖峰（蓝柱）与理论 \(\Lambda_K\) 尖峰（红三角）逐条对齐。
+  <p class="figcap">图 2 · 乘积矩阵迹的尖峰（蓝柱）与理论 \(\Lambda_K\) 尖峰（红三角）逐条对齐。
   上：\(J_{50}\)，有效区 \(n\le25\)，尖峰 RMS 偏差 2.75；
   下：\(J_{100}\)，有效区扩大到 \(n\le32\)，RMS 降到 1.20，
   并新解码 \(n=29\)（分裂，5.91 vs 理论 6.73）、\(n=49=7^2\)（惯性，3.34 vs 3.89）、
-  \(n=32=2^5\)（分歧）等点。矩阵越大，"看见"的高斯素数越多。</figcaption>
-</figure>
+  \(n=32=2^5\)（分歧）等点。矩阵越大，"看见"的高斯素数越多。</p>
+</div>
 
 <div class="card">
   <h3>📌 素数迹公式 RMS <span class="tag tag-prime">谱—素数对应</span></h3>
@@ -171,6 +215,424 @@ Zhuo Chen · 独立研究 · 数据来自 \(J_{100}\) 乘积矩阵（650 位精�
 <a href="https://zenodo.org/records/22209177" target="_blank" rel="noopener">GRH 10.5281/zenodo.22209177</a>
 </div>
 
+</div><!-- end lang-zh -->
+
+<!-- ==================== English ==================== -->
+<div class="lang-en">
+
+<h1>Number-Theoretic Constants Grown from the Matrix</h1>
+<p class="subtitle">Jacobi matrices constructed from L-function moments can read out π, Catalan's constant, and Gaussian prime decomposition laws purely from arithmetic structure</p>
+
+<div class="lead">
+Applying Gram–Schmidt orthogonalization to the moments of a completed \(L\)-function uniquely determines a sequence of Jacobi recurrence coefficients,
+assembled into a tridiagonal matrix \(J_N\) — <strong>zero free parameters, no fitting</strong>.
+Then perform the most elementary matrix operation: a ratio of determinants.
+The matrix will spit out, one by one, the number-theoretic constants "known" to that \(L\)-function.
+The constants follow the number field: the rational field yields \(\pi\), the Gaussian field \(\mathbb{Q}(i)\) yields Catalan's constant.
 </div>
+
+<h2>I. Why Determinant Ratios Can Read Out Constants</h2>
+<p>
+The ratio of determinants of an \(N\times N\) Jacobi matrix converges as the order \(N\) increases.
+Taking the matrix ratio \(\det(I+\tfrac94J)\big/\det(I+\tfrac14J)\) as an example,
+as \(N\to\infty\) it tends toward a constant determined by the values of the completed \(L\)-function at specific points.
+Those values are well-known constants from classical analytic number theory:
+</p>
+<ul>
+<li><strong>ζ matrix</strong> (RH main paper, moments from the Riemann \(\xi\) function):
+\[
+\frac{\xi(2)}{\xi(1)}=\frac{\pi}{3},\qquad \xi(1)=\frac12,\quad \xi(2)=\frac{\pi}{6},
+\]
+The limit of the determinant ratio is precisely \(\pi=3.14159\ldots\).</li>
+<li><strong>Product matrix</strong> (GRH paper, \(\xi_K=\xi\cdot\Lambda_\beta\), where \(\beta\) is
+the Dirichlet beta function associated with the Gaussian integer ring \(\mathbb{Z}[i]\)):
+\[
+\Lambda_\beta(1)=1,\qquad \Lambda_\beta(2)=\frac{4G}{\pi},
+\]
+The determinant ratio limit is
+\[
+\frac{\xi_K(2)}{\xi_K(1)}=\frac{4G}{3}=1.22129\ldots,
+\]
+where the \(\pi\) factors cancel completely, and what remains — <strong>\(G\), is Catalan's constant</strong>
+\(G=\sum_{k=0}^{\infty}\frac{(-1)^k}{(2k+1)^2}=0.915965594\ldots\).</li>
+</ul>
+
+<div class="fig">
+  <img src="assets/catalan_decode.png" alt="Determinant readings converge with matrix order: ζ matrix gives π, product matrix gives Catalan">
+  <p class="figcap">Figure 1 · The same determinant reading converges monotonically with Jacobi matrix order \(N\).
+  Left: ζ matrix at \(N=100\) reads 3.11899, approaching the true value \(\pi=3.14159\) (tail discrepancy ≈ 0.7%, continuing to converge with larger \(N\));
+  Right: \(\mathbb{Q}(i)\) product matrix at \(N=100\) reads 1.18648, approaching the true value \(4G/3=1.22129\).</p>
+</div>
+
+<div class="card">
+  <h3>📌 Catalan's Constant <span class="tag tag-beta">Gaussian Field Q(i)</span></h3>
+  <p class="num" style="font-size:1.15em;">\(G = 0.915965594177219015\ldots\)</p>
+  <p>Just as \(\pi\) is fundamental to the rational field, \(G\) is the "built-in constant" of Gaussian integer arithmetic:
+  it equals \(\beta(2)\) (the Dirichlet beta function evaluated at 2), and also equals
+  \(1-\dfrac1{3^2}+\dfrac1{5^2}-\dfrac1{7^2}+\cdots\).
+  The matrix does not need to be told this number — it only ingests the prime decomposition data of \(\mathbb{Z}[i]\),
+  and the determinant ratio converges to \(4G/3\) on its own.</p>
+</div>
+
+<div class="card">
+  <h3>📌 The Circle Constant π <span class="tag tag-zeta">Rational Field Q</span></h3>
+  <p class="num" style="font-size:1.15em;">\(\pi = 3.14159265358979\ldots\)</p>
+  <p>The same reading from the ζ matrix converges to \(\pi\). Two number fields, two prime decomposition laws, two distinct matrices,
+  each reading out the fundamental constant of its own field — this is direct evidence that "arithmetic information is encoded in the spectrum."</p>
+</div>
+
+<h2>II. Matrix Traces "Decode" Gaussian Primes</h2>
+<p>
+Even more remarkably, the matrix trace (logarithmic derivative of the diagonal). Performing a trace expansion on the \(\mathbb{Q}(i)\) product matrix,
+the spike positions and heights of the \(n\)-th trace correspond precisely to the prime decomposition law of the Gaussian integer ring:
+</p>
+
+<table>
+<tr><th>Integer \(n\)</th><th>Gaussian Field Decomposition Type</th><th>Trace Spike Position</th></tr>
+<tr><td>Split primes \(p\equiv1\pmod 4\)</td><td>\(p=\pi\bar\pi\) splits into two Gaussian primes</td><td>Spike @ \(2\log p\)</td></tr>
+<tr><td>Inert primes \(p\equiv3\pmod 4\)</td><td>\(p\) remains a Gaussian prime (inert)</td><td>Spike @ \(p^2\)</td></tr>
+<tr><td>Ramified prime \(2\)</td><td>\(2=-i(1+i)^2\) ramifies</td><td>Spike @ powers of \(2\)</td></tr>
+</table>
+
+<div class="fig">
+  <img src="assets/gaussian_primes_j100.png" alt="Q(i) Gaussian prime decoding: J50 vs J100 product matrix trace spikes">
+  <p class="figcap">Figure 2 · Product matrix trace spikes (blue bars) align one-by-one with theoretical \(\Lambda_K\) spikes (red triangles).
+  Top: \(J_{50}\), effective range \(n\le25\), spike RMS deviation 2.75;
+  Bottom: \(J_{100}\), effective range extends to \(n\le32\), RMS drops to 1.20,
+  newly decoding \(n=29\) (split, 5.91 vs. theoretical 6.73), \(n=49=7^2\) (inert, 3.34 vs. 3.89),
+  \(n=32=2^5\) (ramified), etc. The larger the matrix, the more Gaussian primes it "sees."</p>
+</div>
+
+<div class="card">
+  <h3>📌 Prime Trace Formula RMS <span class="tag tag-prime">Spectrum–Prime Correspondence</span></h3>
+  <p>The root-mean-square deviation between matrix trace spike heights and theoretical \(\log p\) weights:
+  <span class="num">\(J_{50}: 2.75 \;\to\; J_{100}: 1.20\)</span>,
+  effective decoding range <span class="num">\(n\le25 \to n\le32\)</span>.
+  This is consistent with the explicit formula / prime trace formula
+  \(\psi(x)=x-\sum_\rho x^\rho/\rho-\cdots\):
+  summing over zeros (spectrum) recovers the primes — the matrix computes this relationship <em>explicitly</em>.</p>
+</div>
+
+<h2>III. Significance of These Constants</h2>
+<p>
+Traditionally, constants like \(\pi\) and Catalan's constant appear in special values of \(L\)-functions, derived through analytic continuation
+and \(\Gamma\)-factor computations. Here, they emerge as <strong>limits of purely linear-algebraic operations</strong>:
+a matrix uniquely determined by arithmetic moments, with no free parameters, reveals both constants and prime decomposition laws
+simply by computing determinants and traces.
+</p>
+<p>
+This provides a concrete, computable version of the Hilbert–Pólya vision:
+<strong>arithmetic information determines not only spectral positions (zeros) but is also encoded in the matrix's determinants and traces</strong> —
+the latter directly yield the fundamental constants and prime decomposition statistics of the number field.
+Change the number field (\(\mathbb{Q}\to\mathbb{Q}(i)\)), change the matrix, and the constants read out shift from \(\pi\) to Catalan — following their respective arithmetic exactly.
+</p>
+
+<div class="note">
+Scope note: All readings on this page are <strong>numerical convergence observations</strong> (finite \(N\), with tail residuals converging as \(N\) grows),
+intended to illustrate the physical picture of "arithmetic encoded into matrices."
+Analytic derivations and deductive proofs of the constants appear in the RH main paper and GRH paper
+(<a href="zh.html">RH Chinese page</a>, <a href="grh_zh.html">GRH Chinese page</a>).
+Matrix construction code, coefficient tables, and all data are available at the
+<a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank" rel="noopener">GitHub repository</a>.
+</div>
+
+<div class="foot">
+Zhuo Chen · Independent Research · Data from \(J_{100}\) product matrix (650-digit precision, 2026-08-30) ·
+Preprints on Zenodo: <a href="https://zenodo.org/records/22209098" target="_blank" rel="noopener">RH 10.5281/zenodo.22209098</a>,
+<a href="https://zenodo.org/records/22209177" target="_blank" rel="noopener">GRH 10.5281/zenodo.22209177</a>
+</div>
+
+</div><!-- end lang-en -->
+
+<!-- ==================== 中英对照 ==================== -->
+<div class="lang-bi">
+
+<div class="bi-zh">
+<h1>矩阵里"长"出来的数论常数</h1>
+<p class="subtitle">从 L 函数矩量构造的 Jacobi 矩阵，仅凭算术结构就能读出 π、Catalan 常数与高斯素数分解律</p>
+</div>
+<div class="bi-en">
+<h1>Number-Theoretic Constants Grown from the Matrix</h1>
+<p class="subtitle">Jacobi matrices constructed from L-function moments can read out π, Catalan's constant, and Gaussian prime decomposition laws purely from arithmetic structure</p>
+</div>
+
+<div class="bi-zh">
+<div class="lead">
+把完备 \(L\) 函数的矩量经 Gram–Schmidt 正交化，唯一确定出一串 Jacobi 递推系数，
+组装成三对角矩阵 \(J_N\)——<strong>零自由参数、无拟合</strong>。
+然后做一个再普通不过的矩阵运算：行列式比值。
+矩阵会把这个 \(L\) 函数所"知道"的数论常数，一个个吐出来。
+常数跟着数域走：有理数域给 \(\pi\)，高斯域 \(\mathbb{Q}(i)\) 给 Catalan 常数。
+</div>
+</div>
+<div class="bi-en">
+<div class="lead">
+Applying Gram–Schmidt orthogonalization to the moments of a completed \(L\)-function uniquely determines a sequence of Jacobi recurrence coefficients,
+assembled into a tridiagonal matrix \(J_N\) — <strong>zero free parameters, no fitting</strong>.
+Then perform the most elementary matrix operation: a ratio of determinants.
+The matrix will spit out, one by one, the number-theoretic constants "known" to that \(L\)-function.
+The constants follow the number field: the rational field yields \(\pi\), the Gaussian field \(\mathbb{Q}(i)\) yields Catalan's constant.
+</div>
+</div>
+
+<div class="bi-zh"><h2>一、行列式比值为什么能读出常数</h2></div>
+<div class="bi-en"><h2>I. Why Determinant Ratios Can Read Out Constants</h2></div>
+
+<div class="bi-zh">
+<p>
+\(N\times N\) Jacobi 矩阵的行列式比值随阶数 \(N\) 收敛。以矩阵
+\(\det(I+\tfrac94J)\big/\det(I+\tfrac14J)\) 为例，
+它在 \(N\to\infty\) 时趋向一个由完备 \(L\) 函数在特定点取值决定的常数。
+而那些取值，是经典解析数论里的知名常数：
+</p>
+<ul>
+<li><strong>ζ 矩阵</strong>（RH 主篇，矩量来自 Riemann \(\xi\) 函数）：
+\[
+\frac{\xi(2)}{\xi(1)}=\frac{\pi}{3},\qquad \xi(1)=\frac12,\quad \xi(2)=\frac{\pi}{6},
+\]
+行列式比值的极限正是 \(\pi=3.14159\ldots\)。</li>
+<li><strong>乘积矩阵</strong>（GRH 篇，\(\xi_K=\xi\cdot\Lambda_\beta\)，其中 \(\beta\) 是
+高斯整数环 \(\mathbb{Z}[i]\) 的 Dirichlet beta 函数）：
+\[
+\Lambda_\beta(1)=1,\qquad \Lambda_\beta(2)=\frac{4G}{\pi},
+\]
+行列式比值极限
+\[
+\frac{\xi_K(2)}{\xi_K(1)}=\frac{4G}{3}=1.22129\ldots,
+\]
+其中 \(\pi\) 因子被约光，剩下的 <strong>\(G\) 就是 Catalan 常数</strong>
+\(G=\sum_{k=0}^{\infty}\frac{(-1)^k}{(2k+1)^2}=0.915965594\ldots\)。</li>
+</ul>
+</div>
+<div class="bi-en">
+<p>
+The ratio of determinants of an \(N\times N\) Jacobi matrix converges as the order \(N\) increases.
+Taking the matrix ratio \(\det(I+\tfrac94J)\big/\det(I+\tfrac14J)\) as an example,
+as \(N\to\infty\) it tends toward a constant determined by the values of the completed \(L\)-function at specific points.
+Those values are well-known constants from classical analytic number theory:
+</p>
+<ul>
+<li><strong>ζ matrix</strong> (RH main paper, moments from the Riemann \(\xi\) function):
+\[
+\frac{\xi(2)}{\xi(1)}=\frac{\pi}{3},\qquad \xi(1)=\frac12,\quad \xi(2)=\frac{\pi}{6},
+\]
+The limit of the determinant ratio is precisely \(\pi=3.14159\ldots\).</li>
+<li><strong>Product matrix</strong> (GRH paper, \(\xi_K=\xi\cdot\Lambda_\beta\), where \(\beta\) is
+the Dirichlet beta function associated with the Gaussian integer ring \(\mathbb{Z}[i]\)):
+\[
+\Lambda_\beta(1)=1,\qquad \Lambda_\beta(2)=\frac{4G}{\pi},
+\]
+The determinant ratio limit is
+\[
+\frac{\xi_K(2)}{\xi_K(1)}=\frac{4G}{3}=1.22129\ldots,
+\]
+where the \(\pi\) factors cancel completely, and what remains — <strong>\(G\), is Catalan's constant</strong>
+\(G=\sum_{k=0}^{\infty}\frac{(-1)^k}{(2k+1)^2}=0.915965594\ldots\).</li>
+</ul>
+</div>
+
+<div class="bi-zh">
+<div class="fig">
+  <img src="assets/catalan_decode.png" alt="行列式读数随矩阵阶数收敛">
+  <p class="figcap">图 1 · 同一个行列式读数，随 Jacobi 矩阵阶数 \(N\) 单调收敛。
+  左：ζ 矩阵 \(N=100\) 读 3.11899，趋向真值 \(\pi=3.14159\)（尾差约 0.7%，随 \(N\) 继续收敛）；
+  右：\(\mathbb{Q}(i)\) 乘积矩阵 \(N=100\) 读 1.18648，趋向真值 \(4G/3=1.22129\)。</p>
+</div>
+</div>
+<div class="bi-en">
+<div class="fig">
+  <img src="assets/catalan_decode.png" alt="Determinant readings converge with matrix order">
+  <p class="figcap">Figure 1 · The same determinant reading converges monotonically with Jacobi matrix order \(N\).
+  Left: ζ matrix at \(N=100\) reads 3.11899, approaching the true value \(\pi=3.14159\) (tail discrepancy ≈ 0.7%, continuing to converge with larger \(N\));
+  Right: \(\mathbb{Q}(i)\) product matrix at \(N=100\) reads 1.18648, approaching the true value \(4G/3=1.22129\).</p>
+</div>
+</div>
+
+<div class="bi-zh">
+<div class="card">
+  <h3>📌 Catalan 常数 <span class="tag tag-beta">高斯域 Q(i)</span></h3>
+  <p class="num" style="font-size:1.15em;">\(G = 0.915965594177219015\ldots\)</p>
+  <p>与 \(\pi\) 之于有理数域类似，\(G\) 是高斯整数算术的"内置常数"：
+  它等于 \(\beta(2)\)（Dirichlet beta 函数在 2 的值），也等于
+  \(1-\dfrac1{3^2}+\dfrac1{5^2}-\dfrac1{7^2}+\cdots\)。
+  矩阵不需要被告知这个数——它只吃 \(\mathbb{Z}[i]\) 的素数分解数据，
+  行列式比值自己收敛到 \(4G/3\)。</p>
+</div>
+</div>
+<div class="bi-en">
+<div class="card">
+  <h3>📌 Catalan's Constant <span class="tag tag-beta">Gaussian Field Q(i)</span></h3>
+  <p class="num" style="font-size:1.15em;">\(G = 0.915965594177219015\ldots\)</p>
+  <p>Just as \(\pi\) is fundamental to the rational field, \(G\) is the "built-in constant" of Gaussian integer arithmetic:
+  it equals \(\beta(2)\) (the Dirichlet beta function evaluated at 2), and also equals
+  \(1-\dfrac1{3^2}+\dfrac1{5^2}-\dfrac1{7^2}+\cdots\).
+  The matrix does not need to be told this number — it only ingests the prime decomposition data of \(\mathbb{Z}[i]\),
+  and the determinant ratio converges to \(4G/3\) on its own.</p>
+</div>
+</div>
+
+<div class="bi-zh">
+<div class="card">
+  <h3>📌 圆周率 π <span class="tag tag-zeta">有理域 Q</span></h3>
+  <p class="num" style="font-size:1.15em;">\(\pi = 3.14159265358979\ldots\)</p>
+  <p>ζ 矩阵的同一读数收敛到 \(\pi\)。两个数域、两套素数分解律、两个不同的矩阵，
+  读出各自域里的基本常数——这正是"算术信息编码在谱里"的直接证据。</p>
+</div>
+</div>
+<div class="bi-en">
+<div class="card">
+  <h3>📌 The Circle Constant π <span class="tag tag-zeta">Rational Field Q</span></h3>
+  <p class="num" style="font-size:1.15em;">\(\pi = 3.14159265358979\ldots\)</p>
+  <p>The same reading from the ζ matrix converges to \(\pi\). Two number fields, two prime decomposition laws, two distinct matrices,
+  each reading out the fundamental constant of its own field — this is direct evidence that "arithmetic information is encoded in the spectrum."</p>
+</div>
+</div>
+
+<div class="bi-zh"><h2>二、矩阵迹会"解码"高斯素数</h2></div>
+<div class="bi-en"><h2>II. Matrix Traces "Decode" Gaussian Primes</h2></div>
+
+<div class="bi-zh">
+<p>
+更惊人的是矩阵迹（对角线对数导数）。对 \(\mathbb{Q}(i)\) 乘积矩阵做迹展开，
+第 \(n\) 个迹的尖峰位置与高度，精确对应高斯整数环的素数分解律：
+</p>
+</div>
+<div class="bi-en">
+<p>
+Even more remarkably, the matrix trace (logarithmic derivative of the diagonal). Performing a trace expansion on the \(\mathbb{Q}(i)\) product matrix,
+the spike positions and heights of the \(n\)-th trace correspond precisely to the prime decomposition law of the Gaussian integer ring:
+</p>
+</div>
+
+<div class="bi-zh">
+<table>
+<tr><th>整数 \(n\)</th><th>高斯域分解类型</th><th>迹尖峰位置</th></tr>
+<tr><td>分裂素数 \(p\equiv1\pmod 4\)</td><td>\(p=\pi\bar\pi\) 分裂成两个高斯素数</td><td>尖峰 @ \(2\log p\)</td></tr>
+<tr><td>惯性素数 \(p\equiv3\pmod 4\)</td><td>\(p\) 保持为高斯素数（惰性）</td><td>尖峰 @ \(p^2\)</td></tr>
+<tr><td>分歧素数 \(2\)</td><td>\(2=-i(1+i)^2\) 分歧</td><td>尖峰 @ \(2\) 的幂次</td></tr>
+</table>
+</div>
+<div class="bi-en">
+<table>
+<tr><th>Integer \(n\)</th><th>Gaussian Field Decomposition Type</th><th>Trace Spike Position</th></tr>
+<tr><td>Split primes \(p\equiv1\pmod 4\)</td><td>\(p=\pi\bar\pi\) splits into two Gaussian primes</td><td>Spike @ \(2\log p\)</td></tr>
+<tr><td>Inert primes \(p\equiv3\pmod 4\)</td><td>\(p\) remains a Gaussian prime (inert)</td><td>Spike @ \(p^2\)</td></tr>
+<tr><td>Ramified prime \(2\)</td><td>\(2=-i(1+i)^2\) ramifies</td><td>Spike @ powers of \(2\)</td></tr>
+</table>
+</div>
+
+<div class="bi-zh">
+<div class="fig">
+  <img src="assets/gaussian_primes_j100.png" alt="Q(i) 高斯素数解码">
+  <p class="figcap">图 2 · 乘积矩阵迹的尖峰（蓝柱）与理论 \(\Lambda_K\) 尖峰（红三角）逐条对齐。
+  上：\(J_{50}\)，有效区 \(n\le25\)，尖峰 RMS 偏差 2.75；
+  下：\(J_{100}\)，有效区扩大到 \(n\le32\)，RMS 降到 1.20，
+  并新解码 \(n=29\)（分裂，5.91 vs 理论 6.73）、\(n=49=7^2\)（惯性，3.34 vs 3.89）、
+  \(n=32=2^5\)（分歧）等点。矩阵越大，"看见"的高斯素数越多。</p>
+</div>
+</div>
+<div class="bi-en">
+<div class="fig">
+  <img src="assets/gaussian_primes_j100.png" alt="Q(i) Gaussian prime decoding">
+  <p class="figcap">Figure 2 · Product matrix trace spikes (blue bars) align one-by-one with theoretical \(\Lambda_K\) spikes (red triangles).
+  Top: \(J_{50}\), effective range \(n\le25\), spike RMS deviation 2.75;
+  Bottom: \(J_{100}\), effective range extends to \(n\le32\), RMS drops to 1.20,
+  newly decoding \(n=29\) (split, 5.91 vs. theoretical 6.73), \(n=49=7^2\) (inert, 3.34 vs. 3.89),
+  \(n=32=2^5\) (ramified), etc. The larger the matrix, the more Gaussian primes it "sees."</p>
+</div>
+</div>
+
+<div class="bi-zh">
+<div class="card">
+  <h3>📌 素数迹公式 RMS <span class="tag tag-prime">谱—素数对应</span></h3>
+  <p>矩阵迹尖峰高度与理论 \(\log p\) 权重的均方根偏差：
+  <span class="num">\(J_{50}: 2.75 \;\to\; J_{100}: 1.20\)</span>，
+  有效解码范围 <span class="num">\(n\le25 \to n\le32\)</span>。
+  这与显式公式 / 素数迹公式
+  \(\psi(x)=x-\sum_\rho x^\rho/\rho-\cdots\)
+  的图像一致：零点（谱）求和还原出素数，矩阵把这一关系<em>显式算</em>了出来。</p>
+</div>
+</div>
+<div class="bi-en">
+<div class="card">
+  <h3>📌 Prime Trace Formula RMS <span class="tag tag-prime">Spectrum–Prime Correspondence</span></h3>
+  <p>The root-mean-square deviation between matrix trace spike heights and theoretical \(\log p\) weights:
+  <span class="num">\(J_{50}: 2.75 \;\to\; J_{100}: 1.20\)</span>,
+  effective decoding range <span class="num">\(n\le25 \to n\le32\)</span>.
+  This is consistent with the explicit formula / prime trace formula
+  \(\psi(x)=x-\sum_\rho x^\rho/\rho-\cdots\):
+  summing over zeros (spectrum) recovers the primes — the matrix computes this relationship <em>explicitly</em>.</p>
+</div>
+</div>
+
+<div class="bi-zh"><h2>三、这些常数的意义</h2></div>
+<div class="bi-en"><h2>III. Significance of These Constants</h2></div>
+
+<div class="bi-zh">
+<p>
+传统上，\(\pi\)、Catalan 常数这些数出现在 \(L\) 函数的特殊值里，靠解析延拓和
+\(\Gamma\) 因子推导得到。而在这里，它们是<strong>纯线性代数运算的极限</strong>：
+一个只由算术矩量唯一确定的、无自由参数的矩阵，做行列式和迹，就把常数和素数分解律
+一并呈现。
+</p>
+<p>
+这给 Hilbert–Pólya 图景提供了一个具体、可计算的版本：
+<strong>算术信息不只决定了谱的位置（零点），也编码在矩阵的行列式和迹里</strong>——
+后者直接给出数域的基本常数与素数分解统计。数域换了（\(\mathbb{Q}\to\mathbb{Q}(i)\)），
+矩阵换了，读出的常数也从 \(\pi\) 换成 Catalan，完全跟随各自的算术。
+</p>
+</div>
+<div class="bi-en">
+<p>
+Traditionally, constants like \(\pi\) and Catalan's constant appear in special values of \(L\)-functions, derived through analytic continuation
+and \(\Gamma\)-factor computations. Here, they emerge as <strong>limits of purely linear-algebraic operations</strong>:
+a matrix uniquely determined by arithmetic moments, with no free parameters, reveals both constants and prime decomposition laws
+simply by computing determinants and traces.
+</p>
+<p>
+This provides a concrete, computable version of the Hilbert–Pólya vision:
+<strong>arithmetic information determines not only spectral positions (zeros) but is also encoded in the matrix's determinants and traces</strong> —
+the latter directly yield the fundamental constants and prime decomposition statistics of the number field.
+Change the number field (\(\mathbb{Q}\to\mathbb{Q}(i)\)), change the matrix, and the constants read out shift from \(\pi\) to Catalan — following their respective arithmetic exactly.
+</p>
+</div>
+
+<div class="bi-zh">
+<div class="note">
+口径说明：本页所有读数为 <strong>数值收敛观测</strong>（\(N\) 有限、尾部残差随 \(N\) 收敛），
+用于展示"算术编码进矩阵"的物理图像；常数的解析推导与演绎证明见 RH 主篇与 GRH 篇
+（<a href="zh.html">RH 中文页</a>、<a href="grh_zh.html">GRH 中文页</a>）。
+矩阵构造代码、系数表与全部数据见
+<a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank" rel="noopener">GitHub 仓库</a>。
+</div>
+</div>
+<div class="bi-en">
+<div class="note">
+Scope note: All readings on this page are <strong>numerical convergence observations</strong> (finite \(N\), with tail residuals converging as \(N\) grows),
+intended to illustrate the physical picture of "arithmetic encoded into matrices."
+Analytic derivations and deductive proofs of the constants appear in the RH main paper and GRH paper
+(<a href="zh.html">RH Chinese page</a>, <a href="grh_zh.html">GRH Chinese page</a>).
+Matrix construction code, coefficient tables, and all data are available at the
+<a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank" rel="noopener">GitHub repository</a>.
+</div>
+</div>
+
+<div class="bi-zh">
+<div class="foot">
+Zhuo Chen · 独立研究 · 数据来自 \(J_{100}\) 乘积矩阵（650 位精度，2026-08-30）·
+预印本 Zenodo：<a href="https://zenodo.org/records/22209098" target="_blank" rel="noopener">RH 10.5281/zenodo.22209098</a>、
+<a href="https://zenodo.org/records/22209177" target="_blank" rel="noopener">GRH 10.5281/zenodo.22209177</a>
+</div>
+</div>
+<div class="bi-en">
+<div class="foot">
+Zhuo Chen · Independent Research · Data from \(J_{100}\) product matrix (650-digit precision, 2026-08-30) ·
+Preprints on Zenodo: <a href="https://zenodo.org/records/22209098" target="_blank" rel="noopener">RH 10.5281/zenodo.22209098</a>,
+<a href="https://zenodo.org/records/22209177" target="_blank" rel="noopener">GRH 10.5281/zenodo.22209177</a>
+</div>
+</div>
+
+</div><!-- end lang-bi -->
+
 </body>
 </html>
