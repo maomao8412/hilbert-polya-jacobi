@@ -162,7 +162,7 @@ $$\boxed{z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1 + x^2 y^2}}$$
 
 <p>双纽线的加法公式恰好提供了这座桥：它从一个<strong>加法操作</strong>（两段弧长相加）中，自然地涌现出<strong>乘法结构</strong>（\(x^2 y^2\) 交叉项）。这正是 \(q = \sqrt{2}-1\) 的来源——它是双纽线"最对称"的点（模数 \(k = 1/\sqrt{2}\)），在这个点上，加法与乘法完美地交织在一起。</p>
 
-<div style="background:#f0f7ff;border-left:4px solid #1a5fb4;padding:1em 1.2em;margin:1.5em 0;border-radius:0 8px 8px 0">
+<div style="background:#f0f7ff;border-left:4px solid #1a5fb4;padding:1em 1.2em;margin:1.5em auto;max-width:1000px;border-radius:0 8px 8px 0">
 <p><strong>一句话总结：</strong>圆告诉我们"加法怎么运作"，双纽线告诉我们"加法中可以隐藏着乘法"。四大猜想的证明，就是把这种隐藏的乘法结构挖出来，用它来统一素数的乘法世界与零点的加法世界。</p>
 </div>
 
@@ -213,7 +213,7 @@ $$\zeta(s)=\left(1-\frac{1}{2^s}\right)^{-1}\!\!\left(1-\frac{1}{3^s}\right)^{-1
 <p>可是乘法面孔有个致命的毛病：它和加法面孔一样，<strong>只在 \(\Re(s)>1\) 时收敛</strong>。素数的秘密锁在乘法世界里，零点却住在临界带上——乘法机器开到临界带门口就熄火了。Riemann 当年靠<strong>函数方程</strong> \(\xi(s)=\xi(1-s)\) 把 \(\zeta\) 延拓到整个复平面，造出了完备函数</p>
 $$\xi(s)=\tfrac12 s(s-1)\,\pi^{-s/2}\Gamma(s/2)\,\zeta(s)$$
 <p>它是整函数，且关于临界线 \(\Re(s)=\tfrac12\) 完美对称；RH 说的就是 \(\xi\) 的全部零点都站在这条对称线上。但函数方程只让你"走得进"临界带，不让你"看得清"：一百六十年来，人们在临界带里能用的始终是从远处（\(\Re(s)>1\)）搬来的估计，越靠近临界线越模糊——经典方法给出的噪声上界和主项同量级，胜负分不出来。这就是 RH 一个半世纪攻不破的技术原因。</p>
-<div style="background:#fff8e6;border-left:4px solid #d4a017;padding:.9em 1.2em;margin:1.2em 0;border-radius:0 8px 8px 0">
+<div style="background:#fff8e6;border-left:4px solid #d4a017;padding:.9em 1.2em;margin:1.2em auto;max-width:1000px;border-radius:0 8px 8px 0">
 <p style="margin:0"><strong>一句话概括困境：</strong>素数住在乘法世界，而乘法世界的大门在临界带外。要证明零点站成一条直线，必须有人把乘法世界里锁着的信息，<em>翻译成加法世界里也能读的语言</em>。</p>
 </div>
 
@@ -259,7 +259,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 <p>打个比方：经典方法像在暴风雨里数海岸线上的灯塔，浪涛声和灯塔的光同量级，你永远没法确认"灯塔全在线上"；而三项分解相当于<strong>退了潮</strong>——三块材料各自的几何形状已经把海岸线钉死，你直接看见每一块石头的位置，不需要再数。</p>
 <p>值得多说一句：这条证明链<strong>从头到尾不需要素数出场</strong>。素数住在乘法世界里，而我们在加法世界里就把零点的位置定死了。证明里也不经过测度、矩阵或零点计数，不需要辐角原理，不需要 Hurwitz 定理——是一条纯解析的直路。</p>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 想看完整证明？</strong>这一节只讲思路。角单调性如何在大高度、小高度、中间过渡区间三段分别严格建立，Herglotz 解析性与极点矛盾的完整论证，请看专门的证明页面：
 <br><a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">→ 《黎曼猜想证明》（中文全文）</a> &nbsp;|&nbsp; <a href="../index.html" style="color:#1a5fb4;font-weight:600">Proof of RH (English full text)</a>
 </div>
@@ -287,7 +287,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 <p>两根支柱立起来之后，剩下的就是传导：普通 ζ 的零点全在临界线上（RH），修正因子的零点也全在临界线上（算术正性），两者<strong>乘积</strong>的零点便全在临界线上——对所有数域、所有涂色账本成立。这就是 GRH。</p>
 <p>它的分量在 §5 兑现：哥德巴赫猜想需要的，正是"模 8 涂色账本"上的零点控制。经典圆法即使假设 GRH 成立也压不住误差累积；而分圆塔把误差结构从加法改成乘法之后，GRH 提供的零点控制就能把主项稳稳保住——GRH 是那座桥上的承重桥墩。</p>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 想看完整证明？</strong>这一节只讲思路。L-函数三项分解的逐项构造、特征标振荡下两支柱正性的严格论证、ξ<sub>K</sub> = ξ·Λ<sub>β</sub> 的完整推导，请看专门的证明页面：
 <br><a href="../grh_zh.html" style="color:#1a5fb4;font-weight:600">→ 《广义黎曼猜想证明》（中文全文）</a> &nbsp;|&nbsp; <a href="../grh.html" style="color:#1a5fb4;font-weight:600">Proof of GRH (English full text)</a>
 </div>
@@ -326,7 +326,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 </ul>
 <p>没有 q，就没有二次方程；没有二次方程，就没有结构化的递推；没有递推带来的单调性，就没有矩阵的正性；没有正性，就没有自伴机器。<strong>q 是这台机器的第一推动力</strong>——而它的起点，正是 1752 年 Euler 在双纽线加法里写下的那个几何常数。</p>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 想看完整构造？</strong>这一节只讲思路。矩序列与 Hankel 矩阵的严格正性证明、Herglotz 性质与 Stieltjes 矩问题的完整论证、Jacobi 递推系数的逐步构造、以及"从矩阵迹到素数"的三条路线，请看 RH 证明页面的 Jacobi 矩阵章节：
 <br><a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">→ 《黎曼猜想证明》（中文全文，Jacobi 矩阵章节）</a> &nbsp;|&nbsp; <a href="../index.html" style="color:#1a5fb4;font-weight:600">Proof of RH (English, Jacobi matrix sections)</a>
 </div>
@@ -362,7 +362,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
   </tbody>
 </table>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 想看完整证明？</strong>这一节只讲思路。奇异级数的 Euler 乘积分解、分圆塔逐层误差估计、主项与余项的完整论证，请看专门的证明页面：
 <br><a href="../goldbach_zh.html" style="color:#1a5fb4;font-weight:600">→ 《哥德巴赫猜想证明：分圆塔方法》（中文全文）</a> &nbsp;|&nbsp; <a href="../goldbach_en.html" style="color:#1a5fb4;font-weight:600">Proof of Goldbach via the Cyclotomic Tower (English)</a>
 </div>
@@ -596,7 +596,7 @@ $$\boxed{z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1 + x^2 y^2}}$$
 
 <p>The lemniscate's addition formula provides exactly that bridge: from an <strong>additive operation</strong> (adding two arc lengths), a <strong>multiplicative structure</strong> (the \(x^2 y^2\) cross-term) emerges naturally. This is precisely the origin of \(q = \sqrt{2}-1\) — it is the "most symmetric" point of the lemniscate (modulus \(k = 1/\sqrt{2}\)), where addition and multiplication are perfectly intertwined.</p>
 
-<div style="background:#f0f7ff;border-left:4px solid #1a5fb4;padding:1em 1.2em;margin:1.5em 0;border-radius:0 8px 8px 0">
+<div style="background:#f0f7ff;border-left:4px solid #1a5fb4;padding:1em 1.2em;margin:1.5em auto;max-width:1000px;border-radius:0 8px 8px 0">
 <p><strong>In one sentence:</strong> The circle tells us "how addition works"; the lemniscate tells us "multiplication can be hidden within addition." The proofs of the four conjectures dig out this hidden multiplicative structure and use it to unify the multiplicative world of primes with the additive world of zeros.</p>
 </div>
 
@@ -647,7 +647,7 @@ $$\zeta(s)=\left(1-\frac{1}{2^s}\right)^{-1}\!\!\left(1-\frac{1}{3^s}\right)^{-1
 <p>But the multiplicative face has a fatal flaw: like the additive face, it <strong>converges only for \(\Re(s)>1\)</strong>. The primes' secret is locked inside the multiplicative world, while the zeros live in the critical strip — the multiplicative machine stalls at the strip's gate. Riemann used the <strong>functional equation</strong> \(\xi(s)=\xi(1-s)\) to extend \(\zeta\) to the whole complex plane, defining the completed function</p>
 $$\xi(s)=\tfrac12 s(s-1)\,\pi^{-s/2}\Gamma(s/2)\,\zeta(s)$$
 <p>It is an entire function, perfectly symmetric about the critical line \(\Re(s)=\tfrac12\); RH states that all zeros of \(\xi\) stand on this symmetry line. But the functional equation only lets you <em>walk into</em> the critical strip — it does not let you <em>see clearly</em>: for a century and a half, everything usable inside the strip has been an estimate carried in from far away (\(\Re(s)>1\)), growing blurrier as you approach the line — the classical noise bound is of the same order as the main term, and the contest cannot be decided. This is the technical reason RH has stood for over 160 years.</p>
-<div style="background:#fff8e6;border-left:4px solid #d4a017;padding:.9em 1.2em;margin:1.2em 0;border-radius:0 8px 8px 0">
+<div style="background:#fff8e6;border-left:4px solid #d4a017;padding:.9em 1.2em;margin:1.2em auto;max-width:1000px;border-radius:0 8px 8px 0">
 <p style="margin:0"><strong>The dilemma in one sentence:</strong> the primes live in the multiplicative world, and the gate of that world lies outside the critical strip. To prove the zeros stand in a line, someone must <em>translate</em> the information locked in the multiplicative world into a language the additive world can read.</p>
 </div>
 
@@ -693,7 +693,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 <p>A picture: the classical method is like counting lighthouses along a coast in a storm — the roar of the waves is on the same scale as the light, and you can never certify "all lighthouses are on the line". The three-term decomposition is <strong>low tide</strong> — the geometry of the three pieces pins the coastline down by itself, and you simply see where every stone lies, without counting anything.</p>
 <p>One more thing worth saying: <strong>this proof never needs the primes on stage</strong>. The primes live in the multiplicative world, and we fix the location of the zeros entirely in the additive world. The proof passes through no measure, no matrix, and no zero counting — no argument principle, no Hurwitz theorem. It is a purely analytic direct path.</p>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 Want the full proof?</strong> This section tells only the story. How angular monotonicity is rigorously established in three ranges (large height, small height, compact transition), and the full arguments of Herglotz analyticity and the pole contradiction, are on the dedicated proof page:
 <br><a href="../index.html" style="color:#1a5fb4;font-weight:600">→ Proof of the RH (English full text)</a> &nbsp;|&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">《黎曼猜想证明》（中文全文）</a>
 </div>
@@ -721,7 +721,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 <p>Once the two pillars stand, the rest is conduction: the zeros of the ordinary ζ all lie on the critical line (RH), the zeros of the correction factor all lie on the critical line (arithmetic positivity), and the zeros of their <strong>product</strong> therefore all lie on the critical line — for every number field, every colored ledger. That is GRH.</p>
 <p>Its weight is cashed out in §5: what Goldbach needs is precisely zero control on the "modulo-8 colored ledger". The classical circle method cannot suppress its accumulated error even assuming GRH; but once the cyclotomic tower rewrites the error structure from additive to multiplicative, the zero control GRH supplies holds the main term steady — GRH is the load-bearing pier of that bridge.</p>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 Want the full proof?</strong> This section tells only the story. The term-by-term construction of the L-function three-term decomposition, the rigorous proof of two-pillar positivity under character oscillation, and the full derivation of ξ<sub>K</sub> = ξ·Λ<sub>β</sub>, are on the dedicated proof page:
 <br><a href="../grh.html" style="color:#1a5fb4;font-weight:600">→ Proof of GRH (English full text)</a> &nbsp;|&nbsp; <a href="../grh_zh.html" style="color:#1a5fb4;font-weight:600">《广义黎曼猜想证明》（中文全文）</a>
 </div>
@@ -757,7 +757,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
 </ul>
 <p>Without q, no quadratic equation; without the quadratic equation, no structured recurrence; without the monotonicity from the recurrence, no positivity of the matrix; without positivity, no self-adjoint machine. <strong>q is the first cause of this machine</strong> — and its starting point is the geometric constant Euler wrote down in 1752 in the lemniscate addition.</p>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 Want the full construction?</strong> This section tells only the story. The rigorous positivity proof for the moment sequence and the Hankel matrix, the full arguments from the Herglotz property to the Stieltjes moment problem, the step-by-step construction of the Jacobi recursion coefficients, and the three routes "from the matrix trace to the primes", are in the Jacobi-matrix chapters of the RH proof page:
 <br><a href="../index.html" style="color:#1a5fb4;font-weight:600">→ Proof of the RH (English full text, Jacobi matrix sections)</a> &nbsp;|&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;font-weight:600">《黎曼猜想证明》（中文全文，Jacobi 矩阵章节）</a>
 </div>
@@ -791,7 +791,7 @@ $$\boxed{\zeta(s)=\operatorname{Li}_s(z_1)+\operatorname{Li}_s(z_2)+D(s)}$$
   </tbody>
 </table>
 
-<div style="margin:1.4em 0;padding:1em 1.2em;background:#eef5fc;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
+<div style="margin:1.4em auto;padding:1em 1.2em;background:#eef5fc;max-width:1000px;border:1px solid #b8d4f0;border-radius:8px;font-size:.97em">
 <strong>📖 Want the full proof?</strong> This section tells only the story. The Euler-product decomposition of the singular series, the layer-by-layer error estimates of the cyclotomic tower, and the complete main-term and remainder arguments are on the dedicated proof page:
 <br><a href="../goldbach_en.html" style="color:#1a5fb4;font-weight:600">→ Proof of Goldbach via the Cyclotomic Tower (English full text)</a> &nbsp;|&nbsp; <a href="../goldbach_zh.html" style="color:#1a5fb4;font-weight:600">《哥德巴赫猜想证明：分圆塔方法》（中文全文）</a>
 </div>
