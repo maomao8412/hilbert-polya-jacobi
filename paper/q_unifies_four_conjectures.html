@@ -53,8 +53,7 @@ window.MathJax = {
   /* Language display */
   .lang-zh, .lang-en { display: none; }
   .lang-zh.visible, .lang-en.visible { display: block; }
-  body.lang-bi .lang-zh, body.lang-bi .lang-en { display: block !important; }
-  body.lang-bi .lang-en { border-top: 1px dashed #ccc; padding-top: 1em; margin-top: 1.5em; }
+
   
   /* References */
   .references{font-size:.95em;margin-top:2em}
@@ -68,13 +67,12 @@ window.MathJax = {
 <nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="../index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">量子混沌物理论文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">物理论文(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../three_term_viz/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">三通道可视化</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../constants.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">数论常数</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">八字曲线之钥</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">审稿回应</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码仓库</a></nav>
 
 <h1>八字曲线之钥：一个常数，四个猜想</h1>
-<p class="subtitle">The Lemniscate Key: One Constant, Four Conjectures · 中英对照</p>
+<p class="subtitle">The Lemniscate Key: One Constant, Four Conjectures</p>
 
 <!-- Language Switcher -->
 <div class="lang-switcher">
   <button class="active" data-lang="zh">中文</button>
   <button data-lang="en">English</button>
-  <button data-lang="bi">对照</button>
 </div>
 
 <div class="lang-zh visible">
@@ -84,10 +82,10 @@ window.MathJax = {
   <div class="label">摘要</div>
   <p>从 Euler 的 lemniscate 加法定理（1752）中自然涌现的参数 \(q = \sqrt{2} - 1 = \tan(\pi/8)\)，构成了一把统一的钥匙，打开了四座数学大厦的门：</p>
   <ol>
-    <li><strong>Riemann 猜想 (RH)</strong>：\(q\) 给出的三项分解揭示 \(\zeta(s)\) 的角单调性结构，证明零点全部落在临界线上</li>
-    <li><strong>广义 Riemann 猜想 (GRH)</strong>：同样的三项分解推广到所有 Dirichlet \(L\)-函数，\(\xi_K = \xi \cdot \Lambda_\beta\) 两支柱结构</li>
-    <li><strong>Hilbert-Pólya 猜想</strong>：由 \(\xi(\frac{1}{2}+it)\) 的对数矩构造 Jacobi 递推矩阵，零点即特征值</li>
-    <li><strong>Goldbach 猜想（GRH 下）</strong>：分圆塔基域 \(\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})\) 正是 \(q\) 所在的域</li>
+    <li><strong>Riemann 猜想 (RH, 1859)</strong>：\(q\) 给出的三项分解揭示 \(\zeta(s)\) 的角单调性结构，证明零点全部落在临界线上</li>
+    <li><strong>广义 Riemann 猜想 (GRH, ~1870s)</strong>：同样的三项分解推广到所有 Dirichlet \(L\)-函数，\(\xi_K = \xi \cdot \Lambda_\beta\) 两支柱结构</li>
+    <li><strong>Hilbert-Pólya 猜想 (~1914)</strong>：由 \(\xi(\frac{1}{2}+it)\) 的对数矩构造 Jacobi 递推矩阵，零点即特征值</li>
+    <li><strong>Goldbach 猜想 (1742)</strong>（GRH 下证明）：分圆塔基域 \(\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})\) 正是 \(q\) 所在的域</li>
   </ol>
   <p>本文追溯这把钥匙的起源，展示它如何在四个看似独立的猜想中反复出现，揭示数论深处隐藏的 unity。</p>
 </div>
@@ -120,6 +118,48 @@ $$z_1^n + z_2^n < 1$$
 <p>定义 \(c_n = 1 - z_1^n - z_2^n \geq 0\)，得到<strong>分割单位</strong>（partition of unity）：</p>
 $$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0, \qquad c_1 = 0$$
 <p>两边乘以 \(n^{-s}\) 并对 \(n \geq 1\) 求和，得到三项分解。</p>
+
+<h3>1.4 什么是"双纽线的乘法结构"？（科普解释）</h3>
+
+<p>前面的推导看起来像纯代数游戏。实际上，\(q = \sqrt{2}-1\) 来自一条非常优美的曲线——<strong>双纽线</strong>（lemniscate），它的形状像一个躺着的"8"字（也叫八字曲线）：</p>
+
+<div style="text-align:center;margin:1.5em 0">
+<svg viewBox="-200 -100 400 200" width="320" height="160" style="background:#fafafa;border-radius:8px">
+  <path d="M 0,0 C 30,-60 100,-80 140,-40 C 170,0 170,40 140,40 C 100,80 30,60 0,0 C -30,-60 -100,-80 -140,-40 C -170,0 -170,40 -140,40 C -100,80 -30,60 0,0" 
+        fill="none" stroke="#1a5fb4" stroke-width="3"/>
+  <text x="0" y="-92" text-anchor="middle" font-size="14" fill="#666">双纽线 r² = a²cos(2θ)</text>
+</svg>
+</div>
+
+<p><strong>从圆的加法到双纽线的"乘法"</strong></p>
+
+<p>先回忆圆的弧长。圆的弧长积分是 \(\int_0^x \frac{dt}{\sqrt{1-t^2}} = \arcsin(x)\)。如果两段弧长相加 \(\arcsin(a) + \arcsin(b) = \arcsin(c)\)，那么 \(c\) 的公式是：</p>
+$$c = a\sqrt{1-b^2} + b\sqrt{1-a^2}$$
+<p>这完全是<strong>加法结构</strong>：\(c\) 是两项之和，没有 \(a \times b\) 的交叉乘积项。两段弧长相加就是简单的线性组合，不产生新的"纠缠"。</p>
+
+<p>现在看双纽线。它的弧长积分把根号下的 \(1-t^2\) 换成了 \(1-t^4\)：</p>
+$$\int_0^x \frac{dt}{\sqrt{1-t^4}}$$
+<p>Euler 在 1752 年发现了一个惊人的事实：如果两段双纽线弧长之和等于第三段，那么 \(z\) 的公式是：</p>
+$$\boxed{z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1 + x^2 y^2}}$$
+<p>和圆的公式相比，多了一个关键的东西——分母中的 \(\boldsymbol{1 + x^2 y^2}\)。这个 \(x^2 y^2\) 就是两段弧长的<strong>交叉乘积</strong>。</p>
+
+<p><strong>"乘法结构"的含义：</strong></p>
+<table>
+  <tr><th></th><th>圆 \(\int\frac{dt}{\sqrt{1-t^2}}\)</th><th>双纽线 \(\int\frac{dt}{\sqrt{1-t^4}}\)</th></tr>
+  <tr><td>加法公式</td><td>\(c = a\sqrt{1-b^2} + b\sqrt{1-a^2}\)</td><td>\(z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1+x^2y^2}\)</td></tr>
+  <tr><td>结构类型</td><td>纯加法（线性组合）</td><td>含乘法耦合（\(x^2 y^2\) 交叉项）</td></tr>
+  <tr><td>本质</td><td>加法世界</td><td>加法中隐藏乘法</td></tr>
+</table>
+
+<p><strong>为什么这很重要？</strong></p>
+
+<p>因为素数的分布本质上是<strong>乘法</strong>的——Euler 乘积 \(\prod_p(1-p^{-s})^{-1}\) 是一个无穷乘积。而零点的计算是<strong>加法</strong>的——\(\zeta(s) = \sum 1/n^s\) 是一个无穷求和。经典数论一直在"加法世界"和"乘法世界"之间来回跳跃，始终缺少一座桥。</p>
+
+<p>双纽线的加法公式恰好提供了这座桥：它从一个<strong>加法操作</strong>（两段弧长相加）中，自然地涌现出<strong>乘法结构</strong>（\(x^2 y^2\) 交叉项）。这正是 \(q = \sqrt{2}-1\) 的来源——它是双纽线"最对称"的点（模数 \(k = 1/\sqrt{2}\)），在这个点上，加法与乘法完美地交织在一起。</p>
+
+<div style="background:#f0f7ff;border-left:4px solid #1a5fb4;padding:1em 1.2em;margin:1.5em 0;border-radius:0 8px 8px 0">
+<p><strong>一句话总结：</strong>圆告诉我们"加法怎么运作"，双纽线告诉我们"加法中可以隐藏着乘法"。四大猜想的证明，就是把这种隐藏的乘法结构挖出来，用它来统一素数的乘法世界与零点的加法世界。</p>
+</div>
 
 <hr class="section-sep">
 
@@ -311,7 +351,23 @@ $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\r
 
 <h2>§6. 加性→乘性：一种新的数学方法论</h2>
 
-<h3>6.1 问题的本质：为什么 274 年无人解决？</h3>
+<h3>6.1 问题的本质：为什么数百年无人解决？</h3>
+
+<p>四大猜想横跨了两个半世纪。下表列出每个猜想的提出时间与至今的年数：</p>
+<table>
+  <caption>表1a：四大猜想的提出时间</caption>
+  <thead>
+    <tr><th>猜想</th><th>提出年份</th><th>提出者</th><th>至今</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Goldbach 猜想</td><td>1742</td><td>Goldbach（致 Euler 的信件）</td><td>284 年</td></tr>
+    <tr><td>Riemann 猜想 (RH)</td><td>1859</td><td>Riemann（论文《论小于给定值的素数个数》）</td><td>167 年</td></tr>
+    <tr><td>广义 Riemann 猜想 (GRH)</td><td>~1870s</td><td>Dirichlet \(L\)-函数理论的扩展</td><td>~156 年</td></tr>
+    <tr><td>Hilbert-Pólya 猜想</td><td>~1914</td><td>Hilbert &amp; Pólya（独立提出谱解释）</td><td>~112 年</td></tr>
+  </tbody>
+</table>
+<p>最老的 Goldbach 猜想已 284 岁，最年轻的 Hilbert-Pólya 猜想也有 112 年。本文使用的关键参数 \(q = \sqrt{2}-1\) 的源头——Euler 的 lemniscate 加法定理——则诞生于 1752 年，距今 274 年。</p>
+
 <p>四大猜想之所以困难，表面上看是解析技术不足，实质上是<strong>结构错配</strong>：问题本身是加性的，但控制它的工具在乘性世界。</p>
 <ul>
   <li><strong>Goldbach</strong>：\(N = p_1 + p_2\) 是加性问题。Hardy-Littlewood 圆法用加性累积 \(\sum_{q \leq Q}\) 处理它——\(O(Q^2)\) 个分母的误差逐项叠加，即使每项都被 GRH 压住，总量仍然发散。经典方法死于<strong>结构</strong>，不是死于<strong>精度</strong>。</li>
@@ -420,7 +476,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <h2>§7. 结语：比猜想本身更重要的东西</h2>
 <p>从 1752 年 Euler 的 lemniscate 加法定理，到 2026 年四大猜想的证明，跨越 274 年。</p>
 <p>但本文最重要的发现不是任何一个猜想的证明——而是<strong>证明过程中浮现的方法论</strong>。</p>
-<p>\(q\)-转换方法论揭示了一个深层事实：<strong>数学中许多最困难的猜想，其困难不在于技术，而在于结构错配</strong>。加性世界的问题被加性工具处理，但控制它们的原理在乘性世界。经典圆法 274 年无法解决 Goldbach，不是因为估计不够精细，而是因为加性累积 \(O(Q^2)\) 在结构上不可压缩——直到你把描述方式从求和变成乘积。</p>
+<p>\(q\)-转换方法论揭示了一个深层事实：<strong>数学中许多最困难的猜想，其困难不在于技术，而在于结构错配</strong>。加性世界的问题被加性工具处理，但控制它们的原理在乘性世界。经典圆法（1920年代由 Hardy-Littlewood 和 Vinogradov 发展）百年来无法解决 Goldbach，不是因为估计不够精细，而是因为加性累积 \(O(Q^2)\) 在结构上不可压缩——直到你把描述方式从求和变成乘积。</p>
 <p>这个方法论的五步操作——<strong>识别、分裂、提升、控制、组装</strong>——不依赖于具体的猜想或工具。它是一个<strong>通用的结构转换框架</strong>：</p>
 <ul>
   <li>任何面临"加性累积发散"困境的数论问题，都可能通过 \(q\)-转换找到乘性描述</li>
@@ -428,7 +484,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
   <li>任何涉及"两个独立正性来源"的问题，都可能通过乘积结构 \(\xi_K = \xi \cdot \Lambda_\beta\) 的模式获得突破</li>
 </ul>
 <p>四大猜想的证明是这个方法论的<strong>四个特例</strong>。方法论本身——加性→乘性的结构转换——才是真正的新数学。</p>
-<p>正如 Riemann 在 1859 年暗示的，\(\zeta\) 函数的零点"或许"与某个自伴算子的谱有关。274 年后，我们不仅证明了这一点，还发现了一把更深层的钥匙：\(q = \sqrt{2}-1\) 不仅连接了零点与谱，更连接了加法与乘法、组合与解析、局部与全局。</p>
+<p>正如 Riemann 在 1859 年暗示的，\(\zeta\) 函数的零点"或许"与某个自伴算子的谱有关。167 年后，我们不仅证明了这一点，还发现了一把更深层的钥匙：\(q = \sqrt{2}-1\) 不仅连接了零点与谱，更连接了加法与乘法、组合与解析、局部与全局。</p>
 <p><strong>数学是统一的。而统一的本质，是加性与乘性的对偶。</strong></p>
 
 <hr class="section-sep">
@@ -456,10 +512,10 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
   <div class="label">Abstract</div>
   <p>The parameter \(q = \sqrt{2} - 1 = \tan(\pi/8)\), which emerges naturally from Euler's lemniscate addition theorem (1752), constitutes a unifying key that opens the doors to four great edifices of mathematics:</p>
   <ol>
-    <li><strong>Riemann Hypothesis (RH)</strong>: The three-term decomposition afforded by \(q\) reveals the angular monotonicity structure of \(\zeta(s)\), proving that all zeros lie on the critical line.</li>
-    <li><strong>Generalized Riemann Hypothesis (GRH)</strong>: The same three-term decomposition extends to all Dirichlet \(L\)-functions, yielding the two-pillar structure \(\xi_K = \xi \cdot \Lambda_\beta\).</li>
-    <li><strong>Hilbert–Pólya Conjecture</strong>: A Jacobi recursion matrix is constructed from the logarithmic moments of \(\xi(\tfrac{1}{2}+it)\); the zeros are its eigenvalues.</li>
-    <li><strong>Goldbach's Conjecture (under GRH)</strong>: The base field of the cyclotomic tower, \(\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})\), is precisely the field to which \(q\) belongs.</li>
+    <li><strong>Riemann Hypothesis (RH, 1859)</strong>: The three-term decomposition afforded by \(q\) reveals the angular monotonicity structure of \(\zeta(s)\), proving that all zeros lie on the critical line.</li>
+    <li><strong>Generalized Riemann Hypothesis (GRH, ~1870s)</strong>: The same three-term decomposition extends to all Dirichlet \(L\)-functions, yielding the two-pillar structure \(\xi_K = \xi \cdot \Lambda_\beta\).</li>
+    <li><strong>Hilbert–Pólya Conjecture (~1914)</strong>: A Jacobi recursion matrix is constructed from the logarithmic moments of \(\xi(\tfrac{1}{2}+it)\); the zeros are its eigenvalues.</li>
+    <li><strong>Goldbach's Conjecture (1742)</strong> (proved under GRH): The base field of the cyclotomic tower, \(\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})\), is precisely the field to which \(q\) belongs.</li>
   </ol>
   <p>This article traces the origin of this key, shows how it recurs across four seemingly independent conjectures, and reveals the hidden unity deep within number theory.</p>
 </div>
@@ -492,6 +548,48 @@ $$z_1^n + z_2^n < 1$$
 <p>Defining \(c_n = 1 - z_1^n - z_2^n \geq 0\), we obtain the <strong>partition of unity</strong>:</p>
 $$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0, \qquad c_1 = 0$$
 <p>Multiplying both sides by \(n^{-s}\) and summing over \(n \geq 1\) yields the three-term decomposition.</p>
+
+<h3>1.4 What is the "Lemniscate's Multiplicative Structure"? (Explained for Readers)</h3>
+
+<p>The derivations above may look like pure algebra. In fact, \(q = \sqrt{2}-1\) comes from a beautiful curve — the <strong>lemniscate</strong>, shaped like a figure-eight lying on its side:</p>
+
+<div style="text-align:center;margin:1.5em 0">
+<svg viewBox="-200 -100 400 200" width="320" height="160" style="background:#fafafa;border-radius:8px">
+  <path d="M 0,0 C 30,-60 100,-80 140,-40 C 170,0 170,40 140,40 C 100,80 30,60 0,0 C -30,-60 -100,-80 -140,-40 C -170,0 -170,40 -140,40 C -100,80 -30,60 0,0" 
+        fill="none" stroke="#1a5fb4" stroke-width="3"/>
+  <text x="0" y="-92" text-anchor="middle" font-size="14" fill="#666">Lemniscate r² = a²cos(2θ)</text>
+</svg>
+</div>
+
+<p><strong>From the Circle's Addition to the Lemniscate's "Multiplication"</strong></p>
+
+<p>Recall the circle's arc length. The arc length integral is \(\int_0^x \frac{dt}{\sqrt{1-t^2}} = \arcsin(x)\). If two arc lengths add up to a third, \(\arcsin(a) + \arcsin(b) = \arcsin(c)\), then the formula for \(c\) is:</p>
+$$c = a\sqrt{1-b^2} + b\sqrt{1-a^2}$$
+<p>This is a purely <strong>additive structure</strong>: \(c\) is a sum of two terms with no cross-product of \(a \times b\). Adding two arc lengths is just a linear combination — no new "entanglement" is created.</p>
+
+<p>Now consider the lemniscate. Its arc length integral replaces \(1-t^2\) under the square root with \(1-t^4\):</p>
+$$\int_0^x \frac{dt}{\sqrt{1-t^4}}$$
+<p>In 1752, Euler discovered a startling fact: if two lemniscate arc lengths sum to a third, the formula for \(z\) is:</p>
+$$\boxed{z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1 + x^2 y^2}}$$
+<p>Compared to the circle's formula, something new appears — the denominator contains \(\boldsymbol{1 + x^2 y^2}\). This \(x^2 y^2\) is a <strong>cross-product</strong> of the two arc lengths.</p>
+
+<p><strong>What "multiplicative structure" means:</strong></p>
+<table>
+  <tr><th></th><th>Circle \(\int\frac{dt}{\sqrt{1-t^2}}\)</th><th>Lemniscate \(\int\frac{dt}{\sqrt{1-t^4}}\)</th></tr>
+  <tr><td>Addition formula</td><td>\(c = a\sqrt{1-b^2} + b\sqrt{1-a^2}\)</td><td>\(z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1+x^2y^2}\)</td></tr>
+  <tr><td>Structure type</td><td>Pure addition (linear combination)</td><td>Contains multiplicative coupling (\(x^2 y^2\) cross-term)</td></tr>
+  <tr><td>Essence</td><td>Additive world</td><td>Multiplication hidden within addition</td></tr>
+</table>
+
+<p><strong>Why does this matter?</strong></p>
+
+<p>Because the distribution of primes is fundamentally <strong>multiplicative</strong> — the Euler product \(\prod_p(1-p^{-s})^{-1}\) is an infinite product. Yet computing zeros is <strong>additive</strong> — \(\zeta(s) = \sum 1/n^s\) is an infinite sum. Classical number theory has been jumping between the "additive world" and the "multiplicative world," always lacking a bridge.</p>
+
+<p>The lemniscate's addition formula provides exactly that bridge: from an <strong>additive operation</strong> (adding two arc lengths), a <strong>multiplicative structure</strong> (the \(x^2 y^2\) cross-term) emerges naturally. This is precisely the origin of \(q = \sqrt{2}-1\) — it is the "most symmetric" point of the lemniscate (modulus \(k = 1/\sqrt{2}\)), where addition and multiplication are perfectly intertwined.</p>
+
+<div style="background:#f0f7ff;border-left:4px solid #1a5fb4;padding:1em 1.2em;margin:1.5em 0;border-radius:0 8px 8px 0">
+<p><strong>In one sentence:</strong> The circle tells us "how addition works"; the lemniscate tells us "multiplication can be hidden within addition." The proofs of the four conjectures dig out this hidden multiplicative structure and use it to unify the multiplicative world of primes with the additive world of zeros.</p>
+</div>
 
 <hr class="section-sep">
 
@@ -683,7 +781,23 @@ $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\r
 
 <h2>§6. Additive → Multiplicative: A New Mathematical Methodology</h2>
 
-<h3>6.1 The Nature of the Problem: Why Unsolved for 274 Years?</h3>
+<h3>6.1 The Nature of the Problem: Why Unsolved for Centuries?</h3>
+
+<p>The four conjectures span two and a half centuries. The table below lists when each was proposed:</p>
+<table>
+  <caption>Table 1a: When the Four Conjectures Were Proposed</caption>
+  <thead>
+    <tr><th>Conjecture</th><th>Year</th><th>Proposed by</th><th>Age</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Goldbach's Conjecture</td><td>1742</td><td>Goldbach (letter to Euler)</td><td>284 years</td></tr>
+    <tr><td>Riemann Hypothesis (RH)</td><td>1859</td><td>Riemann (paper <em>On the Number of Primes Less Than a Given Magnitude</em>)</td><td>167 years</td></tr>
+    <tr><td>Generalized Riemann Hypothesis (GRH)</td><td>~1870s</td><td>Extension of Dirichlet \(L\)-function theory</td><td>~156 years</td></tr>
+    <tr><td>Hilbert–Pólya Conjecture</td><td>~1914</td><td>Hilbert &amp; Pólya (independently proposed spectral interpretation)</td><td>~112 years</td></tr>
+  </tbody>
+</table>
+<p>The oldest, Goldbach's Conjecture, is 284 years old; the youngest, Hilbert–Pólya, is already over a century. The source of the key parameter \(q = \sqrt{2}-1\) used in this article — Euler's lemniscate addition theorem — dates to 1752, 274 years ago.</p>
+
 <p>The four conjectures are difficult not because of insufficient analytic technique, but because of <strong>structural mismatch</strong>: the problems are additive in nature, yet the tools that govern them live in the multiplicative world.</p>
 <ul>
   <li><strong>Goldbach</strong>: \(N = p_1 + p_2\) is an additive problem. The Hardy–Littlewood circle method handles it via additive accumulation \(\sum_{q \leq Q}\) — errors from \(O(Q^2)\) denominators stack term by term, and even if each is controlled by GRH, the total still diverges. The classical method dies of <strong>structure</strong>, not <strong>precision</strong>.</li>
@@ -792,7 +906,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <h2>§7. Epilogue: Something More Important Than the Conjectures Themselves</h2>
 <p>From Euler's lemniscate addition theorem in 1752 to the proof of four conjectures in 2026, 274 years have passed.</p>
 <p>But the most important discovery of this article is not the proof of any single conjecture — it is the <strong>methodology that emerged during the proofs</strong>.</p>
-<p>The \(q\)-conversion methodology reveals a deep fact: <strong>the difficulty of many of mathematics' hardest conjectures lies not in technique, but in structural mismatch</strong>. Problems in the additive world are tackled with additive tools, but the principles governing them reside in the multiplicative world. The classical circle method failed to solve Goldbach for 274 years not because estimates were imprecise, but because additive accumulation \(O(Q^2)\) is structurally incompressible — until you change the mode of description from summation to product.</p>
+<p>The \(q\)-conversion methodology reveals a deep fact: <strong>the difficulty of many of mathematics' hardest conjectures lies not in technique, but in structural mismatch</strong>. Problems in the additive world are tackled with additive tools, but the principles governing them reside in the multiplicative world. The classical circle method (developed in the 1920s by Hardy–Littlewood and Vinogradov) has failed to solve Goldbach for over a century not because estimates were imprecise, but because additive accumulation \(O(Q^2)\) is structurally incompressible — until you change the mode of description from summation to product.</p>
 <p>The five-step operation of this methodology — <strong>Identify, Split, Lift, Control, Assemble</strong> — does not depend on specific conjectures or tools. It is a <strong>universal structural conversion framework</strong>:</p>
 <ul>
   <li>Any number-theoretic problem facing "additive accumulative divergence" may find a multiplicative description through \(q\)-conversion.</li>
@@ -800,7 +914,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
   <li>Any problem involving "two independent sources of positivity" may break through via the product structure pattern \(\xi_K = \xi \cdot \Lambda_\beta\).</li>
 </ul>
 <p>The proofs of the four conjectures are <strong>four special cases</strong> of this methodology. The methodology itself — the additive-to-multiplicative structural conversion — is the真正 new mathematics.</p>
-<p>As Riemann hinted in 1859, the zeros of \(\zeta\) "perhaps" relate to the spectrum of some self-adjoint operator. After 274 years, we have not only proved this, but discovered a deeper key: \(q = \sqrt{2}-1\) connects not only zeros to spectra, but addition to multiplication, combinatorics to analysis, local to global.</p>
+<p>As Riemann hinted in 1859, the zeros of \(\zeta\) "perhaps" relate to the spectrum of some self-adjoint operator. After 167 years, we have not only proved this, but discovered a deeper key: \(q = \sqrt{2}-1\) connects not only zeros to spectra, but addition to multiplication, combinatorics to analysis, local to global.</p>
 <p><strong>Mathematics is unified. And the essence of unity is the duality of additive and multiplicative.</strong></p>
 
 <hr class="section-sep">
@@ -830,15 +944,10 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
     btns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
     zhDiv.classList.remove('visible');
     enDiv.classList.remove('visible');
-    document.body.classList.remove('lang-bi');
 
     if (lang === 'zh') {
       zhDiv.classList.add('visible');
-    } else if (lang === 'en') {
-      enDiv.classList.add('visible');
     } else {
-      document.body.classList.add('lang-bi');
-      zhDiv.classList.add('visible');
       enDiv.classList.add('visible');
     }
 
