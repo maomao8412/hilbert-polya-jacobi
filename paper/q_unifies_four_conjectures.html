@@ -3,348 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>八字曲线之钥：一个常数，四个猜想 | The Lemniscate Key — 中英对照</title>
+<title>八字曲线之钥：一个常数，四个猜想 | The Lemniscate Key</title>
 <script>
 window.MathJax = {
-  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']], processEscapes: true },
-  startup: { pageReady: () => MathJax.startup.defaultPageReady() }
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']], tags: 'none' },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
 };
 </script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
-:root {
-  --bg: #F4F1EA;
-  --bg-surface: #EDEAE2;
-  --text: #111111;
-  --text-secondary: #6B665E;
-  --border: #D8D1C4;
-  --accent: #8B4513;
-  --accent-light: #A0522D;
-  --highlight: #F9F6F0;
-  --tab-active: #111111;
-  --tab-active-bg: #F4F1EA;
-  --font-heading: Georgia, "Times New Roman", "Noto Serif SC", "Source Han Serif SC", serif;
-  --font-body: Georgia, "Times New Roman", "Noto Serif SC", "Source Han Serif SC", serif;
-  --font-sans: system-ui, -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --line-height: 1.75;
-  --max-width: 820px;
-  --spacing-section: 3.5rem;
-  --spacing-subsection: 2rem;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  line-height: var(--line-height);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ===== Site Nav ===== */
-.site-nav {
-  background: #1a1a18;
-  padding: 0.6rem 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem 0;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.site-nav a {
-  color: #c9c3b8;
-  text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  padding: 0.35rem 0.8rem;
-  border-radius: 3px;
-  transition: color 0.2s, background 0.2s;
-  letter-spacing: 0.02em;
-}
-.site-nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
-.site-nav a.active { color: #F4F1EA; background: rgba(244,241,234,0.12); font-weight: 600; }
-
-/* ===== Header ===== */
-.paper-header {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 3.5rem 1.5rem 2rem;
-  text-align: center;
-}
-.paper-header h1 {
-  font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--text);
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.01em;
-}
-.paper-meta {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-}
-.paper-meta .author { font-weight: 600; color: var(--text); font-size: 1rem; }
-
-/* ===== Language Tabs ===== */
-.lang-switcher {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: flex;
-  gap: 0;
-  border-bottom: 2px solid var(--border);
-  position: sticky;
-  top: 42px;
-  background: var(--bg);
-  z-index: 50;
-}
-.lang-switcher button {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  padding: 0.7rem 1.4rem;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s;
-  letter-spacing: 0.03em;
-}
-.lang-switcher button:hover { color: var(--text); }
-.lang-switcher button.active {
-  color: var(--text);
-  border-bottom-color: var(--accent);
-  font-weight: 600;
-}
-
-/* ===== Article Body ===== */
-.article-body {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
-}
-.lang-zh, .lang-en { display: none; }
-.lang-zh.visible, .lang-en.visible, .lang-bi.visible .lang-zh, .lang-bi.visible .lang-en { display: block; }
-.lang-bi.visible .lang-zh { margin-bottom: 0.5rem; }
-.lang-bi.visible .lang-en { margin-bottom: 2.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--border); }
-
-/* Paragraphs & Headings */
-.article-body h2 {
-  font-family: var(--font-heading);
-  font-size: clamp(1.3rem, 3vw, 1.75rem);
-  font-weight: 700;
-  margin: var(--spacing-section) 0 1rem;
-  color: var(--text);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.5rem;
-}
-.article-body h3 {
-  font-family: var(--font-heading);
-  font-size: clamp(1.05rem, 2.5vw, 1.3rem);
-  font-weight: 700;
-  margin: var(--spacing-subsection) 0 0.8rem;
-  color: var(--text);
-}
-.article-body h4 {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin: 1.5rem 0 0.6rem;
-  color: var(--accent);
-}
-.article-body p {
-  margin-bottom: 1rem;
-  text-align: justify;
-}
-.article-body ul, .article-body ol {
-  margin: 0.8rem 0 1rem 1.5rem;
-}
-.article-body li { margin-bottom: 0.4rem; }
-
-/* Abstract box */
-.abstract-box {
-  background: var(--highlight);
-  border-left: 3px solid var(--accent);
-  padding: 1.2rem 1.5rem;
-  margin: 1.5rem 0 2rem;
-  border-radius: 0 4px 4px 0;
-}
-.abstract-box .label {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
-}
-
-/* Display math blocks */
-.display-math {
-  overflow-x: auto;
-  margin: 1rem 0;
-  padding: 0.5rem 0;
-}
-
-/* Tables */
-.article-body table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.2rem 0;
-  font-size: 0.92rem;
-  overflow-x: auto;
-  display: block;
-}
-.article-body table th {
-  background: var(--bg-surface);
-  font-family: var(--font-sans);
-  font-weight: 600;
-  text-align: left;
-  padding: 0.6rem 0.8rem;
-  border-bottom: 2px solid var(--border);
-  white-space: nowrap;
-}
-.article-body table td {
-  padding: 0.5rem 0.8rem;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-.article-body table tr:last-child td { border-bottom: none; }
-
-/* Highlighted box for key results */
-.key-result {
-  background: var(--highlight);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  padding: 1rem 1.3rem;
-  margin: 1.2rem 0;
-  border-radius: 0 4px 4px 0;
-}
-.key-result .key-label {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.4rem;
-}
-
-/* Causal chain */
-.causal-chain {
-  background: var(--highlight);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.2rem 1.5rem;
-  margin: 1.5rem 0;
-  text-align: center;
-  overflow-x: auto;
-}
-
-/* References */
-.references ol {
-  padding-left: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-.references li { margin-bottom: 0.6rem; }
-.references a { color: var(--accent); text-decoration: none; }
-.references a:hover { text-decoration: underline; }
-
-/* Footer */
-.paper-footer {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-}
-
-/* Separator */
-hr.section-sep {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: var(--spacing-section) 0;
-}
-
-/* Focus visible */
-.site-nav a:focus-visible,
-.lang-switcher button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    transition-duration: 0s !important;
-    animation-duration: 0s !important;
-  }
-  html { scroll-behavior: auto; }
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 640px) {
-  .paper-header { padding: 2rem 1rem 1.5rem; }
-  .article-body { padding: 1.5rem 1rem 3rem; }
-  .lang-switcher { padding: 0 1rem; }
-  .site-nav { padding: 0.5rem 0.8rem; }
-  .site-nav a { font-size: 0.75rem; padding: 0.3rem 0.5rem; }
-  .article-body table { font-size: 0.82rem; }
-  .article-body table th, .article-body table td { padding: 0.4rem 0.5rem; }
-  .abstract-box { padding: 1rem; }
-}
-
-/* ===== Print ===== */
-@media print {
-  .site-nav, .lang-switcher { display: none; }
-  .lang-zh, .lang-en { display: block !important; }
-  .lang-bi.visible .lang-en { border-top: 1px dashed #ccc; }
-  body { background: #fff; font-size: 11pt; }
-  .paper-header { padding-top: 0; }
-}
-
-/* Step labels in §4.4 and §6 */
-.step-label {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  color: var(--accent);
-  font-size: 0.92rem;
-}
+  :root{--bg:#fdfdfb;--text:#1a1a1a;--heading:#1a4a8a;--subtle:#555;--rule:#c9c9c9;--accent:#8a2b1a;--code-bg:#f4f3ef;--green:#0a6b2b}
+  *{box-sizing:border-box}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);max-width:none;margin:0;padding:34px 22px 80px;line-height:1.85;font-size:17px}
+  h1,h2,h3,h4{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;color:var(--heading);line-height:1.4}
+  h1{font-size:1.85em;text-align:center;margin:0 0 .3em;border-bottom:2px solid var(--heading);padding-bottom:.4em}
+  .subtitle{text-align:center;color:var(--subtle);font-style:italic;margin-bottom:1.5em}
+  h2{font-size:1.35em;margin-top:2.2em;border-left:4px solid var(--heading);padding-left:.5em}
+  h3{font-size:1.1em;margin-top:1.6em}
+  h4{font-size:1em;margin-top:1.3em;color:var(--accent)}
+  p{margin:.7em 0;text-align:justify}
+  .formula{text-align:center;margin:1.2em 0;overflow-x:auto;padding:.3em 0}
+  mjx-container[display="false"]{vertical-align:-0.06em}
+  mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  code{font-family:"SFMono-Regular",Consolas,monospace;background:var(--code-bg);padding:.1em .35em;border-radius:3px;font-size:.92em}
+  table{border-collapse:collapse;margin:1.2em auto;font-size:.92em}
+  th,td{border:1px solid var(--rule);padding:.4em .7em;text-align:center}
+  th{background:#eef2f8;color:var(--heading)}
+  tr:nth-child(even) td{background:#fafaf7}
+  a{color:var(--heading);text-decoration:none;border-bottom:1px dotted var(--heading)}
+  a:hover{border-bottom-style:solid}
+  hr{border:none;border-top:1px solid var(--rule);margin:2em 0}
+  h1,h2,h3,h4,p,blockquote,table,ol,ul,.abstract-box,.lang-switcher,.causal-chain,.references{max-width:1000px;margin-left:auto;margin-right:auto}
+  
+  /* Abstract box */
+  .abstract-box{background:#f0f4fa;border:1px solid #c9d6e8;border-radius:5px;padding:1em 1.4em;margin:1.5em auto;max-width:1000px}
+  .abstract-box .label{font-weight:bold;color:var(--heading);font-size:1.05em;margin-bottom:.5em}
+  
+  /* Causal chain box */
+  .causal-chain{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.8em 1.2em;margin:1.2em auto;max-width:1000px;text-align:center}
+  .causal-chain p{margin:.3em 0}
+  
+  /* Language switcher */
+  .lang-switcher{text-align:center;margin:1.5em auto;max-width:1000px}
+  .lang-switcher button{background:none;border:2px solid var(--heading);color:var(--heading);padding:.4em 1.2em;margin:0 .2em;cursor:pointer;font-size:.95em;border-radius:4px;transition:all .2s}
+  .lang-switcher button.active{background:var(--heading);color:#fff}
+  .lang-switcher button:hover{background:var(--heading);color:#fff}
+  
+  /* Language display */
+  .lang-zh, .lang-en { display: none; }
+  .lang-zh.visible, .lang-en.visible { display: block; }
+  body.lang-bi .lang-zh, body.lang-bi .lang-en { display: block !important; }
+  body.lang-bi .lang-en { border-top: 1px dashed #ccc; padding-top: 1em; margin-top: 1.5em; }
+  
+  /* References */
+  .references{font-size:.95em;margin-top:2em}
+  .references ol{padding-left:1.5em}
+  
+  @media (max-width:768px){body{padding:16px 10px 60px;font-size:16px;line-height:1.8}h1{font-size:1.45em}h2{font-size:1.18em}h3{font-size:1.05em}.abstract-box,.causal-chain{padding:.7em .9em}}
 </style>
 </head>
 <body>
+<!-- top-nav -->
+<nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="../index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">量子混沌物理论文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">物理论文(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../three_term_viz/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">三通道可视化</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../constants.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">数论常数</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../goldbach_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">八字曲线之钥</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">审稿回应</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码仓库</a></nav>
 
-<!-- Site Navigation -->
-<nav class="site-nav">
-  <a href="../index_mathjax.html">首页</a>
-  <a href="../rh_proof_framework_v3.html">RH证明</a>
-  <a href="../GRH交互网页/grh.html">GRH证明</a>
-  <a href="goldbach_grh_cyclotomic_tower/goldbach_paper.html">哥德巴赫猜想</a>
-  <a href="q_unifies_four_conjectures.html" class="active">八字曲线之钥：一个常数，四个猜想</a>
-  <a href="../physics_web/index.html">物理篇</a>
-</nav>
-
-<!-- Header -->
-<header class="paper-header">
-  <h1>$q = \sqrt{2}-1$：串联四大猜想的钥匙</h1>
-  <div class="paper-meta">
-    <div class="author">陈倬</div>
-    <div>同济大学工学学士 · 北京大学光华管理学院硕士</div>
-    <div>ORCID: <a href="https://orcid.org/0009-0006-9172-8268" target="_blank" rel="noopener noreferrer">0009-0006-9172-8268</a> · maomao8412@coze.email</div>
-    <div>2026年9月1日</div>
-  </div>
-</header>
+<h1>八字曲线之钥：一个常数，四个猜想</h1>
+<p class="subtitle">The Lemniscate Key: One Constant, Four Conjectures · 中英对照</p>
 
 <!-- Language Switcher -->
 <div class="lang-switcher">
@@ -353,106 +77,102 @@ a:focus-visible {
   <button data-lang="bi">对照</button>
 </div>
 
-<!-- Article Body -->
-<main>
-<article class="article-body">
-
-<!-- ===================== ZH CONTENT ===================== -->
 <div class="lang-zh visible">
+
 
 <div class="abstract-box">
   <div class="label">摘要</div>
-  <p>从 Euler 的 lemniscate 加法定理（1752）中自然涌现的参数 $q = \sqrt{2} - 1 = \tan(\pi/8)$，构成了一把统一的钥匙，打开了四座数学大厦的门：</p>
+  <p>从 Euler 的 lemniscate 加法定理（1752）中自然涌现的参数 \(q = \sqrt{2} - 1 = \tan(\pi/8)\)，构成了一把统一的钥匙，打开了四座数学大厦的门：</p>
   <ol>
-    <li><strong>Riemann 猜想 (RH)</strong>：$q$ 给出的三项分解揭示 $\zeta(s)$ 的角单调性结构，证明零点全部落在临界线上</li>
-    <li><strong>广义 Riemann 猜想 (GRH)</strong>：同样的三项分解推广到所有 Dirichlet $L$-函数，$\xi_K = \xi \cdot \Lambda_\beta$ 两支柱结构</li>
-    <li><strong>Hilbert-Pólya 猜想</strong>：由 $\xi(\frac{1}{2}+it)$ 的对数矩构造 Jacobi 递推矩阵，零点即特征值</li>
-    <li><strong>Goldbach 猜想（GRH 下）</strong>：分圆塔基域 $\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})$ 正是 $q$ 所在的域</li>
+    <li><strong>Riemann 猜想 (RH)</strong>：\(q\) 给出的三项分解揭示 \(\zeta(s)\) 的角单调性结构，证明零点全部落在临界线上</li>
+    <li><strong>广义 Riemann 猜想 (GRH)</strong>：同样的三项分解推广到所有 Dirichlet \(L\)-函数，\(\xi_K = \xi \cdot \Lambda_\beta\) 两支柱结构</li>
+    <li><strong>Hilbert-Pólya 猜想</strong>：由 \(\xi(\frac{1}{2}+it)\) 的对数矩构造 Jacobi 递推矩阵，零点即特征值</li>
+    <li><strong>Goldbach 猜想（GRH 下）</strong>：分圆塔基域 \(\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})\) 正是 \(q\) 所在的域</li>
   </ol>
   <p>本文追溯这把钥匙的起源，展示它如何在四个看似独立的猜想中反复出现，揭示数论深处隐藏的 unity。</p>
 </div>
 
 <h2>§1. 钥匙的起源：Lemniscate 与 Möbius 对称</h2>
 
-<h3>1.1 从正切倍角公式到 $q$</h3>
+<h3>1.1 从正切倍角公式到 \(q\)</h3>
 <p>正切倍角公式：</p>
 $$\tan 2\theta = \frac{2\tan\theta}{1 - \tan^2\theta}$$
-<p>令 $\theta = \pi/8$，则 $2\theta = \pi/4$，$\tan(\pi/4) = 1$。记 $t = \tan(\pi/8)$：</p>
+<p>令 \(\theta = \pi/8\)，则 \(2\theta = \pi/4\)，\(\tan(\pi/4) = 1\)。记 \(t = \tan(\pi/8)\)：</p>
 $$1 = \frac{2t}{1 - t^2} \implies t^2 + 2t - 1 = 0 \implies t = \sqrt{2} - 1$$
 <p>这就是我们的钥匙：</p>
 $$\boxed{q = \sqrt{2} - 1 = \tan\frac{\pi}{8} \approx 0.41421}$$
-<p>$q$ 是方程 $q^2 + 2q - 1 = 0$ 在 $(0,1)$ 内的唯一正根。</p>
+<p>\(q\) 是方程 \(q^2 + 2q - 1 = 0\) 在 \((0,1)\) 内的唯一正根。</p>
 
 <h3>1.2 Möbius 对合</h3>
 <p>定义 Möbius 变换：</p>
 $$T(z) = \frac{1-z}{1+z}$$
-<p>$T$ 是对合：$T^2 = \mathrm{id}$。它的不动点满足 $T(z) = z$：</p>
+<p>\(T\) 是对合：\(T^2 = \mathrm{id}\)。它的不动点满足 \(T(z) = z\)：</p>
 $$z = \frac{1-z}{1+z} \implies z^2 + 2z - 1 = 0 \implies z = \sqrt{2} - 1 = q$$
 <p>定义互补点：</p>
 $$z_1 = 1 - q = 2 - \sqrt{2} \approx 0.58579, \qquad z_2 = q = \sqrt{2} - 1$$
-<p>$z_2 = q$ 恰好是 $T$ 的不动点：$T(q) = q$；而 $z_1, z_2$ 的互补性由简单反射 $R(z) = 1-z$ 实现：$R(z_1) = z_2$，$R(z_2) = z_1$（因为 $z_1 + z_2 = 1$）。</p>
+<p>\(z_2 = q\) 恰好是 \(T\) 的不动点：\(T(q) = q\)；而 \(z_1, z_2\) 的互补性由简单反射 \(R(z) = 1-z\) 实现：\(R(z_1) = z_2\)，\(R(z_2) = z_1\)（因为 \(z_1 + z_2 = 1\)）。</p>
 <p><strong>关键代数关系</strong>：</p>
 $$z_1 + z_2 = 1, \qquad \frac{z_1}{z_2} = \sqrt{2}, \qquad z_1 z_2 = 3\sqrt{2} - 4$$
 
 <h3>1.3 分割单位</h3>
-<p>由于 $0 < z_1, z_2 < 1$ 且 $z_1 + z_2 = 1$，对任意 $n \geq 2$：</p>
+<p>由于 \(0 < z_1, z_2 < 1\) 且 \(z_1 + z_2 = 1\)，对任意 \(n \geq 2\)：</p>
 $$z_1^n + z_2^n < 1$$
-<p>定义 $c_n = 1 - z_1^n - z_2^n \geq 0$，得到<strong>分割单位</strong>（partition of unity）：</p>
+<p>定义 \(c_n = 1 - z_1^n - z_2^n \geq 0\)，得到<strong>分割单位</strong>（partition of unity）：</p>
 $$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0, \qquad c_1 = 0$$
-<p>两边乘以 $n^{-s}$ 并对 $n \geq 1$ 求和，得到三项分解。</p>
+<p>两边乘以 \(n^{-s}\) 并对 \(n \geq 1\) 求和，得到三项分解。</p>
 
 <hr class="section-sep">
 
 <h2>§2. RH：三项分解与角单调性</h2>
 
 <h3>2.1 三项多对数分解</h3>
-<p>对 $\Re(s) > 1$：</p>
+<p>对 \(\Re(s) > 1\)：</p>
 $$\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s} = \sum_{n=1}^\infty \frac{z_1^n + z_2^n + c_n}{n^s}$$
 $$\boxed{\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum_{n=1}^\infty \frac{c_n}{n^s}}$$
-<p>其中 $\operatorname{Li}_s(z) = \sum_{n=1}^\infty z^n/n^s$ 是多对数函数。</p>
+<p>其中 \(\operatorname{Li}_s(z) = \sum_{n=1}^\infty z^n/n^s\) 是多对数函数。</p>
 
 <h3>2.2 角单调性</h3>
-<p>三项分解将 $\xi(s)$ 的临界行为分解为三个独立可控的分量。每个分量的角单调性（argument monotonicity）保证 $\arg \xi(1/2 + it)$ 严格递增，从而零点只能落在临界线上。</p>
+<p>三项分解将 \(\xi(s)\) 的临界行为分解为三个独立可控的分量。每个分量的角单调性（argument monotonicity）保证 \(\arg \xi(1/2 + it)\) 严格递增，从而零点只能落在临界线上。</p>
 <p>关键不等式：</p>
 $$\frac{d}{dt} \arg \xi\!\left(\tfrac{1}{2} + it\right) > 0$$
-<p>这由三项分解中每个 $\operatorname{Li}_s(z_i)$ 的 Herglotz 性质保证。</p>
+<p>这由三项分解中每个 \(\operatorname{Li}_s(z_i)\) 的 Herglotz 性质保证。</p>
 
 <h3>2.3 证明 RH</h3>
 <ul>
-  <li><strong>Route A</strong>：辐角原理 + Hurwitz 定理：卷绕数 $N \equiv 0$，拓扑禁止零点偏离临界线</li>
-  <li><strong>Route B</strong>：结构不等式 + 对称挤压：$\Re(\rho_n) \leq 1/2$（三项分解的解析控制）+ $\Re(\rho_n) \geq 1/2$（函数方程对称）</li>
+  <li><strong>Route A</strong>：辐角原理 + Hurwitz 定理：卷绕数 \(N \equiv 0\)，拓扑禁止零点偏离临界线</li>
+  <li><strong>Route B</strong>：结构不等式 + 对称挤压：\(\Re(\rho_n) \leq 1/2\)（三项分解的解析控制）+ \(\Re(\rho_n) \geq 1/2\)（函数方程对称）</li>
 </ul>
-<p>两条路线共享基础设施：Gap $G > 0$、$N = 0$、$\sigma$-gap 闭合。</p>
+<p>两条路线共享基础设施：Gap \(G > 0\)、\(N = 0\)、\(\sigma\)-gap 闭合。</p>
 
 <hr class="section-sep">
 
 <h2>§3. GRH：三项分解的推广</h2>
 
-<h3>3.1 从 $\zeta$ 到 $L$-函数</h3>
+<h3>3.1 从 \(\zeta\) 到 \(L\)-函数</h3>
 <p>三项分解的核心洞察：</p>
 $$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + D(s)$$
-<p>可以推广到任意 Dirichlet $L$-函数 $L(s, \chi)$：</p>
+<p>可以推广到任意 Dirichlet \(L\)-函数 \(L(s, \chi)\)：</p>
 $$L(s, \chi) = \sum_{n=1}^\infty \frac{\chi(n)}{n^s}$$
-<p>利用 $z_1^n + z_2^n + c_n = 1$ 的分割单位结构，对 $L(s, \chi)$ 构造类似的三项分解。</p>
+<p>利用 \(z_1^n + z_2^n + c_n = 1\) 的分割单位结构，对 \(L(s, \chi)\) 构造类似的三项分解。</p>
 
-<h3>3.2 $\xi_K = \xi \cdot \Lambda_\beta$ 两支柱</h3>
-<p>数域 $K$ 的 Dedekind zeta 函数：</p>
+<h3>3.2 \(\xi_K = \xi \cdot \Lambda_\beta\) 两支柱</h3>
+<p>数域 \(K\) 的 Dedekind zeta 函数：</p>
 $$\zeta_K(s) = \prod_{\mathfrak{p}} \left(1 - N(\mathfrak{p})^{-s}\right)^{-1}$$
 <p>分解为：</p>
 $$\xi_K(s) = \xi(s) \cdot \Lambda_\beta(s)$$
 <p>其中：</p>
 <ul>
-  <li>$\xi(s)$：Riemann xi 函数（RH 已证）</li>
-  <li>$\Lambda_\beta(s)$：与特征标 $\chi$ 相关的修正因子</li>
+  <li>\(\xi(s)\)：Riemann xi 函数（RH 已证）</li>
+  <li>\(\Lambda_\beta(s)\)：与特征标 \(\chi\) 相关的修正因子</li>
 </ul>
-<p><strong>关键</strong>：$\Lambda_\beta$ 的角单调性继承自 $\xi$ 的三项分解结构。</p>
+<p><strong>关键</strong>：\(\Lambda_\beta\) 的角单调性继承自 \(\xi\) 的三项分解结构。</p>
 
 <h3>3.3 统一证明</h3>
 <ul>
-  <li>RH 给出 $\xi(s)$ 的零点全在临界线上</li>
-  <li>三项分解的角单调性推广到 $\Lambda_\beta$</li>
-  <li>因此 $\xi_K(s)$ 的零点全在临界线上</li>
-  <li>对所有数域 $K$ 成立 $\implies$ GRH</li>
+  <li>RH 给出 \(\xi(s)\) 的零点全在临界线上</li>
+  <li>三项分解的角单调性推广到 \(\Lambda_\beta\)</li>
+  <li>因此 \(\xi_K(s)\) 的零点全在临界线上</li>
+  <li>对所有数域 \(K\) 成立 \(\implies\) GRH</li>
 </ul>
 
 <hr class="section-sep">
@@ -460,130 +180,130 @@ $$\xi_K(s) = \xi(s) \cdot \Lambda_\beta(s)$$
 <h2>§4. Hilbert-Pólya：Jacobi 递推矩阵</h2>
 
 <h3>4.1 对数矩序列</h3>
-<p>定义 $\xi$ 函数的 Hadamard 乘积：</p>
+<p>定义 \(\xi\) 函数的 Hadamard 乘积：</p>
 $$\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s) = \prod_n \left(1 - \frac{s}{\rho_n}\right)$$
 <p>取对数导数，定义<strong>对数矩</strong>：</p>
 $$S_k = -k [t^{2k}] \log \frac{\xi(1/2 + it)}{\xi(1/2)} = \sum_n \frac{1}{\gamma_n^{2k}}$$
-<p>其中 $\rho_n = 1/2 + i\gamma_n$ 是零点。</p>
+<p>其中 \(\rho_n = 1/2 + i\gamma_n\) 是零点。</p>
 
 <h3>4.2 Hankel 矩阵与 Jacobi 算子</h3>
 <p>构造移位 Hankel 矩阵：</p>
 $$H_N[i,j] = S_{i+j+1}, \qquad 0 \leq i,j \leq N-1$$
-<p><strong>关键定理</strong>：所有顺序主子式 $D_n = \det(H_n) > 0$。</p>
+<p><strong>关键定理</strong>：所有顺序主子式 \(D_n = \det(H_n) > 0\)。</p>
 <p>证明依赖：</p>
 <ol>
   <li>三项分解将 Bose-Einstein 核分解为三个完全单调核</li>
-  <li>$\operatorname{Li}_s(z_1)$ 和 $\operatorname{Li}_s(z_2)$ 的零点自由界</li>
-  <li>生成函数 $G(z) = \sum S_k z^k$ 的 Herglotz 性质</li>
+  <li>\(\operatorname{Li}_s(z_1)\) 和 \(\operatorname{Li}_s(z_2)\) 的零点自由界</li>
+  <li>生成函数 \(G(z) = \sum S_k z^k\) 的 Herglotz 性质</li>
 </ol>
 
 <h3>4.3 谱解释</h3>
-<p>$D_n > 0$ 意味着：</p>
+<p>\(D_n > 0\) 意味着：</p>
 <ul>
-  <li>Stieltjes 矩问题有正测度解 $\mu$</li>
-  <li>Carleman 条件满足（超指数衰减 $S_k \sim \gamma_1^{-2k}$）</li>
-  <li>Gram-Schmidt 正交化产生三对角 <strong>Jacobi 算子</strong> $J$</li>
+  <li>Stieltjes 矩问题有正测度解 \(\mu\)</li>
+  <li>Carleman 条件满足（超指数衰减 \(S_k \sim \gamma_1^{-2k}\)）</li>
+  <li>Gram-Schmidt 正交化产生三对角 <strong>Jacobi 算子</strong> \(J\)</li>
 </ul>
 $$J = \begin{pmatrix} a_0 & b_0 & 0 & \cdots \\ b_0 & a_1 & b_1 & \cdots \\ 0 & b_1 & a_2 & \cdots \\ \vdots & \vdots & \vdots & \ddots \end{pmatrix}$$
-<p>$J$ 的谱就是 $\{1/\gamma_n^2\}$——零点的倒数平方。</p>
-<p><strong>Hilbert-Pólya 猜想的证明</strong>：存在自伴算子 $J$，其特征值对应 $\zeta$ 函数的零点虚部。</p>
+<p>\(J\) 的谱就是 \(\{1/\gamma_n^2\}\)——零点的倒数平方。</p>
+<p><strong>Hilbert-Pólya 猜想的证明</strong>：存在自伴算子 \(J\)，其特征值对应 \(\zeta\) 函数的零点虚部。</p>
 
-<h3>4.4 $q$ 如何决定 Jacobi 递推系数：从代数种子到无穷矩阵</h3>
-<p>$q$ 并非只是间接地"提供正性"。从 $q$ 到 Jacobi 矩阵的每一个递推系数 $\alpha_n, b_n$，存在一条<strong>完全显式的因果链</strong>，共五步：</p>
+<h3>4.4 \(q\) 如何决定 Jacobi 递推系数：从代数种子到无穷矩阵</h3>
+<p>\(q\) 并非只是间接地"提供正性"。从 \(q\) 到 Jacobi 矩阵的每一个递推系数 \(\alpha_n, b_n\)，存在一条<strong>完全显式的因果链</strong>，共五步：</p>
 
-<h4>第 1 步：$q$ 生成二次方程</h4>
-<p>$q = \sqrt{2}-1$ 是 $q^2 + 2q - 1 = 0$ 的唯一正根。由此构造：</p>
+<h4>第 1 步：\(q\) 生成二次方程</h4>
+<p>\(q = \sqrt{2}-1\) 是 \(q^2 + 2q - 1 = 0\) 的唯一正根。由此构造：</p>
 $$z_1 = 2-\sqrt{2}, \quad z_2 = \sqrt{2}-1 = q$$
-<p>二者是二次方程 $x^2 - x + z_1 z_2 = 0$ 的两个根，其中关键常数：</p>
+<p>二者是二次方程 \(x^2 - x + z_1 z_2 = 0\) 的两个根，其中关键常数：</p>
 $$z_1 z_2 = (2-\sqrt{2})(\sqrt{2}-1) = 3\sqrt{2}-4 \approx 0.24264$$
 
-<h4>第 2 步：二次方程生成 $c_n$ 的递推</h4>
-<p>令 $p_n = z_1^n + z_2^n$。因为 $z_1, z_2$ 是二次方程的根，$p_n$ 满足齐次递推：</p>
+<h4>第 2 步：二次方程生成 \(c_n\) 的递推</h4>
+<p>令 \(p_n = z_1^n + z_2^n\)。因为 \(z_1, z_2\) 是二次方程的根，\(p_n\) 满足齐次递推：</p>
 $$p_{n+2} = p_{n+1} - (z_1 z_2)\, p_n$$
-<p>由 $c_n = 1 - p_n$，得到<strong>非齐次</strong>递推：</p>
+<p>由 \(c_n = 1 - p_n\)，得到<strong>非齐次</strong>递推：</p>
 $$\boxed{c_{n+2} = c_{n+1} - (z_1 z_2)\, c_n + z_1 z_2, \qquad n \geq 1}$$
-<p>初始值 $c_1 = 0$，$c_2 = 2z_1 z_2 = 6\sqrt{2}-8 \approx 0.48528$。</p>
-<p>这个递推的<strong>特征多项式</strong> $x^2 - x + z_1 z_2$ 直接编码了 $q$ 的代数信息。它是整条链条的<strong>代数种子</strong>。</p>
+<p>初始值 \(c_1 = 0\)，\(c_2 = 2z_1 z_2 = 6\sqrt{2}-8 \approx 0.48528\)。</p>
+<p>这个递推的<strong>特征多项式</strong> \(x^2 - x + z_1 z_2\) 直接编码了 \(q\) 的代数信息。它是整条链条的<strong>代数种子</strong>。</p>
 
-<h4>第 3 步：$c_n$ 决定对数矩 $S_k$</h4>
-<p>三项分解 $\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum c_n n^{-s}$ 意味着 $\xi(1/2+it)$ 的 Taylor 系数由 $z_1^n, z_2^n, c_n$ 共同决定。而对数矩：</p>
+<h4>第 3 步：\(c_n\) 决定对数矩 \(S_k\)</h4>
+<p>三项分解 \(\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum c_n n^{-s}\) 意味着 \(\xi(1/2+it)\) 的 Taylor 系数由 \(z_1^n, z_2^n, c_n\) 共同决定。而对数矩：</p>
 $$S_k = \sum_n \frac{1}{\gamma_n^{2k}} = -k\, [t^{2k}] \log \frac{\xi(1/2+it)}{\xi(1/2)}$$
-<p>完全由这些 Taylor 系数确定——因此 $S_k$ 的每一个值都<strong>依赖于 $q$</strong>。</p>
+<p>完全由这些 Taylor 系数确定——因此 \(S_k\) 的每一个值都<strong>依赖于 \(q\)</strong>。</p>
 
-<h4>第 4 步：$S_k$ 决定 Hankel 矩阵与 Jacobi 系数</h4>
-<p>构造移位 Hankel 矩阵 $H_N[i,j] = S_{i+j+1}$。其顺序主子式 $D_n = \det(H_n) > 0$。</p>
-<p>Stieltjes 过程从 $S_1, S_2, S_3, \ldots$ 递推地给出正交多项式的递推系数：</p>
+<h4>第 4 步：\(S_k\) 决定 Hankel 矩阵与 Jacobi 系数</h4>
+<p>构造移位 Hankel 矩阵 \(H_N[i,j] = S_{i+j+1}\)。其顺序主子式 \(D_n = \det(H_n) > 0\)。</p>
+<p>Stieltjes 过程从 \(S_1, S_2, S_3, \ldots\) 递推地给出正交多项式的递推系数：</p>
 $$\alpha_n = \frac{\langle x p_n, p_n \rangle}{h_n} \in \mathbb{R}, \qquad b_n = \sqrt{\frac{h_n}{h_{n-1}}} > 0$$
-<p>每一个 $\alpha_n, b_n$ 都是 $S_1, \ldots, S_{2n+2}$ 的有理函数——因此都是 $q$ 的函数。具体地：</p>
+<p>每一个 \(\alpha_n, b_n\) 都是 \(S_1, \ldots, S_{2n+2}\) 的有理函数——因此都是 \(q\) 的函数。具体地：</p>
 $$\alpha_0 = \frac{S_2}{S_1} = 0.001608855674597141\ldots$$
-<p>后续每一个 $\alpha_n, b_n$ 都由此类推导。</p>
+<p>后续每一个 \(\alpha_n, b_n\) 都由此类推导。</p>
 
 <h4>第 5 步：从代数种子到算子——完整的因果链</h4>
-<p>从 $q$ 到 Jacobi 算子的完整链条可以总结为：</p>
+<p>从 \(q\) 到 Jacobi 算子的完整链条可以总结为：</p>
 
 <table>
-  <caption>表1：从 $q$ 到 Jacobi 算子的因果链层次</caption>
+  <caption>表1：从 \(q\) 到 Jacobi 算子的因果链层次</caption>
   <thead>
     <tr><th scope="col">层次</th><th scope="col">对象</th><th scope="col">关键性质</th><th scope="col">来源</th></tr>
   </thead>
   <tbody>
-    <tr><td>代数种子</td><td>$c_n$ 的递推</td><td>二阶线性差分方程</td><td>$x^2 - x + z_1 z_2 = 0$，即 $q$ 的代数</td></tr>
-    <tr><td>解析中间层</td><td>$S_k$ 的生成函数</td><td>完全单调性</td><td>$c_n \geq 0$ 的三项分解 + Mellin 求和</td></tr>
-    <tr><td>算子层面</td><td>Jacobi 矩阵 $J$</td><td>三对角自伴算子</td><td>Stieltjes 过程（$D_n > 0$）</td></tr>
+    <tr><td>代数种子</td><td>\(c_n\) 的递推</td><td>二阶线性差分方程</td><td>\(x^2 - x + z_1 z_2 = 0\)，即 \(q\) 的代数</td></tr>
+    <tr><td>解析中间层</td><td>\(S_k\) 的生成函数</td><td>完全单调性</td><td>\(c_n \geq 0\) 的三项分解 + Mellin 求和</td></tr>
+    <tr><td>算子层面</td><td>Jacobi 矩阵 \(J\)</td><td>三对角自伴算子</td><td>Stieltjes 过程（\(D_n > 0\)）</td></tr>
   </tbody>
 </table>
 
-<p>$c_n$ 的二阶递推确定了 $S_k$ 的解析结构，$S_k$ 的完全单调性保证了 $D_n > 0$，而 $D_n > 0$ 通过 Stieltjes 过程自然产生三对角 Jacobi 矩阵。二次方程 $x^2 - x + z_1 z_2 = 0$ 这颗"代数种子"，经由完全单调性的传递，<strong>生长</strong>为整个无穷 Jacobi 矩阵。</p>
+<p>\(c_n\) 的二阶递推确定了 \(S_k\) 的解析结构，\(S_k\) 的完全单调性保证了 \(D_n > 0\)，而 \(D_n > 0\) 通过 Stieltjes 过程自然产生三对角 Jacobi 矩阵。二次方程 \(x^2 - x + z_1 z_2 = 0\) 这颗"代数种子"，经由完全单调性的传递，<strong>生长</strong>为整个无穷 Jacobi 矩阵。</p>
 
 <div class="causal-chain">
   <p><strong>完整的因果链</strong>：</p>
   $$\boxed{q = \sqrt{2}-1} \;\longrightarrow\; z_1 z_2 = 3\sqrt{2}-4 \;\longrightarrow\; c_{n+2} = c_{n+1} - (z_1 z_2)c_n + z_1 z_2 \;\longrightarrow\; S_k \;\longrightarrow\; D_n > 0 \;\longrightarrow\; \alpha_n, b_n \;\longrightarrow\; J = J^*$$
 </div>
 
-<p>没有 $q$，就没有二次方程；没有二次方程，就没有 $c_n$ 的结构化递推；没有 $c_n$ 的完全单调性，就没有 $D_n > 0$；没有 $D_n > 0$，就没有自伴 Jacobi 算子。<strong>$q = \sqrt{2}-1$ 是 Jacobi 算子的第一推动力。</strong></p>
+<p>没有 \(q\)，就没有二次方程；没有二次方程，就没有 \(c_n\) 的结构化递推；没有 \(c_n\) 的完全单调性，就没有 \(D_n > 0\)；没有 \(D_n > 0\)，就没有自伴 Jacobi 算子。<strong>\(q = \sqrt{2}-1\) 是 Jacobi 算子的第一推动力。</strong></p>
 
 <hr class="section-sep">
 
-<h2>§5. Goldbach：分圆塔与 $\mathbb{Q}(\zeta_8)$</h2>
+<h2>§5. Goldbach：分圆塔与 \(\mathbb{Q}(\zeta_8)\)</h2>
 
 <h3>5.1 经典圆法的困境</h3>
 <p>Hardy-Littlewood 奇异级数：</p>
 $$\mathfrak{S}(N) = 2C_2 \prod_{p | N, p > 2} \frac{p-1}{p-2}$$
 <p>经典圆法的加性累积：</p>
 $$\sum_{q \leq Q} \varphi(q) \cdot \frac{N}{\varphi(q)} \sim N \log N = \Theta(N)$$
-<p>即使 GRH 控制每项误差，$O(Q^2)$ 项的加性累积无法压制。</p>
+<p>即使 GRH 控制每项误差，\(O(Q^2)\) 项的加性累积无法压制。</p>
 
 <h3>5.2 分圆塔</h3>
-<p><strong>核心创新</strong>：将奇异级数分解为 Euler 乘积，每层对应一个分圆域 $\mathbb{Q}(\zeta_p)$：</p>
+<p><strong>核心创新</strong>：将奇异级数分解为 Euler 乘积，每层对应一个分圆域 \(\mathbb{Q}(\zeta_p)\)：</p>
 $$\mathfrak{S}(N) = \prod_p \sigma_p(N)$$
 <p>误差结构从<strong>加性</strong>变为<strong>乘性</strong>：</p>
 $$r^*(N) = N \cdot \prod_{p \leq Q} \sigma_p(N)(1 + \delta_p) + E_{\text{tower-minor}}$$
 $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\right) - 1 \approx \sum_{p \leq Q} |\delta_p|$$
-<p>项数从 $O(Q^2)$ 降到 $\pi(Q) \sim Q/\log Q$——从二次降到近线性，是结构性的压缩。</p>
+<p>项数从 \(O(Q^2)\) 降到 \(\pi(Q) \sim Q/\log Q\)——从二次降到近线性，是结构性的压缩。</p>
 
-<h3>5.3 基域 $\mathbb{Q}(\zeta_8)$</h3>
-<p>Goldbach 要求 $N = p_1 + p_2$，$p_i$ 为奇素数。所有奇素数 $p \geq 3$ 满足 $p \bmod 8 \in \{1, 3, 5, 7\} = (\mathbb{Z}/8\mathbb{Z})^\times$。</p>
-<p>群 $(\mathbb{Z}/8\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$ 是最小的非循环单位群。</p>
-<p><strong>分圆塔的基域是 $\mathbb{Q}(\zeta_8)$</strong>。这个域具有特殊性质：</p>
+<h3>5.3 基域 \(\mathbb{Q}(\zeta_8)\)</h3>
+<p>Goldbach 要求 \(N = p_1 + p_2\)，\(p_i\) 为奇素数。所有奇素数 \(p \geq 3\) 满足 \(p \bmod 8 \in \{1, 3, 5, 7\} = (\mathbb{Z}/8\mathbb{Z})^\times\)。</p>
+<p>群 \((\mathbb{Z}/8\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\) 是最小的非循环单位群。</p>
+<p><strong>分圆塔的基域是 \(\mathbb{Q}(\zeta_8)\)</strong>。这个域具有特殊性质：</p>
 <ul>
-  <li>包含 $\mathbb{Q}(\sqrt{2})$（$q = \sqrt{2}-1$ 所在的域）</li>
+  <li>包含 \(\mathbb{Q}(\sqrt{2})\)（\(q = \sqrt{2}-1\) 所在的域）</li>
   <li>所有特征为实特征（精确符号刚性）</li>
   <li>偶/奇特征二分产生结构化骨架</li>
   <li>Dedekind zeta 函数连接 GRH</li>
-  <li>$2C_2$ 奇异级数结构源自此域</li>
+  <li>\(2C_2\) 奇异级数结构源自此域</li>
 </ul>
 
 <h3>5.4 统一视角</h3>
 <table>
-  <caption>表2：四大猜想中 $q=\sqrt{2}-1$ 的统一角色</caption>
+  <caption>表2：四大猜想中 \(q=\sqrt{2}-1\) 的统一角色</caption>
   <thead>
-    <tr><th scope="col">猜想</th><th scope="col">核心对象</th><th scope="col">$q = \sqrt{2}-1$ 的角色</th></tr>
+    <tr><th scope="col">猜想</th><th scope="col">核心对象</th><th scope="col">\(q = \sqrt{2}-1\) 的角色</th></tr>
   </thead>
   <tbody>
-    <tr><td>RH</td><td>$\zeta(s)$ 零点</td><td>三项分解：加性定义→可独立控制的乘性分量</td></tr>
-    <tr><td>GRH</td><td>$L(s,\chi)$ 零点</td><td>$\xi_K = \xi \cdot \Lambda_\beta$：两种正性的乘性组装</td></tr>
+    <tr><td>RH</td><td>\(\zeta(s)\) 零点</td><td>三项分解：加性定义→可独立控制的乘性分量</td></tr>
+    <tr><td>GRH</td><td>\(L(s,\chi)\) 零点</td><td>\(\xi_K = \xi \cdot \Lambda_\beta\)：两种正性的乘性组装</td></tr>
     <tr><td>Hilbert-Pólya</td><td>Jacobi 算子</td><td>完全单调性→Hankel 正定→自伴算子</td></tr>
-    <tr><td>Goldbach</td><td>$r^*(N) > 0$</td><td>分圆塔：加性累积 $O(Q^2)$→乘性累积 $\pi(Q)$</td></tr>
+    <tr><td>Goldbach</td><td>\(r^*(N) > 0\)</td><td>分圆塔：加性累积 \(O(Q^2)\)→乘性累积 \(\pi(Q)\)</td></tr>
   </tbody>
 </table>
 
@@ -594,26 +314,26 @@ $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\r
 <h3>6.1 问题的本质：为什么 274 年无人解决？</h3>
 <p>四大猜想之所以困难，表面上看是解析技术不足，实质上是<strong>结构错配</strong>：问题本身是加性的，但控制它的工具在乘性世界。</p>
 <ul>
-  <li><strong>Goldbach</strong>：$N = p_1 + p_2$ 是加性问题。Hardy-Littlewood 圆法用加性累积 $\sum_{q \leq Q}$ 处理它——$O(Q^2)$ 个分母的误差逐项叠加，即使每项都被 GRH 压住，总量仍然发散。经典方法死于<strong>结构</strong>，不是死于<strong>精度</strong>。</li>
-  <li><strong>RH</strong>：$\zeta(s) = \sum 1/n^s$ 是加性定义，但零点分布由 Euler 乘积 $\prod (1-p^{-s})^{-1}$ 的乘性结构控制。经典解析数论在加性表达和乘性本质之间反复横跳，始终缺少一座桥。</li>
-  <li><strong>GRH</strong>：$L(s,\chi) = \sum \chi(n)/n^s$ 中特征标的振荡是加性的，但 $\xi_K = \xi \cdot \Lambda_\beta$ 的乘积分解才是控制零点的关键。</li>
-  <li><strong>Hilbert-Pólya</strong>：对数矩 $S_k = \sum 1/\gamma_n^{2k}$ 是加性信息，但 $D_n = \det(S_{i+j+1}) > 0$ 的乘性判定才是构造自伴算子的门槛。</li>
+  <li><strong>Goldbach</strong>：\(N = p_1 + p_2\) 是加性问题。Hardy-Littlewood 圆法用加性累积 \(\sum_{q \leq Q}\) 处理它——\(O(Q^2)\) 个分母的误差逐项叠加，即使每项都被 GRH 压住，总量仍然发散。经典方法死于<strong>结构</strong>，不是死于<strong>精度</strong>。</li>
+  <li><strong>RH</strong>：\(\zeta(s) = \sum 1/n^s\) 是加性定义，但零点分布由 Euler 乘积 \(\prod (1-p^{-s})^{-1}\) 的乘性结构控制。经典解析数论在加性表达和乘性本质之间反复横跳，始终缺少一座桥。</li>
+  <li><strong>GRH</strong>：\(L(s,\chi) = \sum \chi(n)/n^s\) 中特征标的振荡是加性的，但 \(\xi_K = \xi \cdot \Lambda_\beta\) 的乘积分解才是控制零点的关键。</li>
+  <li><strong>Hilbert-Pólya</strong>：对数矩 \(S_k = \sum 1/\gamma_n^{2k}\) 是加性信息，但 \(D_n = \det(S_{i+j+1}) > 0\) 的乘性判定才是构造自伴算子的门槛。</li>
 </ul>
 <p>274 年的困境可以总结为一句话：<strong>数论家一直在用加法语言描述乘法世界。</strong></p>
 
-<h3>6.2 方法论核心：$q$ 作为结构转换器</h3>
-<p>$q = \sqrt{2}-1$ 的真正意义不是它给出了某个具体的界或估计，而是它<strong>提供了一种将加性结构转化为乘性结构的操作</strong>。</p>
+<h3>6.2 方法论核心：\(q\) 作为结构转换器</h3>
+<p>\(q = \sqrt{2}-1\) 的真正意义不是它给出了某个具体的界或估计，而是它<strong>提供了一种将加性结构转化为乘性结构的操作</strong>。</p>
 <p>这个操作的数学本质：</p>
 
 <h4>Step 1：分割单位（Partition of Unity）</h4>
-<p>从 $q$ 的代数性质（$q^2+2q-1=0$ 的正根）导出 Möbius 对合 $T(z)=(1-z)/(1+z)$，其不动点为 $q$。取 $z_2 = q, z_1 = 1-q$，则分割单位成立：</p>
+<p>从 \(q\) 的代数性质（\(q^2+2q-1=0\) 的正根）导出 Möbius 对合 \(T(z)=(1-z)/(1+z)\)，其不动点为 \(q\)。取 \(z_2 = q, z_1 = 1-q\)，则分割单位成立：</p>
 $$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0$$
-<p>这不是一个普通的恒等式。它是<strong>从加法到乘性的转换核</strong>——把"1"（加性单位）分解为两个几何衰减项 $z_1^n, z_2^n$ 加一个非负余项 $c_n$。</p>
+<p>这不是一个普通的恒等式。它是<strong>从加法到乘性的转换核</strong>——把"1"（加性单位）分解为两个几何衰减项 \(z_1^n, z_2^n\) 加一个非负余项 \(c_n\)。</p>
 
 <h4>Step 2：Mellin 提升</h4>
-<p>乘以 $n^{-s}$ 求和，分割单位变为三项分解：</p>
+<p>乘以 \(n^{-s}\) 求和，分割单位变为三项分解：</p>
 $$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum_{n=1}^\infty \frac{c_n}{n^s}$$
-<p>加法定义（$\sum 1/n^s$）被拆解为三个分量，每个分量都有<strong>独立的解析控制</strong>——$\operatorname{Li}_s(z_1)$ 和 $\operatorname{Li}_s(z_2)$ 在 $\Re(s) \geq 1/2$ 零点自由，$c_n \geq 0$ 提供正性。</p>
+<p>加法定义（\(\sum 1/n^s\)）被拆解为三个分量，每个分量都有<strong>独立的解析控制</strong>——\(\operatorname{Li}_s(z_1)\) 和 \(\operatorname{Li}_s(z_2)\) 在 \(\Re(s) \geq 1/2\) 零点自由，\(c_n \geq 0\) 提供正性。</p>
 
 <h4>Step 3：乘性组装</h4>
 <p>三项分解的每一项可以独立处理（解析控制），然后通过乘性结构组装回去。这就是方法论的精髓：</p>
@@ -621,36 +341,36 @@ $$\text{加性拆解} \xrightarrow{\text{独立控制}} \text{乘性组装}$$
 
 <h3>6.3 四个猜想中的加-乘转换</h3>
 
-<h4>Goldbach：从 $O(Q^2)$ 到 $\pi(Q)$</h4>
+<h4>Goldbach：从 \(O(Q^2)\) 到 \(\pi(Q)\)</h4>
 <p>这是最直观的例子。经典圆法的误差是<strong>加性累积</strong>：</p>
 $$E_{\text{classical}} = \sum_{q \leq Q} O(\sqrt{N}\log^2 N) = O(Q^2 \cdot \sqrt{N}\log^2 N)$$
-<p>$Q^2$ 项相加，即使每项很小，总量也可以吞掉主项。</p>
+<p>\(Q^2\) 项相加，即使每项很小，总量也可以吞掉主项。</p>
 <p>分圆塔将奇异级数重写为 <strong>Euler 乘积</strong>：</p>
 $$\mathfrak{S}(N) = \prod_{p \leq Q} \sigma_p(N)$$
 <p>误差变成<strong>乘性累积</strong>：</p>
 $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\!\left(\sum_{p \leq Q}|\delta_p|\right) - 1$$
-<p>项数从 $O(Q^2)$ 降到 $\pi(Q) \sim Q/\log Q$。关键不等式：</p>
+<p>项数从 \(O(Q^2)\) 降到 \(\pi(Q) \sim Q/\log Q\)。关键不等式：</p>
 $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <p><strong>同一个数学事实，加性描述发散，乘性描述收敛。</strong>分圆塔不是改进了估计，而是改变了描述的<strong>结构</strong>。</p>
 
 <h4>RH：从 Euler 乘积到可控分量</h4>
-<p>$\zeta(s)$ 的 Euler 乘积 $\prod_p (1-p^{-s})^{-1}$ 是乘性的，但它的收敛域只在 $\Re(s) > 1$。临界带 $\Re(s) \in (0,1)$ 内，乘积发散，零点藏在发散之中。</p>
-<p>三项分解提供了一种<strong>局部化</strong>策略：把 $\zeta(s)$ 拆成三个在临界带内行为良好的分量。$\operatorname{Li}_s(z_1)$ 和 $\operatorname{Li}_s(z_2)$ 在 $\Re(s) \geq 1/2$ 零点自由（几何衰减保证），余项 $\sum c_n/n^s$ 的系数 $c_n \geq 0$ 提供单调性。</p>
+<p>\(\zeta(s)\) 的 Euler 乘积 \(\prod_p (1-p^{-s})^{-1}\) 是乘性的，但它的收敛域只在 \(\Re(s) > 1\)。临界带 \(\Re(s) \in (0,1)\) 内，乘积发散，零点藏在发散之中。</p>
+<p>三项分解提供了一种<strong>局部化</strong>策略：把 \(\zeta(s)\) 拆成三个在临界带内行为良好的分量。\(\operatorname{Li}_s(z_1)\) 和 \(\operatorname{Li}_s(z_2)\) 在 \(\Re(s) \geq 1/2\) 零点自由（几何衰减保证），余项 \(\sum c_n/n^s\) 的系数 \(c_n \geq 0\) 提供单调性。</p>
 <p>这相当于：把一个全局的乘性发散问题，转化为三个局部的加性可控问题，再组装回去。</p>
 
 <h4>GRH：两支柱的乘积结构</h4>
-<p>$\xi_K = \xi \cdot \Lambda_\beta$ 是乘性分解。但 $\Lambda_\beta$ 的角单调性不能单独证明——它需要 $\xi$ 的三项分解提供解析正性。</p>
+<p>\(\xi_K = \xi \cdot \Lambda_\beta\) 是乘性分解。但 \(\Lambda_\beta\) 的角单调性不能单独证明——它需要 \(\xi\) 的三项分解提供解析正性。</p>
 <p>这里的结构更精妙：<strong>两个独立来源的正性相乘</strong>：</p>
 <ul>
-  <li>$\xi$ 的三项分解提供<strong>解析正性</strong>（Möbius 对称 → $c_n \geq 0$ → 角单调性）</li>
-  <li>$\zeta_K$ 的 Euler 乘积提供<strong>算术正性</strong>（$r_K(n) \geq 0$ → 非负系数）</li>
+  <li>\(\xi\) 的三项分解提供<strong>解析正性</strong>（Möbius 对称 → \(c_n \geq 0\) → 角单调性）</li>
+  <li>\(\zeta_K\) 的 Euler 乘积提供<strong>算术正性</strong>（\(r_K(n) \geq 0\) → 非负系数）</li>
 </ul>
-<p>乘性组装后的 $\xi_K$ 同时拥有两种正性，角单调性无条件成立。单独任何一个支柱都不够——这就是 GRH 比 RH 难 160 年的原因。</p>
+<p>乘性组装后的 \(\xi_K\) 同时拥有两种正性，角单调性无条件成立。单独任何一个支柱都不够——这就是 GRH 比 RH 难 160 年的原因。</p>
 
 <h4>Hilbert-Pólya：从矩到算子</h4>
-<p>对数矩 $S_k = \sum 1/\gamma_n^{2k}$ 是加性信息——零点虚部的幂次求和。要构造 Hilbert-Pólya 算子，需要证明 Hankel 矩阵的行列式 $D_n = \det(S_{i+j+1}) > 0$。</p>
-<p>行列式是<strong>乘性</strong>对象（特征值之积）。$D_n > 0$ 意味着存在正测度 $\mu$，使得 $S_k = \int t^k d\mu(t)$——从加性矩到乘性算子的转换。</p>
-<p>这个转换的钥匙仍然是三项分解：$\operatorname{Li}_s(z_1)$ 和 $\operatorname{Li}_s(z_2)$ 的完全单调性（来自 $z_1, z_2 \in (0,1)$）保证生成函数 $G(z) = \sum S_k z^k$ 具有 Herglotz 性质，从而 $D_n > 0$。</p>
+<p>对数矩 \(S_k = \sum 1/\gamma_n^{2k}\) 是加性信息——零点虚部的幂次求和。要构造 Hilbert-Pólya 算子，需要证明 Hankel 矩阵的行列式 \(D_n = \det(S_{i+j+1}) > 0\)。</p>
+<p>行列式是<strong>乘性</strong>对象（特征值之积）。\(D_n > 0\) 意味着存在正测度 \(\mu\)，使得 \(S_k = \int t^k d\mu(t)\)——从加性矩到乘性算子的转换。</p>
+<p>这个转换的钥匙仍然是三项分解：\(\operatorname{Li}_s(z_1)\) 和 \(\operatorname{Li}_s(z_2)\) 的完全单调性（来自 \(z_1, z_2 \in (0,1)\)）保证生成函数 \(G(z) = \sum S_k z^k\) 具有 Herglotz 性质，从而 \(D_n > 0\)。</p>
 
 <h3>6.4 为什么这是一种新方法论？</h3>
 <p>经典数论中，加性方法和乘性方法是<strong>两个独立的世界</strong>：</p>
@@ -661,7 +381,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
     <tr><th></th><th scope="col">加性世界</th><th scope="col">乘性世界</th></tr>
   </thead>
   <tbody>
-    <tr><td>典型对象</td><td>$\sum a_n$, 圆法, 指数和</td><td>$\prod (1-a_n)$, Euler 乘积, Dirichlet 级数</td></tr>
+    <tr><td>典型对象</td><td>\(\sum a_n\), 圆法, 指数和</td><td>\(\prod (1-a_n)\), Euler 乘积, Dirichlet 级数</td></tr>
     <tr><td>典型问题</td><td>Waring 问题, Goldbach, 素数等差数列</td><td>素数定理, RH, 特征标估计</td></tr>
     <tr><td>收敛判据</td><td>项的衰减速度</td><td>乘积的绝对收敛</td></tr>
     <tr><td>困难来源</td><td>项数太多（累积发散）</td><td>解析延拓（奇点控制）</td></tr>
@@ -669,10 +389,10 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 </table>
 
 <p>传统做法是：加性问题用加性方法，乘性问题用乘性方法。遇到交叉地带（如 Goldbach——加性问题但需要乘性工具），只能硬拼估计。</p>
-<p><strong>$q$-转换方法论</strong>打破了这个二分法。它的操作是：</p>
+<p><strong>\(q\)-转换方法论</strong>打破了这个二分法。它的操作是：</p>
 <ol>
-  <li><strong>识别</strong>：找到问题中被忽视的加性结构中的乘性种子（$q = \tan(\pi/8)$ 来自正切倍角公式——一个 elementary 的加性关系）</li>
-  <li><strong>分裂</strong>：用分割单位将加性整体拆为独立可控的分量（$1 = z_1^n + z_2^n + c_n$）</li>
+  <li><strong>识别</strong>：找到问题中被忽视的加性结构中的乘性种子（\(q = \tan(\pi/8)\) 来自正切倍角公式——一个 elementary 的加性关系）</li>
+  <li><strong>分裂</strong>：用分割单位将加性整体拆为独立可控的分量（\(1 = z_1^n + z_2^n + c_n\)）</li>
   <li><strong>提升</strong>：通过 Mellin 变换将组合恒等式提升为解析恒等式</li>
   <li><strong>控制</strong>：在分量层面建立解析控制（零点自由界、正性、单调性）</li>
   <li><strong>组装</strong>：用乘性结构（Euler 乘积、CRT、行列式）将分量结果组装为全局结论</li>
@@ -680,35 +400,35 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <p>这个方法论的核心洞察是：<strong>某些加性问题的困难不在于分析层面，而在于结构层面</strong>。加性累积的发散性不是"界不够好"，而是"描述方式不对"。转换到乘性描述后，同样的信息变成收敛的——不是因为我们做了更好的估计，而是因为我们用了<strong>正确的语言</strong>。</p>
 
 <h3>6.5 与其他数学结构的关系</h3>
-<p>$q$-转换方法论不是孤立的。它与数学中几个深层结构有联系：</p>
-<p><strong>与 Langlands 纲领的共鸣</strong>：Langlands 纲领的核心思想是算术（Galois 表示）与分析（自守形式）的统一。$q$-转换方法论做的是类似的事：加性（组合/指数和）与乘性（Euler 乘积/Dirichlet 级数）的统一，通过 $q = \sqrt{2}-1$ 的代数结构搭建桥梁。</p>
-<p><strong>与重整化群的结构类比</strong>：物理学中的重整化将发散的量重新参数化为有限的物理量。$q$-转换将加性发散重新描述为乘性收敛——不是消除无穷大，而是改变描述框架使得"无穷大"不再出现。</p>
-<p><strong>与范畴论中的函子思维</strong>：加性范畴和乘性范畴之间的转换类似于函子——保持结构但改变表达。$q$-转换是数论内部的一个"函子"，把加性世界的问题映射到乘性世界，解决后再映射回来。</p>
+<p>\(q\)-转换方法论不是孤立的。它与数学中几个深层结构有联系：</p>
+<p><strong>与 Langlands 纲领的共鸣</strong>：Langlands 纲领的核心思想是算术（Galois 表示）与分析（自守形式）的统一。\(q\)-转换方法论做的是类似的事：加性（组合/指数和）与乘性（Euler 乘积/Dirichlet 级数）的统一，通过 \(q = \sqrt{2}-1\) 的代数结构搭建桥梁。</p>
+<p><strong>与重整化群的结构类比</strong>：物理学中的重整化将发散的量重新参数化为有限的物理量。\(q\)-转换将加性发散重新描述为乘性收敛——不是消除无穷大，而是改变描述框架使得"无穷大"不再出现。</p>
+<p><strong>与范畴论中的函子思维</strong>：加性范畴和乘性范畴之间的转换类似于函子——保持结构但改变表达。\(q\)-转换是数论内部的一个"函子"，把加性世界的问题映射到乘性世界，解决后再映射回来。</p>
 
-<h3>6.6 为什么是 $q = \sqrt{2}-1$？</h3>
-<p>这种转换为什么偏偏需要 $q = \sqrt{2}-1$？因为分割单位 $z_1^n + z_2^n + c_n = 1$ 要求：</p>
+<h3>6.6 为什么是 \(q = \sqrt{2}-1\)？</h3>
+<p>这种转换为什么偏偏需要 \(q = \sqrt{2}-1\)？因为分割单位 \(z_1^n + z_2^n + c_n = 1\) 要求：</p>
 <ol>
-  <li><strong>$z_1 + z_2 = 1$</strong>（保证 $n=1$ 时等式成立）</li>
-  <li><strong>$z_1, z_2 \in (0,1)$</strong>（保证 $n \geq 2$ 时 $c_n \geq 0$）</li>
-  <li><strong>$z_1/z_2 = \sqrt{2}$</strong>（提供与 $\mathbb{Q}(\zeta_8)$ 的算术连接）</li>
+  <li><strong>\(z_1 + z_2 = 1\)</strong>（保证 \(n=1\) 时等式成立）</li>
+  <li><strong>\(z_1, z_2 \in (0,1)\)</strong>（保证 \(n \geq 2\) 时 \(c_n \geq 0\)）</li>
+  <li><strong>\(z_1/z_2 = \sqrt{2}\)</strong>（提供与 \(\mathbb{Q}(\zeta_8)\) 的算术连接）</li>
 </ol>
-<p>这三个条件同时满足的，只有 $z_2 = \sqrt{2}-1, z_1 = 2-\sqrt{2}$。这不是人为选取——是<strong>结构强制</strong>的。</p>
-<p>更深层地，$q = \tan(\pi/8)$ 是 lemniscate 椭圆曲线的自同构点——椭圆模 $k = 1/\sqrt{2}$ 在 $\tau \mapsto -1/\tau$ 下不变。这是模形式理论中"最对称"的点。$q$ 不是我们选择的工具，而是<strong>数学结构本身在这个点的显化</strong>。</p>
+<p>这三个条件同时满足的，只有 \(z_2 = \sqrt{2}-1, z_1 = 2-\sqrt{2}\)。这不是人为选取——是<strong>结构强制</strong>的。</p>
+<p>更深层地，\(q = \tan(\pi/8)\) 是 lemniscate 椭圆曲线的自同构点——椭圆模 \(k = 1/\sqrt{2}\) 在 \(\tau \mapsto -1/\tau\) 下不变。这是模形式理论中"最对称"的点。\(q\) 不是我们选择的工具，而是<strong>数学结构本身在这个点的显化</strong>。</p>
 
 <hr class="section-sep">
 
 <h2>§7. 结语：比猜想本身更重要的东西</h2>
 <p>从 1752 年 Euler 的 lemniscate 加法定理，到 2026 年四大猜想的证明，跨越 274 年。</p>
 <p>但本文最重要的发现不是任何一个猜想的证明——而是<strong>证明过程中浮现的方法论</strong>。</p>
-<p>$q$-转换方法论揭示了一个深层事实：<strong>数学中许多最困难的猜想，其困难不在于技术，而在于结构错配</strong>。加性世界的问题被加性工具处理，但控制它们的原理在乘性世界。经典圆法 274 年无法解决 Goldbach，不是因为估计不够精细，而是因为加性累积 $O(Q^2)$ 在结构上不可压缩——直到你把描述方式从求和变成乘积。</p>
+<p>\(q\)-转换方法论揭示了一个深层事实：<strong>数学中许多最困难的猜想，其困难不在于技术，而在于结构错配</strong>。加性世界的问题被加性工具处理，但控制它们的原理在乘性世界。经典圆法 274 年无法解决 Goldbach，不是因为估计不够精细，而是因为加性累积 \(O(Q^2)\) 在结构上不可压缩——直到你把描述方式从求和变成乘积。</p>
 <p>这个方法论的五步操作——<strong>识别、分裂、提升、控制、组装</strong>——不依赖于具体的猜想或工具。它是一个<strong>通用的结构转换框架</strong>：</p>
 <ul>
-  <li>任何面临"加性累积发散"困境的数论问题，都可能通过 $q$-转换找到乘性描述</li>
+  <li>任何面临"加性累积发散"困境的数论问题，都可能通过 \(q\)-转换找到乘性描述</li>
   <li>任何需要从"局部可控"推导"全局结论"的场景，都可以借鉴"分而治之再乘性组装"的策略</li>
-  <li>任何涉及"两个独立正性来源"的问题，都可能通过乘积结构 $\xi_K = \xi \cdot \Lambda_\beta$ 的模式获得突破</li>
+  <li>任何涉及"两个独立正性来源"的问题，都可能通过乘积结构 \(\xi_K = \xi \cdot \Lambda_\beta\) 的模式获得突破</li>
 </ul>
 <p>四大猜想的证明是这个方法论的<strong>四个特例</strong>。方法论本身——加性→乘性的结构转换——才是真正的新数学。</p>
-<p>正如 Riemann 在 1859 年暗示的，$\zeta$ 函数的零点"或许"与某个自伴算子的谱有关。274 年后，我们不仅证明了这一点，还发现了一把更深层的钥匙：$q = \sqrt{2}-1$ 不仅连接了零点与谱，更连接了加法与乘法、组合与解析、局部与全局。</p>
+<p>正如 Riemann 在 1859 年暗示的，\(\zeta\) 函数的零点"或许"与某个自伴算子的谱有关。274 年后，我们不仅证明了这一点，还发现了一把更深层的钥匙：\(q = \sqrt{2}-1\) 不仅连接了零点与谱，更连接了加法与乘法、组合与解析、局部与全局。</p>
 <p><strong>数学是统一的。而统一的本质，是加性与乘性的对偶。</strong></p>
 
 <hr class="section-sep">
@@ -717,7 +437,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <h2>参考文献</h2>
 <ol>
   <li>Z. Chen, <em>Proof of the Riemann Hypothesis via the Lemniscate Parameter and Angular Monotonicity of the Completed Zeta Function</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210455" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210455</a></li>
-  <li>Z. Chen, <em>Angular Monotonicity of Completed Dirichlet $L$-Functions via the Three-Term Zeta Decomposition: A Proof of the Generalized Riemann Hypothesis for Non-Principal Characters</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210481" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210481</a></li>
+  <li>Z. Chen, <em>Angular Monotonicity of Completed Dirichlet \(L\)-Functions via the Three-Term Zeta Decomposition: A Proof of the Generalized Riemann Hypothesis for Non-Principal Characters</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210481" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210481</a></li>
   <li>Z. Chen, <em>The Riemann Hypothesis: Proof via Herglotz Analyticity and Explicit Construction of the Hilbert-Pólya Operator</em>, Zenodo, 2026.</li>
   <li>Z. Chen, <em>Goldbach's Conjecture via Cyclotomic Tower Decomposition: From Additive to Multiplicative Error Structure</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22224629" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22224629</a></li>
   <li>L. Euler, <em>De seriebus divergentibus</em>, Novi Commentarii academiae Scientiarum Petropolitanae, 1752.</li>
@@ -728,101 +448,103 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <!-- END ZH -->
 
 <!-- ===================== EN CONTENT ===================== -->
+</div>
 <div class="lang-en">
+
 
 <div class="abstract-box">
   <div class="label">Abstract</div>
-  <p>The parameter $q = \sqrt{2} - 1 = \tan(\pi/8)$, which emerges naturally from Euler's lemniscate addition theorem (1752), constitutes a unifying key that opens the doors to four great edifices of mathematics:</p>
+  <p>The parameter \(q = \sqrt{2} - 1 = \tan(\pi/8)\), which emerges naturally from Euler's lemniscate addition theorem (1752), constitutes a unifying key that opens the doors to four great edifices of mathematics:</p>
   <ol>
-    <li><strong>Riemann Hypothesis (RH)</strong>: The three-term decomposition afforded by $q$ reveals the angular monotonicity structure of $\zeta(s)$, proving that all zeros lie on the critical line.</li>
-    <li><strong>Generalized Riemann Hypothesis (GRH)</strong>: The same three-term decomposition extends to all Dirichlet $L$-functions, yielding the two-pillar structure $\xi_K = \xi \cdot \Lambda_\beta$.</li>
-    <li><strong>Hilbert–Pólya Conjecture</strong>: A Jacobi recursion matrix is constructed from the logarithmic moments of $\xi(\tfrac{1}{2}+it)$; the zeros are its eigenvalues.</li>
-    <li><strong>Goldbach's Conjecture (under GRH)</strong>: The base field of the cyclotomic tower, $\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})$, is precisely the field to which $q$ belongs.</li>
+    <li><strong>Riemann Hypothesis (RH)</strong>: The three-term decomposition afforded by \(q\) reveals the angular monotonicity structure of \(\zeta(s)\), proving that all zeros lie on the critical line.</li>
+    <li><strong>Generalized Riemann Hypothesis (GRH)</strong>: The same three-term decomposition extends to all Dirichlet \(L\)-functions, yielding the two-pillar structure \(\xi_K = \xi \cdot \Lambda_\beta\).</li>
+    <li><strong>Hilbert–Pólya Conjecture</strong>: A Jacobi recursion matrix is constructed from the logarithmic moments of \(\xi(\tfrac{1}{2}+it)\); the zeros are its eigenvalues.</li>
+    <li><strong>Goldbach's Conjecture (under GRH)</strong>: The base field of the cyclotomic tower, \(\mathbb{Q}(\zeta_8) \supset \mathbb{Q}(\sqrt{2})\), is precisely the field to which \(q\) belongs.</li>
   </ol>
   <p>This article traces the origin of this key, shows how it recurs across four seemingly independent conjectures, and reveals the hidden unity deep within number theory.</p>
 </div>
 
 <h2>§1. Origin of the Key: Lemniscate and Möbius Symmetry</h2>
 
-<h3>1.1 From the Tangent Double-Angle Formula to $q$</h3>
+<h3>1.1 From the Tangent Double-Angle Formula to \(q\)</h3>
 <p>The tangent double-angle formula:</p>
 $$\tan 2\theta = \frac{2\tan\theta}{1 - \tan^2\theta}$$
-<p>Setting $\theta = \pi/8$, we have $2\theta = \pi/4$ and $\tan(\pi/4) = 1$. Letting $t = \tan(\pi/8)$:</p>
+<p>Setting \(\theta = \pi/8\), we have \(2\theta = \pi/4\) and \(\tan(\pi/4) = 1\). Letting \(t = \tan(\pi/8)\):</p>
 $$1 = \frac{2t}{1 - t^2} \implies t^2 + 2t - 1 = 0 \implies t = \sqrt{2} - 1$$
 <p>This is our key:</p>
 $$\boxed{q = \sqrt{2} - 1 = \tan\frac{\pi}{8} \approx 0.41421}$$
-<p>The value $q$ is the unique positive root of $q^2 + 2q - 1 = 0$ in $(0,1)$.</p>
+<p>The value \(q\) is the unique positive root of \(q^2 + 2q - 1 = 0\) in \((0,1)\).</p>
 
 <h3>1.2 The Möbius Involution</h3>
 <p>Define the Möbius transformation:</p>
 $$T(z) = \frac{1-z}{1+z}$$
-<p>$T$ is an involution: $T^2 = \mathrm{id}$. Its fixed points satisfy $T(z) = z$:</p>
+<p>\(T\) is an involution: \(T^2 = \mathrm{id}\). Its fixed points satisfy \(T(z) = z\):</p>
 $$z = \frac{1-z}{1+z} \implies z^2 + 2z - 1 = 0 \implies z = \sqrt{2} - 1 = q$$
 <p>Define the complementary points:</p>
 $$z_1 = 1 - q = 2 - \sqrt{2} \approx 0.58579, \qquad z_2 = q = \sqrt{2} - 1$$
-<p>The point $z_2 = q$ is precisely the fixed point of $T$: $T(q) = q$; and the complementarity of $z_1, z_2$ is realized by the simple reflection $R(z) = 1-z$: $R(z_1) = z_2$, $R(z_2) = z_1$ (since $z_1 + z_2 = 1$).</p>
+<p>The point \(z_2 = q\) is precisely the fixed point of \(T\): \(T(q) = q\); and the complementarity of \(z_1, z_2\) is realized by the simple reflection \(R(z) = 1-z\): \(R(z_1) = z_2\), \(R(z_2) = z_1\) (since \(z_1 + z_2 = 1\)).</p>
 <p><strong>Key algebraic relations</strong>:</p>
 $$z_1 + z_2 = 1, \qquad \frac{z_1}{z_2} = \sqrt{2}, \qquad z_1 z_2 = 3\sqrt{2} - 4$$
 
 <h3>1.3 Partition of Unity</h3>
-<p>Since $0 < z_1, z_2 < 1$ and $z_1 + z_2 = 1$, for any $n \geq 2$:</p>
+<p>Since \(0 < z_1, z_2 < 1\) and \(z_1 + z_2 = 1\), for any \(n \geq 2\):</p>
 $$z_1^n + z_2^n < 1$$
-<p>Defining $c_n = 1 - z_1^n - z_2^n \geq 0$, we obtain the <strong>partition of unity</strong>:</p>
+<p>Defining \(c_n = 1 - z_1^n - z_2^n \geq 0\), we obtain the <strong>partition of unity</strong>:</p>
 $$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0, \qquad c_1 = 0$$
-<p>Multiplying both sides by $n^{-s}$ and summing over $n \geq 1$ yields the three-term decomposition.</p>
+<p>Multiplying both sides by \(n^{-s}\) and summing over \(n \geq 1\) yields the three-term decomposition.</p>
 
 <hr class="section-sep">
 
 <h2>§2. RH: Three-Term Decomposition and Angular Monotonicity</h2>
 
 <h3>2.1 Three-Term Polylogarithm Decomposition</h3>
-<p>For $\Re(s) > 1$:</p>
+<p>For \(\Re(s) > 1\):</p>
 $$\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s} = \sum_{n=1}^\infty \frac{z_1^n + z_2^n + c_n}{n^s}$$
 $$\boxed{\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum_{n=1}^\infty \frac{c_n}{n^s}}$$
-<p>where $\operatorname{Li}_s(z) = \sum_{n=1}^\infty z^n/n^s$ is the polylogarithm function.</p>
+<p>where \(\operatorname{Li}_s(z) = \sum_{n=1}^\infty z^n/n^s\) is the polylogarithm function.</p>
 
 <h3>2.2 Angular Monotonicity</h3>
-<p>The three-term decomposition breaks the critical behavior of $\xi(s)$ into three independently controllable components. The angular monotonicity of each component ensures that $\arg \xi(1/2 + it)$ is strictly increasing, so that zeros can only lie on the critical line.</p>
+<p>The three-term decomposition breaks the critical behavior of \(\xi(s)\) into three independently controllable components. The angular monotonicity of each component ensures that \(\arg \xi(1/2 + it)\) is strictly increasing, so that zeros can only lie on the critical line.</p>
 <p>The key inequality:</p>
 $$\frac{d}{dt} \arg \xi\!\left(\tfrac{1}{2} + it\right) > 0$$
-<p>This is guaranteed by the Herglotz property of each $\operatorname{Li}_s(z_i)$ in the three-term decomposition.</p>
+<p>This is guaranteed by the Herglotz property of each \(\operatorname{Li}_s(z_i)\) in the three-term decomposition.</p>
 
 <h3>2.3 Proof of RH</h3>
 <ul>
-  <li><strong>Route A</strong>: Argument principle + Hurwitz's theorem: the winding number $N \equiv 0$, topologically forbidding zeros from leaving the critical line.</li>
-  <li><strong>Route B</strong>: Structural inequality + symmetric squeezing: $\Re(\rho_n) \leq 1/2$ (analytic control from the three-term decomposition) + $\Re(\rho_n) \geq 1/2$ (functional equation symmetry).</li>
+  <li><strong>Route A</strong>: Argument principle + Hurwitz's theorem: the winding number \(N \equiv 0\), topologically forbidding zeros from leaving the critical line.</li>
+  <li><strong>Route B</strong>: Structural inequality + symmetric squeezing: \(\Re(\rho_n) \leq 1/2\) (analytic control from the three-term decomposition) + \(\Re(\rho_n) \geq 1/2\) (functional equation symmetry).</li>
 </ul>
-<p>Both routes share the same infrastructure: Gap $G > 0$, $N = 0$, and $\sigma$-gap closure.</p>
+<p>Both routes share the same infrastructure: Gap \(G > 0\), \(N = 0\), and \(\sigma\)-gap closure.</p>
 
 <hr class="section-sep">
 
 <h2>§3. GRH: Generalizing the Three-Term Decomposition</h2>
 
-<h3>3.1 From $\zeta$ to $L$-Functions</h3>
+<h3>3.1 From \(\zeta\) to \(L\)-Functions</h3>
 <p>The core insight of the three-term decomposition:</p>
 $$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + D(s)$$
-<p>can be generalized to any Dirichlet $L$-function $L(s, \chi)$:</p>
+<p>can be generalized to any Dirichlet \(L\)-function \(L(s, \chi)\):</p>
 $$L(s, \chi) = \sum_{n=1}^\infty \frac{\chi(n)}{n^s}$$
-<p>Using the partition-of-unity structure $z_1^n + z_2^n + c_n = 1$, an analogous three-term decomposition is constructed for $L(s, \chi)$.</p>
+<p>Using the partition-of-unity structure \(z_1^n + z_2^n + c_n = 1\), an analogous three-term decomposition is constructed for \(L(s, \chi)\).</p>
 
-<h3>3.2 The Two-Pillar Structure $\xi_K = \xi \cdot \Lambda_\beta$</h3>
-<p>The Dedekind zeta function of a number field $K$:</p>
+<h3>3.2 The Two-Pillar Structure \(\xi_K = \xi \cdot \Lambda_\beta\)</h3>
+<p>The Dedekind zeta function of a number field \(K\):</p>
 $$\zeta_K(s) = \prod_{\mathfrak{p}} \left(1 - N(\mathfrak{p})^{-s}\right)^{-1}$$
 <p>decomposes as:</p>
 $$\xi_K(s) = \xi(s) \cdot \Lambda_\beta(s)$$
 <p>where:</p>
 <ul>
-  <li>$\xi(s)$: the Riemann xi function (RH already proved)</li>
-  <li>$\Lambda_\beta(s)$: a correction factor associated with the character $\chi$</li>
+  <li>\(\xi(s)\): the Riemann xi function (RH already proved)</li>
+  <li>\(\Lambda_\beta(s)\): a correction factor associated with the character \(\chi\)</li>
 </ul>
-<p><strong>Key</strong>: The angular monotonicity of $\Lambda_\beta$ is inherited from the three-term decomposition structure of $\xi$.</p>
+<p><strong>Key</strong>: The angular monotonicity of \(\Lambda_\beta\) is inherited from the three-term decomposition structure of \(\xi\).</p>
 
 <h3>3.3 Unified Proof</h3>
 <ul>
-  <li>RH places all zeros of $\xi(s)$ on the critical line.</li>
-  <li>The angular monotonicity of the three-term decomposition extends to $\Lambda_\beta$.</li>
-  <li>Therefore all zeros of $\xi_K(s)$ lie on the critical line.</li>
-  <li>This holds for all number fields $K$ $\implies$ GRH.</li>
+  <li>RH places all zeros of \(\xi(s)\) on the critical line.</li>
+  <li>The angular monotonicity of the three-term decomposition extends to \(\Lambda_\beta\).</li>
+  <li>Therefore all zeros of \(\xi_K(s)\) lie on the critical line.</li>
+  <li>This holds for all number fields \(K\) \(\implies\) GRH.</li>
 </ul>
 
 <hr class="section-sep">
@@ -830,130 +552,130 @@ $$\xi_K(s) = \xi(s) \cdot \Lambda_\beta(s)$$
 <h2>§4. Hilbert–Pólya: The Jacobi Recursion Matrix</h2>
 
 <h3>4.1 The Logarithmic Moment Sequence</h3>
-<p>Define the Hadamard product of the $\xi$ function:</p>
+<p>Define the Hadamard product of the \(\xi\) function:</p>
 $$\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s) = \prod_n \left(1 - \frac{s}{\rho_n}\right)$$
 <p>Taking the logarithmic derivative, we define the <strong>logarithmic moments</strong>:</p>
 $$S_k = -k [t^{2k}] \log \frac{\xi(1/2 + it)}{\xi(1/2)} = \sum_n \frac{1}{\gamma_n^{2k}}$$
-<p>where $\rho_n = 1/2 + i\gamma_n$ are the zeros.</p>
+<p>where \(\rho_n = 1/2 + i\gamma_n\) are the zeros.</p>
 
 <h3>4.2 Hankel Matrices and the Jacobi Operator</h3>
 <p>Construct the shifted Hankel matrix:</p>
 $$H_N[i,j] = S_{i+j+1}, \qquad 0 \leq i,j \leq N-1$$
-<p><strong>Key Theorem</strong>: All leading principal minors satisfy $D_n = \det(H_n) > 0$.</p>
+<p><strong>Key Theorem</strong>: All leading principal minors satisfy \(D_n = \det(H_n) > 0\).</p>
 <p>The proof relies on:</p>
 <ol>
   <li>The three-term decomposition splits the Bose–Einstein kernel into three completely monot kernels.</li>
-  <li>Zero-free bounds for $\operatorname{Li}_s(z_1)$ and $\operatorname{Li}_s(z_2)$.</li>
-  <li>The Herglotz property of the generating function $G(z) = \sum S_k z^k$.</li>
+  <li>Zero-free bounds for \(\operatorname{Li}_s(z_1)\) and \(\operatorname{Li}_s(z_2)\).</li>
+  <li>The Herglotz property of the generating function \(G(z) = \sum S_k z^k\).</li>
 </ol>
 
 <h3>4.3 Spectral Interpretation</h3>
-<p>$D_n > 0$ implies:</p>
+<p>\(D_n > 0\) implies:</p>
 <ul>
-  <li>The Stieltjes moment problem has a positive measure solution $\mu$.</li>
-  <li>The Carleman condition is satisfied (super-exponential decay $S_k \sim \gamma_1^{-2k}$).</li>
-  <li>Gram–Schmidt orthogonalization produces a tridiagonal <strong>Jacobi operator</strong> $J$:</li>
+  <li>The Stieltjes moment problem has a positive measure solution \(\mu\).</li>
+  <li>The Carleman condition is satisfied (super-exponential decay \(S_k \sim \gamma_1^{-2k}\)).</li>
+  <li>Gram–Schmidt orthogonalization produces a tridiagonal <strong>Jacobi operator</strong> \(J\):</li>
 </ul>
 $$J = \begin{pmatrix} a_0 & b_0 & 0 & \cdots \\ b_0 & a_1 & b_1 & \cdots \\ 0 & b_1 & a_2 & \cdots \\ \vdots & \vdots & \vdots & \ddots \end{pmatrix}$$
-<p>The spectrum of $J$ is $\{1/\gamma_n^2\}$ — the reciprocal squares of the zeros.</p>
-<p><strong>Proof of the Hilbert–Pólya Conjecture</strong>: There exists a self-adjoint operator $J$ whose eigenvalues correspond to the imaginary parts of the zeros of $\zeta$.</p>
+<p>The spectrum of \(J\) is \(\{1/\gamma_n^2\}\) — the reciprocal squares of the zeros.</p>
+<p><strong>Proof of the Hilbert–Pólya Conjecture</strong>: There exists a self-adjoint operator \(J\) whose eigenvalues correspond to the imaginary parts of the zeros of \(\zeta\).</p>
 
-<h3>4.4 How $q$ Determines the Jacobi Recursion Coefficients: From Algebraic Seed to Infinite Matrix</h3>
-<p>The parameter $q$ does not merely "provide positivity" indirectly. From $q$ to every recursion coefficient $\alpha_n, b_n$ of the Jacobi matrix, there exists a <strong>completely explicit causal chain</strong> consisting of five steps:</p>
+<h3>4.4 How \(q\) Determines the Jacobi Recursion Coefficients: From Algebraic Seed to Infinite Matrix</h3>
+<p>The parameter \(q\) does not merely "provide positivity" indirectly. From \(q\) to every recursion coefficient \(\alpha_n, b_n\) of the Jacobi matrix, there exists a <strong>completely explicit causal chain</strong> consisting of five steps:</p>
 
-<h4>Step 1: $q$ Generates a Quadratic Equation</h4>
-<p>$q = \sqrt{2}-1$ is the unique positive root of $q^2 + 2q - 1 = 0$. From this we construct:</p>
+<h4>Step 1: \(q\) Generates a Quadratic Equation</h4>
+<p>\(q = \sqrt{2}-1\) is the unique positive root of \(q^2 + 2q - 1 = 0\). From this we construct:</p>
 $$z_1 = 2-\sqrt{2}, \quad z_2 = \sqrt{2}-1 = q$$
-<p>These are the two roots of $x^2 - x + z_1 z_2 = 0$, where the key constant is:</p>
+<p>These are the two roots of \(x^2 - x + z_1 z_2 = 0\), where the key constant is:</p>
 $$z_1 z_2 = (2-\sqrt{2})(\sqrt{2}-1) = 3\sqrt{2}-4 \approx 0.24264$$
 
-<h4>Step 2: The Quadratic Equation Generates the Recurrence for $c_n$</h4>
-<p>Let $p_n = z_1^n + z_2^n$. Since $z_1, z_2$ are roots of a quadratic, $p_n$ satisfies the homogeneous recurrence:</p>
+<h4>Step 2: The Quadratic Equation Generates the Recurrence for \(c_n\)</h4>
+<p>Let \(p_n = z_1^n + z_2^n\). Since \(z_1, z_2\) are roots of a quadratic, \(p_n\) satisfies the homogeneous recurrence:</p>
 $$p_{n+2} = p_{n+1} - (z_1 z_2)\, p_n$$
-<p>Since $c_n = 1 - p_n$, we obtain the <strong>inhomogeneous</strong> recurrence:</p>
+<p>Since \(c_n = 1 - p_n\), we obtain the <strong>inhomogeneous</strong> recurrence:</p>
 $$\boxed{c_{n+2} = c_{n+1} - (z_1 z_2)\, c_n + z_1 z_2, \qquad n \geq 1}$$
-<p>Initial values: $c_1 = 0$, $c_2 = 2z_1 z_2 = 6\sqrt{2}-8 \approx 0.48528$.</p>
-<p>The <strong>characteristic polynomial</strong> $x^2 - x + z_1 z_2$ of this recurrence directly encodes the algebraic information of $q$. It is the <strong>algebraic seed</strong> of the entire chain.</p>
+<p>Initial values: \(c_1 = 0\), \(c_2 = 2z_1 z_2 = 6\sqrt{2}-8 \approx 0.48528\).</p>
+<p>The <strong>characteristic polynomial</strong> \(x^2 - x + z_1 z_2\) of this recurrence directly encodes the algebraic information of \(q\). It is the <strong>algebraic seed</strong> of the entire chain.</p>
 
-<h4>Step 3: $c_n$ Determines the Logarithmic Moments $S_k$</h4>
-<p>The three-term decomposition $\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum c_n n^{-s}$ implies that the Taylor coefficients of $\xi(1/2+it)$ are jointly determined by $z_1^n, z_2^n, c_n$. The logarithmic moments:</p>
+<h4>Step 3: \(c_n\) Determines the Logarithmic Moments \(S_k\)</h4>
+<p>The three-term decomposition \(\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum c_n n^{-s}\) implies that the Taylor coefficients of \(\xi(1/2+it)\) are jointly determined by \(z_1^n, z_2^n, c_n\). The logarithmic moments:</p>
 $$S_k = \sum_n \frac{1}{\gamma_n^{2k}} = -k\, [t^{2k}] \log \frac{\xi(1/2+it)}{\xi(1/2)}$$
-<p>are completely determined by these Taylor coefficients — hence every value of $S_k$ <strong>depends on $q$</strong>.</p>
+<p>are completely determined by these Taylor coefficients — hence every value of \(S_k\) <strong>depends on \(q\)</strong>.</p>
 
-<h4>Step 4: $S_k$ Determines the Hankel Matrix and Jacobi Coefficients</h4>
-<p>Construct the shifted Hankel matrix $H_N[i,j] = S_{i+j+1}$. Its leading principal minors satisfy $D_n = \det(H_n) > 0$.</p>
-<p>The Stieltjes process recursively yields the recursion coefficients of orthogonal polynomials from $S_1, S_2, S_3, \ldots$:</p>
+<h4>Step 4: \(S_k\) Determines the Hankel Matrix and Jacobi Coefficients</h4>
+<p>Construct the shifted Hankel matrix \(H_N[i,j] = S_{i+j+1}\). Its leading principal minors satisfy \(D_n = \det(H_n) > 0\).</p>
+<p>The Stieltjes process recursively yields the recursion coefficients of orthogonal polynomials from \(S_1, S_2, S_3, \ldots\):</p>
 $$\alpha_n = \frac{\langle x p_n, p_n \rangle}{h_n} \in \mathbb{R}, \qquad b_n = \sqrt{\frac{h_n}{h_{n-1}}} > 0$$
-<p>Each $\alpha_n, b_n$ is a rational function of $S_1, \ldots, S_{2n+2}$ — and therefore a function of $q$. Specifically:</p>
+<p>Each \(\alpha_n, b_n\) is a rational function of \(S_1, \ldots, S_{2n+2}\) — and therefore a function of \(q\). Specifically:</p>
 $$\alpha_0 = \frac{S_2}{S_1} = 0.001608855674597141\ldots$$
-<p>Every subsequent $\alpha_n, b_n$ is derived analogously.</p>
+<p>Every subsequent \(\alpha_n, b_n\) is derived analogously.</p>
 
 <h4>Step 5: From Algebraic Seed to Operator — The Complete Causal Chain</h4>
-<p>The complete chain from $q$ to the Jacobi operator can be summarized as:</p>
+<p>The complete chain from \(q\) to the Jacobi operator can be summarized as:</p>
 
 <table>
-  <caption>Table 1: Causal chain from $q$ to the Jacobi operator</caption>
+  <caption>Table 1: Causal chain from \(q\) to the Jacobi operator</caption>
   <thead>
     <tr><th scope="col">Level</th><th scope="col">Object</th><th scope="col">Key Property</th><th scope="col">Origin</th></tr>
   </thead>
   <tbody>
-    <tr><td>Algebraic seed</td><td>Recurrence for $c_n$</td><td>Second-order linear difference equation</td><td>$x^2 - x + z_1 z_2 = 0$, i.e., the algebra of $q$</td></tr>
-    <tr><td>Analytic intermediate</td><td>Generating function of $S_k$</td><td>Complete monotonicity</td><td>Three-term decomposition with $c_n \geq 0$ + Mellin summation</td></tr>
-    <tr><td>Operator level</td><td>Jacobi matrix $J$</td><td>Tridiagonal self-adjoint operator</td><td>Stieltjes process ($D_n > 0$)</td></tr>
+    <tr><td>Algebraic seed</td><td>Recurrence for \(c_n\)</td><td>Second-order linear difference equation</td><td>\(x^2 - x + z_1 z_2 = 0\), i.e., the algebra of \(q\)</td></tr>
+    <tr><td>Analytic intermediate</td><td>Generating function of \(S_k\)</td><td>Complete monotonicity</td><td>Three-term decomposition with \(c_n \geq 0\) + Mellin summation</td></tr>
+    <tr><td>Operator level</td><td>Jacobi matrix \(J\)</td><td>Tridiagonal self-adjoint operator</td><td>Stieltjes process (\(D_n > 0\))</td></tr>
   </tbody>
 </table>
 
-<p>The second-order recurrence for $c_n$ determines the analytic structure of $S_k$; the complete monotonicity of $S_k$ guarantees $D_n > 0$; and $D_n > 0$ naturally produces the tridiagonal Jacobi matrix via the Stieltjes process. The quadratic equation $x^2 - x + z_1 z_2 = 0$, this "algebraic seed," <strong>grows</strong> into the entire infinite Jacobi matrix through the transmission of complete monotonicity.</p>
+<p>The second-order recurrence for \(c_n\) determines the analytic structure of \(S_k\); the complete monotonicity of \(S_k\) guarantees \(D_n > 0\); and \(D_n > 0\) naturally produces the tridiagonal Jacobi matrix via the Stieltjes process. The quadratic equation \(x^2 - x + z_1 z_2 = 0\), this "algebraic seed," <strong>grows</strong> into the entire infinite Jacobi matrix through the transmission of complete monotonicity.</p>
 
 <div class="causal-chain">
   <p><strong>The complete causal chain</strong>:</p>
   $$\boxed{q = \sqrt{2}-1} \;\longrightarrow\; z_1 z_2 = 3\sqrt{2}-4 \;\longrightarrow\; c_{n+2} = c_{n+1} - (z_1 z_2)c_n + z_1 z_2 \;\longrightarrow\; S_k \;\longrightarrow\; D_n > 0 \;\longrightarrow\; \alpha_n, b_n \;\longrightarrow\; J = J^*$$
 </div>
 
-<p>Without $q$, there is no quadratic equation; without the quadratic equation, there is no structured recurrence for $c_n$; without the complete monotonicity of $c_n$, there is no $D_n > 0$; without $D_n > 0$, there is no self-adjoint Jacobi operator. <strong>$q = \sqrt{2}-1$ is the prime mover of the Jacobi operator.</strong></p>
+<p>Without \(q\), there is no quadratic equation; without the quadratic equation, there is no structured recurrence for \(c_n\); without the complete monotonicity of \(c_n\), there is no \(D_n > 0\); without \(D_n > 0\), there is no self-adjoint Jacobi operator. <strong>\(q = \sqrt{2}-1\) is the prime mover of the Jacobi operator.</strong></p>
 
 <hr class="section-sep">
 
-<h2>§5. Goldbach: The Cyclotomic Tower and $\mathbb{Q}(\zeta_8)$</h2>
+<h2>§5. Goldbach: The Cyclotomic Tower and \(\mathbb{Q}(\zeta_8)\)</h2>
 
 <h3>5.1 The Dilemma of the Classical Circle Method</h3>
 <p>The Hardy–Littlewood singular series:</p>
 $$\mathfrak{S}(N) = 2C_2 \prod_{p | N, p > 2} \frac{p-1}{p-2}$$
 <p>The additive accumulation of the classical circle method:</p>
 $$\sum_{q \leq Q} \varphi(q) \cdot \frac{N}{\varphi(q)} \sim N \log N = \Theta(N)$$
-<p>Even if GRH controls each individual error term, the additive accumulation of $O(Q^2)$ terms cannot be suppressed.</p>
+<p>Even if GRH controls each individual error term, the additive accumulation of \(O(Q^2)\) terms cannot be suppressed.</p>
 
 <h3>5.2 The Cyclotomic Tower</h3>
-<p><strong>Core innovation</strong>: Decomposing the singular series into an Euler product, with each layer corresponding to a cyclotomic field $\mathbb{Q}(\zeta_p)$:</p>
+<p><strong>Core innovation</strong>: Decomposing the singular series into an Euler product, with each layer corresponding to a cyclotomic field \(\mathbb{Q}(\zeta_p)\):</p>
 $$\mathfrak{S}(N) = \prod_p \sigma_p(N)$$
 <p>The error structure shifts from <strong>additive</strong> to <strong>multiplicative</strong>:</p>
 $$r^*(N) = N \cdot \prod_{p \leq Q} \sigma_p(N)(1 + \delta_p) + E_{\text{tower-minor}}$$
 $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\right) - 1 \approx \sum_{p \leq Q} |\delta_p|$$
-<p>The number of terms drops from $O(Q^2)$ to $\pi(Q) \sim Q/\log Q$ — a structural compression from quadratic to near-linear.</p>
+<p>The number of terms drops from \(O(Q^2)\) to \(\pi(Q) \sim Q/\log Q\) — a structural compression from quadratic to near-linear.</p>
 
-<h3>5.3 The Base Field $\mathbb{Q}(\zeta_8)$</h3>
-<p>Goldbach requires $N = p_1 + p_2$ with $p_i$ odd primes. All odd primes $p \geq 3$ satisfy $p \bmod 8 \in \{1, 3, 5, 7\} = (\mathbb{Z}/8\mathbb{Z})^\times$.</p>
-<p>The group $(\mathbb{Z}/8\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}$ is the smallest non-cyclic unit group.</p>
-<p><strong>The base field of the cyclotomic tower is $\mathbb{Q}(\zeta_8)$</strong>. This field has special properties:</p>
+<h3>5.3 The Base Field \(\mathbb{Q}(\zeta_8)\)</h3>
+<p>Goldbach requires \(N = p_1 + p_2\) with \(p_i\) odd primes. All odd primes \(p \geq 3\) satisfy \(p \bmod 8 \in \{1, 3, 5, 7\} = (\mathbb{Z}/8\mathbb{Z})^\times\).</p>
+<p>The group \((\mathbb{Z}/8\mathbb{Z})^\times \cong \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2\mathbb{Z}\) is the smallest non-cyclic unit group.</p>
+<p><strong>The base field of the cyclotomic tower is \(\mathbb{Q}(\zeta_8)\)</strong>. This field has special properties:</p>
 <ul>
-  <li>It contains $\mathbb{Q}(\sqrt{2})$ (the field to which $q = \sqrt{2}-1$ belongs).</li>
+  <li>It contains \(\mathbb{Q}(\sqrt{2})\) (the field to which \(q = \sqrt{2}-1\) belongs).</li>
   <li>All characters are real (exact sign rigidity).</li>
   <li>The even/odd character dichotomy produces a structural skeleton.</li>
   <li>The Dedekind zeta function connects to GRH.</li>
-  <li>The $2C_2$ singular series structure originates from this field.</li>
+  <li>The \(2C_2\) singular series structure originates from this field.</li>
 </ul>
 
 <h3>5.4 A Unified Perspective</h3>
 <table>
-  <caption>Table 2: Unified role of $q=\sqrt{2}-1$ across four conjectures</caption>
+  <caption>Table 2: Unified role of \(q=\sqrt{2}-1\) across four conjectures</caption>
   <thead>
-    <tr><th scope="col">Conjecture</th><th scope="col">Core Object</th><th scope="col">Role of $q = \sqrt{2}-1$</th></tr>
+    <tr><th scope="col">Conjecture</th><th scope="col">Core Object</th><th scope="col">Role of \(q = \sqrt{2}-1\)</th></tr>
   </thead>
   <tbody>
-    <tr><td>RH</td><td>Zeros of $\zeta(s)$</td><td>Three-term decomposition: additive definition → independently controllable multiplicative components</td></tr>
-    <tr><td>GRH</td><td>Zeros of $L(s,\chi)$</td><td>$\xi_K = \xi \cdot \Lambda_\beta$: multiplicative assembly of two positivities</td></tr>
+    <tr><td>RH</td><td>Zeros of \(\zeta(s)\)</td><td>Three-term decomposition: additive definition → independently controllable multiplicative components</td></tr>
+    <tr><td>GRH</td><td>Zeros of \(L(s,\chi)\)</td><td>\(\xi_K = \xi \cdot \Lambda_\beta\): multiplicative assembly of two positivities</td></tr>
     <tr><td>Hilbert–Pólya</td><td>Jacobi operator</td><td>Complete monotonicity → Hankel positivity → self-adjoint operator</td></tr>
-    <tr><td>Goldbach</td><td>$r^*(N) > 0$</td><td>Cyclotomic tower: additive accumulation $O(Q^2)$ → multiplicative accumulation $\pi(Q)$</td></tr>
+    <tr><td>Goldbach</td><td>\(r^*(N) > 0\)</td><td>Cyclotomic tower: additive accumulation \(O(Q^2)\) → multiplicative accumulation \(\pi(Q)\)</td></tr>
   </tbody>
 </table>
 
@@ -964,26 +686,26 @@ $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\left(\sum_{p \leq Q} |\delta_p|\r
 <h3>6.1 The Nature of the Problem: Why Unsolved for 274 Years?</h3>
 <p>The four conjectures are difficult not because of insufficient analytic technique, but because of <strong>structural mismatch</strong>: the problems are additive in nature, yet the tools that govern them live in the multiplicative world.</p>
 <ul>
-  <li><strong>Goldbach</strong>: $N = p_1 + p_2$ is an additive problem. The Hardy–Littlewood circle method handles it via additive accumulation $\sum_{q \leq Q}$ — errors from $O(Q^2)$ denominators stack term by term, and even if each is controlled by GRH, the total still diverges. The classical method dies of <strong>structure</strong>, not <strong>precision</strong>.</li>
-  <li><strong>RH</strong>: $\zeta(s) = \sum 1/n^s$ is an additive definition, but the zero distribution is governed by the multiplicative structure of the Euler product $\prod (1-p^{-s})^{-1}$. Classical analytic number theory oscillates between additive expression and multiplicative essence, always lacking a bridge.</li>
-  <li><strong>GRH</strong>: The oscillation of characters in $L(s,\chi) = \sum \chi(n)/n^s$ is additive, but the multiplicative decomposition $\xi_K = \xi \cdot \Lambda_\beta$ is what controls the zeros.</li>
-  <li><strong>Hilbert–Pólya</strong>: The logarithmic moments $S_k = \sum 1/\gamma_n^{2k}$ are additive information, but the multiplicative criterion $D_n = \det(S_{i+j+1}) > 0$ is the threshold for constructing a self-adjoint operator.</li>
+  <li><strong>Goldbach</strong>: \(N = p_1 + p_2\) is an additive problem. The Hardy–Littlewood circle method handles it via additive accumulation \(\sum_{q \leq Q}\) — errors from \(O(Q^2)\) denominators stack term by term, and even if each is controlled by GRH, the total still diverges. The classical method dies of <strong>structure</strong>, not <strong>precision</strong>.</li>
+  <li><strong>RH</strong>: \(\zeta(s) = \sum 1/n^s\) is an additive definition, but the zero distribution is governed by the multiplicative structure of the Euler product \(\prod (1-p^{-s})^{-1}\). Classical analytic number theory oscillates between additive expression and multiplicative essence, always lacking a bridge.</li>
+  <li><strong>GRH</strong>: The oscillation of characters in \(L(s,\chi) = \sum \chi(n)/n^s\) is additive, but the multiplicative decomposition \(\xi_K = \xi \cdot \Lambda_\beta\) is what controls the zeros.</li>
+  <li><strong>Hilbert–Pólya</strong>: The logarithmic moments \(S_k = \sum 1/\gamma_n^{2k}\) are additive information, but the multiplicative criterion \(D_n = \det(S_{i+j+1}) > 0\) is the threshold for constructing a self-adjoint operator.</li>
 </ul>
 <p>The 274-year impasse can be summarized in one sentence: <strong>Number theorists have been describing a multiplicative world in an additive language.</strong></p>
 
-<h3>6.2 The Methodological Core: $q$ as a Structural Converter</h3>
-<p>The true significance of $q = \sqrt{2}-1$ is not that it yields a particular bound or estimate, but that it <strong>provides an operation for converting additive structure into multiplicative structure</strong>.</p>
+<h3>6.2 The Methodological Core: \(q\) as a Structural Converter</h3>
+<p>The true significance of \(q = \sqrt{2}-1\) is not that it yields a particular bound or estimate, but that it <strong>provides an operation for converting additive structure into multiplicative structure</strong>.</p>
 <p>The mathematical essence of this operation:</p>
 
 <h4>Step 1: Partition of Unity</h4>
-<p>From the algebraic property of $q$ (the positive root of $q^2+2q-1=0$) we derive the Möbius involution $T(z)=(1-z)/(1+z)$, whose fixed point is $q$. Taking $z_2 = q, z_1 = 1-q$, the partition of unity holds:</p>
+<p>From the algebraic property of \(q\) (the positive root of \(q^2+2q-1=0\)) we derive the Möbius involution \(T(z)=(1-z)/(1+z)\), whose fixed point is \(q\). Taking \(z_2 = q, z_1 = 1-q\), the partition of unity holds:</p>
 $$z_1^n + z_2^n + c_n = 1, \qquad c_n \geq 0$$
-<p>This is not an ordinary identity. It is the <strong>conversion kernel from additive to multiplicative</strong> — decomposing "1" (the additive unit) into two geometrically decaying terms $z_1^n, z_2^n$ plus a non-negative remainder $c_n$.</p>
+<p>This is not an ordinary identity. It is the <strong>conversion kernel from additive to multiplicative</strong> — decomposing "1" (the additive unit) into two geometrically decaying terms \(z_1^n, z_2^n\) plus a non-negative remainder \(c_n\).</p>
 
 <h4>Step 2: Mellin Lift</h4>
-<p>Multiplying by $n^{-s}$ and summing, the partition of unity becomes the three-term decomposition:</p>
+<p>Multiplying by \(n^{-s}\) and summing, the partition of unity becomes the three-term decomposition:</p>
 $$\zeta(s) = \operatorname{Li}_s(z_1) + \operatorname{Li}_s(z_2) + \sum_{n=1}^\infty \frac{c_n}{n^s}$$
-<p>The additive definition ($\sum 1/n^s$) is split into three components, each with <strong>independent analytic control</strong> — $\operatorname{Li}_s(z_1)$ and $\operatorname{Li}_s(z_2)$ are zero-free for $\Re(s) \geq 1/2$, and $c_n \geq 0$ provides positivity.</p>
+<p>The additive definition (\(\sum 1/n^s\)) is split into three components, each with <strong>independent analytic control</strong> — \(\operatorname{Li}_s(z_1)\) and \(\operatorname{Li}_s(z_2)\) are zero-free for \(\Re(s) \geq 1/2\), and \(c_n \geq 0\) provides positivity.</p>
 
 <h4>Step 3: Multiplicative Assembly</h4>
 <p>Each term of the three-term decomposition can be handled independently (analytic control), then reassembled through multiplicative structure. This is the essence of the methodology:</p>
@@ -991,36 +713,36 @@ $$\text{Additive decomposition} \xrightarrow{\text{independent control}} \text{M
 
 <h3>6.3 Additive–Multiplicative Conversion in the Four Conjectures</h3>
 
-<h4>Goldbach: From $O(Q^2)$ to $\pi(Q)$</h4>
+<h4>Goldbach: From \(O(Q^2)\) to \(\pi(Q)\)</h4>
 <p>This is the most直观 example. The error of the classical circle method is <strong>additive accumulation</strong>:</p>
 $$E_{\text{classical}} = \sum_{q \leq Q} O(\sqrt{N}\log^2 N) = O(Q^2 \cdot \sqrt{N}\log^2 N)$$
-<p>Summing $Q^2$ terms, even if each is small, the total can overwhelm the main term.</p>
+<p>Summing \(Q^2\) terms, even if each is small, the total can overwhelm the main term.</p>
 <p>The cyclotomic tower rewrites the singular series as an <strong>Euler product</strong>:</p>
 $$\mathfrak{S}(N) = \prod_{p \leq Q} \sigma_p(N)$$
 <p>The error becomes <strong>multiplicative accumulation</strong>:</p>
 $$\prod_{p \leq Q}(1 + \delta_p) - 1 \leq \exp\!\left(\sum_{p \leq Q}|\delta_p|\right) - 1$$
-<p>The number of terms drops from $O(Q^2)$ to $\pi(Q) \sim Q/\log Q$. The key inequality:</p>
+<p>The number of terms drops from \(O(Q^2)\) to \(\pi(Q) \sim Q/\log Q\). The key inequality:</p>
 $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <p><strong>The same mathematical fact diverges under additive description but converges under multiplicative description.</strong> The cyclotomic tower does not improve estimates — it changes the <strong>structure</strong> of the description.</p>
 
 <h4>RH: From Euler Product to Controllable Components</h4>
-<p>The Euler product $\prod_p (1-p^{-s})^{-1}$ of $\zeta(s)$ is multiplicative, but its domain of convergence is only $\Re(s) > 1$. In the critical strip $\Re(s) \in (0,1)$, the product diverges, and zeros are hidden within the divergence.</p>
-<p>The three-term decomposition provides a <strong>localization</strong> strategy: splitting $\zeta(s)$ into three components with well-behaved behavior in the critical strip. $\operatorname{Li}_s(z_1)$ and $\operatorname{Li}_s(z_2)$ are zero-free for $\Re(s) \geq 1/2$ (guaranteed by geometric decay), and the coefficients $c_n \geq 0$ of the remainder $\sum c_n/n^s$ provide monotonicity.</p>
+<p>The Euler product \(\prod_p (1-p^{-s})^{-1}\) of \(\zeta(s)\) is multiplicative, but its domain of convergence is only \(\Re(s) > 1\). In the critical strip \(\Re(s) \in (0,1)\), the product diverges, and zeros are hidden within the divergence.</p>
+<p>The three-term decomposition provides a <strong>localization</strong> strategy: splitting \(\zeta(s)\) into three components with well-behaved behavior in the critical strip. \(\operatorname{Li}_s(z_1)\) and \(\operatorname{Li}_s(z_2)\) are zero-free for \(\Re(s) \geq 1/2\) (guaranteed by geometric decay), and the coefficients \(c_n \geq 0\) of the remainder \(\sum c_n/n^s\) provide monotonicity.</p>
 <p>This is equivalent to: converting a global multiplicative divergence problem into three local additive controllable problems, then reassembling.</p>
 
 <h4>GRH: The Product Structure of Two Pillars</h4>
-<p>$\xi_K = \xi \cdot \Lambda_\beta$ is a multiplicative decomposition. But the angular monotonicity of $\Lambda_\beta$ cannot be proved in isolation — it requires the three-term decomposition of $\xi$ to supply analytic positivity.</p>
+<p>\(\xi_K = \xi \cdot \Lambda_\beta\) is a multiplicative decomposition. But the angular monotonicity of \(\Lambda_\beta\) cannot be proved in isolation — it requires the three-term decomposition of \(\xi\) to supply analytic positivity.</p>
 <p>The structure here is more subtle: <strong>the product of two independent sources of positivity</strong>:</p>
 <ul>
-  <li>The three-term decomposition of $\xi$ provides <strong>analytic positivity</strong> (Möbius symmetry → $c_n \geq 0$ → angular monotonicity).</li>
-  <li>The Euler product of $\zeta_K$ provides <strong>arithmetic positivity</strong> ($r_K(n) \geq 0$ → non-negative coefficients).</li>
+  <li>The three-term decomposition of \(\xi\) provides <strong>analytic positivity</strong> (Möbius symmetry → \(c_n \geq 0\) → angular monotonicity).</li>
+  <li>The Euler product of \(\zeta_K\) provides <strong>arithmetic positivity</strong> (\(r_K(n) \geq 0\) → non-negative coefficients).</li>
 </ul>
-<p>After multiplicative assembly, $\xi_K$ possesses both positivities simultaneously, and angular monotonicity holds unconditionally. Neither pillar alone suffices — this is why GRH has been 160 years harder than RH.</p>
+<p>After multiplicative assembly, \(\xi_K\) possesses both positivities simultaneously, and angular monotonicity holds unconditionally. Neither pillar alone suffices — this is why GRH has been 160 years harder than RH.</p>
 
 <h4>Hilbert–Pólya: From Moments to Operator</h4>
-<p>The logarithmic moments $S_k = \sum 1/\gamma_n^{2k}$ are additive information — power sums of the imaginary parts of the zeros. To construct the Hilbert–Pólya operator, one must prove that the Hankel determinant $D_n = \det(S_{i+j+1}) > 0$.</p>
-<p>The determinant is a <strong>multiplicative</strong> object (product of eigenvalues). $D_n > 0$ means there exists a positive measure $\mu$ such that $S_k = \int t^k d\mu(t)$ — a conversion from additive moments to multiplicative operator.</p>
-<p>The key to this conversion is again the three-term decomposition: the complete monotonicity of $\operatorname{Li}_s(z_1)$ and $\operatorname{Li}_s(z_2)$ (from $z_1, z_2 \in (0,1)$) ensures that the generating function $G(z) = \sum S_k z^k$ has the Herglotz property, hence $D_n > 0$.</p>
+<p>The logarithmic moments \(S_k = \sum 1/\gamma_n^{2k}\) are additive information — power sums of the imaginary parts of the zeros. To construct the Hilbert–Pólya operator, one must prove that the Hankel determinant \(D_n = \det(S_{i+j+1}) > 0\).</p>
+<p>The determinant is a <strong>multiplicative</strong> object (product of eigenvalues). \(D_n > 0\) means there exists a positive measure \(\mu\) such that \(S_k = \int t^k d\mu(t)\) — a conversion from additive moments to multiplicative operator.</p>
+<p>The key to this conversion is again the three-term decomposition: the complete monotonicity of \(\operatorname{Li}_s(z_1)\) and \(\operatorname{Li}_s(z_2)\) (from \(z_1, z_2 \in (0,1)\)) ensures that the generating function \(G(z) = \sum S_k z^k\) has the Herglotz property, hence \(D_n > 0\).</p>
 
 <h3>6.4 Why Is This a New Methodology?</h3>
 <p>In classical number theory, additive and multiplicative methods are <strong>two independent worlds</strong>:</p>
@@ -1031,7 +753,7 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
     <tr><th></th><th scope="col">Additive World</th><th scope="col">Multiplicative World</th></tr>
   </thead>
   <tbody>
-    <tr><td>Typical objects</td><td>$\sum a_n$, circle method, exponential sums</td><td>$\prod (1-a_n)$, Euler product, Dirichlet series</td></tr>
+    <tr><td>Typical objects</td><td>\(\sum a_n\), circle method, exponential sums</td><td>\(\prod (1-a_n)\), Euler product, Dirichlet series</td></tr>
     <tr><td>Typical problems</td><td>Waring's problem, Goldbach, primes in arithmetic progressions</td><td>Prime number theorem, RH, character estimates</td></tr>
     <tr><td>Convergence criterion</td><td>Rate of term decay</td><td>Absolute convergence of the product</td></tr>
     <tr><td>Source of difficulty</td><td>Too many terms (accumulative divergence)</td><td>Analytic continuation (singularity control)</td></tr>
@@ -1039,10 +761,10 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 </table>
 
 <p>The traditional approach: additive problems with additive methods, multiplicative problems with multiplicative methods. In crossover territory (like Goldbach — an additive problem requiring multiplicative tools), one can only brute-force estimates.</p>
-<p>The <strong>$q$-conversion methodology</strong> breaks this dichotomy. Its operations are:</p>
+<p>The <strong>\(q\)-conversion methodology</strong> breaks this dichotomy. Its operations are:</p>
 <ol>
-  <li><strong>Identify</strong>: Find the multiplicative seed hidden in the additive structure ($q = \tan(\pi/8)$ comes from the tangent double-angle formula — an elementary additive relation).</li>
-  <li><strong>Split</strong>: Use the partition of unity to decompose the additive whole into independently controllable components ($1 = z_1^n + z_2^n + c_n$).</li>
+  <li><strong>Identify</strong>: Find the multiplicative seed hidden in the additive structure (\(q = \tan(\pi/8)\) comes from the tangent double-angle formula — an elementary additive relation).</li>
+  <li><strong>Split</strong>: Use the partition of unity to decompose the additive whole into independently controllable components (\(1 = z_1^n + z_2^n + c_n\)).</li>
   <li><strong>Lift</strong>: Elevate the combinatorial identity to an analytic identity via the Mellin transform.</li>
   <li><strong>Control</strong>: Establish analytic control at the component level (zero-free bounds, positivity, monotonicity).</li>
   <li><strong>Assemble</strong>: Reassemble component results into global conclusions using multiplicative structure (Euler product, CRT, determinants).</li>
@@ -1050,35 +772,35 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <p>The core insight of this methodology is: <strong>the difficulty of certain additive problems lies not at the analytic level, but at the structural level</strong>. The divergence of additive accumulation is not "bounds not sharp enough" but "wrong mode of description." Converted to a multiplicative description, the same information becomes convergent — not because we made better estimates, but because we used the <strong>correct language</strong>.</p>
 
 <h3>6.5 Connections to Other Mathematical Structures</h3>
-<p>The $q$-conversion methodology is not isolated. It connects to several deep structures in mathematics:</p>
-<p><strong>Resonance with the Langlands Program</strong>: The core idea of the Langlands program is the unification of arithmetic (Galois representations) and analysis (automorphic forms). The $q$-conversion methodology does something analogous: unifying additive (combinatorial/exponential sums) and multiplicative (Euler products/Dirichlet series), bridging them through the algebraic structure of $q = \sqrt{2}-1$.</p>
-<p><strong>Structural analogy with the renormalization group</strong>: In physics, renormalization re-parameterizes divergent quantities into finite physical ones. The $q$-conversion re-describes additive divergence as multiplicative convergence — not eliminating infinities, but changing the descriptive framework so that "infinities" no longer appear.</p>
-<p><strong>Functorial thinking in category theory</strong>: The conversion between additive and multiplicative categories is analogous to a functor — preserving structure while changing expression. The $q$-conversion is a "functor" within number theory, mapping problems from the additive world to the multiplicative world, solving them, then mapping back.</p>
+<p>The \(q\)-conversion methodology is not isolated. It connects to several deep structures in mathematics:</p>
+<p><strong>Resonance with the Langlands Program</strong>: The core idea of the Langlands program is the unification of arithmetic (Galois representations) and analysis (automorphic forms). The \(q\)-conversion methodology does something analogous: unifying additive (combinatorial/exponential sums) and multiplicative (Euler products/Dirichlet series), bridging them through the algebraic structure of \(q = \sqrt{2}-1\).</p>
+<p><strong>Structural analogy with the renormalization group</strong>: In physics, renormalization re-parameterizes divergent quantities into finite physical ones. The \(q\)-conversion re-describes additive divergence as multiplicative convergence — not eliminating infinities, but changing the descriptive framework so that "infinities" no longer appear.</p>
+<p><strong>Functorial thinking in category theory</strong>: The conversion between additive and multiplicative categories is analogous to a functor — preserving structure while changing expression. The \(q\)-conversion is a "functor" within number theory, mapping problems from the additive world to the multiplicative world, solving them, then mapping back.</p>
 
-<h3>6.6 Why $q = \sqrt{2}-1$?</h3>
-<p>Why does this conversion specifically require $q = \sqrt{2}-1$? Because the partition of unity $z_1^n + z_2^n + c_n = 1$ demands:</p>
+<h3>6.6 Why \(q = \sqrt{2}-1\)?</h3>
+<p>Why does this conversion specifically require \(q = \sqrt{2}-1\)? Because the partition of unity \(z_1^n + z_2^n + c_n = 1\) demands:</p>
 <ol>
-  <li><strong>$z_1 + z_2 = 1$</strong> (ensuring the identity holds for $n=1$).</li>
-  <li><strong>$z_1, z_2 \in (0,1)$</strong> (ensuring $c_n \geq 0$ for $n \geq 2$).</li>
-  <li><strong>$z_1/z_2 = \sqrt{2}$</strong> (providing the arithmetic connection to $\mathbb{Q}(\zeta_8)$).</li>
+  <li><strong>\(z_1 + z_2 = 1\)</strong> (ensuring the identity holds for \(n=1\)).</li>
+  <li><strong>\(z_1, z_2 \in (0,1)\)</strong> (ensuring \(c_n \geq 0\) for \(n \geq 2\)).</li>
+  <li><strong>\(z_1/z_2 = \sqrt{2}\)</strong> (providing the arithmetic connection to \(\mathbb{Q}(\zeta_8)\)).</li>
 </ol>
-<p>The only values satisfying all three simultaneously are $z_2 = \sqrt{2}-1, z_1 = 2-\sqrt{2}$. This is not an arbitrary choice — it is <strong>structurally forced</strong>.</p>
-<p>More profoundly, $q = \tan(\pi/8)$ is the automorphism point of the lemniscate elliptic curve — the elliptic modulus $k = 1/\sqrt{2}$ is invariant under $\tau \mapsto -1/\tau$. This is the "most symmetric" point in modular form theory. $q$ is not a tool we chose; it is the <strong>manifestation of the mathematical structure itself at this point</strong>.</p>
+<p>The only values satisfying all three simultaneously are \(z_2 = \sqrt{2}-1, z_1 = 2-\sqrt{2}\). This is not an arbitrary choice — it is <strong>structurally forced</strong>.</p>
+<p>More profoundly, \(q = \tan(\pi/8)\) is the automorphism point of the lemniscate elliptic curve — the elliptic modulus \(k = 1/\sqrt{2}\) is invariant under \(\tau \mapsto -1/\tau\). This is the "most symmetric" point in modular form theory. \(q\) is not a tool we chose; it is the <strong>manifestation of the mathematical structure itself at this point</strong>.</p>
 
 <hr class="section-sep">
 
 <h2>§7. Epilogue: Something More Important Than the Conjectures Themselves</h2>
 <p>From Euler's lemniscate addition theorem in 1752 to the proof of four conjectures in 2026, 274 years have passed.</p>
 <p>But the most important discovery of this article is not the proof of any single conjecture — it is the <strong>methodology that emerged during the proofs</strong>.</p>
-<p>The $q$-conversion methodology reveals a deep fact: <strong>the difficulty of many of mathematics' hardest conjectures lies not in technique, but in structural mismatch</strong>. Problems in the additive world are tackled with additive tools, but the principles governing them reside in the multiplicative world. The classical circle method failed to solve Goldbach for 274 years not because estimates were imprecise, but because additive accumulation $O(Q^2)$ is structurally incompressible — until you change the mode of description from summation to product.</p>
+<p>The \(q\)-conversion methodology reveals a deep fact: <strong>the difficulty of many of mathematics' hardest conjectures lies not in technique, but in structural mismatch</strong>. Problems in the additive world are tackled with additive tools, but the principles governing them reside in the multiplicative world. The classical circle method failed to solve Goldbach for 274 years not because estimates were imprecise, but because additive accumulation \(O(Q^2)\) is structurally incompressible — until you change the mode of description from summation to product.</p>
 <p>The five-step operation of this methodology — <strong>Identify, Split, Lift, Control, Assemble</strong> — does not depend on specific conjectures or tools. It is a <strong>universal structural conversion framework</strong>:</p>
 <ul>
-  <li>Any number-theoretic problem facing "additive accumulative divergence" may find a multiplicative description through $q$-conversion.</li>
+  <li>Any number-theoretic problem facing "additive accumulative divergence" may find a multiplicative description through \(q\)-conversion.</li>
   <li>Any scenario requiring derivation of "global conclusions from local controllability" can borrow the "divide and conquer, then multiplicatively assemble" strategy.</li>
-  <li>Any problem involving "two independent sources of positivity" may break through via the product structure pattern $\xi_K = \xi \cdot \Lambda_\beta$.</li>
+  <li>Any problem involving "two independent sources of positivity" may break through via the product structure pattern \(\xi_K = \xi \cdot \Lambda_\beta\).</li>
 </ul>
 <p>The proofs of the four conjectures are <strong>four special cases</strong> of this methodology. The methodology itself — the additive-to-multiplicative structural conversion — is the真正 new mathematics.</p>
-<p>As Riemann hinted in 1859, the zeros of $\zeta$ "perhaps" relate to the spectrum of some self-adjoint operator. After 274 years, we have not only proved this, but discovered a deeper key: $q = \sqrt{2}-1$ connects not only zeros to spectra, but addition to multiplication, combinatorics to analysis, local to global.</p>
+<p>As Riemann hinted in 1859, the zeros of \(\zeta\) "perhaps" relate to the spectrum of some self-adjoint operator. After 274 years, we have not only proved this, but discovered a deeper key: \(q = \sqrt{2}-1\) connects not only zeros to spectra, but addition to multiplication, combinatorics to analysis, local to global.</p>
 <p><strong>Mathematics is unified. And the essence of unity is the duality of additive and multiplicative.</strong></p>
 
 <hr class="section-sep">
@@ -1087,49 +809,39 @@ $$\sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^5}{\sqrt{N}} \to 0$$
 <h2>References</h2>
 <ol>
   <li>Z. Chen, <em>Proof of the Riemann Hypothesis via the Lemniscate Parameter and Angular Monotonicity of the Completed Zeta Function</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210455" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210455</a></li>
-  <li>Z. Chen, <em>Angular Monotonicity of Completed Dirichlet $L$-Functions via the Three-Term Zeta Decomposition: A Proof of the Generalized Riemann Hypothesis for Non-Principal Characters</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210481" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210481</a></li>
+  <li>Z. Chen, <em>Angular Monotonicity of Completed Dirichlet \(L\)-Functions via the Three-Term Zeta Decomposition: A Proof of the Generalized Riemann Hypothesis for Non-Principal Characters</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22210481" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22210481</a></li>
   <li>Z. Chen, <em>The Riemann Hypothesis: Proof via Herglotz Analyticity and Explicit Construction of the Hilbert–Pólya Operator</em>, Zenodo, 2026.</li>
   <li>Z. Chen, <em>Goldbach's Conjecture via Cyclotomic Tower Decomposition: From Additive to Multiplicative Error Structure</em>, Zenodo, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.22224629" target="_blank" rel="noopener noreferrer">10.5281/zenodo.22224629</a></li>
   <li>L. Euler, <em>De seriebus divergentibus</em>, Novi Commentarii academiae Scientiarum Petropolitanae, 1752.</li>
 </ol>
-</div>
 
 </div>
-<!-- END EN -->
 
-</article>
-</main>
-
-<!-- Footer -->
-<footer class="paper-footer">
-  <p>陈倬 · ORCID: <a href="https://orcid.org/0009-0006-9172-8268" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">0009-0006-9172-8268</a></p>
-  <p>2026年9月1日</p>
-</footer>
+<hr>
+<p style="text-align:center;color:var(--subtle);font-size:.9em">2026年9月1日</p>
 
 <script>
 (function() {
   const btns = document.querySelectorAll('.lang-switcher button');
   const zhDiv = document.querySelector('.lang-zh');
   const enDiv = document.querySelector('.lang-en');
-  const body = document.querySelector('.article-body');
 
   function setLang(lang) {
     btns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
     zhDiv.classList.remove('visible');
     enDiv.classList.remove('visible');
-    body.classList.remove('lang-bi');
+    document.body.classList.remove('lang-bi');
 
     if (lang === 'zh') {
       zhDiv.classList.add('visible');
     } else if (lang === 'en') {
       enDiv.classList.add('visible');
     } else {
-      body.classList.add('lang-bi');
+      document.body.classList.add('lang-bi');
       zhDiv.classList.add('visible');
       enDiv.classList.add('visible');
     }
 
-    // Re-typeset MathJax
     if (window.MathJax && MathJax.typesetPromise) {
       MathJax.typesetPromise();
     }
