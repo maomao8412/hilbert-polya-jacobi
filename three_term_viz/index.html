@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Three-Channel Decomposition of ζ(s)</title>
+<title>ζ(s) 三通道分解 / Three-Channel Decomposition of ζ(s)</title>
 
 <!-- MathJax 3 -->
 <script>
@@ -347,13 +347,39 @@ window.MathJax = {
     .plot-container { min-height: 350px; }
     header { padding: 30px 20px; }
   }
+
+  /* Language switcher */
+  .lang-switcher { display:flex; gap:8px; margin:16px 0; justify-content:center; }
+  .lang-switcher button { padding:6px 16px; border:1px solid #2a2a4a; background:#12122a; color:#9090b0; cursor:pointer; border-radius:4px; font-family:inherit; font-size:0.9rem; transition:all 0.2s; }
+  .lang-switcher button:hover { border-color:#5a5a7a; color:#e0e0f0; }
+  .lang-switcher button.active { background:#ffd700; color:#0a0a1a; border-color:#ffd700; font-weight:600; }
+  .lang-en, .lang-zh, .lang-bi { display:none; }
+  .lang-en.visible, .lang-zh.visible, .lang-bi.visible { display:block; }
+  .lang-bi .zh-text { color: #b0b0d0; font-size: 0.92em; margin-top: 4px; border-left: 2px solid #3a3a5a; padding-left: 12px; margin-bottom: 16px; }
+
 </style>
 </head>
 <body>
-<!-- top-nav -->
-<nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="../index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH proof</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH proof 中文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH 中文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Quantum chaos paper</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Physics paper 中文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">3-channel viz</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../constants.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Number constants</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="../rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Rebuttal 中文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" target="_blank" rel="noopener" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GitHub code ↗</a></nav>
+
+<nav style="background:#1a1a1a;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:system-ui,-apple-system,sans-serif;font-size:14px;position:sticky;top:0;z-index:9999;">
+  <span style="color:#F4F1EA;font-weight:700;margin-right:12px;">陈倬数学研究</span>
+  <a href="../index_mathjax.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">首页</a>
+  <a href="../rh_proof_framework_v3.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">RH证明</a>
+  <a href="../GRH交互网页/grh.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">GRH证明</a>
+  <a href="../goldbach_complete_proof.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">哥德巴赫猜想</a>
+  <a href="../paper/goldbach_grh_cyclotomic_tower/goldbach_paper.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">哥德巴赫论文</a>
+  <a href="../paper/q_unifies_four_conjectures.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">八字曲线之钥：一个常数，四个猜想</a>
+  <a href="../physics_web/index.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">物理篇</a>
+</nav>
 
 <div class="container">
+<div class="lang-switcher">
+  <button class="active" data-lang="en" onclick="switchLang('en')">English</button>
+  <button data-lang="zh" onclick="switchLang('zh')">中文</button>
+  <button data-lang="bi" onclick="switchLang('bi')">中英对照</button>
+</div>
+
+<div class="lang-en visible">
 
   <header>
     <h1>The Three-Channel Decomposition of ζ(s)</h1>
@@ -615,7 +641,452 @@ window.MathJax = {
     </p>
   </footer>
 
-</div>
+</div><!-- end lang-en -->
+
+
+<div class="lang-zh">
+
+  <header>
+    <h1>ζ(s) 的三通道分解</h1>
+    <div class="subtitle">
+      $$\zeta(s) = \text{Li}_s(z_1) + \text{Li}_s(z_2) - \Gamma(1-s)\cdot L^{s-1} - \delta(s)$$
+    </div>
+    <div class="author">卓晨 · 交互式可视化</div>
+  </header>
+
+  <!-- ============== 第1节：公式与几何 ============== -->
+  <section id="section1-zh">
+    <h2>§1. 分解公式</h2>
+    
+    <p>黎曼 ζ 函数可以被分解为四个具有不同数学来源的通道。其核心是一对互补的代数点 $z_1 = 2-\sqrt{2}$ 和 $z_2 = \sqrt{2}-1$，满足 $z_1 + z_2 = 1$。</p>
+
+    <div class="formula-block">
+      $$\zeta(s) = \underbrace{\text{Li}_s(z_1)}_{\text{通道 1}} + \underbrace{\text{Li}_s(z_2)}_{\text{通道 2}} - \underbrace{\Gamma(1-s)\cdot L^{s-1}}_{\Gamma\text{修正}} - \underbrace{\delta(s)}_{\text{残差}}$$
+    </div>
+
+    <h3>通道图例</h3>
+    <div class="channel-legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--channel1)"></div>
+        <div class="legend-text">
+          <div class="legend-label">通道 1: Li<sub>s</sub>(z₁)</div>
+          <div class="legend-desc">z₁ = 2 − √2 ≈ 0.586 处的多对数函数</div>
+        </div>
+      </div>
+      <div class="legend-item ch2">
+        <div class="legend-color" style="background: var(--channel2)"></div>
+        <div class="legend-text">
+          <div class="legend-label">通道 2: Li<sub>s</sub>(z₂)</div>
+          <div class="legend-desc">z₂ = √2 − 1 ≈ 0.414 处的多对数函数</div>
+        </div>
+      </div>
+      <div class="legend-item gamma">
+        <div class="legend-color" style="background: var(--gamma)"></div>
+        <div class="legend-text">
+          <div class="legend-label">Γ-修正</div>
+          <div class="legend-desc">Γ(1−s)·L<sup>s−1</sup>，奇异核</div>
+        </div>
+      </div>
+      <div class="legend-item delta">
+        <div class="legend-color" style="background: var(--delta)"></div>
+        <div class="legend-text">
+          <div class="legend-label">残差 δ(s)</div>
+          <div class="legend-desc">正则部分 / "残差势"</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>互补对的几何结构</h3>
+    <p>两个点 $z_1$ 和 $z_2$ 将单位区间分成长度分别为 $z_2$ 和 $z_1$ 的两段。量 $q = z_2 = \sqrt{2} - 1$ 是方程 $q(q+2) = 1$ 的唯一正解。</p>
+
+    <div class="geom-diagram">
+      <div class="geom-line"></div>
+      <div class="geom-endpoint" style="left: 10%">0</div>
+      <div class="geom-endpoint" style="left: 90%">1</div>
+      
+      <div class="geom-mark" style="left: calc(10% + 41.42%); background: var(--channel2)"></div>
+      <div class="geom-label" style="left: calc(10% + 41.42%); color: var(--channel2)">z₂ = √2−1</div>
+      
+      <div class="geom-mark" style="left: calc(10% + 58.58%); background: var(--channel1)"></div>
+      <div class="geom-label" style="left: calc(10% + 58.58%); color: var(--channel1)">z₁ = 2−√2</div>
+    </div>
+
+    <div class="info-box">
+      <strong>关键恒等式：</strong> $L = \ln(\sqrt{2}+1) = \text{arsinh}(1) \approx 0.8814$
+      是与互补对相关系的弧长参数，在分解中扮演"特征长度"的角色。
+    </div>
+  </section>
+
+  <!-- ============== 第2节：临界线 ============== -->
+  <section id="section2-zh">
+    <h2>§2. 临界线通道分解</h2>
+    
+    <p>沿临界线 $s = \tfrac{1}{2} + it$，我们将 $\zeta(s)$ 分解为四个组成通道。在每个非平凡零点处，四个通道<em>精确</em>抵消——它们在复平面上的向量之和等于零。</p>
+
+    <h3>临界线上的模</h3>
+    <p>选择要显示/隐藏的通道。观察在 $\zeta(s)$ 的每个零点处，各通道的模如何配合产生抵消。</p>
+
+    <div class="btn-group" id="crit-mod-buttons-zh">
+      <button class="btn active" data-channel="zeta" onclick="toggleCritModZh('zeta')">|ζ(s)|</button>
+      <button class="btn active" data-channel="li1" onclick="toggleCritModZh('li1')">|Li_s(z₁)|</button>
+      <button class="btn active" data-channel="li2" onclick="toggleCritModZh('li2')">|Li_s(z₂)|</button>
+      <button class="btn" data-channel="gamma" onclick="toggleCritModZh('gamma')">|Γ·L^{s−1}|</button>
+      <button class="btn active" data-channel="delta" onclick="toggleCritModZh('delta')">|δ(s)|</button>
+    </div>
+
+    <div class="plot-container" id="crit-mod-plot-zh"></div>
+
+    <h3>实部与虚部</h3>
+    <p>各通道的实部和虚部，展示在零点处复数值抵消的工作原理。</p>
+
+    <div class="tab-controls">
+      <button class="tab-btn active" onclick="setCritPartZh('real')">实部</button>
+      <button class="tab-btn" onclick="setCritPartZh('imag')">虚部</button>
+    </div>
+
+    <div class="btn-group" id="crit-part-buttons-zh">
+      <button class="btn active" data-channel="zeta" onclick="toggleCritPartZh('zeta')">ζ(s)</button>
+      <button class="btn active" data-channel="li1" onclick="toggleCritPartZh('li1')">Li_s(z₁)</button>
+      <button class="btn active" data-channel="li2" onclick="toggleCritPartZh('li2')">Li_s(z₂)</button>
+      <button class="btn" data-channel="gamma" onclick="toggleCritPartZh('gamma')">Γ·L^{s−1}</button>
+      <button class="btn active" data-channel="delta" onclick="toggleCritPartZh('delta')">δ(s)</button>
+    </div>
+
+    <div class="plot-container" id="crit-part-plot-zh"></div>
+
+    <div class="info-box">
+      <strong>观察：</strong> 在临界线上，当 $t > 0$ 时 $\Gamma$-修正极小，因为 $|L^{s-1}| = L^{-1/2} \cdot e^{-t \arg L}$ 
+      关于 $t$ 指数衰减（由于 $L < 1$ 且相位贡献负的虚部）。主要平衡存在于两个多对数通道与残差 $\delta(s)$ 之间。
+    </div>
+  </section>
+
+  <!-- ============== 第3节：3D曲面 ============== -->
+  <section id="section3-zh">
+    <h2>§3. 临界带中的3D模曲面</h2>
+    
+    <p>$|\zeta(s)|$ 和各通道模作为 $\sigma = \text{Re}(s)$ 和 $t = \text{Im}(s)$ 的函数，其中 $0 \le \sigma \le 0.99$，$0 \le t \le 30$。</p>
+
+    <div class="btn-group" id="surface-buttons-zh">
+      <button class="btn active" data-channel="zeta" onclick="showSurfaceZh('zeta')">|ζ(s)|</button>
+      <button class="btn" data-channel="li1" onclick="showSurfaceZh('li1')">|Li_s(z₁)|</button>
+      <button class="btn" data-channel="li2" onclick="showSurfaceZh('li2')">|Li_s(z₂)|</button>
+      <button class="btn" data-channel="gamma" onclick="showSurfaceZh('gamma')">|Γ·L^{s−1}|</button>
+      <button class="btn" data-channel="delta" onclick="showSurfaceZh('delta')">|δ(s)|</button>
+    </div>
+
+    <div class="plot-container" id="surface-plot-zh" style="min-height: 600px;"></div>
+
+    <div class="info-box">
+      <strong>提示：</strong> 点击并拖动旋转3D视图。滚动缩放。注意多对数通道相比 $\zeta(s)$ 是光滑无特征的，而 $\zeta(s)$ 在零点处呈现特征性的凹陷。
+    </div>
+  </section>
+
+  <!-- ============== 第4节：零点指纹 ============== -->
+  <section id="section4-zh">
+    <h2>§4. 零点通道指纹</h2>
+    
+    <p>在每个非平凡零点 $\rho_n = \tfrac{1}{2} + i\gamma_n$ 处，四个通道精确求和为零。下面展示前20个零点处各通道贡献的模。</p>
+
+    <div class="plot-container" id="zeros-bar-plot-zh" style="min-height: 550px;"></div>
+
+    <h3>通道贡献与零点高度的关系</h3>
+    <p>各通道的模如何随零点虚部 $\gamma_n$ 增长？多对数通道缓慢衰减，而残差 $\delta(s)$ 增长，维持精确抵消。</p>
+
+    <div class="plot-container" id="zeros-scatter-plot-zh"></div>
+
+    <div class="info-box">
+      <strong>关键洞见：</strong> 在每个零点处，$|\text{Li}_s(z_1) + \text{Li}_s(z_2)| = |\Gamma(1-s)L^{s-1} + \delta(s)|$，
+      但相位配合使总和为零。残差 $\delta(s)$ 承载了 ζ 函数复杂性的"重担"，其模随 $t$ 增大而增长。
+    </div>
+  </section>
+
+  <!-- ============== 第5节：物理类比 ============== -->
+  <section id="section5-zh">
+    <h2>§5. 物理类比：四通道散射</h2>
+    
+    <p>三通道分解可以与量子力学散射问题进行有益的类比，其中 $\zeta(s)$ 充当散射振幅，四个通道代表不同的散射路径。</p>
+
+    <div class="analogy-grid">
+      <div class="analogy-card">
+        <div class="analogy-title" style="color: var(--channel1)">通道 1：直接通道</div>
+        <div class="analogy-formula">Li<sub>s</sub>(z₁)</div>
+        <div class="analogy-text">
+          通过代数点 $z_1$ 的"直接"散射通道。类似于势阱中耦合强度为 $z_1$ 的 s 波散射。在复平面中光滑无特征。
+        </div>
+      </div>
+
+      <div class="analogy-card ch2">
+        <div class="analogy-title" style="color: var(--channel2)">通道 2：交叉通道</div>
+        <div class="analogy-formula">Li<sub>s</sub>(z₂)</div>
+        <div class="analogy-text">
+          在 $z_2 = 1 - z_1$ 处的"交叉"或互补通道。在散射理论中，这对应于 t 通道或 u 通道贡献。与通道 1 形成互补对。
+        </div>
+      </div>
+
+      <div class="analogy-card gamma">
+        <div class="analogy-title" style="color: var(--gamma)">Γ-修正：玻恩项</div>
+        <div class="analogy-formula">Γ(1−s)·L<sup>s−1</sup></div>
+        <div class="analogy-text">
+          领先阶的"玻恩近似"——多对数函数在 $z \to 1$ 附近渐近展开的奇异部分。在极点 $s = 1$ 附近占主导，但远离实轴后迅速衰减，类似于短程势的贡献。
+        </div>
+      </div>
+
+      <div class="analogy-card delta">
+        <div class="analogy-title" style="color: var(--delta)">δ(s)：残差势</div>
+        <div class="analogy-formula">δ(s)</div>
+        <div class="analogy-text">
+          "残差势"或"修饰"项。包含了 $\zeta(s)$ 的所有复杂性——零点、非平凡解析结构。量子混沌就在这里；其他通道是简单的、经典般的贡献。
+        </div>
+      </div>
+    </div>
+
+    <h3>抵消机制</h3>
+    <p>在每个非平凡零点处，我们有：</p>
+
+    <div class="formula-block">
+      $$\underbrace{\text{Li}_s(z_1) + \text{Li}_s(z_2)}_{\text{光滑，代数的}} = \underbrace{\Gamma(1-s)L^{s-1} + \delta(s)}_{\text{奇异 + 残差}}$$
+    </div>
+
+    <p>左边完全由固定代数参数的多对数函数决定——结构上是"简单"的。右边包含 $\Gamma$-因子（同样简单）加上残差 $\delta(s)$，它编码了 $\zeta(s)$ 的所有数论复杂性。$\zeta(s)$ 的零点恰好出现在这两边在模和相位上都匹配的地方——简单性与复杂性之间的微妙平衡。</p>
+
+    <div class="info-box">
+      <strong>推测性注记：</strong> 如果能证明在临界线上 $\delta(s)$ 的相位受到某种约束，使其总是在特定 $t$ 值（即零点）处匹配多对数和的相位，那么就找到了通向黎曼猜想的新路径。$\delta(s)$ 作为 $\zeta(s-k)/k!$ 级数的结构，暗示了一种值得探索的递归结构。
+    </div>
+  </section>
+
+  <footer>
+    <p>ζ(s) 三通道分解 · 卓晨 · 2026</p>
+    <p style="margin-top: 8px; font-size: 0.8rem;">
+      使用 mpmath（50位精度）计算 · 使用 Plotly.js + MathJax 可视化
+    </p>
+  </footer>
+
+</div><!-- end lang-zh -->
+
+
+<div class="lang-bi">
+
+  <header>
+    <h1>The Three-Channel Decomposition of ζ(s)</h1>
+    <div class="subtitle">
+      $$\zeta(s) = \text{Li}_s(z_1) + \text{Li}_s(z_2) - \Gamma(1-s)\cdot L^{s-1} - \delta(s)$$
+    </div>
+    <div class="author">Zhuo Chen · Interactive Visualization<br><span class="zh-text">卓晨 · 交互式可视化</span></div>
+  </header>
+
+  <!-- ============== SECTION 1 BILINGUAL ============== -->
+  <section id="section1-bi">
+    <h2>§1. The Decomposition Formula</h2>
+    <div class="zh-text"><p>§1. 分解公式</p></div>
+    
+    <p>The Riemann zeta function admits a remarkable decomposition into four channels
+    with distinct mathematical origins. At its core lies a pair of complementary algebraic
+    points $z_1 = 2-\sqrt{2}$ and $z_2 = \sqrt{2}-1$, satisfying $z_1 + z_2 = 1$.</p>
+    <div class="zh-text"><p>黎曼 ζ 函数可以被分解为四个具有不同数学来源的通道。其核心是一对互补的代数点 $z_1 = 2-\sqrt{2}$ 和 $z_2 = \sqrt{2}-1$，满足 $z_1 + z_2 = 1$。</p></div>
+
+    <div class="formula-block">
+      $$\zeta(s) = \underbrace{\text{Li}_s(z_1)}_{\text{Channel 1}} + \underbrace{\text{Li}_s(z_2)}_{\text{Channel 2}} - \underbrace{\Gamma(1-s)\cdot L^{s-1}}_{\Gamma\text{-correction}} - \underbrace{\delta(s)}_{\text{Residual}}$$
+    </div>
+
+    <h3>Channel Legend / 通道图例</h3>
+    <div class="channel-legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background: var(--channel1)"></div>
+        <div class="legend-text">
+          <div class="legend-label">Channel 1: Li<sub>s</sub>(z₁) / 通道 1</div>
+          <div class="legend-desc">Polylogarithm at z₁ = 2 − √2 ≈ 0.586 / z₁ 处的多对数函数</div>
+        </div>
+      </div>
+      <div class="legend-item ch2">
+        <div class="legend-color" style="background: var(--channel2)"></div>
+        <div class="legend-text">
+          <div class="legend-label">Channel 2: Li<sub>s</sub>(z₂) / 通道 2</div>
+          <div class="legend-desc">Polylogarithm at z₂ = √2 − 1 ≈ 0.414 / z₂ 处的多对数函数</div>
+        </div>
+      </div>
+      <div class="legend-item gamma">
+        <div class="legend-color" style="background: var(--gamma)"></div>
+        <div class="legend-text">
+          <div class="legend-label">Γ-Correction / Γ-修正</div>
+          <div class="legend-desc">Γ(1−s)·L<sup>s−1</sup>, singular kernel / 奇异核</div>
+        </div>
+      </div>
+      <div class="legend-item delta">
+        <div class="legend-color" style="background: var(--delta)"></div>
+        <div class="legend-text">
+          <div class="legend-label">Residual δ(s) / 残差</div>
+          <div class="legend-desc">Regular part / "residual potential" / 正则部分 / "残差势"</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Geometry of the Complementary Pair / 互补对的几何结构</h3>
+    <p>The two points $z_1$ and $z_2$ partition the unit interval into two segments of
+    lengths $z_2$ and $z_1$ respectively. The quantity $q = z_2 = \sqrt{2} - 1$ is the
+    unique positive solution to $q(q+2) = 1$.</p>
+    <div class="zh-text"><p>两个点 $z_1$ 和 $z_2$ 将单位区间分成长度分别为 $z_2$ 和 $z_1$ 的两段。量 $q = z_2 = \sqrt{2} - 1$ 是方程 $q(q+2) = 1$ 的唯一正解。</p></div>
+
+    <div class="geom-diagram">
+      <div class="geom-line"></div>
+      <div class="geom-endpoint" style="left: 10%">0</div>
+      <div class="geom-endpoint" style="left: 90%">1</div>
+      <div class="geom-mark" style="left: calc(10% + 41.42%); background: var(--channel2)"></div>
+      <div class="geom-label" style="left: calc(10% + 41.42%); color: var(--channel2)">z₂ = √2−1</div>
+      <div class="geom-mark" style="left: calc(10% + 58.58%); background: var(--channel1)"></div>
+      <div class="geom-label" style="left: calc(10% + 58.58%); color: var(--channel1)">z₁ = 2−√2</div>
+    </div>
+
+    <div class="info-box">
+      <strong>Key identity / 关键恒等式：</strong> $L = \ln(\sqrt{2}+1) = \text{arsinh}(1) \approx 0.8814$
+      is the arc-length parameter associated with the complementary pair, playing the role
+      of a "characteristic length" in the decomposition.
+      <br><span class="zh-text">是与互补对相关系的弧长参数，在分解中扮演"特征长度"的角色。</span>
+    </div>
+  </section>
+
+  <!-- ============== SECTION 2 BILINGUAL ============== -->
+  <section id="section2-bi">
+    <h2>§2. Critical Line Channel Decomposition / 临界线通道分解</h2>
+    
+    <p>Along the critical line $s = \tfrac{1}{2} + it$, we decompose $\zeta(s)$ into
+    its four constituent channels. At each non-trivial zero, the four channels cancel
+    <em>exactly</em> — their vector sum in the complex plane equals zero.</p>
+    <div class="zh-text"><p>沿临界线 $s = \tfrac{1}{2} + it$，我们将 $\zeta(s)$ 分解为四个组成通道。在每个非平凡零点处，四个通道<em>精确</em>抵消——它们在复平面上的向量之和等于零。</p></div>
+
+    <h3>Modulus along the Critical Line / 临界线上的模</h3>
+    <div class="btn-group" id="crit-mod-buttons-bi">
+      <button class="btn active" data-channel="zeta" onclick="toggleCritModBi('zeta')">|ζ(s)|</button>
+      <button class="btn active" data-channel="li1" onclick="toggleCritModBi('li1')">|Li_s(z₁)|</button>
+      <button class="btn active" data-channel="li2" onclick="toggleCritModBi('li2')">|Li_s(z₂)|</button>
+      <button class="btn" data-channel="gamma" onclick="toggleCritModBi('gamma')">|Γ·L^{s−1}|</button>
+      <button class="btn active" data-channel="delta" onclick="toggleCritModBi('delta')">|δ(s)|</button>
+    </div>
+
+    <div class="plot-container" id="crit-mod-plot-bi"></div>
+
+    <h3>Real and Imaginary Parts / 实部与虚部</h3>
+    <div class="tab-controls">
+      <button class="tab-btn active" onclick="setCritPartBi('real')">Real Part / 实部</button>
+      <button class="tab-btn" onclick="setCritPartBi('imag')">Imaginary Part / 虚部</button>
+    </div>
+
+    <div class="btn-group" id="crit-part-buttons-bi">
+      <button class="btn active" data-channel="zeta" onclick="toggleCritPartBi('zeta')">ζ(s)</button>
+      <button class="btn active" data-channel="li1" onclick="toggleCritPartBi('li1')">Li_s(z₁)</button>
+      <button class="btn active" data-channel="li2" onclick="toggleCritPartBi('li2')">Li_s(z₂)</button>
+      <button class="btn" data-channel="gamma" onclick="toggleCritPartBi('gamma')">Γ·L^{s−1}</button>
+      <button class="btn active" data-channel="delta" onclick="toggleCritPartBi('delta')">δ(s)</button>
+    </div>
+
+    <div class="plot-container" id="crit-part-plot-bi"></div>
+
+    <div class="info-box">
+      <strong>Observation / 观察：</strong> The $\Gamma$-correction is vanishingly small on the
+      critical line for $t > 0$. The dominant balance is between the two polylog channels and
+      the residual $\delta(s)$.
+      <br><span class="zh-text">在临界线上，当 $t > 0$ 时 $\Gamma$-修正极小。主要平衡存在于两个多对数通道与残差 $\delta(s)$ 之间。</span>
+    </div>
+  </section>
+
+  <!-- ============== SECTION 3 BILINGUAL ============== -->
+  <section id="section3-bi">
+    <h2>§3. 3D Modulus Surface / 3D模曲面</h2>
+    
+    <div class="btn-group" id="surface-buttons-bi">
+      <button class="btn active" data-channel="zeta" onclick="showSurfaceBi('zeta')">|ζ(s)|</button>
+      <button class="btn" data-channel="li1" onclick="showSurfaceBi('li1')">|Li_s(z₁)|</button>
+      <button class="btn" data-channel="li2" onclick="showSurfaceBi('li2')">|Li_s(z₂)|</button>
+      <button class="btn" data-channel="gamma" onclick="showSurfaceBi('gamma')">|Γ·L^{s−1}|</button>
+      <button class="btn" data-channel="delta" onclick="showSurfaceBi('delta')">|δ(s)|</button>
+    </div>
+
+    <div class="plot-container" id="surface-plot-bi" style="min-height: 600px;"></div>
+
+    <div class="info-box">
+      <strong>Tip / 提示：</strong> Click and drag to rotate. Scroll to zoom.
+      <br><span class="zh-text">点击并拖动旋转3D视图。滚动缩放。</span>
+    </div>
+  </section>
+
+  <!-- ============== SECTION 4 BILINGUAL ============== -->
+  <section id="section4-bi">
+    <h2>§4. Zero Channel Fingerprints / 零点通道指纹</h2>
+    
+    <div class="plot-container" id="zeros-bar-plot-bi" style="min-height: 550px;"></div>
+
+    <h3>Channel Contributions vs. Zero Height / 通道贡献与零点高度</h3>
+    <div class="plot-container" id="zeros-scatter-plot-bi"></div>
+
+    <div class="info-box">
+      <strong>Key insight / 关键洞见：</strong> At every zero, $|\text{Li}_s(z_1) + \text{Li}_s(z_2)| = |\Gamma(1-s)L^{s-1} + \delta(s)|$,
+      but the phases conspire so that the total is zero.
+      <br><span class="zh-text">在每个零点处，各通道模满足等式，但相位配合使总和为零。残差 $\delta(s)$ 承载了 ζ 函数复杂性的"重担"。</span>
+    </div>
+  </section>
+
+  <!-- ============== SECTION 5 BILINGUAL ============== -->
+  <section id="section5-bi">
+    <h2>§5. Physical Analogy / 物理类比</h2>
+    
+    <div class="analogy-grid">
+      <div class="analogy-card">
+        <div class="analogy-title" style="color: var(--channel1)">Channel 1: Direct / 通道 1：直接通道</div>
+        <div class="analogy-formula">Li<sub>s</sub>(z₁)</div>
+        <div class="analogy-text">
+          The "direct" scattering channel through $z_1$. Analogous to s-wave scattering.
+          <br><span class="zh-text">通过 $z_1$ 的"直接"散射通道。类似于 s 波散射。</span>
+        </div>
+      </div>
+      <div class="analogy-card ch2">
+        <div class="analogy-title" style="color: var(--channel2)">Channel 2: Crossed / 通道 2：交叉通道</div>
+        <div class="analogy-formula">Li<sub>s</sub>(z₂)</div>
+        <div class="analogy-text">
+          The "crossed" channel at $z_2 = 1 - z_1$. Corresponds to t-channel or u-channel.
+          <br><span class="zh-text">在 $z_2 = 1 - z_1$ 处的"交叉"通道。对应于 t 通道或 u 通道。</span>
+        </div>
+      </div>
+      <div class="analogy-card gamma">
+        <div class="analogy-title" style="color: var(--gamma)">Γ-Correction: Born Term / Γ-修正：玻恩项</div>
+        <div class="analogy-formula">Γ(1−s)·L<sup>s−1</sup></div>
+        <div class="analogy-text">
+          The leading-order "Born approximation" — singular part of the asymptotic expansion.
+          <br><span class="zh-text">领先阶的"玻恩近似"——渐近展开的奇异部分。</span>
+        </div>
+      </div>
+      <div class="analogy-card delta">
+        <div class="analogy-title" style="color: var(--delta)">δ(s): Residual Potential / 残差势</div>
+        <div class="analogy-formula">δ(s)</div>
+        <div class="analogy-text">
+          Contains all the complexity of $\zeta(s)$ — the zeros, the non-trivial analytic structure.
+          <br><span class="zh-text">包含了 $\zeta(s)$ 的所有复杂性——零点、非平凡解析结构。</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>The Cancellation Mechanism / 抵消机制</h3>
+    <div class="formula-block">
+      $$\underbrace{\text{Li}_s(z_1) + \text{Li}_s(z_2)}_{\text{smooth, algebraic / 光滑，代数的}} = \underbrace{\Gamma(1-s)L^{s-1} + \delta(s)}_{\text{singular + residual / 奇异 + 残差}}$$
+    </div>
+
+    <div class="info-box">
+      <strong>Speculative note / 推测性注记：</strong> If one could prove that the phase of
+      $\delta(s)$ on the critical line always matches the phase of the polylog sum at specific $t$-values,
+      one would have a new route to the Riemann Hypothesis.
+      <br><span class="zh-text">如果能证明在临界线上 $\delta(s)$ 的相位总是在特定 $t$ 值处匹配多对数和的相位，那么就找到了通向黎曼猜想的新路径。</span>
+    </div>
+  </section>
+
+  <footer>
+    <p>Three-Channel Decomposition of ζ(s) · Zhuo Chen · 2026</p>
+    <p>ζ(s) 三通道分解 · 卓晨 · 2026</p>
+    <p style="margin-top: 8px; font-size: 0.8rem;">
+      Computed with mpmath (50-digit precision) · Visualized with Plotly.js + MathJax<br>
+      使用 mpmath（50位精度）计算 · 使用 Plotly.js + MathJax 可视化
+    </p>
+  </footer>
+
+</div><!-- end lang-bi -->
+
 
 <script>
 // ============================================================
@@ -1008,11 +1479,343 @@ function drawZerosScatter() {
   Plotly.newPlot('zeros-scatter-plot', traces, layout, config);
 }
 
+
+// ============================================================
+// WRAPPER FUNCTIONS for Zh/Bi button handlers
+// ============================================================
+function toggleCritModZh(ch) { toggleCritModGeneric(ch, '-zh'); }
+function toggleCritModBi(ch) { toggleCritModGeneric(ch, '-bi'); }
+function toggleCritModGeneric(ch, suffix) {
+  critModVisible[ch] = !critModVisible[ch];
+  const btnGroup = document.querySelector('#crit-mod-buttons' + suffix);
+  if (btnGroup) {
+    const btn = btnGroup.querySelector('.btn[data-channel="' + ch + '"]');
+    if (btn) btn.classList.toggle('active', critModVisible[ch]);
+  }
+  const lang = suffix === '-zh' ? 'zh' : 'bi';
+  renderAllPlots(suffix, lang);
+}
+
+function setCritPartZh(part) { setCritPartGeneric(part, '-zh'); }
+function setCritPartBi(part) { setCritPartGeneric(part, '-bi'); }
+function setCritPartGeneric(part, suffix) {
+  critPart = part;
+  const btnGroup = document.querySelector('#crit-part-buttons' + suffix);
+  if (btnGroup) {
+    btnGroup.querySelectorAll('.tab-btn, .btn').forEach(b => b.classList.remove('active'));
+  }
+  // Also update the tab controls
+  const langDiv = document.querySelector('.lang' + suffix);
+  if (langDiv) {
+    langDiv.querySelectorAll('.tab-controls .tab-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if ((part === 'real' && btn.textContent.includes('实') || part === 'real' && btn.textContent.includes('Real'))
+       || (part === 'imag' && btn.textContent.includes('虚') || part === 'imag' && btn.textContent.includes('Imag'))) {
+        btn.classList.add('active');
+      }
+    });
+  }
+  const lang = suffix === '-zh' ? 'zh' : 'bi';
+  renderAllPlots(suffix, lang);
+}
+
+function toggleCritPartZh(ch) { toggleCritPartGeneric(ch, '-zh'); }
+function toggleCritPartBi(ch) { toggleCritPartGeneric(ch, '-bi'); }
+function toggleCritPartGeneric(ch, suffix) {
+  critPartVisible[ch] = !critPartVisible[ch];
+  const btnGroup = document.querySelector('#crit-part-buttons' + suffix);
+  if (btnGroup) {
+    const btn = btnGroup.querySelector('.btn[data-channel="' + ch + '"]');
+    if (btn) btn.classList.toggle('active', critPartVisible[ch]);
+  }
+  const lang = suffix === '-zh' ? 'zh' : 'bi';
+  renderAllPlots(suffix, lang);
+}
+
+function showSurfaceZh(ch) { showSurfaceGeneric(ch, '-zh'); }
+function showSurfaceBi(ch) { showSurfaceGeneric(ch, '-bi'); }
+function showSurfaceGeneric(ch, suffix) {
+  currentSurface = ch;
+  const btnGroup = document.querySelector('#surface-buttons' + suffix);
+  if (btnGroup) {
+    btnGroup.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = btnGroup.querySelector('.btn[data-channel="' + ch + '"]');
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+  const lang = suffix === '-zh' ? 'zh' : 'bi';
+  renderAllPlots(suffix, lang);
+}
+
+// ============================================================
+// LANGUAGE SWITCHING
+// ============================================================
+function switchLang(lang) {
+  // Update buttons
+  document.querySelectorAll('.lang-switcher button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  // Update visibility
+  document.querySelectorAll('.lang-en,.lang-zh,.lang-bi').forEach(el => el.classList.remove('visible'));
+  const target = document.querySelector('.lang-' + lang);
+  if (target) target.classList.add('visible');
+  
+  // Re-render plots for the active language
+  setTimeout(() => {
+    const suffix = lang === 'en' ? '' : (lang === 'zh' ? '-zh' : '-bi');
+    renderAllPlots(suffix, lang);
+    // Re-typeset MathJax
+    if (window.MathJax && MathJax.typesetPromise) {
+      MathJax.typesetPromise();
+    }
+  }, 50);
+}
+
+// Plot IDs for each language
+const PLOT_IDS = {
+  '': {
+    critMod: 'crit-mod-plot',
+    critPart: 'crit-part-plot',
+    surface: 'surface-plot',
+    zerosBar: 'zeros-bar-plot',
+    zerosScatter: 'zeros-scatter-plot',
+  },
+  '-zh': {
+    critMod: 'crit-mod-plot-zh',
+    critPart: 'crit-part-plot-zh',
+    surface: 'surface-plot-zh',
+    zerosBar: 'zeros-bar-plot-zh',
+    zerosScatter: 'zeros-scatter-plot-zh',
+  },
+  '-bi': {
+    critMod: 'crit-mod-plot-bi',
+    critPart: 'crit-part-plot-bi',
+    surface: 'surface-plot-bi',
+    zerosBar: 'zeros-bar-plot-bi',
+    zerosScatter: 'zeros-scatter-plot-bi',
+  },
+};
+
+// Translation maps for chart labels
+const CHART_LABELS = {
+  en: {
+    tAxis: 't (Im(s))',
+    modulus: 'Modulus',
+    realPart: 'Real Part',
+    imagPart: 'Imaginary Part',
+    sigma: 'σ (Re(s))',
+    critModTitle: 'Channel Moduli on Critical Line s = ½ + it',
+    critRealTitle: 'Real Parts on Critical Line',
+    critImagTitle: 'Imaginary Parts on Critical Line',
+    surfTitle: '|ζ(s)|',
+    zerosBarTitle: 'Channel Moduli at First 20 Zeros',
+    zerosBarX: 'Zero Index n',
+    zerosBarY: 'Channel Modulus',
+    zerosScatterTitle: 'Channel Growth vs. Zero Height',
+    zerosScatterX: 'γₙ (Zero Height)',
+    zerosScatterY: 'Channel Modulus',
+    zeroN: 'Zero #',
+  },
+  zh: {
+    tAxis: 't (Im(s))',
+    modulus: '模',
+    realPart: '实部',
+    imagPart: '虚部',
+    sigma: 'σ (Re(s))',
+    critModTitle: '临界线上各通道的模 s = ½ + it',
+    critRealTitle: '临界线上的实部',
+    critImagTitle: '临界线上的虚部',
+    surfTitle: '|ζ(s)|',
+    zerosBarTitle: '前20个零点处各通道的模',
+    zerosBarX: '零点序号 n',
+    zerosBarY: '通道模',
+    zerosScatterTitle: '通道增长与零点高度的关系',
+    zerosScatterX: 'γₙ（零点高度）',
+    zerosScatterY: '通道模',
+    zeroN: '第 # 个零点',
+  },
+};
+
+let currentChartLang = 'en';
+
+function renderAllPlots(suffix, lang) {
+  currentChartLang = lang;
+  const ids = PLOT_IDS[suffix];
+  const labels = CHART_LABELS[lang] || CHART_LABELS.en;
+  
+  if (!document.getElementById(ids.critMod)) return;
+  
+  drawCritModForLang(ids.critMod, labels);
+  drawCritPartForLang(ids.critPart, labels);
+  drawSurfaceForLang(ids.surface, labels);
+  drawZerosBarForLang(ids.zerosBar, labels);
+  drawZerosScatterForLang(ids.zerosScatter, labels);
+}
+
+function drawCritModForLang(plotId, labels) {
+  const cl = DATA.critical_line;
+  const traces = [];
+  const channelMap = { li1:'li1_mod', li2:'li2_mod', gamma:'gamma_mod', delta:'delta_mod', zeta:'zeta_mod' };
+  
+  for (const [key, dataKey] of Object.entries(channelMap)) {
+    if (critModVisible[key]) {
+      traces.push({
+        x: cl.t, y: cl[dataKey], mode:'lines', name: NAMES[key],
+        line: { color: COLORS[key], width: key==='zeta'?2.5:1.5 },
+        hovertemplate: 't = %{x:.3f}<br>' + NAMES[key] + ' = %{y:.4f}<extra></extra>',
+      });
+    }
+  }
+  
+  const layout = {
+    ...DARK_LAYOUT,
+    xaxis: { ...DARK_LAYOUT.xaxis, title: labels.tAxis },
+    yaxis: { ...DARK_LAYOUT.yaxis, title: labels.modulus, type:'log' },
+    showlegend: true,
+    legend: { ...DARK_LAYOUT.legend, orientation:'h', y:-0.2 },
+    margin: { l:70, r:20, t:30, b:80 },
+    annotations: [{
+      x:0.5, y:1, xref:'paper', yref:'paper',
+      xanchor:'center', yanchor:'top',
+      text: labels.critModTitle,
+      showarrow:false, font:{ size:14, color:'#ffd700' },
+    }],
+  };
+  
+  Plotly.newPlot(plotId, traces, layout, { responsive:true, displayModeBar:true, displaylogo:false });
+}
+
+function drawCritPartForLang(plotId, labels) {
+  const cl = DATA.critical_line;
+  const traces = [];
+  const isReal = currentCritPart === 'real';
+  const channelMap = { li1:'li1_real', li2:'li2_real', gamma:'gamma_real', delta:'delta_real', zeta:'zeta_real' };
+  const partLabel = isReal ? labels.realPart : labels.imagPart;
+  const title = isReal ? labels.critRealTitle : labels.critImagTitle;
+  
+  for (const [key, dataKey] of Object.entries(channelMap)) {
+    if (critPartVisible[key]) {
+      traces.push({
+        x: cl.t, y: cl[dataKey], mode:'lines', name: NAMES[key].replace('|','').replace('|',''),
+        line: { color: COLORS[key], width: key==='zeta'?2.5:1.5 },
+      });
+    }
+  }
+  
+  const layout = {
+    ...DARK_LAYOUT,
+    xaxis: { ...DARK_LAYOUT.xaxis, title: labels.tAxis },
+    yaxis: { ...DARK_LAYOUT.yaxis, title: partLabel },
+    showlegend: true,
+    legend: { ...DARK_LAYOUT.legend, orientation:'h', y:-0.2 },
+    margin: { l:70, r:20, t:30, b:80 },
+    annotations: [{
+      x:0.5, y:1, xref:'paper', yref:'paper',
+      xanchor:'center', yanchor:'top',
+      text: title,
+      showarrow:false, font:{ size:14, color:'#ffd700' },
+    }],
+  };
+  
+  Plotly.newPlot(plotId, traces, layout, { responsive:true, displayModeBar:true, displaylogo:false });
+}
+
+function drawSurfaceForLang(plotId, labels) {
+  const sd = DATA.surface;
+  const idx = ['zeta','li1','li2','gamma','delta'].indexOf(currentSurface);
+  const zData = [sd.zeta, sd.li1, sd.li2, sd.gamma, sd.delta][idx];
+  
+  const layout = {
+    ...DARK_LAYOUT,
+    scene: {
+      xaxis: { title: labels.sigma, gridcolor:'#2a2a4a', color:'#9090b0' },
+      yaxis: { title: labels.tAxis, gridcolor:'#2a2a4a', color:'#9090b0' },
+      zaxis: { title: labels.modulus, gridcolor:'#2a2a4a', color:'#9090b0', type:'log' },
+      bgcolor: 'rgba(0,0,0,0)',
+    },
+    margin: { l:0, r:0, t:30, b:0 },
+  };
+  
+  const trace = {
+    x: sd.sigma, y: sd.t, z: zData,
+    type:'surface',
+    colorscale: idx===0 ? 'Inferno' : (idx===1 ? 'Blues' : (idx===2 ? 'Oranges' : (idx===3 ? 'Reds' : 'Purples'))),
+    showscale: true,
+  };
+  
+  Plotly.newPlot(plotId, [trace], layout, { responsive:true, displayModeBar:true, displaylogo:false });
+}
+
+function drawZerosBarForLang(plotId, labels) {
+  const zd = DATA.zeros;
+  const channels = ['li1','li2','gamma','delta'];
+  const modKeys = ['li1_mod','li2_mod','gamma_mod','delta_mod'];
+  const traces = [];
+  
+  for (let i = 0; i < channels.length; i++) {
+    traces.push({
+      x: zd.zero_index, y: zd[modKeys[i]], type:'bar',
+      name: NAMES[channels[i]],
+      marker: { color: COLORS[channels[i]] },
+    });
+  }
+  
+  const layout = {
+    ...DARK_LAYOUT,
+    barmode:'group',
+    xaxis: { ...DARK_LAYOUT.xaxis, title: labels.zerosBarX },
+    yaxis: { ...DARK_LAYOUT.yaxis, title: labels.zerosBarY, type:'log' },
+    showlegend: true,
+    legend: { ...DARK_LAYOUT.legend, orientation:'h', y:-0.25 },
+    margin: { l:70, r:20, t:30, b:100 },
+    annotations: [{
+      x:0.5, y:1, xref:'paper', yref:'paper',
+      xanchor:'center', yanchor:'top',
+      text: labels.zerosBarTitle,
+      showarrow:false, font:{ size:14, color:'#ffd700' },
+    }],
+  };
+  
+  Plotly.newPlot(plotId, traces, layout, { responsive:true, displayModeBar:true, displaylogo:false });
+}
+
+function drawZerosScatterForLang(plotId, labels) {
+  const zd = DATA.zeros;
+  const channels = ['li1','li2','delta'];
+  const traces = [];
+  
+  for (const ch of channels) {
+    traces.push({
+      x: zd.gamma_n, y: zd[ch+'_mod'],
+      mode:'lines+markers', name: NAMES[ch],
+      line: { color: COLORS[ch], width:2 },
+      marker: { size:6 },
+    });
+  }
+  
+  const layout = {
+    ...DARK_LAYOUT,
+    xaxis: { ...DARK_LAYOUT.xaxis, title: labels.zerosScatterX },
+    yaxis: { ...DARK_LAYOUT.yaxis, title: labels.zerosScatterY, type:'log' },
+    showlegend: true,
+    legend: { ...DARK_LAYOUT.legend, orientation:'h', y:-0.2 },
+    margin: { l:70, r:20, t:30, b:80 },
+    annotations: [{
+      x:0.5, y:1, xref:'paper', yref:'paper',
+      xanchor:'center', yanchor:'top',
+      text: labels.zerosScatterTitle,
+      showarrow:false, font:{ size:14, color:'#ffd700' },
+    }],
+  };
+  
+  Plotly.newPlot(plotId, traces, layout, { responsive:true, displayModeBar:true, displaylogo:false });
+}
+
+
 // ============================================================
 // INITIALIZATION
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
-  // Draw all plots
+  // Draw EN plots
   drawCritMod();
   drawCritPart();
   drawSurface('zeta');
@@ -1021,22 +1824,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Handle window resize
   window.addEventListener('resize', function() {
-    Plotly.Plots.resize('crit-mod-plot');
-    Plotly.Plots.resize('crit-part-plot');
-    Plotly.Plots.resize('surface-plot');
-    Plotly.Plots.resize('zeros-bar-plot');
-    Plotly.Plots.resize('zeros-scatter-plot');
+    const visible = document.querySelector('.lang-en.visible,.lang-zh.visible,.lang-bi.visible');
+    if (visible) {
+      const plots = visible.querySelectorAll('.plot-container');
+      plots.forEach(p => { if (p.id) Plotly.Plots.resize(p.id); });
+    }
   });
 });
 
 // Also trigger when MathJax is done (for layout adjustment)
 window.addEventListener('load', function() {
   setTimeout(function() {
-    Plotly.Plots.resize('crit-mod-plot');
-    Plotly.Plots.resize('crit-part-plot');
-    Plotly.Plots.resize('surface-plot');
-    Plotly.Plots.resize('zeros-bar-plot');
-    Plotly.Plots.resize('zeros-scatter-plot');
+    const visible = document.querySelector('.lang-en.visible,.lang-zh.visible,.lang-bi.visible');
+    if (visible) {
+      const plots = visible.querySelectorAll('.plot-container');
+      plots.forEach(p => { if (p.id) Plotly.Plots.resize(p.id); });
+    }
   }, 500);
 });
 </script>
