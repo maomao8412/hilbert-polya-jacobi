@@ -160,6 +160,33 @@ $$\boxed{z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1 + x^2 y^2}}$$
 <p><strong>一句话总结：</strong>圆告诉我们"加法怎么运作"，双纽线告诉我们"加法中可以隐藏着乘法"。四大猜想的证明，就是把这种隐藏的乘法结构挖出来，用它来统一素数的乘法世界与零点的加法世界。</p>
 </div>
 
+<p><strong>双纽线和正切加法公式有什么关系？</strong>其实，它们是<strong>同一种"曲线上加法"在两类曲线上的化身</strong>——同一个几何操作（两段弧长相加），在圆上长出正切公式，在双纽线上长出椭圆函数加法。</p>
+
+<p>对比倍角公式，结构平行得惊人：</p>
+<div style="overflow-x:auto;margin:1em 0">
+<table style="border-collapse:collapse;width:100%;font-size:.95em">
+<tr><th style="border:1px solid #c9c9c9;padding:.5em .8em;background:#f0f4fa"></th><th style="border:1px solid #c9c9c9;padding:.5em .8em;background:#f0f4fa">圆（三角函数）</th><th style="border:1px solid #c9c9c9;padding:.5em .8em;background:#f0f4fa">双纽线（椭圆函数）</th></tr>
+<tr><td style="border:1px solid #c9c9c9;padding:.5em .8em"><strong>加法公式</strong></td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\tan(\alpha+\beta)=\dfrac{t_1+t_2}{1-t_1t_2}\)</td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\mathrm{sl}(u+v)=\dfrac{x\sqrt{1-y^4}+y\sqrt{1-x^4}}{1+x^2y^2}\)</td></tr>
+<tr><td style="border:1px solid #c9c9c9;padding:.5em .8em"><strong>倍角</strong></td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\tan 2\theta=\dfrac{2t}{1-t^2}\)</td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\mathrm{sl}(2u)=\dfrac{2x\sqrt{1-x^4}}{1+x^4}\)</td></tr>
+<tr><td style="border:1px solid #c9c9c9;padding:.5em .8em"><strong>交叉项</strong></td><td style="border:1px solid #c9c9c9;padding:.5em .8em">一次：\(t_1t_2\)</td><td style="border:1px solid #c9c9c9;padding:.5em .8em">平方：\(x^2y^2\)</td></tr>
+</table>
+</div>
+<p>分子都是"两倍的自己乘伙伴"，分母都是"1 加减一个交叉乘积"。差别只是次数从 2 升到了 4（\(1-t^2\to 1-t^4\)）。这不是巧合：</p>
+<ul>
+<li>圆 \(y^2=1-x^2\) 是<strong>亏格 0</strong> 的曲线，它的加法群就是角度相加，解析化身是三角函数；</li>
+<li>双纽线 \(y^2=1-x^4\)（代数上等价于椭圆曲线 \(y^2=x^3-x\)）是<strong>亏格 1</strong>，它的加法群是椭圆曲线弦切律，解析化身是椭圆函数。</li>
+</ul>
+<p>同一个"曲线上两点相加"的群律，从亏格 0 升级到亏格 1，分母的交叉项就从一次加深为平方——<strong>乘法结构是群律升级时自然"长"出来的，不是双纽线凭空多出来的。</strong></p>
+
+<p><strong>而 q 恰好站在两条群律的接触点上。</strong>椭圆积分有一个经典的 Landen 模数变换（把椭圆周期加倍的变换）：</p>
+$$k_1=\frac{1-k'}{1+k'},\qquad k'=\sqrt{1-k^2}$$
+<p>这个公式和我们的 Möbius 对合 \(T(z)=\dfrac{1-z}{1+z}\) <strong>形式完全一致</strong>，而 T 的不动点正是 \(q=\sqrt2-1\)。双纽线对应的是椭圆积分里最对称的情形——自补模数 \(k=k'=1/\sqrt2\)（Gauss 的 lemniscatic 情形）。所以：</p>
+<ul>
+<li>在<strong>圆</strong>上，\(q=\tan(\pi/8)\) 是"角度关于 \(\pi/8\) 反射"的中心；</li>
+<li>在<strong>双纽线</strong>世界里，同一个 \(T(z)\) 就是 Landen 变换走一步，q 是它的不动点。</li>
+</ul>
+<p>换句话说，\(q=\sqrt2-1\) 是<strong>圆的加法群和双纽线椭圆群共享的对称中心</strong>——这解释了为什么这把钥匙能从 1752 年 Euler 的双纽线加法里"自然涌现"：它不是硬凑的常数，而是两个群律在最对称处相吻的那一点。</p>
+
 <hr class="section-sep">
 
 <h2>§2. RH：三项分解与角单调性</h2>
@@ -593,6 +620,33 @@ $$\boxed{z = \frac{x\sqrt{1-y^4} + y\sqrt{1-x^4}}{1 + x^2 y^2}}$$
 <div style="background:#f0f7ff;border-left:4px solid #1a5fb4;padding:1em 1.2em;margin:1.5em 0;border-radius:0 8px 8px 0">
 <p><strong>In one sentence:</strong> The circle tells us "how addition works"; the lemniscate tells us "multiplication can be hidden within addition." The proofs of the four conjectures dig out this hidden multiplicative structure and use it to unify the multiplicative world of primes with the additive world of zeros.</p>
 </div>
+
+<p><strong>What does the lemniscate have to do with the tangent addition formula?</strong> They are actually <strong>two incarnations of the same "addition on a curve"</strong> — the same geometric operation (adding two arc lengths) produces the tangent formula on the circle and the elliptic-function addition on the lemniscate.</p>
+
+<p>The doubling formulas are strikingly parallel:</p>
+<div style="overflow-x:auto;margin:1em 0">
+<table style="border-collapse:collapse;width:100%;font-size:.95em">
+<tr><th style="border:1px solid #c9c9c9;padding:.5em .8em;background:#f0f4fa"></th><th style="border:1px solid #c9c9c9;padding:.5em .8em;background:#f0f4fa">Circle (trigonometry)</th><th style="border:1px solid #c9c9c9;padding:.5em .8em;background:#f0f4fa">Lemniscate (elliptic functions)</th></tr>
+<tr><td style="border:1px solid #c9c9c9;padding:.5em .8em"><strong>Addition</strong></td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\tan(\alpha+\beta)=\dfrac{t_1+t_2}{1-t_1t_2}\)</td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\mathrm{sl}(u+v)=\dfrac{x\sqrt{1-y^4}+y\sqrt{1-x^4}}{1+x^2y^2}\)</td></tr>
+<tr><td style="border:1px solid #c9c9c9;padding:.5em .8em"><strong>Doubling</strong></td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\tan 2\theta=\dfrac{2t}{1-t^2}\)</td><td style="border:1px solid #c9c9c9;padding:.5em .8em">\(\mathrm{sl}(2u)=\dfrac{2x\sqrt{1-x^4}}{1+x^4}\)</td></tr>
+<tr><td style="border:1px solid #c9c9c9;padding:.5em .8em"><strong>Cross-term</strong></td><td style="border:1px solid #c9c9c9;padding:.5em .8em">linear: \(t_1t_2\)</td><td style="border:1px solid #c9c9c9;padding:.5em .8em">squared: \(x^2y^2\)</td></tr>
+</table>
+</div>
+<p>In each case the numerator is "twice yourself times your partner" and the denominator is "1 plus or minus a cross-product." The only difference is that the degree rises from 2 to 4 (\(1-t^2\to 1-t^4\)). This is no coincidence:</p>
+<ul>
+<li>The circle \(y^2=1-x^2\) is a curve of <strong>genus 0</strong>: its addition group is ordinary addition of angles, and its analytic avatar is the trigonometric functions.</li>
+<li>The lemniscate \(y^2=1-x^4\) (algebraically equivalent to the elliptic curve \(y^2=x^3-x\)) is of <strong>genus 1</strong>: its addition group is the chord-and-tangent law of an elliptic curve, and its analytic avatar is the elliptic functions.</li>
+</ul>
+<p>Under the same group law of "adding two points on a curve," when the genus rises from 0 to 1 the denominator's cross-term deepens from linear to squared — <strong>the multiplicative structure grows naturally out of the upgrade of the group law; it is not something the lemniscate invents out of nowhere.</strong></p>
+
+<p><strong>And q stands exactly at the contact point of the two group laws.</strong> Elliptic integrals have a classical Landen modulus transformation (which doubles the elliptic period):</p>
+$$k_1=\frac{1-k'}{1+k'},\qquad k'=\sqrt{1-k^2}$$
+<p>This formula is <strong>identical in form</strong> to our Möbius involution \(T(z)=\dfrac{1-z}{1+z}\), whose fixed point is precisely \(q=\sqrt2-1\). The lemniscate corresponds to the most symmetric situation in elliptic integrals — the self-complementary modulus \(k=k'=1/\sqrt2\) (Gauss's lemniscatic case). Thus:</p>
+<ul>
+<li>On the <strong>circle</strong>, \(q=\tan(\pi/8)\) is the center of reflection of angles about \(\pi/8\);</li>
+<li>In the <strong>lemniscate</strong> world, the same \(T(z)\) is one step of the Landen transformation, and q is its fixed point.</li>
+</ul>
+<p>In other words, \(q=\sqrt2-1\) is the <strong>shared center of symmetry of the circle's additive group and the lemniscate's elliptic group</strong> — which is why the key "emerges naturally" from Euler's 1752 lemniscate addition: it is not a contrived constant but the point where two group laws meet at their most symmetric spot.</p>
 
 <hr class="section-sep">
 
