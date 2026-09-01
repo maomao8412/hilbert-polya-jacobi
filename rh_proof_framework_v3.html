@@ -32,6 +32,43 @@ th,td{padding:.25rem .4rem;border:1px solid var(--bd);text-align:left}
 th{background:#f5f5f0}
 .mtx{background:#f8f8f5;border:1px solid #ddd;border-radius:6px;padding:.6rem .8rem;margin:.5rem 0;font-family:monospace;font-size:.8rem;line-height:1.6}
 .note{font-size:.78rem;color:#666;font-style:italic}
+
+/* ===== Language Tabs ===== */
+.lang-switcher {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--bd);
+  position: sticky;
+  top: 42px;
+  background: var(--bg);
+  z-index: 50;
+}
+.lang-switcher button {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.85rem;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  background: transparent;
+  color: #555;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.lang-switcher button:hover { color: var(--fg); }
+.lang-switcher button.active {
+  color: var(--fg);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.lang-zh, .lang-en { display: none; }
+.lang-zh.visible, .lang-en.visible, .lang-bi.visible .lang-zh, .lang-bi.visible .lang-en { display: block; }
+.lang-bi.visible .lang-zh { margin-bottom: 0.5rem; }
+.lang-bi.visible .lang-en { margin-bottom: 2.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--bd); }
+
 </style>
 </head>
 <body>
@@ -42,9 +79,17 @@ th{background:#f5f5f0}
   <a href="./GRH交互网页/grh.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">GRH证明</a>
   <a href="./goldbach_complete_proof.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">哥德巴赫猜想</a>
   <a href="./paper/goldbach_grh_cyclotomic_tower/goldbach_paper.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">哥德巴赫论文</a>
-  <a href="./paper/q_unifies_four_conjectures.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">q统一四猜想</a>
+  <a href="./paper/q_unifies_four_conjectures.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">八字曲线之钥</a>
   <a href="./physics_web/index.html" style="color:#D8D1C4;text-decoration:none;padding:4px 8px;border-radius:4px;">物理篇</a>
 </nav>
+
+<div class="lang-switcher">
+  <button class="active" data-lang="en">English</button>
+  <button data-lang="zh">中文</button>
+  <button data-lang="bi">中英对照</button>
+</div>
+
+<div class="lang-en visible">
 
 
 <h1>Based on the Deformation Family Spectral Method<br>Proof Framework for the Riemann Hypothesis</h1>
@@ -298,5 +343,238 @@ Circular reasoning would be "assume zeros on critical line -> prove zeros on cri
 </div>
 
 <div style="text-align:center;margin:1.5rem 0;color:#888;font-size:.78rem">— End of Framework Document —<br>Steps 2 &amp; 6 require completion before publication.</div>
+
+</div>
+
+<div class="lang-zh">
+
+<h1>基于变形族谱方法<br> Riemann 猜想证明框架</h1>
+<div class="sub">陈倬 | 2026年8月</div>
+
+<div style="display:flex;gap:.6rem;flex-wrap:wrap;margin:.6rem 0;padding:.5rem;background:#f5f5f0;border-radius:6px;font-size:.78rem">
+<span><span style="width:10px;height:10px;border-radius:50%;background:var(--ok);display:inline-block;vertical-align:middle"></span> 已证</span>
+<span><span style="width:10px;height:10px;border-radius:50%;background:var(--warn);display:inline-block;vertical-align:middle"></span> 机器辅助近证</span>
+<span><span style="width:10px;height:10px;border-radius:50%;background:var(--gap);display:inline-block;vertical-align:middle"></span> 待严格证明</span>
+</div>
+
+<h2>0. 架构概览</h2>
+<p>核心思路：从变形族 $F(s,w)$ 的三项结构中，提取 $\xi(s)$ 的 Taylor 系数，构造幂和 $S_k$，通过 Stieltjes 算法得到 Jacobi 矩阵 $J_\infty$，再利用 Carleman 条件和 Fredholm 行列式恒等式，证明 $J_\infty$ 的谱对应于 $\zeta(s)$ 的所有非平凡零点，从而由自伴性推出 RH。</p>
+
+<div style="background:#fff;border:1px solid var(--bd);border-radius:8px;padding:.8rem;margin:.8rem 0;overflow-x:auto">
+<pre style="font-family:monospace;font-size:.72rem;line-height:1.4;white-space:pre">
+阶段 I：精确谱算子                    阶段 II：行列式恒等式                 阶段 III：RH
++------------------------+                 +------------------------+                +------------------+
+| 步骤 1. 变形族 ->      |                 | 步骤 5. Carleman       |                | 步骤 7.          |
+| xi Taylor 系数          | ---- {S_k} --->| 条件 -> 矩唯一性       | ---- J_inf --->| 自伴             |
+|        [已证]          |                 |        [已证]          |                | -> 实谱 -> RH    |
++------------------------+                 +------------------------+                +------------------+
+| 步骤 2. Hankel         |                 | 步骤 6. det(I-xJ)      |
+| D_n > 0               | <--- E'(w)>0 ---| = E(x)                 |
+|    [近证]              |     [近证]      |        [近证]          |
++------------------------+                 +------------------------+
+| 步骤 3. Stieltjes ->   |
+| Jacobi 矩阵 J          |
+|    [依赖步骤 2]        |
++------------------------+
+| 步骤 4. J 自伴 ->      |
+| 谱在 R 中              |
+|        [已证]          |
++------------------------+
+</pre>
+</div>
+
+<h2>步骤 1：从变形族提取 Taylor 系数 <span class="t tg">已证</span></h2>
+
+<div class="def">
+<strong>定义（变形族）。</strong>令 $q=\sqrt{2}-1$，$z_1=2-\sqrt{2}$，$z_2=\sqrt{2}-1$，$c_n(w) = 1 - z_1^n(1-w) - z_2^n(1-w)$。<br>
+$$F(s,w) = \sum_{n=1}^{\infty} c_n(w)\, n^{-s}$$
+在 $w=0$ 处，$F(s,0)$ 与 $\xi(s) = \frac{1}{2}s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$ 相关联。
+</div>
+
+<p>$\Xi(t) = \xi(\frac{1}{2}+it)$ 是偶整函数，Taylor 展开为 $\Xi(t) = \sum_{k=0}^{\infty} a_{2k}\, t^{2k}$。通过 Newton 恒等式，定义幂和：</p>
+$$\log\frac{\Xi(t)}{\Xi(0)} = \sum_{k=1}^{\infty} c_k\, t^{2k}, \quad S_k = -k\, c_k$$
+
+<table>
+<tr><th>$k$</th><th>$a_{2k}$</th><th>$S_k$</th><th>$S_k^{-1/(2k)}$</th></tr>
+<tr><td>1</td><td>$-0.011486\ldots$</td><td>$0.02310499\ldots$</td><td>6.579</td></tr>
+<tr><td>2</td><td>$1.2345\times10^{-4}$</td><td>$3.7173\times10^{-5}$</td><td>12.807</td></tr>
+<tr><td>3</td><td>$-8.3236\times10^{-7}$</td><td>$1.4417\times10^{-7}$</td><td>13.810</td></tr>
+<tr><td>4</td><td>$3.9922\times10^{-9}$</td><td>$6.6303\times10^{-10}$</td><td>14.038</td></tr>
+<tr><td>5</td><td>$\ldots$</td><td>$3.2137\times10^{-12}$</td><td>14.103</td></tr>
+</table>
+<p class="note">注：$S_k^{-1/(2k)} \to \gamma_1 \approx 14.135$（第一个 zeta 零点）——这是输出，而非输入假设。</p>
+
+<h2>步骤 2：Hankel 行列式正定性 &amp; E'(w) &gt; 0 <span class="t tw">近证</span></h2>
+
+<div class="def"><strong>Hankel 行列式：</strong>$D_n = \det[S_{i+j+1}]_{i,j=0}^{n-1}$</div>
+
+<table>
+<tr><th>$n$</th><th>$D_n$</th><th>符号</th><th>$\beta_{n-1}^2 = D_{n+1}D_{n-1}/D_n^2$</th></tr>
+<tr><td>1</td><td>$2.310\times10^{-2}$</td><td style="color:var(--ok)">$+$</td><td>$\beta_0^2 = 3.652\times10^{-6}$</td></tr>
+<tr><td>2</td><td>$1.949\times10^{-9}$</td><td style="color:var(--ok)">$+$</td><td>$\beta_1^2 = 1.321\times10^{-6}$</td></tr>
+<tr><td>3</td><td>$2.173\times10^{-22}$</td><td style="color:var(--ok)">$+$</td><td>$\beta_2^2 = 4.862\times10^{-7}$</td></tr>
+<tr><td>4</td><td>$1.178\times10^{-41}$</td><td style="color:var(--ok)">$+$</td><td>$\beta_3^2 = \ldots$</td></tr>
+</table>
+
+<div class="ins">
+<strong>关键等价关系：</strong>$D_n &gt; 0\ (\forall n)$ 等价于 $E(w) = \Xi(\sqrt{w})/\Xi(0)$ 满足 $E'(w) &gt; 0$（对所有 $w \geq 0$）。这是 Stieltjes 矩问题存在唯一正测度解的充要条件。
+</div>
+
+<p style="text-align:center;color:#666;font-size:.85rem;margin:1rem 0;">[图 1：$E'(w) &gt; 0$ 的数值验证 — 三种独立方法确认]</p>
+
+<h2>步骤 3：Stieltjes 算法 -> Jacobi 矩阵 $J$ <span class="t tw">依赖步骤 2</span></h2>
+
+<p>假设 $D_n &gt; 0$，Stieltjes 算法唯一确定一个实对称三对角矩阵：</p>
+$$\beta_n^2 = \frac{D_{n+1}\,D_{n-1}}{D_n^2} &gt; 0, \qquad \alpha_n = \frac{\widetilde{D}_n}{D_n} - \frac{\widetilde{D}_{n-1}}{D_{n-1}}$$
+
+<h3>3.1 $J_1$（1×1）— 平凡情形</h3>
+<div class="mtx">
+<strong>J_1</strong> = ( alpha_0 ) = ( S_1 ) = ( 1.6088556746e-03 )<br><br>
+特征值: lambda_1 = alpha_0 = S_1<br>
+-&gt; gamma_1 = 1/sqrt(lambda_1) = 24.9311 &nbsp;（真值: 14.1347，误差: 76.4%）<br>
+<span class="note">单项截断 — 粗略近似，符合预期。</span>
+</div>
+
+<h3>3.2 $J_2$（2×2）— 求根公式</h3>
+<div class="mtx">
+<strong>J_2</strong> = | alpha_0  beta_0 | = | 1.608856e-03  2.310499e-02 |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| beta_0   alpha_1 | &nbsp;&nbsp; | 2.310499e-02  3.500589e-03 |<br><br>
+<strong>特征多项式：</strong>lambda^2 - (alpha_0+alpha_1)*lambda + (alpha_0*alpha_1 - beta_0^2) = 0<br>
+&nbsp;&nbsp; p = alpha_0+alpha_1 = 5.1094449099e-03<br>
+&nbsp;&nbsp; q = alpha_0*alpha_1 - beta_0^2 = -5.2820876401e-04<br><br>
+<strong>求根公式：</strong>lambda_pm = (1/2)[p +/- sqrt(p^2 - 4q)]<br>
+&nbsp;&nbsp; Delta = p^2 - 4q = 2.1389414833e-03 &gt; 0 验证通过<br><br>
+<strong>特征值：</strong><br>
+&nbsp;&nbsp; lambda_- = -2.0569623677e-02 -&gt; gamma = 1/sqrt(lambda_-) = 0.0000（真值 gamma_2=21.0220）<br>
+&nbsp;&nbsp; lambda_+ = 1.7983431325e-03 -&gt; gamma = 1/sqrt(lambda_+) = 6.2404（真值 gamma_1=14.1347）
+</div>
+
+<h3>3.3 $J_3$（3×3）— Cardano 公式 <span class="t tg">精确解析</span></h3>
+<div class="mtx">
+<strong>J_3</strong> = | alpha_0  beta_0  0      |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| beta_0   alpha_1  beta_1  |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 0        beta_1   alpha_2 |<br><br>
+<strong>矩阵元素（80 位精度，Stieltjes 正向算法）：</strong><br>
+&nbsp;&nbsp; alpha_0 = 1.6088556746e-03<br>
+&nbsp;&nbsp; alpha_1 = 3.5005892353e-03<br>
+&nbsp;&nbsp; alpha_2 = 1.7983431372e-03<br>
+&nbsp;&nbsp; beta_0  = 2.3104993115e-02<br>
+&nbsp;&nbsp; beta_1  = 3.6515303718e-06<br><br>
+<strong>Cardano 替换</strong> lambda = t + p/3 -> 降次三次方程 t^3 + p_c*t + q_c = 0<br><br>
+<strong>精确特征值（Cardano 闭合形式）：</strong><br>
+&nbsp;&nbsp; lambda_2 = 2.5679068592e-02 -&gt; gamma = 1/sqrt(lambda_2) = 6.2404（真值 gamma_1=14.1347，误差 55.9%）
+</div>
+
+<h3>3.4 $J_4$（4×4）— Ferrari 方法</h3>
+<div class="mtx">
+<strong>J_4</strong> = | alpha_0  beta_0  0        0      |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| beta_0   alpha_1  beta_1   0      |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 0        beta_1   alpha_2  beta_2 |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 0        0        beta_2   alpha_3|<br><br>
+<strong>特征值</strong>（Ferrari 预解三次方程 -> 原理上精确；显示数值）:<br>
+&nbsp;&nbsp; lambda_4 = 2.567907e-02 -> gamma = 6.2404（真值 gamma_1=14.1347，误差 55.9%）
+</div>
+
+<h3>3.5 正向构造热力图</h3>
+
+<p style="text-align:center;color:#666;font-size:.85rem;margin:1rem 0;">[图 2–6：Stieltjes 正向构造热力图 — J_3 至 J_10。所有元素纯粹由 xi Taylor 系数推导。]</p>
+
+<h3>3.6 特征值收敛</h3>
+
+<p style="text-align:center;color:#666;font-size:.85rem;margin:1rem 0;">[图 7：特征值收敛 — gamma_n 相对误差 vs 矩阵阶数 N。gamma_1 收敛最快。]</p>
+
+<h2>步骤 4：自伴性 -> 实谱 <span class="t tg">已证</span></h2>
+<div class="thm"><strong>定理。</strong>$J$ 是 $\ell^2(\mathbb{N})$ 上的有界自伴算子，因此 $\mathrm{Spec}(J) \subset \mathbb{R}$。<br>
+<em>证明。</em>实对称 + $\|J\| &lt; \infty$（因为 $\alpha_n,\beta_n \to 0$）。谱定理适用。$\blacksquare$</div>
+
+<h2>步骤 5：Carleman 条件 -> 矩唯一性 <span class="t tg">已证</span></h2>
+<div class="thm"><strong>定理。</strong>$\sum S_k^{-1/(2k)} = \infty$，因为通项 $\to \gamma_1 \approx 14.135 &gt; 0$。Hamburger 矩问题是确定的。$\blacksquare$</div>
+
+<h2>步骤 6：行列式恒等式 $\det(I - xJ_\infty) = E(x)$ <span class="t tw">近证</span></h2>
+<ol>
+<li>$\det(I-xJ_N)$ 的 Taylor 系数由 $\mathrm{tr}(J_N^k) = S_k$ 通过 Newton 恒等式确定（有限关系）</li>
+<li>$E(x) = \Xi(\sqrt{x})/\Xi(0)$ 的 Taylor 系数也由 $\{S_k\}$ 通过 Newton 恒等式确定</li>
+<li>两者都是 $\frac{1}{2}$ 阶整函数，Taylor 系数相同，因此是同一函数</li>
+</ol>
+<div class="wr"><strong>待填补的缺口：</strong>$\det(I-xJ_N) \to \det(I-xJ_\infty)$ 在紧集上的一致收敛性。由于 $\sum \lambda_n = S_1 &lt; \infty$（迹类），此收敛可严格建立。</div>
+
+<h2>步骤 7：结论 — RH 成立 <span class="t tg">已证</span></h2>
+<div class="thm"><strong>定理（Riemann 猜想）。</strong>$\zeta(s)$ 的所有非平凡零点满足 $\mathrm{Re}(s) = \frac{1}{2}$。</div>
+<p><strong>证明链条：</strong></p>
+<ol>
+<li>$\det(I - xJ) = E(x) = \Xi(\sqrt{x})/\Xi(0)$（步骤 6）</li>
+<li>$\det(I-xJ)$ 的零点为 $x_n = 1/\lambda_n$，其中 $\lambda_n \in \mathrm{Spec}(J) \subset \mathbb{R}_{&gt;0}$（步骤 4–5）</li>
+<li>因此 $E(x)$ 的零点 $x_n = 1/\lambda_n &gt; 0$（全为正实数）</li>
+<li>$E(x_n) = 0 \iff \Xi(\sqrt{x_n}) = 0$，且 $x_n &gt; 0 \Rightarrow \sqrt{x_n} \in \mathbb{R}_{&gt;0}$</li>
+<li>$\Xi(t) = \xi(\frac{1}{2}+it) = 0$ 在 $t = \sqrt{x_n} \in \mathbb{R}$ 处</li>
+<li>因此 $s = \frac{1}{2}+it$ 满足 $\mathrm{Re}(s) = \frac{1}{2}$，$t \in \mathbb{R}$。$\blacksquare$</li>
+</ol>
+
+<h2>总结</h2>
+<table>
+<tr><th>步骤</th><th>内容</th><th>状态</th><th>剩余工作</th></tr>
+<tr><td>1</td><td>从 F(s,w) 提取 Taylor 系数</td><td><span class="t tg">已证</span></td><td>—</td></tr>
+<tr><td>2</td><td>$D_n &gt; 0 \Leftrightarrow E'(w) &gt; 0$</td><td><span class="t tw">近证</span></td><td>解析 Lipschitz 界；独立代码验证</td></tr>
+<tr><td>3</td><td>Stieltjes -> J 实对称</td><td><span class="t tw">依赖</span></td><td>由步骤 2 推出</td></tr>
+<tr><td>4</td><td>J 自伴 -> 实谱</td><td><span class="t tg">已证</span></td><td>—</td></tr>
+<tr><td>5</td><td>Carleman 条件</td><td><span class="t tg">已证</span></td><td>—</td></tr>
+<tr><td>6</td><td>$\det(I-xJ) = E(x)$</td><td><span class="t tw">近证</span></td><td>迹类收敛的形式化</td></tr>
+<tr><td>7</td><td>恒等式 + 自伴 -> RH</td><td><span class="t tg">已证</span></td><td>依赖步骤 2、6</td></tr>
+</table>
+
+<div class="ins">
+<strong>核心剩余缺口：</strong>
+<ol>
+<li><strong>步骤 2</strong>（$D_n &gt; 0$）：通过 Lipschitz 覆盖 + 区间算术的机器辅助证明，$\psi \geq 0.00463 &gt; 0$。需要：(a) 解析 Lipschitz 界，(b) 独立代码验证。</li>
+<li><strong>步骤 6d</strong>（系数匹配 -> 恒等式）：Newton 恒等式论证看似完整。需要：形式化书写，验证 $e_k$ 对无限序列 $\{\lambda_n\}$ 有良定义（由 $\sum \lambda_n &lt; \infty$ 保证），且 Taylor 级数收敛到同一函数。</li>
+</ol>
+</div>
+
+<div class="ins">
+<strong>为何这不是循环论证：</strong><br>
+$S_k$ 有两个等价定义：<br>
+- 定义 A（通过零点）：$S_k = \sum 1/\gamma_n^{2k}$（Hadamard 乘积）<br>
+- 定义 B（通过 Taylor 系数）：$S_k = -k \cdot c_k$，其中 $\log(\Xi(t)/\Xi(0)) = \sum c_k t^{2k}$<br><br>
+我们的证明<strong>仅使用定义 B</strong>。Taylor 系数 $a_{2k}$ 由 $\xi(s)$ 的积分表示计算，与零点位置无关。$S_k$ 只是一个代数符号，而非对零点的求和。<br><br>
+循环论证是"假设零点在临界线上 -> 证明零点在临界线上"。我们做的是："$\xi$ Taylor 系数 -> $S_k$ -> Jacobi 矩阵 -> 自伴 -> 谱为实数 -> 零点必须在临界线上"。<strong>零点不出现在输入中，只出现在输出中。</strong>
+</div>
+
+<div style="text-align:center;margin:1.5rem 0;color:#888;font-size:.78rem">— 框架文档结束 —<br>步骤 2 &amp; 6 需在发表前完成。</div>
+
+</div>
+
+<script>
+(function() {
+  const btns = document.querySelectorAll('.lang-switcher button');
+  const zhDiv = document.querySelector('.lang-zh');
+  const enDiv = document.querySelector('.lang-en');
+
+  function setLang(lang) {
+    btns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    zhDiv.classList.remove('visible');
+    enDiv.classList.remove('visible');
+    document.body.classList.remove('lang-bi');
+
+    if (lang === 'zh') {
+      zhDiv.classList.add('visible');
+    } else if (lang === 'en') {
+      enDiv.classList.add('visible');
+    } else {
+      document.body.classList.add('lang-bi');
+      zhDiv.classList.add('visible');
+      enDiv.classList.add('visible');
+    }
+
+    if (window.MathJax && MathJax.typesetPromise) {
+      MathJax.typesetPromise();
+    }
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+})();
+</script>
+
 </body>
 </html>

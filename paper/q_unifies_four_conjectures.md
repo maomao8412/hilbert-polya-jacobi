@@ -1,4 +1,5 @@
-# $q = \sqrt{2} - 1$：串联四大猜想的钥匙
+# 八字曲线之钥：一个常数，四个猜想
+## *The Lemniscate Key: One Constant, Four Conjectures*
 
 **陈倬**  
 2026年9月1日
