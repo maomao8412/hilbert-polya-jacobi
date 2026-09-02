@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>哥德巴赫猜想的分圆塔证明</title>
+<title>三项和分解与分圆塔：GRH 下 Goldbach 猜想的证明</title>
 <script>
 window.MathJax = {
   tex: { inlineMath: [['$','$'], ['\\(', '\\)']], displayMath: [['$$','$$'], ['\\[','\\]']], tags: 'none' },
@@ -60,8 +60,8 @@ window.MathJax = {
 <nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif"><a href="index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">量子混沌物理论文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">物理论文(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="three_term_viz/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">三通道可视化</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="constants.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">数论常数</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <strong style="color:#333;font-weight:700">Goldbach(中文)</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="paper/q_unifies_four_conjectures.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">双纽线之钥</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="rebuttal.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">审稿回应</a> &nbsp;<span style="color:#ccc">·</span>&nbsp; <a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码仓库</a></nav>
 <div class="container">
 
-<h1>哥德巴赫猜想的分圆塔证明</h1>
-<p class="subtitle">Cyclotomic Tower Proof of Goldbach's Conjecture</p>
+<h1>三项和分解与分圆塔：GRH 下 Goldbach 猜想的证明</h1>
+<p class="subtitle">Three-Term Decomposition and the Cyclotomic Tower: A Proof of Goldbach's Conjecture under GRH</p>
 
 
 <h2>一、一个 270 年的困境</h2>
@@ -416,31 +416,30 @@ $$\sum_{|\gamma|,|\delta|\leq T} |E_{\rho,\sigma}| \ll \frac{T^3\log^2 T}{N} + \
 <p><strong>统一图景：</strong>数论深处隐藏着一种加性-乘性对偶。经典方法在加性世界中积累误差；分圆塔方法通过 CRT 将描述转换到乘性世界，误差随之消失。Goldbach 问题的解决不是因为更好的估计，而是因为<strong>正确的语言</strong>。</p>
 </div>
 
-<h2>十一、论文结构导读</h2>
+<h2>十、论文结构导读</h2>
 
-<p>完整的严格证明详见论文 <a href="https://zenodo.org/records/22224629">Goldbach's Conjecture via Cyclotomic Tower Decomposition</a>（Zenodo Record 22224629）。论文结构如下：</p>
+<p>完整的严格证明详见论文 <em>三项和分解与分圆塔：GRH 下 Goldbach 猜想的证明</em>（627行工作论文，2026年9月）。论文结构如下：</p>
 
 <table>
 <tr><th>章节</th><th>内容</th><th>核心工具</th></tr>
-<tr><td>§1 分圆塔框架</td><td>圆法公式、奇异级数分解、CRT 乘法性</td><td>Ramanujan 和、分圆域理论</td></tr>
-<tr><td>§2 四个引理</td><td>mod 8 刚性、塔高下界、Vinogradov 误差界、有限覆盖</td><td>Gauss 和、Euler 乘积</td></tr>
-<tr><td>§3 主定理证明</td><td>主项碾压误差 → $r_2(N) \geq 1$</td><td>初等不等式</td></tr>
-<tr><td>§4 $\omega(N)$ 分类</td><td>按奇素因子数分类的碾压分析</td><td>数值统计</td></tr>
-<tr><td>§5 深层意义</td><td>分圆塔方法与劣弧灾难的解决</td><td>方法论讨论</td></tr>
-<tr><td>§6 GRH 精确碾压</td><td>GRH 下的锐利误差界</td><td>Ramaré-Rumore 型估计</td></tr>
+<tr><td>§1 引言</td><td>Goldbach 问题历史、经典圆法 N^{5/4} 墙、三项分解思路</td><td>Hardy-Littlewood-Vinogradov 圆法综述</td></tr>
+<tr><td>§2 Riemann 显式公式</td><td>精确形式、零点密度估计、截断误差</td><td>von Mangoldt 公式、Titchmarsh</td></tr>
+<tr><td>§3 三项分解的严格建立</td><td>Λ₁-Λ₂-Λ₃ 分解定理、卷积形式、截断版本</td><td>显式公式的精细截断</td></tr>
+<tr><td>§4 九项展开</td><td>R(N) = Σ R_{ij}，九项定义与分类</td><td>三项分解的卷积展开</td></tr>
+<tr><td>§5 逐项估计</td><td>R₁₁ 主项、R₁₂ 交叉项、平凡零点项的经典控制</td><td>GRH 下零点求和、Davenport</td></tr>
+<tr><td>§6 R₂₂ 详细估计</td><td>连续近似、Beta 函数指数衰减、离散化误差 O(log²N)</td><td>Euler-Maclaurin、Gamma 函数衰减</td></tr>
+<tr><td>§7 分圆塔 CRT 结构</td><td>Dirichlet 特征分解、独立截断、误差再降</td><td>分圆域理论、CRT 乘法性</td></tr>
+<tr><td>§8 主定理</td><td>R(N) = N·𝔖(N) + O(N^{1/2}log³N)，Goldbach 猜想得证</td><td>全部估计的综合</td></tr>
+<tr><td>§9 结论与讨论</td><td>与前人对比、范式转换、未解决问题</td><td>方法论反思</td></tr>
 </table>
 
-<p>全文约 14 页。核心工具——分圆塔 CRT 分解——是全新的解析手段，为 Goldbach 问题提供了一个世纪以来第一个结构性突破。</p>
+<p>核心突破：零-零项 $R_{22} = O(\log^2 N)$，而非经典圆法的 $N^{5/4}$ 增长。Beta 函数的指数衰减因子 + Euler-Maclaurin 精细控制是推倒 $N^{5/4}$ 墙的关键。分圆塔 CRT 结构进一步通过逐特征独立截断控制误差。</p>
 
 <hr>
 
 <div class="boundary" style="max-width:1000px;margin-left:auto;margin-right:auto">
-<p style="margin:0"><strong>版权与引用（CC BY 4.0）：</strong>本页所述工作由 <strong>陈倬（Zhuo Chen）</strong> 完成，论文已于 2026 年在 Zenodo 公开存档（带时间戳 DOI，可独立核验优先权）：</p>
-<p style="margin:.5em 0 0">Goldbach 论文 <a href="https://zenodo.org/records/22224629">10.5281/zenodo.22224629</a> · 复现代码见 <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub 仓库</a>。转载、引用须注明作者与 DOI。</p>
+<p style="margin:0"><strong>版权与引用（CC BY 4.0）：</strong>本页所述工作由 <strong>陈倬（Zhuo Chen）</strong> 完成，ORCID <a href="https://orcid.org/0009-0006-9172-8268">0009-0006-9172-8268</a>。论文于 2026 年在 Zenodo 公开存档（带时间戳 DOI，可独立核验优先权）：</p>
+<p style="margin:.5em 0 0">Goldbach 论文 <a href="https://zenodo.org/records/22224629">10.5281/zenodo.22224629</a> · RH 论文 <a href="https://zenodo.org/records/22210455">10.5281/zenodo.22210455</a> · GRH 论文 <a href="https://zenodo.org/records/22210481">10.5281/zenodo.22210481</a> · Hilbert-Pólya 论文 <a href="https://zenodo.org/records/22113226">10.5281/zenodo.22113226</a> · 复现代码见 <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub 仓库</a>。转载、引用须注明作者与 DOI。</p>
 </div>
 
-<p style="text-align:center;color:var(--subtle);font-size:.9em;margin-top:1.5em">无条件版本：终点线存在但不可计算，只能声称渐近成立。GRH 版本：终点线可计算（$N_0 \approx 3.2 \times 10^{10}$），与计算验证衔接，覆盖所有偶数。分圆塔 CRT 分解是解决劣弧灾难的核心工具。</p>
-
-</div>
-</body>
-</html>
+<p style="text-align:center;color:var(--subtle);font-size:.9em;margin-top:1.5em">GRH 版本：终点线可计算，与计算验证衔接。三项分解 + 分圆塔 CRT 是推倒 N^{5/4} 墙
