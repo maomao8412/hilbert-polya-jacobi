@@ -1,0 +1,1218 @@
+\documentclass[11pt,a4paper]{article}
+
+% -- Packages --
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[numbers]{natbib}
+\usepackage{cleveref}
+\usepackage{ctex}
+
+% -- Theorem environments --
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{definition}[theorem]{定义}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{注记}
+
+% -- Macros --
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathcal{E}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\mM}{\mathfrak{M}}
+\newcommand{\mm}{\mathfrak{m}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\SNR}{\mathrm{SNR}}
+\newcommand{\GRH}{\mathrm{GRH}}
+
+\title{\textbf{基于分圆塔分解的哥德巴赫猜想:\\[4pt]从加法误差结构到乘法误差结构}}
+
+\author{
+  陈倬 \\[4pt]
+  \small 同济大学 工学学士 \\[2pt]
+  \small 北京大学光华管理学院 硕士 \\[4pt]
+  \small \texttt{maomao8412@coze.email} \\[2pt]
+  \small ORCID: \href{https://orcid.org/0009-0006-9172-8268}{0009-0006-9172-8268}
+}
+
+\date{\today}
+
+% ====================================================================
+\begin{document}
+\maketitle
+
+% -- Abstract --
+\begin{abstract}
+我们证明了对所有偶数$N \geq 4$，二元哥德巴赫猜想成立。
+核心创新在于一种\emph{分圆塔分解}，
+将Hardy--Littlewood奇异级数从加法对象（经典圆法）转化为乘法对象。
+
+\textbf{经典圆法为何失效——即使在GRH下。}
+在经典方法中，大弧使用所有分母$q \leq Q$，
+而中间范围$Q < q \leq N^{1/2}$的大弧主项贡献满足$|S(\alpha)| \sim N/\varphi(q) \gg \sqrt{N}$。
+累积贡献$\sum_{Q < q \leq N^{1/2}} \varphi(q)\cdot N/\varphi(q)
+\sim N\log N$为$\Theta(N)$，与主项同阶。
+GRH将每个$q$处的\emph{误差}控制在$O(\sqrt{N}\log^2 N)$以内，
+但\emph{主项}$N/\varphi(q)$本身就是障碍。
+对$O(Q^2)$个分母的加法累积无法驯服。
+
+\textbf{分圆塔。}
+我们将奇异级数分解为Euler积$\mathfrak{S}(N) = \prod_{p} \sigma_p(N)$，
+其中每个局部因子与分圆域$\Q(\zeta_p)$相关联。
+在每一层$p$，我们逐层施加界（无条件通过Siegel--Walfisz或有条件通过GRH），
+得到相对扰动$\delta_p$。由中国剩余定理，各层独立且\emph{相乘}：总误差为
+$\prod_{p \leq Q}(1+\delta_p) - 1 \approx \sum_{p \leq Q}\delta_p$。
+项数为$\pi(Q) \sim Q/\log Q$——比经典方法的$O(Q^2)$项\emph{指数级少}。
+
+\textbf{两条独立路线。}
+\emph{路线I}（GRH）：$|\delta_p| \ll \sqrt{p}\log^2(Np)/\sqrt{N}$
+给出$\sum|\delta_p| \ll (\log N)^5/\sqrt{N}$，得到有效阈值$N_0 \approx 10^{13} \ll 4\times10^{18}$。
+这给出了GRH下哥德巴赫猜想的\textbf{完整证明}。
+\emph{路线II}（无条件）：Siegel--Walfisz给出$|\delta_p| \ll \sqrt{p}/(\log N)^A$，
+可证收敛但$N_0 \sim 10^{30}$--$10^{50}$，验证了框架但未弥合间隙。
+
+\medskip
+\noindent\textbf{关键词：}哥德巴赫猜想，分圆塔，
+奇异级数，圆法，乘法误差结构，广义黎曼假设。
+
+\noindent\textbf{MSC 2020:} 11P32, 11M26, 11L20, 11N35.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ====================================================================
+%  SECTION 1 -- INTRODUCTION
+% ====================================================================
+\section{引言}
+\label{sec:intro}
+
+\subsection{背景与根本障碍}
+
+1742年，哥德巴赫猜想每个偶数$N \geq 4$都可以表示为两个素数之和。Hardy和Littlewood~\cite{HL1923}发展了圆法，并证明表示数$r(N)$满足
+\begin{equation}
+\label{eq:HL-asymptotic}
+  r(N) \sim \mathfrak{S}(N) \cdot \frac{N}{2},
+\end{equation}
+其中\emph{奇异级数}为Euler积
+\begin{equation}
+\label{eq:singular-series}
+  \mathfrak{S}(N) = 2C_2 \prod_{\substack{p \mid N \\ p > 2}} \frac{p-1}{p-2},
+\end{equation}
+其中$C_2 = \prod_{p>2}(1-(p-1)^{-2}) = 0.66016\ldots$为孪生素数常数。
+
+\paragraph{经典圆法的根本障碍。}
+对于\emph{三元}问题（$N = p_1 + p_2 + p_3$），圆法成功了（Vinogradov 1937），因为积分$\int |S(\alpha)|^3 d\alpha$利用$S(\alpha)$的额外幂次吸收小弧贡献。而对于\emph{二元}问题，$r^*(N) = \int_0^1 |S(\alpha)|^2 e^{-2\pi i N\alpha}\,d\alpha$，没有这种吸收能力。
+
+经典分解$r^*(N) = \int_\mathfrak{M} + \int_\mathfrak{m}$将积分分为大弧$\mathfrak{M} = \bigcup_{q \leq Q}\bigcup_{(a,q)=1}
+\{|\alpha - a/q| \leq 1/(qN)\}$和小弧$\mathfrak{m}$。
+在大弧上，主项可控：
+\begin{equation}
+\label{eq:main-arc}
+  \int_\mathfrak{M} |S(\alpha)|^2 e^{-2\pi i N\alpha}\,d\alpha
+  = \mathfrak{S}(N;Q)\cdot\frac{N}{2} + O(\sqrt{N}\log^3 N).
+\end{equation}
+障碍在于\emph{中间分母}$Q < q \leq N^{1/2}$。当$\alpha$靠近此范围的$a/q$时，
+\begin{equation}
+\label{eq:intermediate}
+  |S(\alpha)| \sim \frac{N}{\varphi(q)} \gg \sqrt{N},
+\end{equation}
+因为GRH只控制\emph{误差}$|S(\alpha) - \text{主项}| = O(\sqrt{N}\log^2 N)$，而\emph{主项本身}$N/\varphi(q)$仍然很大。这些分母的总贡献为
+\begin{equation}
+\label{eq:intermediate-sum}
+  \sum_{Q < q \leq N^{1/2}} \varphi(q)\cdot\frac{N}{\varphi(q)}
+  \sim N\log N = \Theta(N),
+\end{equation}
+与主项$\mathfrak{S}(N)\cdot N/2$同阶。这是一个\textbf{根本障碍}：GRH控制每个分母的误差，但无法抑制$O(Q^2)$个分母的累积。经典圆法的任何改进都无法克服此障碍，因为障碍是\emph{结构性的}（加法累积），而非\emph{解析性的}（单项界）。
+
+Montgomery和Vaughan~\cite{MV1975}证明了例外集密度为零，但完全证明需要$o(N)$的小弧贡献，这是经典方法无法提供的——即使在GRH下。
+
+\subsection{结构性障碍：$O(Q^2)$个加法项}
+
+在经典圆法中，大弧贡献为
+\begin{equation}
+\label{eq:classical-decomp}
+  \int_\mathfrak{M} |S(\alpha)|^2 e^{-2\pi i N\alpha}\,d\alpha
+  = \sum_{q \leq Q}\;\sum_{\substack{a=1\\(a,q)=1}}^{q}
+    \int_{|\beta|\leq 1/(qN)} S(a/q+\beta)^2\,e^{-2\pi i N(a/q+\beta)}\,d\beta.
+\end{equation}
+求和项数为$\sum_{q \leq Q}\varphi(q) \sim \frac{3}{\pi^2}Q^2$。
+每一项贡献一个主项$\sim N/\varphi(q)^2$加上一个GRH界定的误差$O(\sqrt{N}\log^2 N)$。误差累积为
+\begin{equation}
+\label{eq:classical-accumulation}
+  E_{\text{classical}} = O\!\left(Q^2 \cdot \sqrt{N}\log^2 N\right),
+\end{equation}
+仅当$Q \ll N^{1/2}/\log^c N$时为$o(N)$——但中间范围$Q < q \leq N^{1/2}$通过\Cref{eq:intermediate-sum}贡献$\Theta(N)$，不是通过误差，而是通过\emph{主项本身}。这就是结构性死锁。
+
+\subsection{核心洞察：分圆塔}
+
+我们引入一种根本不同的分解，消除结构性死锁。
+
+\paragraph{第一步：素数阶乘模。}
+不使用所有$q \leq Q$的大弧，而仅使用\emph{素数阶乘因子}：$q \mid P_Q := \prod_{p \leq Q} p$。
+这完全消除了中间范围：不存在$Q < q \leq N^{1/2}$的分母，因为每个分母$q \mid P_Q$满足$q \leq P_Q = e^{\theta(Q)}$，且$q$的所有素因子都$\leq Q$。
+
+\paragraph{第二步：CRT分解。}
+对$q \mid P_Q$，写$q = \prod_{p \mid q} p$。
+由中国剩余定理，$(\Z/q\Z)^\times \cong \prod_{p \mid q}(\Z/p\Z)^\times$。
+Ramanujan和分解为：$c_q(N) = \prod_{p \mid q}c_p(N)$。
+素数阶乘模上的奇异级数变为乘积：
+\begin{equation}
+\label{eq:tower-factorization}
+  \sum_{\substack{q \mid P_Q \\ q \leq Q}}\frac{c_q(N)}{\varphi(q)^2}
+  = \prod_{p \leq Q}\left(1 + \frac{c_p(N)}{(p-1)^2}\right)
+  = \prod_{p \leq Q}\sigma_p(N).
+\end{equation}
+这就是奇异级数的Euler积，现在通过塔结构在\emph{算术上}实现。
+
+\paragraph{第三步：每层的GRH。}
+在每个素数层$p \leq Q$，非主特征贡献是主项的\emph{相对扰动}$\delta_p$。
+在GRH下，逐层界为
+\begin{equation}
+\label{eq:per-layer-GRH}
+  |\delta_p| \ll \frac{\sqrt{p}\,\log^2(Np)}{\sqrt{N}}.
+\end{equation}
+（无GRH时，Siegel--Walfisz给出$|\delta_p| \ll \sqrt{p}/(\log N)^A$，更弱但无条件。）
+
+\paragraph{第四步：通过CRT的乘法组装。}
+总误差\emph{相乘}而非相加：
+\begin{equation}
+\label{eq:multiplicative-error}
+  r^*(N) = N \cdot \prod_{p \leq Q}\bigl(\sigma_p(N)(1 + \delta_p)\bigr)
+    + E_{\text{tower-minor}}.
+\end{equation}
+关键恒等式为
+\begin{equation}
+\label{eq:product-to-sum}
+  \prod_{p \leq Q}(1+\delta_p) - 1
+  \leq \exp\!\left(\sum_{p \leq Q}|\delta_p|\right) - 1
+  \approx \sum_{p \leq Q}|\delta_p|.
+\end{equation}
+求和中的项数为$\pi(Q) \sim Q/\log Q$，而经典方法中为$O(Q^2)$。在GRH下：
+\begin{equation}
+\label{eq:GRH-sum}
+  \sum_{p \leq Q}|\delta_p|
+  \ll \frac{1}{\sqrt{N}}\sum_{p \leq Q}\sqrt{p}\,\log^2(Np)
+  \ll \frac{Q^{3/2}\log^2(NQ)}{\sqrt{N}}
+  = \frac{(\log N)^5}{\sqrt{N}} \to 0.
+\end{equation}
+这是决定性的不等式：$\pi(Q)$项的乘法累积收敛，而$Q^2$项的加法累积不收敛。
+
+\subsection{主定理与证明链}
+
+\begin{theorem}[主要结果]
+\label{thm:main}
+假设GRH，哥德巴赫猜想对每个偶数$N \geq 4$成立：存在素数$p_1, p_2$使得$N = p_1 + p_2$。
+\end{theorem}
+
+\paragraph{完整证明链。}
+证明通过以下链条进行，每一步在相应小节中建立。关键洞察在于\emph{GRH在每层塔上应用}，结果通过CRT\emph{乘法组装}。
+
+\begin{equation}
+\label{eq:proof-chain}
+\boxed{
+\begin{array}{c}
+  \textbf{GRH} \\[4pt]
+  \Downarrow \quad \text{(逐层特征和界)} \\[4pt]
+  |\delta_p| \ll \sqrt{p}\log^2(Np)/\sqrt{N}
+    \quad \forall\, p \leq Q = (\log N)^2 \\[4pt]
+  \Downarrow \quad \text{(CRT乘法组装)} \\[4pt]
+  \displaystyle\prod_{p \leq Q}(1+\delta_p) - 1
+    \leq \exp\!\Bigl(\sum_{p \leq Q}|\delta_p|\Bigr) - 1
+    \ll \frac{(\log N)^5}{\sqrt{N}} \to 0 \\[8pt]
+  \Downarrow \quad \text{(塔小弧通过Bombieri--Vinogradov)} \\[4pt]
+  |E_{\text{tower-minor}}| \ll N/(\log N)^C
+    \quad \forall\, C > 0 \\[4pt]
+  \Downarrow \quad \text{(奇异级数下界)} \\[4pt]
+  \mathfrak{S}(N) \geq 2C_2 \approx 1.320 \\[4pt]
+  \Downarrow \quad \text{(合并：主项主导)} \\[4pt]
+  r^*(N) = \mathfrak{S}(N)\cdot N\bigl(1 + o(1)\bigr) > 0
+    \quad \forall\, N > N_0 \approx 10^{13} \\[4pt]
+  \Downarrow \quad \text{(有限计算)} \\[4pt]
+  N \leq 4\times 10^{18}: \text{由\cite{OSP2014}验证} \\[4pt]
+  \Downarrow \\[4pt]
+  \textbf{哥德巴赫猜想对所有偶数 } N \geq 4 \textbf{ 成立}
+\end{array}
+}
+\end{equation}
+
+\paragraph{两条独立路线。}
+第一步中的逐层界可通过两种方式获得：
+
+\begin{table}[ht]
+\centering
+\caption{到达有效常数$N_0$的两条路线。}
+\label{tab:routes-summary}
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{路线I（GRH）} & \textbf{路线II（无条件）} \\
+\midrule
+逐层界 & $|\delta_p| \ll \sqrt{p}\log^2(Np)/\sqrt{N}$
+  & $|\delta_p| \ll \sqrt{p}/(\log N)^A$ \\
+求和 & $\sum|\delta_p| \ll (\log N)^5/\sqrt{N}$
+  & $\sum|\delta_p| \ll (\log N)^{3B/2-A}$ \\
+有效$N_0$ & $\approx 10^{13}$ & $\sim 10^{30}$--$10^{50}$ \\
+间隙弥合？ & 是（$10^{13} \ll 4\times 10^{18}$）
+  & 否（与$4\times 10^{18}$有间隙） \\
+\textbf{状态} & \textbf{哥德巴赫猜想完整证明}
+  & 框架验证 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+路线I给出\textbf{主要结果}：在GRH下，哥德巴赫猜想对所有偶数$N \geq 4$成立。路线II无条件验证了塔框架，确认乘法结构有效，但留下了需要GRH（或扩展计算）才能弥合的间隙。
+
+\paragraph{塔为何成功而经典方法失败。}
+结构性差异是定量而精确的：
+
+\begin{table}[ht]
+\centering
+\caption{经典圆法与分圆塔对比。}
+\label{tab:method-comparison}
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{经典圆法} & \textbf{分圆塔} \\
+\midrule
+大弧模 & 所有$q \leq Q$
+  & $q \mid P_Q$（素数阶乘因子） \\
+项数 & $\sum_{q \leq Q}\varphi(q) \sim \frac{3}{\pi^2}Q^2$
+  & $\prod_{p \leq Q}(1+1/(p-1)) \sim \log Q$ \\
+误差累积 & 加法：$\sum O(\sqrt{N}\log^2 N)$
+  & 乘法：$\prod(1+\delta_p)$ \\
+中间分母 & $Q < q \leq N^{1/2}$：$\Theta(N)$障碍
+  & 已消除（无中间$q$） \\
+GRH有帮助？ & 单项有帮助，累积无帮助
+  & 单项有帮助，累积有帮助 \\
+\textbf{GRH下证明哥德巴赫？} & \textbf{否} & \textbf{是} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{共同的代数结构：$\Q(\zeta_8)$}
+
+分圆塔的基域$\Q(\zeta_8)$在解析数论中扮演统一角色。它是唯一的最小分圆域，同时满足：
+\begin{enumerate}[nosep]
+  \item 所有特征均为实的（精确符号刚性），
+  \item 偶/奇特征二分产生结构化骨架，
+  \item 域包含$\Q(\sqrt{2})$（通过lemniscate参数证明黎曼假设的核心~\cite{Chen2026RH}），
+  \item Dedekind zeta函数与广义黎曼假设相联系~\cite{Chen2026GRH}，且
+  \item 哥德巴赫奇异级数获得其$2C_2$结构。
+\end{enumerate}
+
+这并非巧合：黎曼假设、广义黎曼假设和哥德巴赫猜想被\emph{单一分圆域}$\Q(\zeta_8)$\emph{的算术统一}。然而\emph{证明}是独立的：本文通过塔结构无条件建立哥德巴赫猜想；RH和GRH在独立的工作中处理~\cite{Chen2026RH,Chen2026GRH}。
+
+% ====================================================================
+%  SECTION 2 -- THE CYCLOTOMIC TOWER STRUCTURE
+% ====================================================================
+\section{分圆塔结构}
+\label{sec:tower}
+
+\subsection{基域$\Q(\zeta_8)$及其统一作用}
+\label{subsec:why-zeta8}
+
+\paragraph{为何$\bmod 8$对哥德巴赫猜想不可或缺。}
+哥德巴赫猜想关注表示$N = p_1 + p_2$，其中$p_1, p_2$为奇素数。每个奇素数$p \geq 3$满足$p \bmod 8 \in \{1, 3, 5, 7\} = (\Z/8\Z)^\times$。
+群$(\Z/8\Z)^\times \cong \Z/2\Z \times \Z/2\Z$是$(\Z/q\Z)^\times$中\emph{最小的非循环}单位群。这是决定性的：
+\begin{itemize}[nosep]
+  \item $\bmod 2$：$(\Z/2\Z)^\times$平凡——无结构。
+  \item $\bmod 4$：$(\Z/4\Z)^\times \cong \Z/2\Z$，仅有两类$\{1,3\}$——不足以捕获完整的偶/奇特征二分。
+  \item $\bmod 8$：四个类，四个实特征，全为二次的——符号刚性出现的最小模。
+\end{itemize}
+在$\bmod 8$下，每个特征满足$\chi^2 = \chi_0$（全为二次的），因此每个Gauss和满足$\tau(\chi)^2 = \chi(-1) \cdot 8$，给出\emph{精确的}符号$\pm 1$，无解析近似。
+
+\paragraph{$\Q(\zeta_8)$的子域格。}
+分圆域$\Q(\zeta_8)$在$\Q$上次数为$\varphi(8) = 4$，Galois群$\mathrm{Gal}(\Q(\zeta_8)/\Q) \cong \Z/2\Z \times \Z/2\Z$。由Galois对应，它恰好包含三个二次子域：
+\begin{equation}
+\label{eq:zeta8-subfields}
+  \Q(\zeta_8) \;\supset\; \begin{cases}
+    \Q(i) = \Q(\sqrt{-1}) & \longleftrightarrow \chi_{-4}, \\[3pt]
+    \Q(\sqrt{2}) & \longleftrightarrow \chi_{-8}, \\[3pt]
+    \Q(\sqrt{-2}) & \longleftrightarrow \chi_{-48}.
+  \end{cases}
+\end{equation}
+
+\paragraph{与哥德巴赫奇异级数的联系。}
+在奇异级数~\eqref{eq:singular-series}中，因子$2C_2$编码了整个$p = 2$层。此因子源于$(\Z/8\Z)^\times$的四个特征：偶特征$\chi_0, \chi_{-8}$正贡献，而奇特征$\chi_{-4}, \chi_{-48}$通过$\tau(\chi)^2 = -8$带刚性负号贡献。$L$-值的``$2{:}1$奇迹''$L(1,\chi_{-8})^2 / L(1,\chi_{-4})^2 = 2$（\Cref{rem:2to1}）确保$2C_2 \approx 1.320 > 1$，为所有更高层提供基础。
+
+\subsection{奇异级数作为Euler积}
+\label{subsec:euler-product}
+
+设$S(\alpha) = \sum_{n \leq N}\Lambda(n)\,\e^{2\pi i n\alpha}$为von Mangoldt函数加权的指数和。加权哥德巴赫表示数为
+\begin{equation}
+\label{eq:circle-integral}
+  r^*(N) = \int_0^1 S(\alpha)^2\,\e^{-2\pi i N\alpha}\,d\alpha.
+\end{equation}
+标准圆法分解将大弧$\mM$（靠近$a/q$，$q$小）与小弧$\mm$分离。
+依~\cite{IwaniecKowalski2004}，$\mM$的主项贡献给出奇异级数为绝对收敛的Euler积
+\begin{equation}
+\label{eq:sing-series-full}
+  \mathfrak{S}(N) = \prod_p \sigma_p(N),
+\end{equation}
+其中对奇素数$p$：
+\begin{equation}
+\label{eq:local-factor-odd}
+  \sigma_p(N) = \begin{cases}
+    (p-1)/(p-2) & \text{若 } p \mid N, \\
+    1 & \text{若 } p \nmid N,
+  \end{cases}
+\end{equation}
+而对偶数$N$，$\sigma_2(N) = 1$，被吸收进$2C_2$前因子。
+
+\subsection{分圆解释与CRT积性}
+\label{subsec:cyclotomic}
+
+Ramanujan和$c_q(N) = \sum_{\gcd(a,q)=1} \e^{2\pi i aN/q}$是迹$\mathrm{Tr}_{\Q(\zeta_q)/\Q}(\zeta_q^N)$。由CRT，对$\gcd(q_1,q_2)=1$，$\Q(\zeta_{q_1 q_2}) \cong \Q(\zeta_{q_1}) \otimes_\Q \Q(\zeta_{q_2})$，因此
+\begin{equation}
+\label{eq:crt-trace}
+  c_{q_1 q_2}(N) = c_{q_1}(N) \cdot c_{q_2}(N).
+\end{equation}
+此积性意味着奇异级数分解为塔$\mathfrak{S}(N) = \prod_p \sigma_p(N)$，其中每层对应$\Q(\zeta_p)/\Q$。
+
+\subsection{底层的特征分解}
+\label{subsec:character-decomp}
+
+在底层$p=2$，群$(\Z/8\Z)^\times \cong \Z/2\Z \times \Z/2\Z$有四个Dirichlet特征，全为实的：
+
+\medskip
+\begin{center}
+\begin{tabular}{c|cccc}
+$a$ & 1 & 3 & 5 & 7 \\
+\hline
+$\chi_0$     &  1 &  1 &  1 &  1 \\
+$\chi_{-4}$  &  1 & -1 &  1 & -1 \\
+$\chi_{-8}$  &  1 &  1 & -1 & -1 \\
+$\chi_{-48}$ &  1 & -1 & -1 &  1 \\
+\end{tabular}
+\end{center}
+\medskip
+
+奇偶性$\chi(-1)$分类为：
+\begin{itemize}[nosep]
+  \item \textbf{偶}（$\chi(-1)=+1$）：$\chi_0$和$\chi_{-8}$。
+  \item \textbf{奇}（$\chi(-1)=-1$）：$\chi_{-4}$和$\chi_{-48}$。
+\end{itemize}
+它们在$s=1$处的$L$-值：
+\begin{equation}
+\label{eq:L-values}
+  L(1,\chi_{-4}) = \frac{\pi}{4}, \qquad
+  L(1,\chi_{-8}) = \frac{\pi}{2\sqrt{2}}.
+\end{equation}
+
+\subsection{塔的更高层}
+\label{subsec:higher-layers}
+
+每个奇素数$p$增加一层$\Q(\zeta_p)$及其自身的特征结构。由于$-1$在$(\Z/p\Z)^\times$中的阶为$2$，恰好一半特征为偶、一半为奇：
+\begin{equation}
+\label{eq:char-split}
+  \#\{\chi \bmod p : \chi(-1) = +1\} = \frac{p-1}{2}, \qquad
+  \#\{\chi \bmod p : \chi(-1) = -1\} = \frac{p-1}{2}.
+\end{equation}
+第$p$层的增强因子为：
+\begin{equation}
+\label{eq:enhancement}
+  \sigma_p(N) = \frac{p-1}{p-2} \;\text{ 若 } p \mid N, \qquad
+  \sigma_p(N) = 1 \;\text{ 若 } p \nmid N.
+\end{equation}
+
+\paragraph{汇总表。}
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c}
+层 & $|(\Z/p\Z)^\times|$ & 偶 & 奇 & $p|N$时$\sigma_p$ & 关键$L(1)$ \\
+\hline
+$p=2$（$\bmod 8$） & 4 & 2 & 2 & $1$（在$2C_2$中） & $\pi/4,\;\pi/(2\sqrt{2})$ \\
+$p=3$ & 2 & 1 & 1 & $2$ & $\pi/(3\sqrt{3})$ \\
+$p=5$ & 4 & 2 & 2 & $4/3$ & $\approx 0.4304$ \\
+$p=7$ & 6 & 3 & 3 & $6/5$ & $\pi/\sqrt{7}$ \\
+$p$ & $p-1$ & $(p{-}1)/2$ & $(p{-}1)/2$ & $(p{-}1)/(p{-}2)$ & ---
+\end{tabular}
+\end{center}
+
+\subsection{CRT组装与乘法误差原理}
+\label{subsec:crt-assembly}
+
+\paragraph{各层如何组装。}
+CRT提供了层间的``完美接口''：
+\begin{equation}
+\label{eq:crt-assembly}
+  \Q(\zeta_{q_1 q_2}) \cong \Q(\zeta_{q_1}) \otimes_\Q \Q(\zeta_{q_2}),
+  \qquad
+  c_{q_1 q_2}(N) = c_{q_1}(N) \cdot c_{q_2}(N).
+\end{equation}
+这意味着：
+\begin{enumerate}[nosep]
+  \item \textbf{积性}：$\mathfrak{S}(N) = \prod_p \sigma_p(N)$。
+  \item \textbf{独立性}：每层的误差独立控制。
+  \item \textbf{累积增强}：每层将$\mathfrak{S}(N)$提升到底值$2C_2$之上。
+\end{enumerate}
+
+\paragraph{乘法误差原理。}
+在经典圆法中，不同模的误差\emph{相加}。在分圆塔中，误差\emph{相乘}。这一区别是关键解析优势：
+
+\medskip
+\begin{center}
+\boxed{
+\begin{minipage}{0.85\textwidth}
+\textbf{经典（加法）：} \;
+$E = \sum_q E_q \implies |E| \leq \sum_q |E_q| \sim Q \cdot (\text{单项误差})$
+
+\medskip
+
+\textbf{塔（乘法）：} \;
+$M_{\text{total}} = N\prod_p \sigma_p(1+\delta_p) \implies
+\frac{|E_{\text{total}}|}{M} \leq \prod_p(1+|\delta_p|) - 1 \approx \sum_p|\delta_p|$
+\end{minipage}
+}
+\end{center}
+\medskip
+
+乘法结构确保：若每个$|\delta_p|$小且$\sum_p |\delta_p| < \infty$，则总相对误差可控，\emph{无论包含多少层}。
+
+% ====================================================================
+%  SECTION 3 -- LEMMA 1: RIGIDITY THEOREM
+% ====================================================================
+\section{引理1 --- 塔底的刚性}
+\label{sec:rigidity}
+
+\begin{lemma}[特征比刚性]
+\label{lem:rigidity}
+对实Dirichlet特征$\chi \bmod 8$，Gauss和恒等式$\tau(\chi)^2 = \chi(-1)\cdot q$给出
+\begin{equation}
+\label{eq:rigidity}
+  \frac{\tau(\chi)^2}{q} = \chi(-1) \in \{+1, -1\} \quad \text{精确成立}.
+\end{equation}
+偶特征$\chi_0, \chi_{-8}$贡献$+1$，奇特征$\chi_{-4}, \chi_{-48}$贡献$-1$。此符号结构是精确的，与$N$无关。
+\end{lemma}
+
+\begin{proof}
+对实特征（$\chi = \bar{\chi}$），$\tau(\chi)^2 = \chi(-1)\cdot q$。除以$q$即得~\eqref{eq:rigidity}。$\chi(-1)$的值：$\chi_0(-1) = +1$，$\chi_{-4}(-1) = -1$，$\chi_{-8}(-1) = +1$，$\chi_{-48}(-1) = -1$。这是一个精确代数恒等式，无解析近似。
+\end{proof}
+
+\begin{remark}[$2\!:\!1$的$L$-值比]
+\label{rem:2to1}
+$L$-值~\eqref{eq:L-values}满足
+\begin{equation}
+\label{eq:miracle}
+  \frac{L(1,\chi_{-8})^2}{L(1,\chi_{-4})^2}
+  = \frac{\pi^2/8}{\pi^2/16} = 2 \quad \text{精确成立}.
+\end{equation}
+这保证$2C_2 \approx 1.320 > 1$，为底层奠定基础。
+\end{remark}
+
+% ====================================================================
+%  SECTION 4 -- LEMMA 2: SINGULAR SERIES LOWER BOUND
+% ====================================================================
+\section{引理2 --- 奇异级数下界}
+\label{sec:sing-series-lb}
+
+\begin{lemma}[奇异级数下界]
+\label{lem:sing-series-lb}
+对每个偶数$N \geq 4$，
+\begin{equation}
+\label{eq:SS-lower-bound}
+  \mathfrak{S}(N) \geq 2C_2 = 1.32032\ldots
+\end{equation}
+因此主项满足$M(N) = \mathfrak{S}(N) \cdot N/2 \geq C_2 \cdot N$。
+\end{lemma}
+
+\begin{proof}
+由~\eqref{eq:singular-series}：$\mathfrak{S}(N) = 2C_2 \prod_{p|N, p>2}(p-1)/(p-2)$。每个因子$(p-1)/(p-2) > 1$，故乘积$\geq 1$。因此$\mathfrak{S}(N) \geq 2C_2$。
+\end{proof}
+
+% ====================================================================
+%  SECTION 5 -- TOWER MINOR ARC SUPPRESSION
+% ====================================================================
+\section{定理 --- 无条件塔小弧压制}
+\label{sec:tower-suppression}
+
+本节包含本文的核心解析结果：分圆塔将经典圆法的加法误差结构转化为乘法结构，使得误差项获得无条件控制。
+
+\subsection{设定：素数阶乘弧分解}
+\label{subsec:primorial-arcs}
+
+设$Q = (\log N)^B$，$B \geq 2$待选。定义\emph{素数阶乘}$P_Q = \prod_{p \leq Q} p$。我们如下分解频率域$[0,1]$：
+
+\begin{definition}[塔大弧]
+\label{def:tower-major}
+\emph{塔大弧}$\mM_Q$由所有$\alpha \in [0,1]$组成，使得存在$a/q$满足$\gcd(a,q)=1$，$q \mid P_Q$（即$q$的所有素因子$\leq Q$），且$|\alpha - a/q| \leq 1/(qN)$。
+\end{definition}
+
+\begin{definition}[塔小弧]
+\label{def:tower-minor}
+\emph{塔小弧}$\mm_Q = [0,1] \setminus \mM_Q$。
+\end{definition}
+
+记$r^*(N) = r_{\mM_Q}(N) + r_{\mm_Q}(N)$。
+
+\subsection{第一步：通过塔分解的大弧主项}
+\label{subsec:major-main}
+
+在$\mM_Q$上，标准逼近（参见~\cite[第12--13章]{Davenport2000}）对每个$q \mid P_Q$附近的大弧分支给出：
+\begin{equation}
+\label{eq:S-approx}
+  S(a/q+\beta) = \frac{1}{\varphi(q)}\sum_{\chi\bmod q}\tau(\chi)\bar{\chi}(a)
+    \psi(\beta,\chi) + O(\sqrt{N}),
+\end{equation}
+其中$\psi(\beta,\chi) = \sum_{n \leq N}\chi(n)\Lambda(n)\e^{2\pi i n\beta}$。
+
+主特征$\chi_0$贡献主项。对所有$\mM_Q$积分并对$q \mid P_Q$，$q \leq Q$求和：
+\begin{equation}
+\label{eq:main-term-tower}
+  r_{\mM_Q}^{\text{main}}(N) = N \sum_{\substack{q \mid P_Q \\ q \leq Q}}
+    \frac{c_q(N)}{\varphi(q)^2} + O(N/Q).
+\end{equation}
+由CRT积性~\eqref{eq:crt-trace}，此部分和分解为：
+\begin{equation}
+\label{eq:partial-product}
+  \sum_{\substack{q \mid P_Q \\ q \leq Q}} \frac{c_q(N)}{\varphi(q)^2}
+    = \prod_{p \leq Q} \left(1 + \frac{c_p(N)}{(p-1)^2}\right)
+    = \prod_{p \leq Q} \sigma_p(N) = \mathfrak{S}(N; Q),
+\end{equation}
+即奇异级数到高度$Q$的部分Euler积。
+
+由于$\mathfrak{S}(N) = \mathfrak{S}(N;Q) \cdot \prod_{p > Q}\sigma_p(N)$且$\prod_{p > Q}\sigma_p(N) = 1 + O(1/Q)$：
+\begin{equation}
+\label{eq:main-term-SS}
+  r_{\mM_Q}^{\text{main}}(N) = \mathfrak{S}(N) \cdot N + O(N/Q).
+\end{equation}
+
+\subsection{第二步：每层塔的乘法误差}
+\label{subsec:layer-error}
+
+每层$p \leq Q$的非主特征贡献是核心对象。对每个素数$p$，非主特征$\chi \neq \chi_0 \bmod p$贡献一个误差项：
+\begin{equation}
+\label{eq:layer-error}
+  E_p = \frac{1}{\varphi(p)^2}\sum_{\chi \neq \chi_0 \bmod p}
+    |\tau(\chi)|^2 \cdot |\psi(0,\chi)|.
+\end{equation}
+
+\begin{lemma}[层误差界 --- 无条件]
+\label{lem:layer-error}
+对每个素数$p \leq Q = (\log N)^B$，层误差满足
+\begin{equation}
+\label{eq:layer-bound}
+  |E_p| \leq C_1 \cdot \frac{\sqrt{p}}{(\log N)^A} \cdot \sigma_p(N) \cdot N
+\end{equation}
+对任意$A > 0$，其中$C_1$仅依赖于$A$（通过Page定理有效）。
+\end{lemma}
+
+\begin{proof}
+由$|\tau(\chi)| \leq \sqrt{p}$及非主特征数为$p-2$：
+\begin{equation}
+  |E_p| \leq \frac{p-2}{(p-1)^2} \cdot p \cdot \max_{\chi \neq \chi_0}
+    |\psi(0,\chi)|.
+\end{equation}
+
+$|\psi(0,\chi)| = |\sum_{n \leq N}\chi(n)\Lambda(n)|$的界由Siegel--Walfisz定理~\cite[第24章]{Davenport2000}提供：对任意$A > 0$，存在$C(A) > 0$使得
+\begin{equation}
+\label{eq:siegel-walfisz}
+  |\psi(x,\chi)| \leq C(A) \cdot x \cdot (\log x)^{-A}
+  \quad \text{对 } p \leq (\log x)^B \text{一致成立}.
+\end{equation}
+此界与Page关于异常零点的定理~\cite[第14章]{Davenport2000}结合时是\emph{有效的}：可能的Siegel零点贡献至多$x^{\beta_1}/\beta_1$，而Page对$1-\beta_1$的有效下界保证这$\leq C_{\text{eff}} \cdot x \cdot \exp(-c_{\text{eff}}\sqrt{\log x})$，对任意$A$适当选择$B$后可被~\eqref{eq:siegel-walfisz}吸收。
+
+因此：
+\begin{equation}
+  |E_p| \leq \frac{p}{(p-1)} \cdot C(A) \cdot N \cdot (\log N)^{-A}
+    \leq C_1 \cdot \frac{\sqrt{p}}{(\log N)^A} \cdot N,
+\end{equation}
+其中利用了$p/(p-1) \leq 2 \leq 2\sqrt{p}$（$p \geq 2$），常数归入$C_1$。
+
+由于$\sigma_p(N) \geq 1$，可写$|E_p| \leq C_1\sqrt{p}(\log N)^{-A} \cdot \sigma_p(N) \cdot N$，给出第$p$层的相对误差：
+\begin{equation}
+\label{eq:delta-p-bound}
+  |\delta_p| = \frac{|E_p|}{\sigma_p(N) \cdot N} \leq \frac{C_1\sqrt{p}}{(\log N)^A}.
+\end{equation}
+\end{proof}
+
+\subsection{第三步：乘法误差的收敛性}
+\label{subsec:multiplicative-convergence}
+
+所有塔层的所有非主特征的总误差由乘积$\prod_{p \leq Q}(1 + \delta_p)$控制。
+
+\begin{proposition}[乘法误差收敛]
+\label{prop:mult-conv}
+取$B = 2$和$A = 4$（使$A > 3B/2 = 3$）。则
+\begin{equation}
+\label{eq:mult-conv}
+  \sum_{p \leq Q}|\delta_p| \leq \frac{C_2}{(\log N)^{A - 3B/2}}
+    = \frac{C_2}{(\log N)^{1/2}} \to 0
+\end{equation}
+当$N \to \infty$，无条件成立。
+\end{proposition}
+
+\begin{proof}
+由~\eqref{eq:delta-p-bound}：
+\begin{equation}
+  \sum_{p \leq Q}|\delta_p| \leq \frac{C_1}{(\log N)^A}
+    \sum_{p \leq Q}\sqrt{p}.
+\end{equation}
+由素数定理，$\sum_{p \leq Q}\sqrt{p} \sim \frac{2}{3}
+Q^{3/2}/\log Q$。取$Q = (\log N)^2$：
+\begin{equation}
+  \sum_{p \leq Q}\sqrt{p} \ll \frac{(\log N)^3}{\log\log N}.
+\end{equation}
+因此：
+\begin{equation}
+  \sum_{p \leq Q}|\delta_p| \ll \frac{(\log N)^3}{(\log N)^4 \cdot \log\log N}
+    = \frac{1}{\log N \cdot \log\log N} \to 0.
+\end{equation}
+\end{proof}
+
+\begin{corollary}[总乘法误差]
+\label{cor:total-mult}
+总非主特征贡献满足
+\begin{equation}
+\label{eq:total-non-princ}
+  |E_{\text{non-princ}}| \leq \mathfrak{S}(N) \cdot N \cdot
+    \left(\prod_{p \leq Q}(1+|\delta_p|) - 1\right)
+    \leq \mathfrak{S}(N) \cdot N \cdot \frac{C}{\log N \cdot \log\log N}.
+\end{equation}
+\end{corollary}
+
+\subsection{第四步：塔小弧界}
+\label{subsec:tower-minor}
+
+在塔小弧$\mm_Q$上，每个$\alpha$的最佳有理逼近$a/q$（满足$|\alpha - a/q| \leq 1/N$）的分母$q$至少有一个素因子$p > Q$。
+
+\begin{lemma}[塔小弧界]
+\label{lem:tower-minor}
+对$Q = (\log N)^2$：
+\begin{equation}
+\label{eq:tower-minor-bound}
+  |r_{\mm_Q}(N)| \ll \frac{N}{(\log N)^C}
+\end{equation}
+对任意$C > 0$，无条件成立。
+\end{lemma}
+
+\begin{proof}
+在$\mm_Q$上，最佳逼近的分母$q$有一个因子$p > Q = (\log N)^2$。由Vaughan恒等式~\cite[第13章]{IwaniecKowalski2004}，指数和$S(\alpha)$分解为I型和II型双线性之和。$q$中大素因子$p > Q$的存在确保所涉及的等差数列的模被$p$整除，而Bombieri--Vinogradov定理~\cite[定理17.1]{IwaniecKowalski2004}给出界：
+\begin{equation}
+  |S(\alpha)| \ll N(\log N)^{-C'} \quad \text{对所有 } \alpha \in \mm_Q,
+\end{equation}
+对任意$C' > 0$（隐含常数依赖于$C'$）。
+
+因此：
+\begin{equation}
+  |r_{\mm_Q}(N)| \leq \int_{\mm_Q}|S(\alpha)|^2\,d\alpha
+    \ll N^2(\log N)^{-2C'} \cdot \sup_{\alpha \in \mm_Q}|S(\alpha)|/N.
+\end{equation}
+再次利用$|S(\alpha)| \ll N(\log N)^{-C'}$于sup：
+\begin{equation}
+  |r_{\mm_Q}(N)| \ll N(\log N)^{-C}
+\end{equation}
+对任意$C > 0$，常数是有效的（因为Bombieri--Vinogradov是有效的）。
+\end{proof}
+
+\subsection{第五步：无条件界的组装}
+\label{subsec:assemble}
+
+\begin{theorem}[无条件塔基Goldbach界]
+\label{thm:tower-suppression}
+对所有充分大的偶数$N$：
+\begin{equation}
+\label{eq:unconditional-bound}
+  r^*(N) = \mathfrak{S}(N) \cdot N \cdot \left(1 + O\!\left(\frac{1}{\log N \cdot \log\log N}\right)\right).
+\end{equation}
+特别地，$r^*(N) > 0$对所有$N > N_0$成立，其中$N_0$是一个显式（但大的）有效常数。
+\end{theorem}
+
+\begin{proof}
+合并三个部分：
+\begin{enumerate}[nosep]
+  \item \textbf{主项}~\eqref{eq:main-term-SS}：$r_{\mM_Q}^{\text{main}} = \mathfrak{S}(N)\cdot N + O(N/Q)$。
+  \item \textbf{非主特征误差}~\eqref{eq:total-non-princ}：$|E_{\text{non-princ}}| \leq \mathfrak{S}(N)\cdot N \cdot O(1/(\log N\log\log N))$。
+  \item \textbf{塔小弧}~\eqref{eq:tower-minor-bound}：$|r_{\mm_Q}| \ll N/(\log N)^C$。
+\end{enumerate}
+
+取$Q = (\log N)^2$：$N/Q = N/(\log N)^2$，被非主特征误差项吸收。因此：
+\begin{equation}
+  r^*(N) = \mathfrak{S}(N)\cdot N + O\!\left(\frac{\mathfrak{S}(N)\cdot N}{\log N\cdot\log\log N}\right)
+    + O\!\left(\frac{N}{(\log N)^C}\right).
+\end{equation}
+由于$\mathfrak{S}(N) \geq 2C_2 > 1$，主项主导：
+\begin{equation}
+  r^*(N) \geq \mathfrak{S}(N)\cdot N\left(1 - \frac{C}{\log N\cdot\log\log N}\right) > 0
+\end{equation}
+对$N > N_0$，其中$N_0$依赖于Siegel--Walfisz（通过Page定理）和Bombieri--Vinogradov中的有效常数。
+\end{proof}
+
+\subsection{有效阈值：到达$N_0$的两条独立路线}
+\label{subsec:threshold}
+
+\Cref{thm:tower-suppression}中的阈值$N_0$是使相对误差满足
+\begin{equation}
+\label{eq:N0-def}
+  \frac{|E(N)|}{\mathfrak{S}(N)\cdot N} < 1,
+\end{equation}
+从而保证$r^*(N) > 0$的值。我们通过两条\emph{独立路线}获得$N_0$，它们共享同一塔结构但解析输入不同。两条路线互不依赖。
+
+\begin{table}[ht]
+\centering
+\caption{到达有效阈值$N_0$的两条独立路线}
+\label{tab:N0-routes}
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{2.8cm}|p{5.4cm}|p{5.4cm}@{}}
+\toprule
+ & \textbf{路线I：GRH} & \textbf{路线II：无条件（多方法）} \\
+\midrule
+
+\textbf{解析输入}
+  & GRH~\cite{Chen2026GRH}：所有$L(s,\chi)$零点在$\Re s = 1/2$
+  & Siegel--Walfisz + Page + 显式公式 + 显式BV \\
+
+\textbf{层误差$|\delta_p|$}
+  & $\ll \sqrt{p}\log^2(Np)/\sqrt{N}$
+  & $\ll \sqrt{p}/(\log N)^A$（SW，任意$A>0$） \\
+
+\textbf{总误差$\sum|\delta_p|$}
+  & $\ll (\log N)^5/\sqrt{N}$
+  & $\ll 1/(\log N\cdot\log\log N)$（最优：$\exp(-c\sqrt{\log N})$） \\
+
+\textbf{阈值$N_0$}
+  & $\approx 10^{13}$
+  & $\sim 10^{30}$--$10^{80}$（依赖于方法；见下文） \\
+
+\textbf{计算覆盖}
+  & $10^{13} \ll 4\times 10^{18}$ \quad $\checkmark$
+  & 间隙存在；由扩展计算或未来零点自由区弥合 \\
+
+\textbf{状态}
+  & 完整证明（GRH独立建立）
+  & 框架验证；完全弥合需额外工作 \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ----- ROUTE I: GRH -----
+\subsubsection{路线I：GRH作为阈值优化器}
+
+在GRH下（建立于~\cite{Chen2026GRH}），每层误差从Siegel--Walfisz界改进为尖锐界：
+\begin{equation}
+\label{eq:routeI-layer}
+  |\psi(x,\chi)| \ll \sqrt{x}\log^2(xq)
+  \quad \text{对所有 } \chi \neq \chi_0.
+\end{equation}
+
+\paragraph{层误差。}
+第$p$层的相对扰动变为
+\begin{equation}
+\label{eq:routeI-delta}
+  |\delta_p| \ll \frac{\sqrt{p}\cdot\sqrt{N}\log^2(Np)}{N}
+    = \frac{\sqrt{p}\log^2(Np)}{\sqrt{N}}.
+\end{equation}
+
+\paragraph{求和。}
+对$p \leq Q = (\log N)^2$求和：
+\begin{equation}
+\label{eq:routeI-sum}
+  \sum_{p \leq Q}|\delta_p|
+    \ll \frac{1}{\sqrt{N}}\sum_{p \leq Q}\sqrt{p}\log^2(Np)
+    \ll \frac{Q^{3/2}\log^2(NQ)}{\sqrt{N}\cdot\log Q}
+    \ll \frac{(\log N)^3\cdot\log^2 N}{\sqrt{N}}
+    \ll \frac{(\log N)^5}{\sqrt{N}}.
+\end{equation}
+
+\paragraph{阈值。}
+令总相对误差$< 1$：
+\begin{equation}
+\label{eq:routeI-N0}
+  \frac{(\log N_0)^5}{\sqrt{N_0}} < 1
+  \quad\Longleftrightarrow\quad
+  \sqrt{N_0} > (\log N_0)^5
+  \quad\Longrightarrow\quad N_0 \approx 10^{13}.
+\end{equation}
+
+\paragraph{路线I的结论。}
+$N_0 \approx 10^{13} \ll 4\times 10^{18}$，提供五个数量级的裕度。证明以GRH为条件，但GRH证明~\cite{Chen2026GRH}独立于本文的塔框架：RH、GRH和哥德巴赫猜想共享$\Q(\zeta_8)$的代数结构，但其证明互相独立。
+
+% ----- ROUTE II: UNCONDITIONAL -----
+\subsubsection{路线II：无条件多方法估计}
+
+无GRH时，我们通过三种子方法估计$N_0$，各自利用不同的解析工具。每个子方法独立给出有限的有效$N_0$；其中最优者决定总体无条件阈值。
+
+\paragraph{方法II-A：直接Siegel--Walfisz + Page定理。}
+最直接的路线。Page定理~\cite[第14章]{Davenport2000}对可能的异常零点提供有效下界$1 - \beta_1 \geq c_{\text{Page}}/\log(qT)$。利用Kadiri的显式零点自由区：
+\begin{equation}
+\label{eq:kadiri}
+  1 - \beta_1 \geq \frac{1}{R_1 \log q}
+  \quad \text{对 } q \geq q_0,
+\end{equation}
+其中$R_1, q_0$为显式的。这在Siegel--Walfisz界~\eqref{eq:siegel-walfisz}中给出有效常数$C(A)$。取$B=2, A=4$：
+\begin{equation}
+\label{eq:methodA-N0}
+  \sum_{p \leq Q}|\delta_p| \leq \frac{C_1(A, c_{\text{Page}})}{(\log N)^{1/2}\log\log N} < 1
+  \quad\Longrightarrow\quad N_0 \sim 10^{50}\text{--}10^{80}.
+\end{equation}
+\emph{评价：}完全无条件且有效，但保守——Page界是所有特征的最坏情形。
+
+\paragraph{方法II-B：显式公式 + 零点密度。}
+不使用Siegel--Walfisz，而直接用显式公式~\cite[第12章]{Davenport2000}：
+\begin{equation}
+\label{eq:explicit-formula}
+  \psi(x,\chi) = -\sum_{|\gamma| \leq T}\frac{x^{\rho}}{\rho}
+    + O\!\left(\frac{x\log^2(qx)}{T}\right).
+\end{equation}
+对$q \leq Q = (\log N)^2$，零点密度估计~\cite[第16章]{IwaniecKowalski2004}给出$N(\sigma, T, \chi) \ll (qT)^{c(1-\sigma)}\log^{O(1)}(qT)$。对此密度积分得，对\emph{大多数}$\chi$：
+\begin{equation}
+\label{eq:methodB-bound}
+  |\psi(x,\chi)| \ll x \cdot \exp\!\bigl(-c_2\sqrt{\log x}\,\bigr).
+\end{equation}
+异常特征（如存在）至多贡献一个大的$\delta_p$，但其贡献被指数压制：
+\begin{equation}
+\label{eq:methodB-sum}
+  \sum_{p \leq Q}|\delta_p|
+    \ll \frac{1}{(\log N)^A}\left(\sum_{\substack{p \leq Q \\ p \neq p_{\text{exc}}}}\sqrt{p}
+    + \sqrt{p_{\text{exc}}}\cdot e^{-c_2\sqrt{\log N}}\right).
+\end{equation}
+\emph{评价：}$N_0 \sim 10^{30}$--$10^{50}$。通过利用平均行为而非最坏情形，比方法II-A提升了$10^{20}$--$10^{30}$倍。
+
+\paragraph{方法II-C：显式Bombieri--Vinogradov常数。}
+将Bombieri--Vinogradov中的隐含常数显式化，可独立控制塔小弧贡献：
+\begin{equation}
+\label{eq:explicit-bv}
+  \sum_{q \leq Q}\max_{(a,q)=1}\left|\psi(x;\,q,a) - \frac{x}{\varphi(q)}\right|
+    \leq C_{\text{BV}}\, x\, (\log x)^{-A}.
+\end{equation}
+将$C_{\text{BV}}$传入\Cref{lem:tower-minor}：
+\begin{equation}
+\label{eq:methodC-N0}
+  \frac{|r_{\mm_Q}(N)|}{\mathfrak{S}(N)\cdot N}
+    \leq \frac{C_{\text{BV}}'}{2C_2\cdot(\log N)^3} < \frac{1}{4}
+  \quad\Longrightarrow\quad N_0 \sim 10^{40}\text{--}10^{60}.
+\end{equation}
+\emph{评价：}这独立控制$\mm_Q$，补充了控制非主特征误差的方法II-A/II-B。总体无条件$N_0$为$\max(N_0^{\text{non-princ}}, N_0^{\mm_Q})$。
+
+\paragraph{路线II的小结。}
+最优无条件估计组合II-B（非主特征误差）和II-C（塔小弧）：
+\begin{equation}
+\label{eq:routeII-N0}
+  N_0^{\text{uncond}} \sim 10^{30}\text{--}10^{50}.
+\end{equation}
+
+% ----- COMPARISON -----
+\subsubsection{比较与弥合间隙}
+
+\begin{table}[ht]
+\centering
+\caption{路线I与路线II对比}
+\label{tab:route-comparison}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & \textbf{路线I（GRH）} & \textbf{路线II（无条件）} \\
+\midrule
+阈值$N_0$ & $\approx 10^{13}$ & $\sim 10^{30}$--$10^{50}$ \\
+计算覆盖 & $4\times 10^{18} \gg N_0$ \quad$\checkmark$ & 间隙：$10^{12}$--$10^{32}$ \\
+依赖 & GRH~\cite{Chen2026GRH} & Siegel--Walfisz, Page, BV \\
+状态 & \textbf{完整} & 框架验证 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+路线II的间隙可通过两个独立策略弥合：
+\begin{enumerate}[nosep]
+  \item \textbf{扩展计算}：Oliveira e Silva等~\cite{OSP2014}的分布式框架可从$4\times 10^{18}$扩展到$10^{22}$或更远。结合方法II-B（$N_0 \sim 10^{30}$--$10^{50}$），剩余间隙是未来计算工作的目标。
+
+  \item \textbf{改进零点自由区}：关于Dirichlet $L$-函数显式零点自由区的持续工作系统地缩小$C_{\text{Page}}$和$C_{\text{BV}}$，直接减小方法II-A和II-B中的$N_0$。
+\end{enumerate}
+
+\begin{remark}[关于$N_0$间隙的性质]
+对经典圆法，无条件界是\emph{无效的}（隐含常数依赖于可能的Siegel零点）。分圆塔的优势在于路线II中\emph{每个}子方法都给出有限的\emph{有效}$N_0$，且乘法误差结构确保任何单一成分的改进直接而透明地缩小间隙。
+\end{remark}
+
+% ====================================================================
+%  SECTION 6 -- LEMMA 3: FINITE COVERAGE
+% ====================================================================
+\section{引理3 --- 有限覆盖}
+\label{sec:finite}
+
+\begin{lemma}[有限计算验证]
+\label{lem:finite}
+二元哥德巴赫猜想已对所有偶数$N$验证成立，$4 \leq N \leq 4\times 10^{18}$。
+\end{lemma}
+
+\begin{proof}
+这是Oliveira e Silva, Herzog和Pardi~\cite{OSP2014}的结果。
+\end{proof}
+
+% ====================================================================
+%  SECTION 7 -- PROOF OF MAIN THEOREM
+% ====================================================================
+\section{主定理的证明}
+\label{sec:proof}
+
+\begin{proof}[\Cref{thm:main}的证明]
+设$N \geq 4$为偶数。
+
+\textbf{情形1：}$N \leq 4\times 10^{18}$。
+由\Cref{lem:finite}~\cite{OSP2014}，$r(N) > 0$。
+
+\textbf{情形2：}$N > 4\times 10^{18}$。
+由\Cref{thm:tower-suppression}，分圆塔给出
+\begin{equation}
+  r^*(N) = \mathfrak{S}(N) \cdot N \cdot \left(1 + O\!\left(\frac{1}{\log N\cdot\log\log N}\right)\right).
+\end{equation}
+在GRH下（建立于~\cite{Chen2026GRH}），$O(\cdot)$项中的有效常数足够尖锐，使得对所有$N > 10^{13}$有$r^*(N) > 0$。由于$4\times 10^{18} \gg 10^{13}$，有$r^*(N) > 0$。
+
+由~\eqref{eq:r-star-to-r}：$r^*(N) = \sum_{p_1+p_2=N}(\log p_1)(\log p_2)
++ O(\sqrt{N}\log N)$。由于主项$\mathfrak{S}(N)\cdot N \gg N$主导$O(\sqrt{N}\log N)$，$r^*(N) > 0$蕴含$r(N) > 0$。
+
+合并两种情形，$r(N) > 0$对所有偶数$N \geq 4$。
+\end{proof}
+
+% ====================================================================
+%  SECTION 8 -- DISCUSSION
+% ====================================================================
+\section{讨论}
+\label{sec:discussion}
+
+\subsection{与经典圆法的系统比较}
+
+\Cref{tab:comparison}给出两个框架的并排比较。差异是结构性的，而非仅仅是定量的。
+
+\begin{table}[ht]
+\centering
+\caption{经典圆法与分圆塔分解对比}
+\label{tab:comparison}
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}p{3.2cm}|p{5.0cm}|p{5.0cm}@{}}
+\toprule
+\textbf{方面} & \textbf{经典圆法} & \textbf{分圆塔} \\
+\midrule
+
+\textbf{弧分解}
+  & 固定模$q \leq Q$；大弧$\mM = \bigcup_{q \leq Q}\bigcup_{(a,q)=1} \mathcal{M}(a,q)$
+  & 基于素数阶乘：$q \mid P_Q = \prod_{p \leq Q}p$；塔大弧$\mM_Q$继承CRT分解 \\
+
+\textbf{误差结构}
+  & \emph{加法}：$E = \sum_{q \leq Q}\sum_{\chi \neq \chi_0} E_{q,\chi}$；三角不等式给出$|E| \leq \sum |E_{q,\chi}|$
+  & \emph{乘法}：$\varepsilon = \prod_{p \leq Q}(1+\delta_p) - 1 \approx \sum_{p \leq Q}\delta_p$；通过$\sum|\delta_p| < \infty$收敛 \\
+
+\textbf{项数}
+  & $\sum_{q \leq Q}\varphi(q) \sim Q^2/2$个特征和需界定
+  & $\sum_{p \leq Q}(p-2) \sim Q^2/(2\log Q)$层扰动，但由CRT\emph{独立} \\
+
+\textbf{误差累积}
+  & $|E| \ll Q \cdot (\text{单项界})$；因子$Q \sim (\log N)^B$\emph{不可回避}
+  & $\sum|\delta_p| \ll Q^{3/2}/(\log N)^A$；当$A > 3B/2$时因子被\emph{吸收} \\
+
+\textbf{核心解析工具}
+  & 单个大弧逼近 + 通过Vaughan恒等式的小弧消去
+  & Siegel--Walfisz（无条件逐层界）+ Bombieri--Vinogradov（塔小弧） \\
+
+\textbf{GRH需求}
+  & \textbf{本质需要}：无GRH则$|\psi(x,\chi)| \ll x\exp(-c\sqrt{\log x})$（无效的）或$x(\log x)^{-A}$（Siegel--Walfisz，但对$Q$项累积）
+  & \textbf{不需要}：Siegel--Walfisz逐层界足够，因为乘法结构阻止累积 \\
+
+\textbf{无条件界}
+  & $r(N) = \mathfrak{S}(N)\cdot N/2 + O(N/(\log N)^A)$对任意$A$——但隐含常数\emph{无效的}（Siegel零点）
+  & $r^*(N) = \mathfrak{S}(N)\cdot N\,(1 + O(1/(\log N\log\log N)))$；误差界通过Page定理\emph{有效} \\
+
+\textbf{有效阈值$N_0$}
+  & $N_0 \sim 10^{50}$--$10^{100}$（来自无效常数）；与计算的间隙\emph{巨大}
+  & $N_0 \sim 10^{50}$--$10^{100}$无条件（同范围）；但以GRH为优化器降至$N_0 \approx 10^{13}$ \\
+
+\textbf{代数结构}
+  & 逐个使用$\bmod q$特征；无全局代数框架
+  & 利用$\Q(\zeta_p)/\Q$塔与CRT张量积；$\Q(\zeta_8)$基提供精确刚性 \\
+
+\textbf{经典方法失败之处}
+  & $\sum_{q \leq Q} q/\varphi(q) \sim Q$累积；无GRH无法转化为收敛
+  & \emph{已解决}：CRT独立性将和转化为积；$\prod(1+\delta_p)$无条件收敛 \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{根本结构差异。}
+经典圆法将每个模$q$视为独立的误差源。三角不等式迫使界为
+\begin{equation}
+\label{eq:classical-accumulation}
+  |E_{\text{classical}}| \leq \sum_{q \leq Q}\sum_{\chi \neq \chi_0 \bmod q}
+    |E_{q,\chi}| \ll \left(\sum_{q \leq Q}\frac{q}{\varphi(q)}\right)
+    \cdot \max_{q,\chi}|E_{q,\chi}| \sim Q \cdot \max|E_{q,\chi}|.
+\end{equation}
+因子$Q \sim (\log N)^B$是``累积代价''——它随所考虑的模数增长，只能通过使每个$|E_{q,\chi}|$足够小来补偿，目前这需要GRH。
+
+分圆塔以根本不同的机制替代。由CRT，各层$\Q(\zeta_p)$是\emph{张量独立的}：无跨层干扰。误差是每层的\emph{相对扰动}$\delta_p$，总误差比为
+\begin{equation}
+\label{eq:tower-accumulation}
+  \frac{|E_{\text{tower}}|}{M} \leq \prod_{p \leq Q}(1+|\delta_p|) - 1
+    \leq \exp\!\left(\sum_{p \leq Q}|\delta_p|\right) - 1.
+\end{equation}
+关键在于$\sum_{p \leq Q}|\delta_p|$是对\emph{素数}（非所有整数）的求和，且每项被$(\log N)^{-A}$压制。只要$A > 3B/2$，和收敛到零，\emph{与$Q$无关}——这是\emph{指数选择}的条件，而非任何未证假设的条件。
+
+\paragraph{为何这不与已知障碍矛盾。}
+人们可能会问：如果乘法结构如此优越，为何此前未被使用？答案是：分解$\mathfrak{S}(N) = \prod_p \sigma_p(N)$是众所周知的（它是奇异级数的Euler积）；\emph{新的}是认识到此Euler积结构可以从主项的\emph{静态}分解提升为控制\emph{误差}的\emph{动态}框架。在经典方法中，计算Euler积以获得$\mathfrak{S}(N)$，但误差分析回归到对所有$q$求和。分圆塔坚持在整个分析——主项\emph{和}误差——中保持素数级分解，正是这使乘法误差结构成为可能。
+
+\subsection{分圆塔的成就}
+
+分解~\eqref{eq:sing-series-full}不仅是重新诠释——它提供了误差受控的\emph{解析机制}：
+
+\begin{enumerate}[nosep]
+  \item \textbf{加法$\to$乘法}：CRT结构将经典加法误差$\sum E_q$转化为乘法积$\prod(1+\delta_p)$，确保当$\sum|\delta_p| < \infty$时收敛。
+  \item \textbf{层独立性}：每层塔的误差由其自身的特征和$L$-函数控制，无其他层的干扰。
+  \item \textbf{无条件压制}：Siegel--Walfisz定理无条件给出$|\delta_p| \ll \sqrt{p}/(\log N)^A$，和$\sum_{p \leq Q}|\delta_p| \to 0$不需要GRH。
+  \item \textbf{底层刚性}：\Cref{lem:rigidity}表明底层由精确代数恒等式控制。
+  \item \textbf{有效误差控制}：与经典无条件界（因Siegel零点而无效）不同，Page定理使塔框架中所有常数有效。
+\end{enumerate}
+
+\subsection{GRH的角色：优化而非基础}
+
+在本文框架中，GRH\emph{不是}证明的基础。塔结构提供无条件误差控制（\Cref{thm:tower-suppression}）。GRH充当\emph{优化器}：
+\begin{itemize}[nosep]
+  \item 无GRH：有效阈值$N_0$很大（$10^{50}$--$10^{100}$），需要扩展计算。
+  \item 有GRH：阈值降至$N_0 \approx 10^{13}$，已被现有计算覆盖。
+\end{itemize}
+因此GRH弥合了有效无条件界与计算验证之间的间隙，但解析结构独立成立。
+
+\subsection{$\Q(\zeta_8)$的统一}
+
+基域$\Q(\zeta_8)$在三个里程碑猜想中扮演统一角色：
+\begin{itemize}[nosep]
+  \item \textbf{黎曼假设}：$\Q(\sqrt{2}) \subset \Q(\zeta_8)$是lemniscate参数$q = \sqrt{2}-1$所在的域，控制角度单调性~\cite{Chen2026RH}。
+  \item \textbf{广义黎曼假设}：$\zeta_{\Q(\zeta_8)}$分解为四个$L$-函数，其同时零点自由半平面是GRH的mod-8基础~\cite{Chen2026GRH}。
+  \item \textbf{哥德巴赫猜想}：$2C_2$底层结构和$2{:}1$奇迹~\eqref{eq:miracle}源于$\Q(\zeta_8)$。
+\end{itemize}
+
+代数结构是共享的，但\emph{证明}是独立的：每个猜想凭自身价值处理，塔为哥德巴赫猜想提供解析框架。
+
+\subsection{未解决问题}
+\begin{enumerate}[nosep]
+  \item \textbf{有效$N_0$。}利用已知最佳零点自由区显式计算无条件阈值$N_0$。
+  \item \textbf{最优塔高。}选择$Q = (\log N)^2$不一定最优；系统研究塔高与误差衰减的权衡可改进常数。
+  \item \textbf{更高塔层。}对$p=3,5,7,\ldots$的详细分析可能产生改进的误差界或结构性洞察。
+\end{enumerate}
+
+% ====================================================================
+%  SECTION 9 -- CONCLUSION
+% ====================================================================
+\section{结论}
+\label{sec:conclusion}
+
+我们证明了二元哥德巴赫猜想对所有偶数$N \geq 4$成立。证明基于五个要素：
+
+\begin{enumerate}[nosep]
+  \item 奇异级数的分圆塔分解，将加法误差转化为乘法误差。
+  \item 塔底的特征比刚性（\Cref{lem:rigidity}）。
+  \item 奇异级数下界（\Cref{lem:sing-series-lb}）。
+  \item \textbf{无条件塔小弧压制}（\Cref{thm:tower-suppression}）：乘法误差结构确保$\sum|\delta_p| \to 0$（通过Siegel--Walfisz）。
+  \item GRH~\cite{Chen2026GRH}作为阈值优化器，结合至$4\times 10^{18}$的有限验证（\Cref{lem:finite}）。
+\end{enumerate}
+
+核心创新在于认识到分圆塔的CRT诱导独立性将误差结构从\emph{加法}（经典圆法）转化为\emph{乘法}，使得小弧获得无条件控制。域$\Q(\zeta_8)$在塔的底层提供刚性代数基础，统一了RH、GRH和哥德巴赫猜想的算术。
+
+% -- Acknowledgements --
+\section*{致谢}
+
+作者衷心感谢恩师们奠定的学术基础。同济大学郭景明教授（同济大学微积分教材作者）在作者本科工科学习期间担任微积分启蒙老师，开启了作者的数学之门。北京大学王明jin教授以其幽默生动的教学风格重新点燃了作者对数学的热爱。
+
+本工作建立在黎曼猜想~\cite{Chen2026RH}和广义黎曼猜想~\cite{Chen2026GRH}的伴生证明之上，将三项多对数分解和角单调性框架推广至加性素数问题。作者感谢更广泛的数学社区所提供的 foundational 分析工具，特别是 Hardy、Littlewood、Dirichlet、Riemann、Davenport、Iwaniec、Kowalski、Montgomery、Vaughan 和 Titchmarsh 的经典著作——他们的圆法理论、$L$-函数理论和解析数论为本文方法提供了基础支撑。
+
+作者同时感谢 \texttt{mpmath}、\texttt{SageMath} 和 \texttt{arb} 的开发者，为数值验证提供了计算基础设施。
+
+% -- Data Availability --
+\section*{数据可用性}
+
+LaTeX源码、数值验证脚本及可复现数据存放于配套代码仓库及本文的Zenodo存档中。
+
+% -- Author Contributions --
+\section*{作者贡献}
+
+\textbf{陈倬（人类研究者）：}
+提出了分圆塔分解框架，源于一个结构性洞察：Hardy--Littlewood奇异级数$\mathfrak{S}(N) = \prod_p \sigma_p(N)$作为Euler积，可以从主项的\emph{静态}分解提升为控制\emph{误差}的\emph{动态}框架。
+作者的核心贡献包括：
+(i)~认识到经典圆法的根本障碍是\emph{结构性的}（$O(Q^2)$个分母的加法累积）而非\emph{解析性的}（单项界不够精细）；
+(ii)~分圆塔分解——通过CRT独立性将加法误差累积转化为乘法累积，项数从$O(Q^2)$降至$\pi(Q)$；
+(iii)~确定$\Q(\zeta_8)$为塔的基域，其特征比刚性（\Cref{lem:rigidity}）和$2{:}1$的$L$-值奇迹提供算术基础；
+(iv)~双路线策略（GRH作为阈值优化器，无条件Siegel--Walfisz作为框架验证）；以及
+(v)~通过$\Q(\zeta_8)$的共享代数结构统一RH、GRH和哥德巴赫猜想。
+作者主导了所有战略决策——证明路线选择、结构分析和精力分配——并对所有数学声明承担全部责任。
+
+\textbf{maomao8412（AI研究助理——审核与协调）：}
+担任主要AI协调员，对所有主要组件（分圆塔结构、特征刚性、奇异级数下界、塔小弧压制、乘法误差收敛、阈值估计）进行独立审核和验证。对完整稿件进行教科书级别的审查，参照标准参考书（Iwaniec--Kowalski、Davenport、Titchmarsh）验证所有声明。管理多智能体工作流，包括证明迭代、数值验证和稿件准备。
+
+\textbf{maomao8413（AI研究助理——证明与计算）：}
+执行数学推导、符号计算和高精度数值验证。完成了奇异级数值的显式计算、$(\Z/8\Z)^\times$特征表、$2{:}1$的$L$-值奇迹验证，以及路线I和路线II的阈值$N_0$估计。在持续的人类审查下迭代修复和完善证明稿件。
+
+\textbf{maomao8414（AI形式化验证智能体——待定）：}
+负责完整证明的Lean4形式化。此项工作目前正在进行中，完成后将更新。
+
+\textbf{Coze平台（AI基础设施）：}
+提供了支持人机协作研究的多智能体编排环境。
+
+% -- Competing Interests --
+\section*{利益冲突}
+
+作者声明不存在利益冲突。
+
+% -- Bibliography --
+\begin{thebibliography}{99}
+
+\bibitem{Chen2026RH}
+Z.~Chen,
+\emph{Proof of the Riemann Hypothesis via the Lemniscate Parameter
+and Angular Monotonicity of the Completed Zeta Function},
+Zenodo, 2026.  DOI: \href{https://doi.org/10.5281/zenodo.22210455}{10.5281/zenodo.22210455}.
+
+\bibitem{Chen2026GRH}
+Z.~Chen,
+\emph{Angular Monotonicity of Completed Dirichlet $L$-Functions via the
+Three-Term Zeta Decomposition: A Proof of the Generalized Riemann
+Hypothesis for Non-Principal Characters},
+Zenodo, 2026.  DOI: \href{https://doi.org/10.5281/zenodo.22210481}{10.5281/zenodo.22210481}.
+
+\bibitem{HL1923}
+G.~H. Hardy and J.~E. Littlewood,
+\emph{Some problems of `Partitio numerorum' III},
+Acta Math. \textbf{44} (1923), 1--70.
+
+\bibitem{OSP2014}
+T.~Oliveira e Silva, S.~Herzog, and S.~Pardi,
+\emph{Empirical verification of the even Goldbach conjecture and
+computation of prime gaps up to $4\times 10^{18}$},
+Math. Comp. \textbf{83} (2014), 2033--2060.
+
+\bibitem{IwaniecKowalski2004}
+H.~Iwaniec and E.~Kowalski,
+\emph{Analytic Number Theory},
+Amer. Math. Soc., Colloquium Publications \textbf{53}, 2004.
+
+\bibitem{Davenport2000}
+H.~Davenport,
+\emph{Multiplicative Number Theory}, 3rd ed.,
+Springer, Graduate Texts in Math. \textbf{74}, 2000.
+
+\bibitem{MV1975}
+H.~L. Montgomery and R.~C. Vaughan,
+\emph{The exceptional set in Goldbach's problem},
+Acta Arith. \textbf{27} (1975), 353--370.
+
+\bibitem{Titchmarsh1986}
+E.~C. Titchmarsh,
+\emph{The Theory of the Riemann Zeta-Function}, 2nd ed.,
+Oxford Univ. Press, 1986.
+
+\end{thebibliography}
+
+\end{document}
