@@ -96,18 +96,43 @@ $$R(N) = \sum_{n=2}^{N-2} \Lambda(n)\,\Lambda(N-n)$$
 
 <p>$R(N)$ 是一个<strong>加性卷积</strong>——两个 $\Lambda$ 函数在条件 $n+(N-n)=N$ 下配对求和。整个数论界研究了 270 年的问题，最终都要回到这个式子上来。</p>
 
-<p>要理解为什么这么难，我们得看看前人是怎么尝试的、又在哪里撞了墙。</p>
+<h3>三条证明路径，同一面墙</h3>
+
+<p>90 年来，数论界发展出三条独立的研究路径，每条都从不同角度切入 Goldbach 问题，每条都对应不同的核心公式，也每条都在同一个地方卡住——<strong>$N^{5/4}$ 墙</strong>。</p>
+
+<table>
+<tr><th style="width:14%">路径</th><th style="width:28%">核心公式</th><th style="width:20%">思路</th><th style="width:18%">成就</th><th style="width:20%">面临的困难</th></tr>
+<tr>
+<td><strong>圆法</strong><br>Hardy–Littlewood</td>
+<td>$$r_2(N) = \int_0^1 S(\alpha)^2\,e(-N\alpha)\,d\alpha$$
+$$S(\alpha) = \sum_{p \leq N} e(p\alpha)$$</td>
+<td>把表示数写成单位圆上的积分，分成优弧（主项）和劣弧（误差）</td>
+<td>主弧给出主项<br>$N\cdot\mathfrak{S}(N)$</td>
+<td>劣弧贡献<br>$\gg N^2/(\log N)^A$，<strong>大于主项</strong>。对数节省不够，缺多项式节省</td>
+</tr>
+<tr>
+<td><strong>显式公式法</strong><br>Linnik 等</td>
+<td>$$R(N) = \sum_{n=2}^{N-2} \Lambda(n)\Lambda(N-n)$$
+展开为 4 项：极×极、极×零、零×极、零×零</td>
+<td>用 Riemann 显式公式把 $\Lambda(n)$ 展开成极点项 + 零点项，再代入卷积看每一项贡献</td>
+<td>极×极 = 主项<br>极×零 = 振荡项</td>
+<td>零×零项把所有零点<strong>捆在一起</strong>处理。统一截断参数 $T$，无法利用单个零点结构</td>
+</tr>
+<tr>
+<td><strong>分圆/Linnik 方法</strong></td>
+<td>$$R(N) = \frac{1}{\phi(q)} \sum_{\chi\bmod q} \bar{\chi}(N)\,L(1,\chi)^2 + \cdots$$
+按 Dirichlet 特征分解</td>
+<td>用 Dirichlet 特征和 $L$-函数零点，将算术结构连接到谱数据</td>
+<td>将问题分解到各特征分量</td>
+<td>仍然统一截断。乘性结构存在但<strong>未被用于逐个控制谱分量</strong></td>
+</tr>
+</table>
+
+<p>三条路虽然公式不同，但本质上都有一个共同的天花板：<strong>加性描述不可压缩</strong>——无论从积分、显式公式还是特征分解出发，最终都要面对一堆无法逐个控制的"零×零"交叉项。</p>
 
 <h2>二、$N^{5/4}$ 墙——前人为什么过不去</h2>
 
-<p>90 年来，三条独立的研究路径都在 $N^{5/4}$ 处撞墙：</p>
-
-<table>
-<tr><th>路径</th><th>方法</th><th>成就</th><th>卡点</th></tr>
-<tr><td><strong>Hardy–Littlewood–Vinogradov</strong><br>圆法</td><td>在劣弧上估计指数和 $S(\alpha)$</td><td>主弧给出主项 $N\cdot\mathfrak{S}(N)$</td><td>劣弧贡献 $\gg N^2/(\log N)^A$，<strong>大于主项</strong>。对数节省不够，缺多项式节省。</td></tr>
-<tr><td><strong>经典显式公式</strong><br>（Linnik 等）</td><td>用 Riemann 显式公式展开 $\Lambda(n)$，4 项展开</td><td>极×极 = 主项。零的部分贡献被控制。</td><td>零×零项把所有零点<strong>捆在一起</strong>处理。统一截断参数 $T$，无法利用单个零点结构。</td></tr>
-<tr><td><strong>分圆/Linnik 方法</strong></td><td>用 Dirichlet 特征和 $L$-函数零点</td><td>将算术结构连接到谱数据</td><td>仍然统一截断。乘性结构存在但<strong>未被用于逐个控制谱分量</strong>。</td></tr>
-</table>
+<p>三条路径殊途同归，都撞到了同一堵墙。为什么偏偏是 $N^{5/4}$？这个数字不是猜出来的，是一个<strong>零点数量</strong>和<strong>每个零点对贡献</strong>之间的平衡问题。</p>
 
 <h3>2.1 墙是怎么来的：一个计数平衡问题</h3>
 
