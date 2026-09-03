@@ -96,18 +96,45 @@ $$R(N) = \sum_{n=2}^{N-2} \Lambda(n)\,\Lambda(N-n)$$
 
 <p>$R(N)$ is an <strong>additive convolution</strong> — two $\Lambda$ functions paired and summed under the condition $n+(N-n)=N$. The problem that the number theory community has studied for 270 years ultimately reduces to this expression.</p>
 
+<h3>Three Proof Paths, One Wall</h3>
+
+<p>For 90 years, the number theory community has developed three independent research paths. Each approaches the Goldbach problem from a different angle, each corresponds to a different core formula — and each gets stuck in the same place: the <strong>$N^{5/4}$ wall</strong>.</p>
+
+<table>
+<tr><th style="width:14%">Path</th><th style="width:28%">Core Formula</th><th style="width:20%">Approach</th><th style="width:18%">Achievement</th><th style="width:20%">Difficulty</th></tr>
+<tr>
+<td><strong>Circle Method</strong><br>Hardy–Littlewood</td>
+<td>$$r_2(N) = \int_0^1 S(\alpha)^2\,e(-N\alpha)\,d\alpha$$
+$$S(\alpha) = \sum_{p \leq N} e(p\alpha)$$</td>
+<td>Write representation number as integral over unit circle, split into major arcs (main term) and minor arcs (error)</td>
+<td>Major arcs give main term<br>$N\cdot\mathfrak{S}(N)$</td>
+<td>Minor arc contribution<br>$\gg N^2/(\log N)^A$, <strong>larger than main term</strong>. Only log savings, no polynomial savings</td>
+</tr>
+<tr>
+<td><strong>Explicit Formula Method</strong><br>Linnik et al.</td>
+<td>$$R(N) = \sum_{n=2}^{N-2} \Lambda(n)\Lambda(N-n)$$
+4-term expansion: pole×pole, pole×zero, zero×pole, zero×zero</td>
+<td>Expand $\Lambda(n)$ via Riemann explicit formula into pole + zero terms, substitute into convolution term by term</td>
+<td>Pole × Pole = main term<br>Pole × Zero = oscillatory term</td>
+<td>Zero×zero term bundles all zeros <strong>together</strong>. Unified truncation parameter $T$, cannot exploit individual zero structure</td>
+</tr>
+<tr>
+<td><strong>Cyclotomic/Linnik Method</strong></td>
+<td>$$R(N) = \frac{1}{\phi(q)} \sum_{\chi\bmod q} \bar{\chi}(N)\,L(1,\chi)^2 + \cdots$$
+Decomposition by Dirichlet character</td>
+<td>Connect arithmetic structure to spectral data via Dirichlet characters and $L$-functions</td>
+<td>Decomposes problem into character components</td>
+<td>Still uses uniform truncation. Multiplicative structure exists but <strong>not used for individual spectral component control</strong></td>
+</tr>
+</table>
+
+<p>Three paths, different formulas, but one common ceiling: <strong>additive descriptions are incompressible</strong> — whether from integrals, explicit formulas, or character decomposition, you eventually face a pile of uncontrollable "zero×zero" cross terms.</p>
+
 <p>To understand why it has been so difficult, we must look at how previous generations attempted it — and where they hit the wall.</p>
 
 <h2>2. The $N^{5/4}$ Wall — Why Previous Approaches Failed</h2>
 
-<p>For 90 years, three independent research paths have all hit the wall at $N^{5/4}$:</p>
-
-<table>
-<tr><th>Approach</th><th>Method</th><th>Achievement</th><th>Barrier</th></tr>
-<tr><td><strong>Hardy–Littlewood–Vinogradov</strong><br>Circle Method</td><td>Estimate the exponential sum $S(\alpha)$ on minor arcs</td><td>Major arcs give the main term $N\cdot\mathfrak{S}(N)$</td><td>Minor arc contribution $\gg N^2/(\log N)^A$, <strong>larger than the main term</strong>. Logarithmic savings are insufficient; polynomial savings are missing.</td></tr>
-<tr><td><strong>Classical Explicit Formula</strong><br>(Linnik et al.)</td><td>Expand $\Lambda(n)$ via the Riemann explicit formula, 4-term expansion</td><td>Pole × Pole = main term. Zero contributions controlled.</td><td>The zero×zero term treats all zeros as a <strong>bundled whole</strong>. A single truncation parameter $T$ cannot exploit individual zero structure.</td></tr>
-<tr><td><strong>Cyclotomic/Linnik Method</strong></td><td>Use Dirichlet characters and $L$-function zeros</td><td>Connects arithmetic structure to spectral data</td><td>Still uses uniform truncation. Multiplicative structure exists but is <strong>not used to control spectral components individually</strong>.</td></tr>
-</table>
+<p>Three paths converge to the same wall. Why $N^{5/4}$ exactly? This number isn't guessed — it's a balancing problem between zero count and per-pair contribution.</p>
 
 <h3>2.1 How the Wall Arises: A Counting Balance Problem</h3>
 
