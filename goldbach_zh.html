@@ -104,7 +104,18 @@ $$R(N) = \sum_{n=2}^{N-2} \Lambda(n)\,\Lambda(N-n)$$
 
 <h3>2.1 前人的分解：把 $\Lambda$ 整个代入</h3>
 
-<p>Riemann 显式公式给出 von Mangoldt 函数的展开：</p>
+<p><strong>先澄清一个说法：</strong>文献中常说"显式公式给出 4 项展开"。严格说，代入卷积后数学上是 3×3=9 项，所谓"4 项"是<strong>概念上的分类</strong>，不是精确计数：</p>
+
+<ul>
+<li><strong>第1项：主项</strong>——极×极，即 $1\times 1$，给出 $N\cdot\mathfrak{S}(N)$</li>
+<li><strong>第2项：极×振荡交叉项</strong>——极点乘（零点+平凡零点），合在一起估计</li>
+<li><strong>第3项：振荡×振荡项</strong>——（零点+平凡零点）乘（零点+平凡零点），打包成一团</li>
+<li><strong>第4项：各种可忽略小项</strong>——平凡零点相关的指数衰减项，经常一句话带过</li>
+</ul>
+
+<p>前人之所以不把零点和平凡零点拆开，是因为在他们的框架里拆了也没用——反正所有振荡项都只能整体估计，拆不拆一个样。<strong>我们拆成 9 项不是为了凑数，而是因为拆了之后可以对 $R_{22}$（零×零）单独用 Beta 函数分析</strong>——这才是推倒墙的关键。</p>
+
+<p>好，我们来看具体的展开。Riemann 显式公式给出 von Mangoldt 函数的展开：</p>
 <div class="formula">
 $$\Lambda(n) = 1 - \sum_\rho n^{\rho-1} + \sum_{k=1}^\infty n^{-2k-1}$$
 </div>

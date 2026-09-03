@@ -104,7 +104,19 @@ $$R(N) = \sum_{n=2}^{N-2} \Lambda(n)\,\Lambda(N-n)$$
 
 <h3>2.1 The Classical Decomposition: Substituting the Whole of $\Lambda$</h3>
 
-<p>The Riemann explicit formula gives the expansion of the von Mangoldt function:</p>
+<p><strong>A quick clarification:</strong> The literature often says "the explicit formula gives a 4-term expansion." Strictly speaking, after substitution into the convolution, there are mathematically 3×3 = 9 terms. The "4 terms" is a <strong>conceptual classification</strong>, not a precise count:</p>
+
+<ul>
+<li><strong>Term 1: Main term</strong> — pole × pole, i.e., $1\times 1$, giving $N\cdot\mathfrak{S}(N)$</li>
+<li><strong>Term 2: Pole-oscillation cross terms</strong> — pole times (zeros + trivial zeros), estimated together</li>
+<li><strong>Term 3: Oscillation × oscillation</strong> — (zeros + trivial zeros) times (zeros + trivial zeros), treated as one lump</li>
+<li><strong>Term 4: Negligible small terms</strong> — trivial-zero related exponential decay terms, often dismissed in one sentence</li>
+</ul>
+
+<p>The reason predecessors did not separate zeros from trivial zeros is that in their framework, there was no point in splitting — since all oscillatory terms could only be estimated collectively, it made no difference. <strong>We split into 9 terms not for the sake of counting, but because after splitting, $R_{22}$ (zero×zero) can be analyzed individually via the Beta function</strong> — that is the key to tearing down the wall.</p>
+
+<p>Now let us look at the actual expansion. The Riemann explicit formula gives the expansion of the von Mangoldt function:</p>
+
 <div class="formula">
 $$\Lambda(n) = 1 - \sum_\rho n^{\rho-1} + \sum_{k=1}^\infty n^{-2k-1}$$
 </div>
