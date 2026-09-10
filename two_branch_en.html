@@ -144,6 +144,11 @@ Riemann zeros <span class="arrow">→</span> Spacing distribution: GUE?
 <div class="desc">The normalized spacing distribution is clearly bimodal, with a sharp valley around \\(s \\approx 1.30\\). A single GUE distribution cannot reproduce this feature — KL divergence to GUE is 0.002 overall, but the bimodal structure is statistically significant at \\(p < 10^{-200}\\).</div>
 </div>
 
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/spacing_bimodal_hist-1.png" alt="Bimodal spacing distribution of Riemann zeros">
+<div class="figcap">Figure 1. Nearest-neighbor spacing distribution of the first 1,000,000 Riemann zeros (normalized by local mean spacing). The bimodal shape with a sharp valley at s ≈ 1.30 is incompatible with a single GUE distribution. The two peaks correspond to same-branch and cross-branch nearest neighbors.</div>
+</div>
+
 <p>This bimodality is the first clue. If the zeros come from <strong>two interleaved sequences</strong>, the nearest neighbor could be either from the same branch (typically smaller spacing) or from the opposite branch (typically larger spacing). The two peaks correspond to these two cases.</p>
 
 <table class="comparison-table">
@@ -168,6 +173,11 @@ Riemann zeros <span class="arrow">→</span> Spacing distribution: GUE?
 </div>
 </div>
 
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/per_branch_spacing_gue_comparison-1.png" alt="Per-branch spacing distribution vs GUE and Poisson">
+<div class="figcap">Figure 2. Spacing distributions of each branch separately (colored) compared with GUE (dashed) and Poisson (dotted). Each branch alone is much closer to Poisson than to GUE — the GUE-like appearance only emerges when the two interleaved sequences are mixed together.</div>
+</div>
+
 <p>The classification is robust: we tested six different detrending methods, autocorrelation corrections, and permutation tests — the two-branch structure survives all of them. The weight ratio converges to approximately 57:43 as we go up the zero sequence, suggesting an asymptotic proportion fixed by the spectral geometry.</p>
 
 <h2>4. Each Branch Is a Hyperbolic Spectral Curve</h2>
@@ -175,6 +185,11 @@ Riemann zeros <span class="arrow">→</span> Spacing distribution: GUE?
 <p>Beyond the spacing statistics, the deeper structure emerges when we look at the zeros as points on a spectral curve. Using the S-function (the argument of the zeta function on the critical line) and the branch classification, we can reconstruct the "spectral curve" for each branch.</p>
 
 <p>The result: <strong>each branch traces a hyperbola in the (γ, S(γ)) plane</strong>.</p>
+
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/spectral_curve_hyperbolic_fit-1.png" alt="Two hyperbolic spectral branches of Riemann zeros">
+<div class="figcap">Figure 3. The two branches of Riemann zeros in the (γ, S(γ)) plane each form a hyperbola. A hyperbolic spectral curve is the defining feature of a 2×2 Lax pair — the two branches correspond to the two eigenvalues of a matrix-valued function undergoing isospectral deformation.</div>
+</div>
 
 <div class="chain-box">
 <div class="step">Two hyperbolic branches <span class="arrow">×</span> Rational function of degree 2 <span class="arrow">→</span> 2×2 Lax pair</div>
@@ -196,6 +211,11 @@ Riemann zeros <span class="arrow">→</span> Spacing distribution: GUE?
 <li>In our case, the repulsion comes from the shared Lax pair structure — the two branches are eigenvalues of the same matrix, hence cannot cross.</li>
 <li>This is why the agreement with GUE is excellent but not perfect: the underlying object is more structured than a random matrix ensemble.</li>
 </ul>
+</div>
+
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/number_variance_3way-1.png" alt="Number variance: all zeros vs per branch vs GUE prediction">
+<div class="figcap">Figure 4. Number variance Σ²(L) for all zeros combined (black) vs each branch separately (red/blue) vs the GUE prediction (dashed). The full sequence follows GUE at short range but saturates at large L — a signature of two anti-correlated components. Each individual branch has much larger variance, consistent with near-Poisson statistics.</div>
 </div>
 
 <h2>6. Eight Classical Puzzles — Resolved by the Two-Branch Picture</h2>

@@ -144,6 +144,11 @@ window.MathJax = {
 <div class="desc">归一化间距分布呈现清晰的双峰结构，在 \\(s \\approx 1.30\\) 处有一个尖锐的谷值。单一GUE分布无法重现这一特征——尽管整体KL散度仅为0.002，但双峰结构的统计显著性高达 \\(p < 10^{-200}\\)。</div>
 </div>
 
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/spacing_bimodal_hist-1.png" alt="黎曼零点双峰间距分布">
+<div class="figcap">图1. 前100万个黎曼零点的最近邻间距分布（用局域平均间距归一化）。在s≈1.30处出现尖锐谷值的双峰形态，与单一GUE分布完全矛盾。两个峰分别对应同支最近邻和跨支最近邻两种情况。</div>
+</div>
+
 <p>这个双峰结构是第一条线索。如果零点来自<strong>两条交错的序列</strong>，那么最近邻既可能来自同一支（间距通常较小），也可能来自另一支（间距通常较大）。两个峰值恰好对应这两种情况。</p>
 
 <table class="comparison-table">
@@ -168,6 +173,11 @@ window.MathJax = {
 </div>
 </div>
 
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/per_branch_spacing_gue_comparison-1.png" alt="各分支间距分布与GUE和Poisson的对比">
+<div class="figcap">图2. 各分支单独的间距分布（彩色）与GUE（虚线）和Poisson（点线）的对比。每条分支单独看起来都更接近Poisson而非GUE——GUE般的外观只有在两条交错序列混合在一起时才出现。</div>
+</div>
+
 <p>分类具有高度稳健性：我们测试了六种不同的去趋势方法、自相关校正和置换检验——双分支结构全部幸存。权重比沿零点序列向上逐渐收敛到约57:43，表明这是一个由谱几何决定的渐近比例。</p>
 
 <h2>4. 每一支都是一条双曲谱曲线</h2>
@@ -175,6 +185,11 @@ window.MathJax = {
 <p>比间距统计更深刻的结构出现在我们将零点视为谱曲线上的点时。利用S函数（临界线上zeta函数的辐角）和分支分类，我们可以重建每条分支的"谱曲线"。</p>
 
 <p>结果是：<strong>每一条分支都在(γ, S(γ))平面上描绘出一条双曲线</strong>。</p>
+
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/spectral_curve_hyperbolic_fit-1.png" alt="黎曼零点的两条双曲谱分支">
+<div class="figcap">图3. 在(γ, S(γ))平面上，黎曼零点的两条分支各自构成一条双曲线。双曲谱曲线是2×2 Lax对的标志性特征——两条分支对应于经历等谱变形的矩阵值函数的两个特征值。</div>
+</div>
 
 <div class="chain-box">
 <div class="step">两条双曲分支 <span class="arrow">×</span> 二次有理函数 <span class="arrow">→</span> 2×2 Lax对</div>
@@ -196,6 +211,11 @@ window.MathJax = {
 <li>在我们的情形中，排斥来自共享的Lax对结构——两条分支是同一个矩阵的特征值，因此不能交叉。</li>
 <li>这就是为什么与GUE的吻合极好但并不完美：底层对象比随机矩阵系综更有结构。</li>
 </ul>
+</div>
+
+<div class="fig">
+<img src="paper/two_branch_spectral_curve/images/number_variance_3way-1.png" alt="数方差：全体零点 vs 各分支 vs GUE预言">
+<div class="figcap">图4. 全体零点（黑）与各分支单独（红/蓝）的数方差Σ²(L)，以及GUE预言（虚线）。完整序列在短程符合GUE，但在大L处趋于饱和——这是两个反相关分量的标志性特征。每条分支单独的方差要大得多，与近Poisson统计一致。</div>
 </div>
 
 <h2>6. 八大经典困惑——双分支图景如何解答</h2>
