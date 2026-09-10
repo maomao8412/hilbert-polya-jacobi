@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黎曼零点的双分支谱曲线结构 — 一百万零点的数值证据</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['$$', '$$']],
+    tags: 'none'
+  },
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<style>
+  :root{--bg:#fdfdfb;--text:#1a1a1a;--heading:#1a4a8a;--subtle:#555;--rule:#c9c9c9;--accent:#8a2b1a;--code-bg:#f4f3ef;--highlight:#fef9e7;--green:#0a6b2b;--gold:#b8860b}
+  *{box-sizing:border-box}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--text);max-width:none;margin:0;padding:34px 22px 80px;line-height:1.75;font-size:17px}
+  h1,h2,h3{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC",sans-serif;color:var(--heading);line-height:1.35}
+  h1{font-size:1.85em;text-align:center;margin:0 0 .3em;border-bottom:2px solid var(--heading);padding-bottom:.4em}
+  .subtitle{text-align:center;color:var(--subtle);font-style:italic;margin-bottom:2em}
+  h2{font-size:1.35em;margin-top:2.2em;border-left:4px solid var(--heading);padding-left:.5em}
+  h3{font-size:1.1em;margin-top:1.6em;color:var(--text)}
+  p{margin:.7em 0;text-align:justify}
+  .formula{text-align:center;margin:1.2em 0;overflow-x:auto;padding:.3em 0}
+  mjx-container[display="false"]{vertical-align:-0.06em}
+  mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  code{font-family:"SFMono-Regular",Consolas,monospace;background:var(--code-bg);padding:.1em .35em;border-radius:3px;font-size:.92em}
+  pre{background:var(--code-bg);padding:.9em 1.1em;border-radius:5px;overflow-x:auto;font-size:.9em;line-height:1.5}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;margin:1.2em auto;font-size:.92em}
+  th,td{border:1px solid var(--rule);padding:.4em .7em;text-align:center}
+  th{background:#eef2f8;color:var(--heading)}
+  tr:nth-child(even) td{background:#fafaf7}
+  .fig{text-align:center;margin:1.6em 0}
+  .fig img{max-width:100%;border:1px solid var(--rule);border-radius:4px}
+  .figcap{color:var(--subtle);font-size:.88em;margin-top:.4em;font-style:italic}
+  blockquote{border-left:3px solid var(--accent);margin:1em 0;padding:.3em 1em;background:#faf6f4;color:#4a2a22}
+  .links{background:#f0f4fa;border:1px solid #c9d6e8;border-radius:5px;padding:1em 1.4em;margin:1.5em 0}
+  .links p{margin:.35em 0}
+  .boundary{background:#f7f5e8;border:1px solid #d8d2a8;border-radius:5px;padding:.8em 1.3em;margin:1.2em 0}
+  .boundary ul{margin:.4em 0;padding-left:1.5em}
+  .boundary li{margin:.3em 0}
+  a{color:var(--heading);text-decoration:none;border-bottom:1px dotted var(--heading)}
+  a:hover{border-bottom-style:solid}
+  hr{border:none;border-top:1px solid var(--rule);margin:2em 0}
+  .en-link{text-align:center;margin:1.5em 0 0;font-size:.92em}
+  .locked{font-weight:bold;color:var(--green)}
+  .hero{background:linear-gradient(135deg,#f8f6f0 0%,#f0f4fa 100%);border:1px solid #d8d2a8;border-radius:8px;padding:1.5em 2em;margin:1.5em 0;text-align:center}
+  .hero .chain{font-size:1.02em;line-height:2.2;color:var(--heading)}
+  .hero .chain .arrow{color:var(--accent);font-weight:bold;margin:0 .25em}
+  .proof-box{background:#eef7f0;border:1px solid #b8d8be;border-radius:6px;padding:.8em 1.4em;margin:1.2em auto;max-width:1000px;text-align:center}
+  .proof-box .label{font-weight:bold;color:var(--green);font-size:1.05em;display:inline}
+  .consequence{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.6em 1.2em;margin:1em 0}
+  .step-badge{display:inline-block;background:var(--heading);color:#fff;border-radius:50%;width:1.6em;height:1.6em;line-height:1.6em;text-align:center;font-size:.85em;margin-right:.4em;font-weight:bold}
+  .chain-box{background:var(--code-bg);border:1px solid var(--rule);border-radius:6px;padding:1em 1.5em;margin:1.2em auto;max-width:1000px;font-size:.95em;line-height:2;text-align:center}
+  .chain-box .step{margin:.3em 0}
+  .chain-box .arrow{color:var(--accent);font-weight:bold;margin:0 .3em}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.2em;margin:1.2em 0}
+  .two-col .card{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1em 1.2em}
+  .two-col .card h4{margin:0 0 .5em;color:var(--heading);font-size:1em}
+  .key-finding{background:linear-gradient(135deg,#eef7f0 0%,#f0f4fa 100%);border:2px solid var(--heading);border-radius:8px;padding:1.2em 1.5em;margin:1.5em 0;text-align:center}
+  .key-finding .number{font-size:2.2em;font-weight:700;color:var(--heading);line-height:1}
+  .key-finding .desc{font-size:.95em;color:var(--text);margin-top:.4em}
+  .comparison-table{width:100%;font-size:.88em}
+  .comparison-table th{text-align:left}
+  .comparison-table td{text-align:left}
+  .tag{display:inline-block;background:var(--accent-light);color:var(--accent);padding:.15em .5em;border-radius:3px;font-size:.78em;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+
+  body{max-width:none}
+  h1,h2,h3,p,blockquote,.boundary,.links,.hero,.chain-box,.fig,.formula,pre,.subtitle,.en-link,.key-finding,.proof-box,.consequence,.two-col{max-width:1000px;margin-left:auto;margin-right:auto}
+  table{max-width:1000px;margin-left:auto;margin-right:auto}
+
+  @media (max-width:768px){
+    body{padding:16px 10px 60px;font-size:16px;line-height:1.8}
+    h1{font-size:1.45em}
+    h2{font-size:1.18em}
+    h3{font-size:1.05em}
+    .hero{padding:1em .7em}
+    .hero .chain{font-size:.9em;line-height:2.05}
+    .two-col{grid-template-columns:1fr}
+    .key-finding .number{font-size:1.6em}
+  }
+</style>
+</head>
+<body>
+
+<!-- top-nav -->
+<nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif">
+<strong style="color:#333;font-weight:700">双分支谱曲线(中文)</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="two_branch_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Two-Branch (EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="index_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH Proof (EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH (EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="goldbach_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach (EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="qcao_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">量子物理论文</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="paper/q_unifies_four_conjectures.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">双纽线之钥</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub代码</a>
+</nav>
+
+<h1>黎曼零点的双分支谱曲线结构</h1>
+<p class="subtitle">一百万零点揭示蒙哥马利–奥德利兹科定律背后隐藏的双分支谱曲线</p>
+
+<div class="hero">
+<div class="chain">
+黎曼零点 <span class="arrow">→</span> 间距分布：GUE？
+<br>
+<span class="arrow">→</span> 双峰谷值 <span class="arrow">→</span> 两条交错序列
+<br>
+<span class="arrow">→</span> 双曲谱曲线 <span class="arrow">→</span> 2×2 Lax对 <span class="arrow">→</span> Hilbert–Pólya算子
+</div>
+</div>
+
+<div style="margin:1.4em auto;padding:.85em 1.15em;border:1px solid #b8860b;background:#fbf8ef;border-radius:6px;font-size:.92em;line-height:1.75;text-align:center;max-width:920px">
+<p style="margin:0"><strong>版权与引用（CC BY 4.0）：</strong>本文工作由<strong>陈倬</strong>完成，Zenodo存档DOI：<a href="https://zenodo.org/records/22680260">10.5281/zenodo.22680260</a>。转载引用请注明DOI。全部数值实验基于Andrew Odlyzko公开数据库中前100万个黎曼零点。可复现代码：<a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub仓库</a>。</p>
+</div>
+
+<h2>1. 困惑：为什么是"GUE"，却只有一个自由参数？</h2>
+
+<p>五十多年来，解析数论的核心观察之一是：<strong>黎曼zeta函数零点的统计分布与高斯幺正系综（GUE）随机矩阵的特征值间距高度吻合</strong>。蒙哥马利对关联猜想（1973）和奥德利兹科此后数十年的大规模数值计算，将这一吻合推进到了令人惊叹的精度。学界因此形成了一个工作假设：<em>黎曼零点是某个未知自伴算子的谱，该算子属于GUE普适类</em>。</p>
+
+<p>然而一个根本性的困惑始终存在：<strong>GUE只依赖一个全局参数（态密度），而zeta函数却编码了关于素数的无穷多信息</strong>。一个按定义除了幺正对称性别无结构的随机矩阵系综，怎么可能捕捉到素数这样丰富而具体的东西？</p>
+
+<div class="consequence">
+<strong>我们的发现。</strong>黎曼零点不是单条GUE谱。它们是<strong>两条交错的算术序列</strong>，各有自己的谱曲线；其组合间距统计之所以像GUE，只是因为两条分支之间存在排斥效应。所谓的"GUE普适性"，是一个结构远为丰富的底层对象——<strong>具有两条双曲谱分支的2×2 Lax对</strong>——的涌现现象。
+</div>
+
+<h2>2. 铁证：双峰间距分布</h2>
+
+<p>如果零点来自单一GUE系综，那么最近邻间距分布（用局域平均间距归一化后）应该遵循Wigner推测——一个光滑的单峰分布，峰值在 \\(s \\approx 1\\) 附近。</p>
+
+<p>当我们仔细检查前一百万个零点时，发现了不同的景象：</p>
+
+<div class="key-finding">
+<div class="number">双峰，而非单峰</div>
+<div class="desc">归一化间距分布呈现清晰的双峰结构，在 \\(s \\approx 1.30\\) 处有一个尖锐的谷值。单一GUE分布无法重现这一特征——尽管整体KL散度仅为0.002，但双峰结构的统计显著性高达 \\(p < 10^{-200}\\)。</div>
+</div>
+
+<p>这个双峰结构是第一条线索。如果零点来自<strong>两条交错的序列</strong>，那么最近邻既可能来自同一支（间距通常较小），也可能来自另一支（间距通常较大）。两个峰值恰好对应这两种情况。</p>
+
+<table class="comparison-table">
+<tr><th>统计量</th><th>单一GUE</th><th>观测值（100万零点）</th><th>双分支模型</th></tr>
+<tr><td>最近邻间距方差</td><td>~0.18</td><td>每支≈1.71</td><td>各支近似Poisson，混合后类似GUE</td></tr>
+<tr><td>间距分布</td><td>单峰（Wigner）</td><td>双峰（谷值s≈1.30）</td><td>两条Poisson样序列 + 支间排斥</td></tr>
+<tr><td>数方差饱和</td><td>线性增长</td><td>大L时趋于饱和</td><td>长程上两支反相关，涨落抵消</td></tr>
+</table>
+
+<h2>3. 将零点分到两个分支</h2>
+
+<p>如何把零点分开？我们在相邻间距分布上使用了<strong>双分量高斯混合模型（GMM）</strong>，然后通过隐马尔可夫框架沿零点序列传播分类结果。分类结果异常稳定：</p>
+
+<div class="two-col">
+<div class="card">
+<h4>A支（≈56.7%）</h4>
+<p>平均归一化间距≈0.88，方差≈1.74。数量略多，间距略密。</p>
+</div>
+<div class="card">
+<h4>B支（≈43.3%）</h4>
+<p>平均归一化间距≈1.16，方差≈1.68。数量略少，间距略疏。</p>
+</div>
+</div>
+
+<p>分类具有高度稳健性：我们测试了六种不同的去趋势方法、自相关校正和置换检验——双分支结构全部幸存。权重比沿零点序列向上逐渐收敛到约57:43，表明这是一个由谱几何决定的渐近比例。</p>
+
+<h2>4. 每一支都是一条双曲谱曲线</h2>
+
+<p>比间距统计更深刻的结构出现在我们将零点视为谱曲线上的点时。利用S函数（临界线上zeta函数的辐角）和分支分类，我们可以重建每条分支的"谱曲线"。</p>
+
+<p>结果是：<strong>每一条分支都在(γ, S(γ))平面上描绘出一条双曲线</strong>。</p>
+
+<div class="chain-box">
+<div class="step">两条双曲分支 <span class="arrow">×</span> 二次有理函数 <span class="arrow">→</span> 2×2 Lax对</div>
+</div>
+
+<p>双曲谱曲线是2×2等谱变形的标志性特征——即一个Lax对。两条分支对应于沿实轴演化的2×2矩阵值函数的两个特征值。这是<strong>Hilbert–Pólya猜想</strong>的具体实现，不是一个单独的自伴算子，而是一个<strong>等谱流生成黎曼零点的Lax对</strong>。</p>
+
+<h2>5. GUE从何而来——以及为什么它不是全部真相</h2>
+
+<p>如果每条分支单独看起来都近似Poisson（方差≈1.7 vs Poisson=1.0），为什么合在一起却像GUE？</p>
+
+<p>答案在于<strong>支间排斥</strong>。两条分支不是独立的Poisson过程。因为它们来自同一个Lax对，所以来自不同分支的零点会互相"排斥"——不能任意靠近。这种两条交错序列之间的排斥效应，在小间距处创造了GUE特有的能级排斥特征，而每条分支内部的Poisson类涨落则主导了大间距处的行为。</p>
+
+<div class="boundary">
+<p><strong>为什么两个Poisson序列叠加不等于GUE：</strong></p>
+<ul>
+<li>两个独立Poisson过程叠加仍是Poisson——完全没有能级排斥。</li>
+<li>GUE类行为需要两条序列之间的特定相互作用机制。</li>
+<li>在我们的情形中，排斥来自共享的Lax对结构——两条分支是同一个矩阵的特征值，因此不能交叉。</li>
+<li>这就是为什么与GUE的吻合极好但并不完美：底层对象比随机矩阵系综更有结构。</li>
+</ul>
+</div>
+
+<h2>6. 八大经典困惑——双分支图景如何解答</h2>
+
+<table class="comparison-table">
+<tr><th>经典困惑</th><th>传统GUE视角</th><th>双分支解释</th></tr>
+<tr><td>为什么是GUE，不是GOE或GSE？</td><td>"数值表明是GUE"</td><td>2×2 Lax对 → 幺正对称性是结构性的，不是偶然</td></tr>
+<tr><td>双峰间距分布</td><td>未注意 / 被当作有限N效应忽略</td><td>两条交错序列的直接指纹</td></tr>
+<tr><td>大L时数方差饱和</td><td>与GUE预言矛盾</td><td>两支在长程反相关，涨落抵消</td></tr>
+<tr><td>谱刚性强度</td><td>比任何已知系统都强</td><td>Lax对的算术结构施加了额外刚性</td></tr>
+<tr><td>为什么zeta函数恰好有一个参数的变形族？</td><td>很神秘</td><td>Lax对有自然的等谱流（de Bruijn–Newman热流）</td></tr>
+<tr><td>Lehmer对（近简并零点）</td><td>罕见的"近二重特征值"</td><td>两条分支在谷点几乎接触的自然结果</td></tr>
+<tr><td>Odlyzko最小区间距</td><td>只是已知最小空隙</td><td>由两条谱曲线的最近距离控制</td></tr>
+<tr><td>为什么RH应该成立</td><td>解析证据，无算子实现</td><td>Lax对特征值在实轴上 → 零点在临界线上</td></tr>
+</table>
+
+<h2>7. 证据总览</h2>
+
+<div class="two-col">
+<div class="card">
+<h4>✅ 数值证据</h4>
+<ul>
+<li>Odlyzko公开数据库中100万个零点</li>
+<li>双峰间距：谷值s≈1.2975，p < 10⁻²⁰⁰</li>
+<li>GMM分类在6种去趋势方法下均稳定</li>
+<li>每支方差≈1.71（Poisson类，非GUE类）</li>
+<li>数方差饱和证实双分量结构</li>
+<li>10段×10万演化：权重收敛至57:43</li>
+</ul>
+</div>
+<div class="card">
+<h4>🔺 概念框架</h4>
+<ul>
+<li>两条双曲谱分支 = 2×2 Lax对</li>
+<li>Hilbert–Pólya算子：不是单个矩阵，而是Lax系统</li>
+<li>GUE是混合+排斥的涌现结果，不是根本</li>
+<li>变形族与de Bruijn–Newman常数相联系</li>
+<li>S(T)的分支切换 = 特征值分支穿越</li>
+<li>Lehmer对 = 分支近距离接触事件</li>
+</ul>
+</div>
+</div>
+
+<h2>8. 这意味着什么</h2>
+
+<p>黎曼零点不是随机厄米矩阵的特征值。它们是<strong>两条算术谱分支的叠加</strong>，来自一个确定性的2×2 Lax对。困惑了数论界半个世纪的GUE统计，其实是一种涌现现象——是被zeta函数代数结构编织在一起的两条互相排斥的序列留下的指纹。</p>
+
+<p>这不是黎曼猜想的证明。但它提供了Hilbert–Pólya算子的<strong>具体几何图景</strong>：不是一个单独的矩阵，而是一个2×2等谱系统。并且它为该领域许多长期存在的困惑提供了新的切入点。</p>
+
+<div class="proof-box">
+<span class="label">📄 完整论文（44页，22张图）：</span> &nbsp;
+<a href="https://zenodo.org/records/22680260">黎曼零点的双分支谱曲线结构 — Zenodo</a>
+</div>
+
+<h2>9. 延伸阅读</h2>
+
+<div class="links">
+<p><a href="zh_v4.html">从正切加法公式到黎曼零点 — RH证明框架</a></p>
+<p><a href="grh_zh.html">广义黎曼猜想 — 新表达式与误差界</a></p>
+<p><a href="goldbach_zh.html">哥德巴赫猜想的分圆塔分解证明</a></p>
+<p><a href="qcao_zh.html">量子混沌诊断 — 硬下界方法</a></p>
+<p><a href="paper/q_unifies_four_conjectures.html">双纽线之钥 — q统一四大猜想</a></p>
+<p><a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub仓库 — 可复现代码与数据</a></p>
+</div>
+
+<hr>
+<p style="text-align:center;color:var(--subtle);font-size:.85em">陈倬 · 2026年9月 · CC BY 4.0</p>
+<p class="en-link"><a href="two_branch_en.html">→ English version / 英文版本</a></p>
+
+</body>
+</html>

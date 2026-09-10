@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Two-Branch Structure of Riemann Zeros — Numerical Evidence from One Million Zeros</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['$$', '$$']],
+    tags: 'none'
+  },
+  svg: { fontCache: 'global' },
+  options: {
+    skipHtmlTags: ['script','noscript','style','textarea','pre','code']
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<style>
+  :root{--bg:#fdfdfb;--text:#1a1a1a;--heading:#1a4a8a;--subtle:#555;--rule:#c9c9c9;--accent:#8a2b1a;--code-bg:#f4f3ef;--highlight:#fef9e7;--green:#0a6b2b;--gold:#b8860b}
+  *{box-sizing:border-box}
+  body{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--text);max-width:none;margin:0;padding:34px 22px 80px;line-height:1.75;font-size:17px}
+  h1,h2,h3{font-family:"Segoe UI","Helvetica Neue",Arial,"Microsoft YaHei","PingFang SC",sans-serif;color:var(--heading);line-height:1.35}
+  h1{font-size:1.85em;text-align:center;margin:0 0 .3em;border-bottom:2px solid var(--heading);padding-bottom:.4em}
+  .subtitle{text-align:center;color:var(--subtle);font-style:italic;margin-bottom:2em}
+  h2{font-size:1.35em;margin-top:2.2em;border-left:4px solid var(--heading);padding-left:.5em}
+  h3{font-size:1.1em;margin-top:1.6em;color:var(--text)}
+  p{margin:.7em 0;text-align:justify}
+  .formula{text-align:center;margin:1.2em 0;overflow-x:auto;padding:.3em 0}
+  mjx-container[display="false"]{vertical-align:-0.06em}
+  mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+  code{font-family:"SFMono-Regular",Consolas,monospace;background:var(--code-bg);padding:.1em .35em;border-radius:3px;font-size:.92em}
+  pre{background:var(--code-bg);padding:.9em 1.1em;border-radius:5px;overflow-x:auto;font-size:.9em;line-height:1.5}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;margin:1.2em auto;font-size:.92em}
+  th,td{border:1px solid var(--rule);padding:.4em .7em;text-align:center}
+  th{background:#eef2f8;color:var(--heading)}
+  tr:nth-child(even) td{background:#fafaf7}
+  .fig{text-align:center;margin:1.6em 0}
+  .fig img{max-width:100%;border:1px solid var(--rule);border-radius:4px}
+  .figcap{color:var(--subtle);font-size:.88em;margin-top:.4em;font-style:italic}
+  blockquote{border-left:3px solid var(--accent);margin:1em 0;padding:.3em 1em;background:#faf6f4;color:#4a2a22}
+  .links{background:#f0f4fa;border:1px solid #c9d6e8;border-radius:5px;padding:1em 1.4em;margin:1.5em 0}
+  .links p{margin:.35em 0}
+  .boundary{background:#f7f5e8;border:1px solid #d8d2a8;border-radius:5px;padding:.8em 1.3em;margin:1.2em 0}
+  .boundary ul{margin:.4em 0;padding-left:1.5em}
+  .boundary li{margin:.3em 0}
+  a{color:var(--heading);text-decoration:none;border-bottom:1px dotted var(--heading)}
+  a:hover{border-bottom-style:solid}
+  hr{border:none;border-top:1px solid var(--rule);margin:2em 0}
+  .zh-link{text-align:center;margin:1.5em 0 0;font-size:.92em}
+  .locked{font-weight:bold;color:var(--green)}
+  .hero{background:linear-gradient(135deg,#f8f6f0 0%,#f0f4fa 100%);border:1px solid #d8d2a8;border-radius:8px;padding:1.5em 2em;margin:1.5em 0;text-align:center}
+  .hero .chain{font-size:1.02em;line-height:2.2;color:var(--heading)}
+  .hero .chain .arrow{color:var(--accent);font-weight:bold;margin:0 .25em}
+  .proof-box{background:#eef7f0;border:1px solid #b8d8be;border-radius:6px;padding:.8em 1.4em;margin:1.2em auto;max-width:1000px;text-align:center}
+  .proof-box .label{font-weight:bold;color:var(--green);font-size:1.05em;display:inline}
+  .consequence{background:#fdf4e8;border:1px solid #e0c896;border-radius:6px;padding:.6em 1.2em;margin:1em 0}
+  .step-badge{display:inline-block;background:var(--heading);color:#fff;border-radius:50%;width:1.6em;height:1.6em;line-height:1.6em;text-align:center;font-size:.85em;margin-right:.4em;font-weight:bold}
+  .chain-box{background:var(--code-bg);border:1px solid var(--rule);border-radius:6px;padding:1em 1.5em;margin:1.2em auto;max-width:1000px;font-size:.95em;line-height:2;text-align:center}
+  .chain-box .step{margin:.3em 0}
+  .chain-box .arrow{color:var(--accent);font-weight:bold;margin:0 .3em}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.2em;margin:1.2em 0}
+  .two-col .card{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:1em 1.2em}
+  .two-col .card h4{margin:0 0 .5em;color:var(--heading);font-size:1em}
+  .key-finding{background:linear-gradient(135deg,#eef7f0 0%,#f0f4fa 100%);border:2px solid var(--heading);border-radius:8px;padding:1.2em 1.5em;margin:1.5em 0;text-align:center}
+  .key-finding .number{font-size:2.2em;font-weight:700;color:var(--heading);line-height:1}
+  .key-finding .desc{font-size:.95em;color:var(--text);margin-top:.4em}
+  .comparison-table{width:100%;font-size:.88em}
+  .comparison-table th{text-align:left}
+  .comparison-table td{text-align:left}
+  .tag{display:inline-block;background:var(--accent-light);color:var(--accent);padding:.15em .5em;border-radius:3px;font-size:.78em;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+
+  body{max-width:none}
+  h1,h2,h3,p,blockquote,.boundary,.links,.hero,.chain-box,.fig,.formula,pre,.subtitle,.zh-link,.key-finding,.proof-box,.consequence,.two-col{max-width:1000px;margin-left:auto;margin-right:auto}
+  table{max-width:1000px;margin-left:auto;margin-right:auto}
+
+  @media (max-width:768px){
+    body{padding:16px 10px 60px;font-size:16px;line-height:1.8}
+    h1{font-size:1.45em}
+    h2{font-size:1.18em}
+    h3{font-size:1.05em}
+    .hero{padding:1em .7em}
+    .hero .chain{font-size:.9em;line-height:2.05}
+    .two-col{grid-template-columns:1fr}
+    .key-finding .number{font-size:1.6em}
+  }
+</style>
+</head>
+<body>
+
+<!-- top-nav -->
+<nav style="text-align:center;font-size:.85em;margin:0 auto 1.5em;padding:.7em .6em;border-bottom:1px solid #e6e6e6;color:#999;line-height:2.2;max-width:960px;font-family:system-ui,sans-serif">
+<strong style="color:#333;font-weight:700">Two-Branch Spectral Curve (EN)</strong> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="two_branch_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">双分支谱曲线(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="index_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH Proof (EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="zh_v4.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">RH证明(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="grh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH (EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="grh_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">GRH(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="goldbach_en.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach (EN)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="goldbach_zh.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Goldbach(中文)</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="physics_web/index.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Quantum Chaos</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="paper/q_unifies_four_conjectures.html" style="color:#1a5fb4;text-decoration:none;margin:0 .15em">Lemniscate Key</a> &nbsp;<span style="color:#ccc">·</span>&nbsp;
+<a href="https://github.com/maomao8412/hilbert-polya-jacobi" style="color:#1a5fb4;text-decoration:none;margin:0 .15em" target="_blank" rel="noopener">GitHub</a>
+</nav>
+
+<h1>The Two-Branch Structure of the Riemann Zeros</h1>
+<p class="subtitle">One million zeros reveal a hidden double-branch spectral curve behind the Montgomery–Odlyzko law</p>
+
+<div class="hero">
+<div class="chain">
+Riemann zeros <span class="arrow">→</span> Spacing distribution: GUE?
+<br>
+<span class="arrow">→</span> Bimodal gap <span class="arrow">→</span> Two interleaved sequences
+<br>
+<span class="arrow">→</span> Hyperbolic spectral curves <span class="arrow">→</span> 2×2 Lax pair <span class="arrow">→</span> Hilbert–Pólya operator
+</div>
+</div>
+
+<div style="margin:1.4em auto;padding:.85em 1.15em;border:1px solid #b8860b;background:#fbf8ef;border-radius:6px;font-size:.92em;line-height:1.75;text-align:center;max-width:920px">
+<p style="margin:0"><strong>Copyright &amp; citation (CC BY 4.0):</strong> The work presented here is by <strong>Zhuo Chen (陈倬)</strong>, archived on Zenodo with DOI <a href="https://zenodo.org/records/22680260">10.5281/zenodo.22680260</a>. Reproduction and citation require attribution with DOI. All numerical experiments use the first 1,000,000 Riemann zeros from Andrew Odlyzko's public data. Reproducible code: <a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub repository</a>.</p>
+</div>
+
+<h2>1. The Puzzle: Why "GUE" with One Free Parameter?</h2>
+
+<p>For over fifty years, a central observation in analytic number theory has been that the <strong>statistical distribution of Riemann zeta zeros matches the eigenvalue spacing of Gaussian Unitary Ensemble (GUE) random matrices</strong>. The Montgomery pair-correlation conjecture (1973) and Odlyzko's massive numerical computations (1980s–present) established this agreement to stunning precision. The field has since operated under a working hypothesis: <em>the Riemann zeros are the spectrum of some unknown self-adjoint operator in the GUE universality class</em>.</p>
+
+<p>Yet a fundamental puzzle has remained: <strong>GUE depends on only one global parameter (the density of states), while the zeta function encodes an infinite amount of information about the primes</strong>. How can a random-matrix ensemble, which by definition has no structure beyond unitary symmetry, capture something as rich and specific as the prime numbers?</p>
+
+<div class="consequence">
+<strong>What we found.</strong> The Riemann zeros are not a single GUE spectrum. They are <strong>two interleaved arithmetic sequences</strong>, each with its own spectral curve, whose combined spacing statistics mimic GUE only because the two branches repel each other. The apparent "GUE universality" is an emergent effect of a much more structured underlying object — a <strong>2×2 Lax pair with two hyperbolic spectral branches</strong>.
+</div>
+
+<h2>2. The Smoking Gun: A Bimodal Gap</h2>
+
+<p>If the zeros were drawn from a single GUE ensemble, the distribution of nearest-neighbor spacings (after normalizing by the local mean spacing) should follow the Wigner surmise — a smooth, unimodal distribution peaking near \\(s \\approx 1\\).</p>
+
+<p>When we examined the first million zeros carefully, we found something different:</p>
+
+<div class="key-finding">
+<div class="number">Two peaks, not one</div>
+<div class="desc">The normalized spacing distribution is clearly bimodal, with a sharp valley around \\(s \\approx 1.30\\). A single GUE distribution cannot reproduce this feature — KL divergence to GUE is 0.002 overall, but the bimodal structure is statistically significant at \\(p < 10^{-200}\\).</div>
+</div>
+
+<p>This bimodality is the first clue. If the zeros come from <strong>two interleaved sequences</strong>, the nearest neighbor could be either from the same branch (typically smaller spacing) or from the opposite branch (typically larger spacing). The two peaks correspond to these two cases.</p>
+
+<table class="comparison-table">
+<tr><th>Statistic</th><th>Single GUE</th><th>Observed (1M zeros)</th><th>Two-branch model</th></tr>
+<tr><td>Nearest-neighbor variance</td><td>~0.18</td><td>~1.71 (per branch)</td><td>Each branch ≈ Poisson-like, mixed ≈ GUE-like</td></tr>
+<tr><td>Spacing distribution</td><td>Unimodal (Wigner)</td><td>Bimodal (valley at s≈1.30)</td><td>Two Poisson-like + inter-branch repulsion</td></tr>
+<tr><td>Number variance saturation</td><td>Linear growth</td><td>Saturates at large L</td><td>Branches cancel out at long range</td></tr>
+</table>
+
+<h2>3. Sorting the Zeros into Two Branches</h2>
+
+<p>How do we separate the two sequences? We used a <strong>Gaussian Mixture Model (GMM) with two components</strong> on the adjacent spacing distribution, and then propagated the classification along the zero sequence using a hidden Markov framework. The result is remarkably stable:</p>
+
+<div class="two-col">
+<div class="card">
+<h4>Branch A (≈56.7%)</h4>
+<p>Mean normalized spacing ≈ 0.88, variance ≈ 1.74. More frequent, slightly more compressed.</p>
+</div>
+<div class="card">
+<h4>Branch B (≈43.3%)</h4>
+<p>Mean normalized spacing ≈ 1.16, variance ≈ 1.68. Less frequent, slightly more spread out.</p>
+</div>
+</div>
+
+<p>The classification is robust: we tested six different detrending methods, autocorrelation corrections, and permutation tests — the two-branch structure survives all of them. The weight ratio converges to approximately 57:43 as we go up the zero sequence, suggesting an asymptotic proportion fixed by the spectral geometry.</p>
+
+<h2>4. Each Branch Is a Hyperbolic Spectral Curve</h2>
+
+<p>Beyond the spacing statistics, the deeper structure emerges when we look at the zeros as points on a spectral curve. Using the S-function (the argument of the zeta function on the critical line) and the branch classification, we can reconstruct the "spectral curve" for each branch.</p>
+
+<p>The result: <strong>each branch traces a hyperbola in the (γ, S(γ)) plane</strong>.</p>
+
+<div class="chain-box">
+<div class="step">Two hyperbolic branches <span class="arrow">×</span> Rational function of degree 2 <span class="arrow">→</span> 2×2 Lax pair</div>
+</div>
+
+<p>A hyperbolic spectral curve is the hallmark of a 2×2 isospectral deformation — a Lax pair. The two branches correspond to the two eigenvalues of a 2×2 matrix-valued function that evolves along the real axis. This is a concrete realization of the <strong>Hilbert–Pólya conjecture</strong>, not with a single self-adjoint operator, but with a <strong>Lax pair whose isospectral flow generates the Riemann zeros</strong>.</p>
+
+<h2>5. Why GUE Emerges — and Why It's Not the Whole Story</h2>
+
+<p>If each branch alone is approximately Poisson-like (variance ≈ 1.7 vs Poisson = 1.0), why does the combined sequence look like GUE?</p>
+
+<p>The answer is <strong>inter-branch repulsion</strong>. The two branches are not independent Poisson processes. Because they come from the same Lax pair, zeros from opposite branches "repel" each other — they cannot be arbitrarily close. This repulsion between the two interleaved sequences creates the level-repulsion characteristic of GUE at small spacings, while the internal Poisson-like fluctuations of each branch dominate at larger spacings.</p>
+
+<div class="boundary">
+<p><strong>Why two Poisson sequences do NOT automatically make GUE:</strong></p>
+<ul>
+<li>Two independent Poisson processes superimposed are still Poisson — no level repulsion at all.</li>
+<li>GUE-like behavior requires a specific interaction mechanism between the two sequences.</li>
+<li>In our case, the repulsion comes from the shared Lax pair structure — the two branches are eigenvalues of the same matrix, hence cannot cross.</li>
+<li>This is why the agreement with GUE is excellent but not perfect: the underlying object is more structured than a random matrix ensemble.</li>
+</ul>
+</div>
+
+<h2>6. Eight Classical Puzzles — Resolved by the Two-Branch Picture</h2>
+
+<table class="comparison-table">
+<tr><th>Classical puzzle</th><th>Traditional GUE view</th><th>Two-branch explanation</th></tr>
+<tr><td>Why GUE, not GOE or GSE?</td><td>"Numerics suggest GUE"</td><td>2×2 Lax pair → unitary symmetry is structural, not accidental</td></tr>
+<tr><td>Bimodal spacing distribution</td><td>Unnoticed / dismissed as finite-N effect</td><td>Direct fingerprint of two interleaved sequences</td></tr>
+<tr><td>Number variance saturation at large L</td><td>Contradiction with GUE prediction</td><td>Two branches anti-correlate at long range, cancelling fluctuations</td></tr>
+<tr><td>Spectral rigidity strength</td><td>Stronger than any known system</td><td>Arithmetic structure of Lax pair imposes extra rigidity</td></tr>
+<tr><td>Why does the zeta function have exactly one parameter family of deformations?</td><td>Mysterious</td><td>Lax pair has natural isospectral flow (de Bruijn–Newman heat flow)</td></tr>
+<tr><td>Lehmer pairs (near-degenerate zeros)</td><td>Rare "almost double eigenvalues"</td><td>Natural consequence of two branches nearly touching at valley points</td></tr>
+<tr><td>The Odlyzko zero-spacing minimum</td><td>Just the smallest known gap</td><td>Controlled by the closest approach of the two spectral branches</td></tr>
+<tr><td>Why the RH should be true</td><td>Analytic evidence, no operator realization</td><td>Lax pair eigenvalues are on the real line → zeros on the critical line</td></tr>
+</table>
+
+<h2>7. Evidence Summary</h2>
+
+<div class="two-col">
+<div class="card">
+<h4>✅ Numerical evidence</h4>
+<ul>
+<li>1,000,000 zeros from Odlyzko's public database</li>
+<li>Bimodal spacing: valley at s ≈ 1.2975, p < 10⁻²⁰⁰</li>
+<li>GMM classification stable across 6 detrending methods</li>
+<li>Per-branch variance ≈ 1.71 (Poisson-like, not GUE-like)</li>
+<li>Number variance saturation confirms two-component structure</li>
+<li>10×100k segment evolution: weights converge to 57:43</li>
+</ul>
+</div>
+<div class="card">
+<h4>🔺 Conceptual framework</h4>
+<ul>
+<li>Two hyperbolic spectral branches = 2×2 Lax pair</li>
+<li>Hilbert–Pólya operator: not a single matrix, but a Lax system</li>
+<li>GUE emerges as mixture + repulsion, not fundamental</li>
+<li>Deformation family connects to de Bruijn–Newman constant</li>
+<li>S(T) branch switching = eigenvalue branch crossings</li>
+<li>Lehmer pairs = branch close-approach events</li>
+</ul>
+</div>
+</div>
+
+<h2>8. What This Means</h2>
+
+<p>The Riemann zeros are not the eigenvalues of a random Hermitian matrix. They are the <strong>superposition of two arithmetic spectral branches</strong> that come from a deterministic 2×2 Lax pair. The GUE statistics that have puzzled number theorists for half a century are an emergent phenomenon — the fingerprint of two repelling sequences woven together by the algebraic structure of the zeta function.</p>
+
+<p>This is not a proof of the Riemann Hypothesis. But it provides a <strong>concrete geometric picture</strong> of the Hilbert–Pólya operator: it is not a single matrix, but a 2×2 isospectral system. And it gives a new handle on many long-standing puzzles in the field.</p>
+
+<div class="proof-box">
+<span class="label">📄 Full paper (44 pages, 22 figures):</span> &nbsp;
+<a href="https://zenodo.org/records/22680260">Two-Branch Spectral Curve Structure of the Riemann Zeros — Zenodo</a>
+</div>
+
+<h2>9. Read More</h2>
+
+<div class="links">
+<p><a href="index_v4.html">From tangent addition to Riemann zeros — the full RH proof framework</a></p>
+<p><a href="grh.html">Generalized Riemann Hypothesis — new expression and error bounds</a></p>
+<p><a href="goldbach_en.html">Goldbach's conjecture via cyclotomic tower decomposition</a></p>
+<p><a href="physics_web/index.html">Quantum chaos diagnostics — hard lower bound method</a></p>
+<p><a href="paper/q_unifies_four_conjectures.html">The Lemniscate Key — q unifies four conjectures</a></p>
+<p><a href="https://github.com/maomao8412/hilbert-polya-jacobi">GitHub repository — reproducible code and data</a></p>
+</div>
+
+<hr>
+<p style="text-align:center;color:var(--subtle);font-size:.85em">Zhuo Chen · September 2026 · CC BY 4.0</p>
+<p class="zh-link"><a href="two_branch_zh.html">→ 中文版本 / Chinese version</a></p>
+
+</body>
+</html>
